@@ -1,55 +1,34 @@
 import { useEffect, useState } from 'react';
-import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import { combine, pending, RemoteData } from '@devexperts/remote-data-ts';
 import { AxiosError } from 'axios';
-import { getSoker } from '../api/getSoker';
-import { SoknadEssentials } from '../types/SoknadEssentials';
+import getMellomlagring from '../api/getMellomlagring';
+import getSokerRemoteData from '../api/getSoker';
+import { Person } from '../types/Person';
+import StorageData from '../types/StorageData';
+import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
-export interface Person {
-    etternavn: string;
-    fornavn: string;
-    mellomnavn?: string;
-    kjønn: string;
-    fødselsnummer: string;
-    kontonummer: string;
-}
+export type CombinedType = [Person, StorageData];
 
-function useSoknadEssentials() {
-    const [soknadEssentials, setSoknadEssentials] = useState<SoknadEssentials | undefined>();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<AxiosError | undefined>();
-    const [userIsUnauthorized, setUserIsUnauthorized] = useState<boolean | undefined>();
+export type SoknadEssentialsRemoteData = RemoteData<AxiosError, CombinedType>;
+
+function useSoknadEssentials(): SoknadEssentialsRemoteData {
+    const [data, setData] = useState<SoknadEssentialsRemoteData>(pending);
 
     const fetch = async () => {
-        setSoknadEssentials(undefined);
-        setError(undefined);
-        setIsLoading(true);
         try {
-            const person = await getSoker();
-            setSoknadEssentials({
-                person,
-            });
-        } catch (error) {
-            if (isForbidden(error) || isUnauthorized(error)) {
-                setUserIsUnauthorized(true);
-            } else {
-                setError(error || new Error('SoknadEssentials load failed'));
+            const [sokerResult, mellomlagringResult] = await Promise.all([getSokerRemoteData(), getMellomlagring()]);
+            setData(combine(sokerResult, mellomlagringResult));
+        } catch (e) {
+            if (!isForbidden(e.error) && !isUnauthorized(e.error)) {
+                setData(e);
             }
-        } finally {
-            setIsLoading(false);
         }
     };
-
     useEffect(() => {
         fetch();
     }, []);
 
-    return {
-        soknadEssentials,
-        userIsUnauthorized,
-        isLoading,
-        error,
-        fetch,
-    };
+    return data;
 }
 
 export default useSoknadEssentials;

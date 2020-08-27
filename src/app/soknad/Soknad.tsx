@@ -1,21 +1,23 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import ErrorPage from '../../common/pages/ErrorPage';
-import useSoknadEssentials from '../hooks/useSoknadEssentials';
+import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
+import RemoteDataWrapper from '../../common/framework/RemoteDataWrapper';
+import LoadPoster from '../../common/framework/LoadPoster';
 
 const Soknad = () => {
-    const { isLoading, userIsUnauthorized, error, soknadEssentials } = useSoknadEssentials();
-
+    const soknadEssentials = useSoknadEssentials();
     return (
-        <LoadWrapper
-            isLoading={isLoading === true || userIsUnauthorized === true}
-            contentRenderer={() => {
-                if (error) {
-                    return <ErrorPage />;
-                }
-                if (soknadEssentials) {
-                    return (
+        <RemoteDataWrapper<CombinedType>
+            data={soknadEssentials}
+            initializing={() => null}
+            loading={() => <LoadPoster />}
+            error={() => <ErrorPage />}
+            success={([person, mellomlagring]) => {
+                console.log(person, mellomlagring);
+                return (
+                    <div>
+                        <h1>Søknad</h1>
                         <Switch>
                             <Route path={'/'}>Velkommen</Route>
                             <Route path="/soknad/barn">Barn</Route>
@@ -23,9 +25,8 @@ const Soknad = () => {
                             <Route path="/soknad/oppsummering">Oppsummering</Route>
                             <Route path="/soknad/kvittering">Kvittering</Route>
                         </Switch>
-                    );
-                }
-                return <ErrorPage />;
+                    </div>
+                );
             }}
         />
     );

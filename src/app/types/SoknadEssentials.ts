@@ -1,4 +1,4 @@
-import { Person } from '../hooks/useSoknadEssentials';
+import { Person } from './Person';
 
 export interface SoknadEssentials {
     person: Person;
