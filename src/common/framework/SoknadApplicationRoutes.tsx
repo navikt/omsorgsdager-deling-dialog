@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ErrorPage from './pages/ErrorPage';
-import UnavailablePage from './pages/UnavailablePage';
-import UnknownPage from './pages/UnknownPage';
+import ErrorPage from '../pages/ErrorPage';
+import UnavailablePage from '../pages/UnavailablePage';
+import UnknownPage from '../pages/UnknownPage';
 
 export enum GlobalSoknadApplicationRoutes {
     start = '/',

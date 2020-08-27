@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import LoadWrapper from '../../common/load-wrapper/LoadWrapper';
+import { Route, Switch } from 'react-router-dom';
+import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials from '../hooks/useSoknadEssentials';
 
