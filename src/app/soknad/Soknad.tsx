@@ -2,17 +2,25 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
-import RemoteDataWrapper from '../../common/framework/RemoteDataWrapper';
+import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
 import LoadPoster from '../../common/framework/LoadPoster';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();
     return (
-        <RemoteDataWrapper<CombinedType>
-            data={soknadEssentials}
-            initializing={() => null}
+        <RemoteDataHandler<CombinedType>
+            remoteData={soknadEssentials}
+            initializing={() => <LoadPoster />}
             loading={() => <LoadPoster />}
-            error={() => <ErrorPage />}
+            error={(error) => (
+                <ErrorPage
+                    contentRenderer={() => (
+                        <>
+                            Det oppstod en feil under henting av informasjon: <pre>{JSON.stringify(error.message)}</pre>
+                        </>
+                    )}
+                />
+            )}
             success={([person, mellomlagring]) => {
                 console.log(person, mellomlagring);
                 return (

@@ -3,5 +3,6 @@
 /.vscode
 /coverage
 /node_modules
+/src/sif-common
 .DS_Store
 .env

@@ -5,7 +5,7 @@ import getMellomlagring from '../api/getMellomlagring';
 import getSokerRemoteData from '../api/getSoker';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
-import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
 export type CombinedType = [Person, StorageData];
 
@@ -19,7 +19,7 @@ function useSoknadEssentials(): SoknadEssentialsRemoteData {
             const [sokerResult, mellomlagringResult] = await Promise.all([getSokerRemoteData(), getMellomlagring()]);
             setData(combine(sokerResult, mellomlagringResult));
         } catch (e) {
-            if (!isForbidden(e.error) && !isUnauthorized(e.error)) {
+            if (isUserLoggedOut(e) === false) {
                 setData(e);
             }
         }
