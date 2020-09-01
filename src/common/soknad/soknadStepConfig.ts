@@ -46,9 +46,3 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     });
     return config;
 };
-
-export interface SoknadStepProps<STEPS extends string> {
-    stepConfig: SoknadStepConfig<STEPS>;
-    resetSoknad: () => void;
-    onValidSubmit: () => void;
-}

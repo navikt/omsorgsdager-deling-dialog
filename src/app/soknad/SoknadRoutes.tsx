@@ -8,6 +8,7 @@ import {
 } from '../../common/soknad/soknadStepConfig';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
+import { getAvailableSteps } from '../utils/getAvailableSteps';
 import ArbeidssituasjonStep from './arbeidssituasjon-step/ArbeidssituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MedlemskapStep from './medlemskap-step/MedlemskapStep';
@@ -15,16 +16,16 @@ import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
-import { getAvailableSteps, StepID } from './stepConfig';
+import { SoknadStep } from './SoknadSteps';
 
 interface Props {
     mellomlagring: StorageData;
     person: Person;
 }
 
-const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<StepID>): React.ReactNode => {
+const renderSoknadStep = (stepID: SoknadStep, soknadStepsConfig: SoknadStepsConfig<SoknadStep>): React.ReactNode => {
     switch (stepID) {
-        case StepID.DINE_BARN:
+        case SoknadStep.DINE_BARN:
             return (
                 <DineBarnStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -32,7 +33,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.OM_BARNA:
+        case SoknadStep.OM_BARNA:
             return (
                 <OmBarnaStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -40,7 +41,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.ARBEIDSSITUASJON:
+        case SoknadStep.ARBEIDSSITUASJON:
             return (
                 <ArbeidssituasjonStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -48,7 +49,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.OMSORGSDAGER:
+        case SoknadStep.OMSORGSDAGER:
             return (
                 <OmsorgsdagerStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -56,7 +57,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.MOTTAKER:
+        case SoknadStep.MOTTAKER:
             return (
                 <MottakerStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -64,7 +65,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.MEDLEMSKAP:
+        case SoknadStep.MEDLEMSKAP:
             return (
                 <MedlemskapStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -72,7 +73,7 @@ const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<S
                     resetSoknad={() => null}
                 />
             );
-        case StepID.OPPSUMMERING:
+        case SoknadStep.OPPSUMMERING:
             return (
                 <OppsummeringStep
                     stepConfig={soknadStepsConfig[stepID]}
@@ -88,7 +89,7 @@ const SoknadRoutes = ({ person }: Props) => {
         return <div>Ikke myndig</div>;
     }
     const stepConfig = getSoknadStepsConfig(getAvailableSteps(), SoknadApplicationType.MELDING);
-    const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
+    const stepsToRender = Object.keys(stepConfig) as Array<SoknadStep>;
     return (
         <Switch>
             <Route path={getSoknadRootRoute(SoknadApplicationType.MELDING)} exact={true}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StepProps } from '../stepConfig';
+import { StepProps } from '../StepProps';
 
 const ArbeidssituasjonStep = ({}: StepProps) => <div />;
 
