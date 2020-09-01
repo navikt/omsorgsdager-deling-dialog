@@ -10,7 +10,7 @@ module.exports = {
         '^app/(.*)': '<rootDir>/src/app/$1',
         '^common/forms/(.*)': '<rootDir>/node_modules/@navikt/sif-common-forms/lib/$1',
         '^common/formik/(.*)': '<rootDir>/node_modules/@navikt/sif-common-formik/lib/$1',
-        '^common/(.*)': '<rootDir>/node_modules/@navikt/sif-common-core/lib/$1',
+        '^common/(.*)': '<rootDir>/node_modules/@sif-common-core/$1',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     transformIgnorePatterns: ['node_modules/(?!(nav-frontend-spinner-style)/)'],

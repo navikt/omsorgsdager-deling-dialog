@@ -33,7 +33,7 @@
         "@navikt/sif-common-core": "^5.0.29",
         "@navikt/sif-common-formik": "^10.0.7",
         "@navikt/sif-common-sentry": "0.0.11",
-        "@sentry/browser": "^5.21.1",
+        "@sentry/browser": "^5.22.0",
         "@testing-library/react": "^10.4.8",
         "axios": "^0.19.2",
         "busboy": "^0.3.0",
@@ -69,11 +69,11 @@
         "react-collapse": "^5.0.1",
         "react-day-picker": "^7.4.0",
         "react-dom": "^16.12.0",
-        "react-intl": "^5.6.5",
+        "react-intl": "^5.7.2",
         "react-modal": "^3.10.1",
         "react-router-dom": "^5.2.0",
         "react-simple-timefield": "^3.0.0",
-        "snyk": "^1.377.1",
+        "snyk": "^1.385.2",
         "use-media": "^1.4.0"
     },
     "devDependencies": {

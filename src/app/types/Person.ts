@@ -5,4 +5,5 @@ export interface Person {
     kjønn: string;
     fødselsnummer: string;
     kontonummer: string;
+    myndig: boolean;
 }

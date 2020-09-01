@@ -1,17 +1,17 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
-import AppStatusWrapper from '@navikt/sif-common-core/lib/components/app-status-wrapper/AppStatusWrapper';
-import LanguageToggle from '@navikt/sif-common-core/lib/components/language-toggle/LanguageToggle';
-import ApplicationMessages from '@navikt/sif-common-core/lib/dev-utils/intl/application-messages/ApplicationMessages';
-import { MessageFileFormat } from '@navikt/sif-common-core/lib/dev-utils/intl/devIntlUtils';
-import { Locale } from '@navikt/sif-common-core/lib/types/Locale';
-import { getLocaleFromSessionStorage, setLocaleInSessionStorage } from '@navikt/sif-common-core/lib/utils/localeUtils';
+import AppStatusWrapper from '@sif-common-core/components/app-status-wrapper/AppStatusWrapper';
+import LanguageToggle from '@sif-common-core/components/language-toggle/LanguageToggle';
+import ApplicationMessages from '@sif-common-core/dev-utils/intl/application-messages/ApplicationMessages';
+import { MessageFileFormat } from '@sif-common-core/dev-utils/intl/devIntlUtils';
+import { Locale } from '@sif-common-core/types/Locale';
+import { getLocaleFromSessionStorage, setLocaleInSessionStorage } from '@sif-common-core/utils/localeUtils';
 import getSentryLoggerForApp from '@navikt/sif-common-sentry/lib';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { GlobalSoknadApplicationRoutes } from './SoknadApplicationRoutes';
-import '@navikt/sif-common-core/lib/styles/globalStyles.less';
+import '@sif-common-core/styles/globalStyles.less';
 
 interface AppStatusSanityConfig {
     projectId: string;

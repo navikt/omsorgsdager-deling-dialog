@@ -27,10 +27,7 @@ const webpackConfig = {
                 __dirname,
                 './../../../node_modules/@navikt/sif-common-formik/lib'
             ),
-            ['@navikt/sif-common-core/lib']: path.resolve(
-                __dirname,
-                './../../../node_modules/@navikt/sif-common-core/lib'
-            ),
+            ['@sif-common-core']: path.resolve(__dirname, './../../../src/navikt/sif-common-core'),
             ['@navikt/sif-common-sentry/lib']: path.resolve(
                 __dirname,
                 './../../../node_modules/@navikt/sif-common-sentry/lib'
@@ -41,7 +38,11 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                include: [path.resolve(__dirname, './../../app'), path.resolve(__dirname, './../../common')],
+                include: [
+                    path.resolve(__dirname, './../../app'),
+                    path.resolve(__dirname, './../../common'),
+                    path.resolve(__dirname, './../../navikt'),
+                ],
                 loader: require.resolve('awesome-typescript-loader'),
             },
             {

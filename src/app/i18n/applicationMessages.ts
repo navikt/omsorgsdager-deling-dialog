@@ -1,5 +1,5 @@
-import { MessageFileFormat } from '@navikt/sif-common-core/lib/dev-utils/intl/devIntlUtils';
-import { allCommonMessages } from '@navikt/sif-common-core/lib/i18n/allCommonMessages';
+import { MessageFileFormat } from '@sif-common-core/dev-utils/intl/devIntlUtils';
+import { allCommonMessages } from '@sif-common-core/i18n/allCommonMessages';
 
 const bokmålstekster = {
     ...allCommonMessages.nb,

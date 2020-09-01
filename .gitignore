@@ -3,6 +3,6 @@
 /.vscode
 /coverage
 /node_modules
-/src/sif-common
+/src/navikt
 .DS_Store
 .env

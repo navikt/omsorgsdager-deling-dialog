@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import LoadingPage from '../../common/framework/LoadingPage';
+import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
-import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
-import LoadPoster from '../../common/framework/LoadPoster';
+import SoknadRoutes from './SoknadRoutes';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();
     return (
         <RemoteDataHandler<CombinedType>
             remoteData={soknadEssentials}
-            initializing={() => <LoadPoster />}
-            loading={() => <LoadPoster />}
+            initializing={() => <LoadingPage />}
+            loading={() => <LoadingPage />}
             error={(error) => (
                 <ErrorPage
                     contentRenderer={() => (
@@ -21,21 +21,7 @@ const Soknad = () => {
                     )}
                 />
             )}
-            success={([person, mellomlagring]) => {
-                console.log(person, mellomlagring);
-                return (
-                    <div>
-                        <h1>Søknad</h1>
-                        <Switch>
-                            <Route path={'/'}>Velkommen</Route>
-                            <Route path="/soknad/barn">Barn</Route>
-                            <Route path="/soknad/medlemsskap">Medlemsskap</Route>
-                            <Route path="/soknad/oppsummering">Oppsummering</Route>
-                            <Route path="/soknad/kvittering">Kvittering</Route>
-                        </Switch>
-                    </div>
-                );
-            }}
+            success={([person, mellomlagring]) => <SoknadRoutes person={person} mellomlagring={mellomlagring} />}
         />
     );
 };

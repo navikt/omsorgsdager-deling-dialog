@@ -1,4 +1,4 @@
-import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
+import { getEnvironmentVariable } from '@sif-common-core/utils/envUtils';
 import { History } from 'history';
 import routeConfig, { getRouteUrl } from '../config/routeConfig';
 import GlobalRoutes from '../config/routeConfig';

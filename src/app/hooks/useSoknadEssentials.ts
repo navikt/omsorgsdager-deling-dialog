@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { combine, pending, RemoteData } from '@devexperts/remote-data-ts';
+import { isUserLoggedOut } from '@sif-common-core/utils/apiUtils';
 import { AxiosError } from 'axios';
 import getMellomlagring from '../api/getMellomlagring';
 import getSokerRemoteData from '../api/getSoker';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
-import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
 export type CombinedType = [Person, StorageData];
 
@@ -13,7 +13,6 @@ export type SoknadEssentialsRemoteData = RemoteData<AxiosError, CombinedType>;
 
 function useSoknadEssentials(): SoknadEssentialsRemoteData {
     const [data, setData] = useState<SoknadEssentialsRemoteData>(pending);
-
     const fetch = async () => {
         try {
             const [sokerResult, mellomlagringResult] = await Promise.all([getSokerRemoteData(), getMellomlagring()]);
@@ -27,7 +26,6 @@ function useSoknadEssentials(): SoknadEssentialsRemoteData {
     useEffect(() => {
         fetch();
     }, []);
-
     return data;
 }
 
