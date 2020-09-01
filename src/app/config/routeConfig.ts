@@ -1,4 +1,4 @@
-import { getEnvironmentVariable } from '@sif-common-core/utils/envUtils';
+import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 
 enum GlobalRoutes {
     NOT_OPEN = '/stengt',

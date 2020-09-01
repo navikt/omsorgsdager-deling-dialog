@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { relocateToLoginPage } from '../utils/navigationUtils';
-import { getEnvironmentVariable } from '@sif-common-core/utils/envUtils';
-import { isUnauthorized, isForbidden } from '@sif-common-core/utils/apiUtils';
+import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
+import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
 const defaultAxiosConfig = {
     withCredentials: true,

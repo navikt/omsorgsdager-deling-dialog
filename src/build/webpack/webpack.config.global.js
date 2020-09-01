@@ -27,7 +27,10 @@ const webpackConfig = {
                 __dirname,
                 './../../../node_modules/@navikt/sif-common-formik/lib'
             ),
-            ['@sif-common-core']: path.resolve(__dirname, './../../../src/navikt/sif-common-core'),
+            ['@navikt/sif-common-core/lib']: path.resolve(
+                __dirname,
+                './../../../node_modules/@navikt/sif-common-core/lib'
+            ),
             ['@navikt/sif-common-sentry/lib']: path.resolve(
                 __dirname,
                 './../../../node_modules/@navikt/sif-common-sentry/lib'

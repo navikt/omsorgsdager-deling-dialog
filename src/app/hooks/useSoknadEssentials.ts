@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { combine, pending, RemoteData } from '@devexperts/remote-data-ts';
-import { isUserLoggedOut } from '@sif-common-core/utils/apiUtils';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { AxiosError } from 'axios';
 import getMellomlagring from '../api/getMellomlagring';
 import getSokerRemoteData from '../api/getSoker';

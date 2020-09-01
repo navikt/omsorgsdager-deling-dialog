@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Route } from 'react-router-dom';
-import { getEnvironmentVariable } from '@sif-common-core/utils/envUtils';
+import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import Modal from 'nav-frontend-modal';
 import SoknadApplication from '../common/framework/SoknadApplication';
 import SoknadApplicationRoutes from '../common/framework/SoknadApplicationRoutes';
