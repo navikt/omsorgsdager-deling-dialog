@@ -3,7 +3,7 @@ export enum SoknadApplicationType {
     'MELDING' = 'melding',
 }
 
-export interface SingleStepProps<STEPS> {
+export interface SoknadStepConfig<STEPS> {
     index: number;
     nextStep?: STEPS;
     route: string;
@@ -14,7 +14,7 @@ export interface SingleStepProps<STEPS> {
 }
 
 export interface SoknadStepsConfig<STEPS> {
-    [key: string]: SingleStepProps<STEPS>;
+    [key: string]: SoknadStepConfig<STEPS>;
 }
 
 export const getSoknadRootRoute = (applicationType: SoknadApplicationType): string => {
@@ -47,9 +47,8 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     return config;
 };
 
-export interface SoknadStepConfigProps<STEPS extends string, PAYLOAD = undefined> {
-    payload?: PAYLOAD;
-    stepConfig: SoknadStepsConfig<STEPS>;
+export interface SoknadStepProps<STEPS extends string> {
+    stepConfig: SoknadStepConfig<STEPS>;
     resetSoknad: () => void;
     onValidSubmit: () => void;
 }

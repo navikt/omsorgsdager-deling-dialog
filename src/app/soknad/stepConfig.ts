@@ -1,4 +1,4 @@
-import { SingleStepProps } from '../../common/soknad/soknadStepConfig';
+import { SoknadStepProps } from '../../common/soknad/soknadStepConfig';
 
 export enum StepID {
     'DINE_BARN' = 'dine-barn',
@@ -10,7 +10,7 @@ export enum StepID {
     'OPPSUMMERING' = 'oppsummering',
 }
 
-export type SoknadStepProps = { stepConfig: SingleStepProps<StepID> };
+export type StepProps = SoknadStepProps<StepID>;
 
 export const getAvailableSteps = (): StepID[] => {
     const steps: StepID[] = [];

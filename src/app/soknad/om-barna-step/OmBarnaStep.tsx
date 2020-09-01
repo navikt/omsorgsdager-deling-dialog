@@ -1,6 +1,6 @@
 import React from 'react';
-import { SoknadStepProps } from '../stepConfig';
+import { StepProps } from '../stepConfig';
 
-const OmBarnaStep = ({}: SoknadStepProps) => <div />;
+const OmBarnaStep = ({}: StepProps) => <div />;
 
 export default OmBarnaStep;

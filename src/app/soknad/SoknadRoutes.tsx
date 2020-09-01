@@ -8,14 +8,14 @@ import {
 } from '../../common/soknad/soknadStepConfig';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
-import { getAvailableSteps, StepID } from './stepConfig';
-import DineBarnStep from './dine-barn-step/DineBarnStep';
-import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import ArbeidssituasjonStep from './arbeidssituasjon-step/ArbeidssituasjonStep';
-import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
-import MottakerStep from './mottaker-step/MottakerStep';
+import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MedlemskapStep from './medlemskap-step/MedlemskapStep';
+import MottakerStep from './mottaker-step/MottakerStep';
+import OmBarnaStep from './om-barna-step/OmBarnaStep';
+import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
+import { getAvailableSteps, StepID } from './stepConfig';
 
 interface Props {
     mellomlagring: StorageData;
@@ -25,19 +25,61 @@ interface Props {
 const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<StepID>): React.ReactNode => {
     switch (stepID) {
         case StepID.DINE_BARN:
-            return <DineBarnStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <DineBarnStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.OM_BARNA:
-            return <OmBarnaStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <OmBarnaStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.ARBEIDSSITUASJON:
-            return <ArbeidssituasjonStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <ArbeidssituasjonStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.OMSORGSDAGER:
-            return <OmsorgsdagerStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <OmsorgsdagerStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.MOTTAKER:
-            return <MottakerStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <MottakerStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.MEDLEMSKAP:
-            return <MedlemskapStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <MedlemskapStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
         case StepID.OPPSUMMERING:
-            return <OppsummeringStep stepConfig={soknadStepsConfig[stepID]} />;
+            return (
+                <OppsummeringStep
+                    stepConfig={soknadStepsConfig[stepID]}
+                    onValidSubmit={() => null}
+                    resetSoknad={() => null}
+                />
+            );
     }
 };
 

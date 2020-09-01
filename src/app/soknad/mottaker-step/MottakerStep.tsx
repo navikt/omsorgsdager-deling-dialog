@@ -1,6 +1,6 @@
 import React from 'react';
-import { SoknadStepProps } from '../stepConfig';
+import { StepProps } from '../stepConfig';
 
-const MottakerStep = ({}: SoknadStepProps) => <div />;
+const MottakerStep = ({}: StepProps) => <div />;
 
 export default MottakerStep;
