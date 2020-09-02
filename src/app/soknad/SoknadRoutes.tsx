@@ -104,7 +104,6 @@ const SoknadRoutes = ({ person }: Props) => {
     const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
     const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
 
-    // const { values } = useFormikContext<SoknadFormData>();
     const history = useHistory();
 
     if (!person.myndig) {
