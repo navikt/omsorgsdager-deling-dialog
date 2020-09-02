@@ -6,7 +6,7 @@ import Modal from 'nav-frontend-modal';
 import SoknadApplication from '../common/application-setup/SoknadApplication';
 import SoknadApplicationCommonRoutes from '../common/application-setup/SoknadApplicationCommonRoutes';
 import { applicationIntlMessages } from './i18n/applicationMessages';
-import IntroPage from './pages/IntroPage';
+import IntroPage from './pages/intro-page/IntroPage';
 import Soknad from './soknad/Soknad';
 
 import './styles/app.less';

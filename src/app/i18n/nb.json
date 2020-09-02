@@ -1,6 +1,10 @@
 {
     "application.title": "Overføre omsorgsdager",
 
+    "arbeidssituasjon.arbeidstaker": "Arbeidstaker",
+    "arbeidssituasjon.selvstendigNæringsdrivende": "Selvstendig næringsdrivende",
+    "arbeidssituasjon.frilanser": "Frilanser",
+
     "backlink.label": "Tilbake",
 
     "step.dine-barn.pageTitle": "Dine barn",
