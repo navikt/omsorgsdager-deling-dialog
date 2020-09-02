@@ -1,6 +1,6 @@
 import React from 'react';
-import { StepProps } from '../StepProps';
+import SoknadStep, { SoknadStepProps } from '../SoknadStep';
 
-const OppsummeringStep = ({}: StepProps) => <div />;
+const OppsummeringStep = (props: SoknadStepProps) => <SoknadStep {...props}>Oppsummering</SoknadStep>;
 
 export default OppsummeringStep;

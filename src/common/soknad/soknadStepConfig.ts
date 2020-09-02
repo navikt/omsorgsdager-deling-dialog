@@ -4,13 +4,14 @@ export enum SoknadApplicationType {
 }
 
 export interface SoknadStepConfig<STEPS> {
+    id: string;
     index: number;
     nextStep?: STEPS;
     route: string;
     backLinkHref?: string;
-    pageTitle: string;
-    stepTitle: string;
-    nextButtonLabel: string;
+    pageTitleIntlKey: string;
+    stepTitleIntlKey: string;
+    nextButtonLabelIntlKey: string;
 }
 
 export interface SoknadStepsConfig<STEPS> {
@@ -34,9 +35,10 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     let idx = 0;
     steps.forEach((stepId) => {
         config[stepId] = {
-            pageTitle: `step.${stepId}.pageTitle`,
-            stepTitle: `step.${stepId}.stepTitle`,
-            nextButtonLabel: `step.${stepId}.nextButtonLabel`,
+            id: stepId,
+            pageTitleIntlKey: `step.${stepId}.pageTitle`,
+            stepTitleIntlKey: `step.${stepId}.stepTitle`,
+            nextButtonLabelIntlKey: `step.${stepId}.nextButtonLabel`,
             route: getSoknadRoute(stepId, applicationType),
             index: idx,
             backLinkHref: idx > 0 ? getSoknadRoute(steps[idx - 1], applicationType) : undefined,

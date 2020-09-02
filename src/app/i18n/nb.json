@@ -1,0 +1,30 @@
+{
+    "backlink.label": "Tilbake",
+
+    "step.dine-barn.pageTitle": "Dine barn",
+    "step.dine-barn.stepTitle": "Dine barn",
+    "step.dine-barn.nextButtonLabel": "Fortsett",
+
+    "step.om-barna.pageTitle": "Om barna",
+    "step.om-barna.stepTitle": "Om barna",
+    "step.om-barna.nextButtonLabel": "Fortsett",
+
+    "step.arbeidssituasjon.pageTitle": "Arbeidssituasjon",
+    "step.arbeidssituasjon.stepTitle": "Arbeidssituasjon",
+    "step.arbeidssituasjon.nextButtonLabel": "Fortsett",
+
+    "step.omsorgsdager.pageTitle": "Omsorgsdager",
+    "step.omsorgsdager.stepTitle": "Omsorgsdager",
+    "step.omsorgsdager.nextButtonLabel": "Fortsett",
+
+    "step.mottaker.pageTitle": "Mottaker",
+    "step.mottaker.stepTitle": "Mottaker",
+    "step.mottaker.nextButtonLabel": "Fortsett",
+
+    "step.oppsummering.pageTitle": "Oppsummering",
+    "step.oppsummering.stepTitle": "Oppsummering",
+    "step.oppsummering.nextButtonLabel": "Fortsett",
+
+    "steg.footer.avbryt": "Avbryt",
+    "steg.footer.fortsettSenere": "Fortsett senere"
+}
