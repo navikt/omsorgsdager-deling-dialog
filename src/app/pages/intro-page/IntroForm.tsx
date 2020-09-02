@@ -10,6 +10,7 @@ import {
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
 import { Arbeidssituasjon } from '../../types/SoknadFormData';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
+import { getTypedFormQuestion } from '../../../common/form-question/FormQuestion';
 
 interface Props {
     onValidSubmit: () => void;
@@ -20,6 +21,8 @@ const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData
 const getIntroFormLegend = (intl: IntlShape, field: IntroFormField): string => {
     return intlHelper(intl, `introForm.${field}.spm`);
 };
+
+const IntroFormQuestion = getTypedFormQuestion<IntroFormField>();
 
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
@@ -37,6 +40,11 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                         }}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                         submitButtonLabel={'Fortsett'}>
+                        <IntroFormQuestion
+                            name={IntroFormField.erArbeidstakerSnEllerFrilanser}
+                            legend={getIntroFormLegend(intl, IntroFormField.erArbeidstakerSnEllerFrilanser)}
+                            validate={validateYesOrNoIsAnswered}
+                        />
                         <FormBlock>
                             <IntroFormComponents.YesOrNoQuestion
                                 name={IntroFormField.erArbeidstakerSnEllerFrilanser}
