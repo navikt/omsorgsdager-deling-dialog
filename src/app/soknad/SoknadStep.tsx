@@ -2,10 +2,10 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
-import { Knapp } from 'nav-frontend-knapper';
-import { SoknadStepsConfig } from '../../common/soknad/soknadStepConfig';
-import Step from '../../common/soknad/step/Step';
-import { getStepTexts } from '../../common/soknad/stepUtils';
+import { SoknadStepsConfig } from '../../common/soknad-common/soknadStepConfig';
+import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
+import Step from '../../common/soknad-common/step/Step';
+import { getStepTexts } from '../../common/soknad-common/stepUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
 import SoknadFormComponents from './SoknadFormComponents';
 import { SoknadStepID } from './SoknadStepIDs';
@@ -65,14 +65,9 @@ const SoknadStep: React.FunctionComponent<Props> = ({
                 {children}
                 {showSubmitButton && (
                     <FormBlock>
-                        <Knapp
-                            type="hoved"
-                            htmlType="submit"
-                            className={'step__button'}
-                            spinner={showButtonSpinner || false}
-                            disabled={buttonDisabled || false}>
+                        <StepSubmitButton disabled={buttonDisabled} showSpinner={showButtonSpinner}>
                             {texts.nextButtonLabel}
-                        </Knapp>
+                        </StepSubmitButton>
                     </FormBlock>
                 )}
             </SoknadFormComponents.Form>

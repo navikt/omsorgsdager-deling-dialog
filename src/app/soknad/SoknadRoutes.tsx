@@ -5,7 +5,7 @@ import {
     getSoknadStepsConfig,
     SoknadApplicationType,
     SoknadStepsConfig,
-} from '../../common/soknad/soknadStepConfig';
+} from '../../common/soknad-common/soknadStepConfig';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
@@ -85,7 +85,7 @@ const renderSoknadStep = (
 };
 
 const SoknadRoutes = ({ person }: Props) => {
-    if (person.myndig) {
+    if (!person.myndig) {
         return <div>Ikke myndig</div>;
     }
     const stepConfig = getSoknadStepsConfig(getAvailableSteps(), SoknadApplicationType.MELDING);

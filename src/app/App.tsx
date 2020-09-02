@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import Modal from 'nav-frontend-modal';
 import SoknadApplication from '../common/framework/SoknadApplication';
-import SoknadApplicationRoutes from '../common/framework/SoknadApplicationRoutes';
+import SoknadApplicationCommonRoutes from '../common/framework/SoknadApplicationCommonRoutes';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './intro/IntroPage';
 import Soknad from './soknad/Soknad';
@@ -26,7 +26,7 @@ render(
                 dataset: getEnvironmentVariable('APPSTATUS_DATASET'),
             },
         }}>
-        <SoknadApplicationRoutes
+        <SoknadApplicationCommonRoutes
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,
                 <Route path="/melding" key="soknad" component={Soknad} />,

@@ -18,7 +18,7 @@ interface Props {
     unknownContentRenderer?: () => React.ReactNode;
 }
 
-const SoknadApplicationRoutes = ({
+const SoknadApplicationCommonRoutes = ({
     contentRoutes,
     errorContentRenderer,
     unavailableContentRenderer,
@@ -38,4 +38,4 @@ const SoknadApplicationRoutes = ({
     </Switch>
 );
 
-export default SoknadApplicationRoutes;
+export default SoknadApplicationCommonRoutes;

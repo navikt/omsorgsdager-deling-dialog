@@ -4,16 +4,15 @@ import BackLink from '@navikt/sif-common-core/lib/components/back-link/BackLink'
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
+import StepFooter from '@navikt/sif-common-core/lib/components/step-footer/StepFooter';
 import bemHelper from '@navikt/sif-common-core/lib/utils/bemUtils';
 import { FormikValidationErrorSummary } from '@navikt/sif-common-formik/lib';
 import { History } from 'history';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { createDocumentPageTitle } from '../documentPageTitle';
 import { SoknadStepsConfig } from '../soknadStepConfig';
 import { getStepTexts } from '../stepUtils';
-import SoknadStepIndicator from './soknad-step-indicator/SoknadStepIndicator';
+import SoknadStepIndicator from '../soknad-step-indicator/SoknadStepIndicator';
 import './step.less';
-import StepFooter from '@navikt/sif-common-core/lib/components/step-footer/StepFooter';
 
 const bem = bemHelper('step');
 
@@ -51,7 +50,7 @@ function Step<Steps extends string>({
     return (
         <Page
             className={bem.block}
-            title={createDocumentPageTitle(stepTexts.pageTitle)}
+            title={stepTexts.pageTitle}
             topContentRenderer={
                 topContentRenderer
                     ? topContentRenderer

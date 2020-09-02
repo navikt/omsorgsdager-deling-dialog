@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingPage from '../../common/framework/LoadingPage';
+import LoadingPage from '../../common/pages/LoadingPage';
 import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
