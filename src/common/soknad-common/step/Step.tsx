@@ -9,9 +9,8 @@ import bemHelper from '@navikt/sif-common-core/lib/utils/bemUtils';
 import { FormikValidationErrorSummary } from '@navikt/sif-common-formik/lib';
 import { History } from 'history';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { SoknadStepsConfig } from '../soknadStepConfig';
-import { getStepTexts } from '../stepUtils';
 import SoknadStepIndicator from '../soknad-step-indicator/SoknadStepIndicator';
+import { getStepTexts, SoknadStepsConfig } from '../stepConfigUtils';
 import './step.less';
 
 const bem = bemHelper('step');

@@ -57,6 +57,7 @@ const søkerMock = {
     mellomnavn: null,
     etternavn: 'KRONJUVEL',
     kontonummer: '17246746060',
+    myndig: true,
 };
 
 const startExpressServer = () => {

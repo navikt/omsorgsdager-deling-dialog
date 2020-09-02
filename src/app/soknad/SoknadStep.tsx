@@ -2,17 +2,17 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
-import { SoknadStepsConfig } from '../../common/soknad-common/soknadStepConfig';
+import { SoknadStepsConfig } from '../../common/soknad-common/stepConfigUtils';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
 import Step from '../../common/soknad-common/step/Step';
-import { getStepTexts } from '../../common/soknad-common/stepUtils';
+import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
 import SoknadFormComponents from './SoknadFormComponents';
-import { SoknadStepID } from './SoknadStepIDs';
+import { StepID } from './StepID';
 
 export interface SoknadStepProps {
-    stepId: SoknadStepID;
-    soknadStepsConfig: SoknadStepsConfig<SoknadStepID>;
+    stepId: StepID;
+    soknadStepsConfig: SoknadStepsConfig<StepID>;
     onValidSubmit: () => void;
     onResetSoknad: () => void;
     onStepCleanup?: (values: SoknadFormData) => SoknadFormData;

@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import NAVStepIndicator from 'nav-frontend-stegindikator/lib/stegindikator';
 import { default as Step } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
-import { SoknadStepsConfig, SoknadStepConfig } from '../soknadStepConfig';
+import { SoknadSingleStepConfig, SoknadStepsConfig } from '../stepConfigUtils';
 
 interface StepIndicatorStep {
     id: string;
@@ -12,7 +12,7 @@ interface StepIndicatorStep {
 }
 
 interface Props {
-    activeStep: SoknadStepConfig<string>;
+    activeStep: SoknadSingleStepConfig<string>;
     stepsConfig: SoknadStepsConfig<string>;
 }
 

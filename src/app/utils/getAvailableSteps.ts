@@ -1,12 +1,12 @@
-import { SoknadStepID } from '../soknad/SoknadStepIDs';
+import { StepID } from '../soknad/StepID';
 
-export const getAvailableSteps = (): SoknadStepID[] => {
-    const steps: SoknadStepID[] = [];
-    steps.push(SoknadStepID.DINE_BARN);
-    steps.push(SoknadStepID.OM_BARNA);
-    steps.push(SoknadStepID.ARBEIDSSITUASJON);
-    steps.push(SoknadStepID.OMSORGSDAGER);
-    steps.push(SoknadStepID.MOTTAKER);
-    steps.push(SoknadStepID.OPPSUMMERING);
+export const getAvailableSteps = (): StepID[] => {
+    const steps: StepID[] = [];
+    steps.push(StepID.DINE_BARN);
+    steps.push(StepID.OM_BARNA);
+    steps.push(StepID.ARBEIDSSITUASJON);
+    steps.push(StepID.OMSORGSDAGER);
+    steps.push(StepID.MOTTAKER);
+    steps.push(StepID.OPPSUMMERING);
     return steps;
 };
