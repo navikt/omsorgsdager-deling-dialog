@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const DineBarnStep = (props: SoknadStepProps) => <SoknadStep {...props}>Dine Barn</SoknadStep>;
+const DineBarnStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Dine Barn</SoknadFormStep>;
 
 export default DineBarnStep;

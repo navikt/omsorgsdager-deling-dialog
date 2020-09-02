@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const ArbeidssituasjonStep = (props: SoknadStepProps) => <SoknadStep {...props}>Arbeidssituasjon</SoknadStep>;
+const ArbeidssituasjonStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Arbeidssituasjon</SoknadFormStep>;
 
 export default ArbeidssituasjonStep;

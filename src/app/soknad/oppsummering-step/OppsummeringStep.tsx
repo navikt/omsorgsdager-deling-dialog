@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const OppsummeringStep = (props: SoknadStepProps) => <SoknadStep {...props}>Oppsummering</SoknadStep>;
+const OppsummeringStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Oppsummering</SoknadFormStep>;
 
 export default OppsummeringStep;

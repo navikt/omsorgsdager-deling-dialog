@@ -11,7 +11,7 @@ import { History } from 'history';
 import { Systemtittel } from 'nav-frontend-typografi';
 import SoknadStepIndicator from '../soknad-step-indicator/SoknadStepIndicator';
 import { getStepTexts, SoknadStepsConfig } from '../stepConfigUtils';
-import './step.less';
+import './soknadStep.less';
 
 const bem = bemHelper('step');
 
@@ -32,7 +32,7 @@ interface OwnProps<Steps> {
 
 type Props<Steps> = StepProps & OwnProps<Steps>;
 
-function Step<Steps extends string>({
+function SoknadStep<Steps extends string>({
     stepId,
     allSteps,
     bannerTitle,
@@ -88,4 +88,4 @@ function Step<Steps extends string>({
     );
 }
 
-export default Step;
+export default SoknadStep;

@@ -1,6 +1,6 @@
 import React from 'react';
 import LoadingPage from '../../common/pages/LoadingPage';
-import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
+import RemoteDataHandler from '../../common/application-setup/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
 import SoknadRoutes from './SoknadRoutes';

@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const OmsorgsdagerStep = (props: SoknadStepProps) => <SoknadStep {...props}>Omsorgsdafer</SoknadStep>;
+const OmsorgsdagerStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Omsorgsdafer</SoknadFormStep>;
 
 export default OmsorgsdagerStep;

@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const OmBarnaStep = (props: SoknadStepProps) => <SoknadStep {...props}>Om barna</SoknadStep>;
+const OmBarnaStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Om barna</SoknadFormStep>;
 
 export default OmBarnaStep;

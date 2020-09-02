@@ -1,6 +1,6 @@
 import React from 'react';
-import SoknadStep, { SoknadStepProps } from '../SoknadStep';
+import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
 
-const MottakerStep = (props: SoknadStepProps) => <SoknadStep {...props}>Mottaker</SoknadStep>;
+const MottakerStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Mottaker</SoknadFormStep>;
 
 export default MottakerStep;

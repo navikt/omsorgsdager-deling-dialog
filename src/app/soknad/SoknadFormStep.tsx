@@ -2,10 +2,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
-import { SoknadStepsConfig } from '../../common/soknad-common/stepConfigUtils';
+import SoknadStep from '../../common/soknad-common/soknad-step/SoknadStep';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
-import Step from '../../common/soknad-common/step/Step';
-import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
+import { getStepTexts, SoknadStepsConfig } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './StepID';
@@ -19,14 +18,13 @@ export interface SoknadStepProps {
     showSubmitButton?: boolean;
     showButtonSpinner?: boolean;
     buttonDisabled?: boolean;
-    skipValidation?: boolean;
 }
 
 type Props = SoknadStepProps & {
     children: React.ReactNode;
 };
 
-const SoknadStep: React.FunctionComponent<Props> = ({
+const SoknadFormStep: React.FunctionComponent<Props> = ({
     stepId,
     soknadStepsConfig,
     onResetSoknad,
@@ -50,7 +48,7 @@ const SoknadStep: React.FunctionComponent<Props> = ({
     const texts = getStepTexts(intl, stepConfig);
 
     return (
-        <Step
+        <SoknadStep
             stepId={stepId}
             allSteps={soknadStepsConfig}
             onCancel={handleAvbrytOgSlettSøknad}
@@ -71,8 +69,8 @@ const SoknadStep: React.FunctionComponent<Props> = ({
                     </FormBlock>
                 )}
             </SoknadFormComponents.Form>
-        </Step>
+        </SoknadStep>
     );
 };
 
-export default SoknadStep;
+export default SoknadFormStep;
