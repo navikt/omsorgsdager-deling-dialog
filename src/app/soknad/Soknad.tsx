@@ -4,6 +4,7 @@ import RemoteDataHandler from '../../common/framework/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
 import SoknadRoutes from './SoknadRoutes';
+import SoknadFormComponents from './SoknadFormComponents';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();
@@ -21,7 +22,14 @@ const Soknad = () => {
                     )}
                 />
             )}
-            success={([person, mellomlagring]) => <SoknadRoutes person={person} mellomlagring={mellomlagring} />}
+            success={([person, mellomlagring]) => (
+                <SoknadFormComponents.FormikWrapper
+                    initialValues={{}}
+                    onSubmit={() => null}
+                    renderForm={() => {
+                        return <SoknadRoutes person={person} mellomlagring={mellomlagring} />;
+                    }}></SoknadFormComponents.FormikWrapper>
+            )}
         />
     );
 };

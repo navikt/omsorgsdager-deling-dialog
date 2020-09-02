@@ -1,6 +1,6 @@
 import React from 'react';
-import { StepProps } from '../stepConfig';
+import SoknadStep, { SoknadStepProps } from '../SoknadStep';
 
-const OmsorgsdagerStep = ({}: StepProps) => <div />;
+const OmsorgsdagerStep = (props: SoknadStepProps) => <SoknadStep {...props}>Omsorgsdafer</SoknadStep>;
 
 export default OmsorgsdagerStep;

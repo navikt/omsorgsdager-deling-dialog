@@ -8,76 +8,77 @@ import {
 } from '../../common/soknad/soknadStepConfig';
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
+import { getAvailableSteps } from '../utils/getAvailableSteps';
 import ArbeidssituasjonStep from './arbeidssituasjon-step/ArbeidssituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
-import MedlemskapStep from './medlemskap-step/MedlemskapStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
-import { getAvailableSteps, StepID } from './stepConfig';
+import { SoknadStepID } from './SoknadStepIDs';
 
 interface Props {
     mellomlagring: StorageData;
     person: Person;
 }
 
-const renderSoknadStep = (stepID: StepID, soknadStepsConfig: SoknadStepsConfig<StepID>): React.ReactNode => {
+const renderSoknadStep = (
+    stepID: SoknadStepID,
+    soknadStepsConfig: SoknadStepsConfig<SoknadStepID>
+): React.ReactNode => {
     switch (stepID) {
-        case StepID.DINE_BARN:
+        case SoknadStepID.DINE_BARN:
             return (
                 <DineBarnStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.DINE_BARN}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
-        case StepID.OM_BARNA:
+        case SoknadStepID.OM_BARNA:
             return (
                 <OmBarnaStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.OM_BARNA}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
-        case StepID.ARBEIDSSITUASJON:
+        case SoknadStepID.ARBEIDSSITUASJON:
             return (
                 <ArbeidssituasjonStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.ARBEIDSSITUASJON}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
-        case StepID.OMSORGSDAGER:
+        case SoknadStepID.OMSORGSDAGER:
             return (
                 <OmsorgsdagerStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.OMSORGSDAGER}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
-        case StepID.MOTTAKER:
+        case SoknadStepID.MOTTAKER:
             return (
                 <MottakerStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.MOTTAKER}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
-        case StepID.MEDLEMSKAP:
-            return (
-                <MedlemskapStep
-                    stepConfig={soknadStepsConfig[stepID]}
-                    onValidSubmit={() => null}
-                    resetSoknad={() => null}
-                />
-            );
-        case StepID.OPPSUMMERING:
+        case SoknadStepID.OPPSUMMERING:
             return (
                 <OppsummeringStep
-                    stepConfig={soknadStepsConfig[stepID]}
+                    stepId={SoknadStepID.OPPSUMMERING}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
-                    resetSoknad={() => null}
+                    onResetSoknad={() => null}
                 />
             );
     }
@@ -88,7 +89,7 @@ const SoknadRoutes = ({ person }: Props) => {
         return <div>Ikke myndig</div>;
     }
     const stepConfig = getSoknadStepsConfig(getAvailableSteps(), SoknadApplicationType.MELDING);
-    const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
+    const stepsToRender = Object.keys(stepConfig) as Array<SoknadStepID>;
     return (
         <Switch>
             <Route path={getSoknadRootRoute(SoknadApplicationType.MELDING)} exact={true}>
