@@ -1,5 +1,6 @@
 import { IntlShape } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { StepIndicatorStep } from './step-indicator/StepIndicator';
 
 interface StepTexts {
     pageTitle: string;
@@ -69,3 +70,15 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     });
     return config;
 };
+
+export function getStepsFromConfig<Steps>(stepsConfig: SoknadStepsConfig<Steps>, intl: IntlShape): StepIndicatorStep[] {
+    return Object.keys(stepsConfig).map((key) => {
+        const stepConfig = stepsConfig[key];
+        const step: StepIndicatorStep = {
+            id: stepConfig.id,
+            index: stepConfig.index,
+            label: intlHelper(intl, stepConfig.stepTitleIntlKey),
+        };
+        return step;
+    });
+}

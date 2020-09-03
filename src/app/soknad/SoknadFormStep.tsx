@@ -2,9 +2,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
-import SoknadCommonStep, {
-    SoknadStepCommonProps,
-} from '../../common/soknad-common/soknad-common-step/SoknadCommonStep';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { getStepsFromConfig } from '../../common/soknad-common/stepConfigUtils';
+import SoknadStepLayout from '../../common/soknad-common/soknad-step-layout/SoknadStepLayout';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
 import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
@@ -13,6 +13,7 @@ import { StepConfigProps } from './stepConfigProps';
 import { StepID } from './StepID';
 
 interface OwnProps {
+    id: StepID;
     onStepCleanup?: (values: SoknadFormData) => SoknadFormData;
     showSubmitButton?: boolean;
     showButtonSpinner?: boolean;
@@ -20,11 +21,11 @@ interface OwnProps {
     children: React.ReactNode;
 }
 
-type Props = OwnProps & StepConfigProps & SoknadStepCommonProps<StepID>;
+type Props = OwnProps & StepConfigProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    config: soknadStepsConfig,
+    config,
     onResetSoknad,
     onStepCleanup,
     onValidSubmit,
@@ -41,14 +42,17 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
         onResetSoknad();
     };
 
-    const stepConfig = soknadStepsConfig[id];
+    const stepConfig = config[id];
     const intl = useIntl();
     const texts = getStepTexts(intl, stepConfig);
 
     return (
-        <SoknadCommonStep
-            id={id}
-            allSteps={soknadStepsConfig}
+        <SoknadStepLayout
+            bannerTitle={intlHelper(intl, 'application.title')}
+            stepTitle={texts.stepTitle}
+            pageTitle={texts.pageTitle}
+            steps={getStepsFromConfig(config, intl)}
+            activeStepId={id}
             onCancel={handleAvbrytOgSlettSøknad}
             onContinueLater={handleAvbrytOgFortsettSenere}>
             <SoknadFormComponents.Form
@@ -67,7 +71,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
                     </FormBlock>
                 )}
             </SoknadFormComponents.Form>
-        </SoknadCommonStep>
+        </SoknadStepLayout>
     );
 };
 
