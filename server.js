@@ -10,7 +10,7 @@ const getDecorator = require('./src/build/scripts/decorator');
 const server = express();
 server.use(helmet());
 server.use(compression());
-server.set('views', `${__dirname}/dist`);
+server.set('views', path.resolve(`${__dirname}/dist`));
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
 

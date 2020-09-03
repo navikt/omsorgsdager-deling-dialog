@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { BrowserRouter, Redirect } from 'react-router-dom';
 import AppStatusWrapper from '@navikt/sif-common-core/lib/components/app-status-wrapper/AppStatusWrapper';
 import LanguageToggle from '@navikt/sif-common-core/lib/components/language-toggle/LanguageToggle';
 import ApplicationMessages from '@navikt/sif-common-core/lib/dev-utils/intl/application-messages/ApplicationMessages';
@@ -32,6 +32,8 @@ interface Props {
     };
     /** The content */
     children: React.ReactNode;
+    /** Public path */
+    publicPath: string;
 }
 
 const localeFromSessionStorage = getLocaleFromSessionStorage();
@@ -40,7 +42,7 @@ moment.locale(localeFromSessionStorage);
 const isValidAppStatusSanityConfig = (appStatus: AppStatusSanityConfig | any): appStatus is AppStatusSanityConfig =>
     appStatus !== undefined && appStatus.dataset !== undefined && appStatus.projectId !== undefined;
 
-const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus, children }: Props) => {
+const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus, publicPath, children }: Props) => {
     const [locale, setLocale] = React.useState<Locale>(localeFromSessionStorage);
     const localeMessages = messages[locale] || messages['nb'];
     const hasMultipleLocales = Object.keys(messages).length > 1;
@@ -61,7 +63,7 @@ const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus
                         }}
                     />
                 )}
-                <Router>
+                <BrowserRouter basename={publicPath}>
                     {isValidAppStatusSanityConfig(appStatus) ? (
                         <AppStatusWrapper
                             applicationKey={appStatus.applicationKey}
@@ -75,7 +77,7 @@ const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus
                         <>{children}</>
                     )}
                     <ApplicationMessages messages={messages} title={title} />
-                </Router>
+                </BrowserRouter>
             </IntlProvider>
         </Normaltekst>
     );
