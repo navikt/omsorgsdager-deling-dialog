@@ -38,6 +38,8 @@ spec:
     vault:
         enabled: false
     env:
+        - name: DEKORATOR_URL
+          value: https://www.nav.no/dekoratoren/?simple=true
         - name: API_URL
           value: https://omsorgsdageroverforingsoknad-api.nav.no
         - name: PUBLIC_PATH
