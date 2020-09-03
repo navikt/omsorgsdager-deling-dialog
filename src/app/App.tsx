@@ -16,6 +16,8 @@ Modal.setAppElement('#app');
 const APPLICATION_KEY = 'pleiepengesoknad';
 const root = document.getElementById('app');
 
+const publicPath = getEnvironmentVariable('PUBLIC_PATH');
+
 render(
     <SoknadApplication
         title="Pleiepengesøknad"
@@ -27,7 +29,8 @@ render(
                 projectId: getEnvironmentVariable('APPSTATUS_PROJECT_ID'),
                 dataset: getEnvironmentVariable('APPSTATUS_DATASET'),
             },
-        }}>
+        }}
+        publicPath={publicPath}>
         <SoknadApplicationCommonRoutes
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,

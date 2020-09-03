@@ -13,7 +13,7 @@ const webpackConfig = {
     output: {
         path: path.resolve(__dirname, './../../../dist'),
         filename: 'js/[name].js',
-        publicPath: `${process.env.PUBLIC_PATH}/dist`,
+        publicPath: '/familie/sykdom-i-familien/soknad/dele-omsorgsdager/dist',
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json', '.jsx'],

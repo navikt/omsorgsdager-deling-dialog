@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-    name: omsorgsdager-deling
+    name: dele-omsorgsdager
     namespace: default
     labels:
         team: dusseldorf
@@ -9,13 +9,13 @@ spec:
     image: {{ image }}
     port: 8080
     liveness:
-        path: /familie/sykdom-i-familien/soknad/omsorgsdager-deling/health/isAlive
+        path: /familie/sykdom-i-familien/soknad/dele-omsorgsdager/health/isAlive
         initialDelay: 20
         timeout: 1
         periodSeconds: 5
         failureThreshold: 10
     readiness:
-        path: /familie/sykdom-i-familien/soknad/omsorgsdager-deling/health/isReady
+        path: /familie/sykdom-i-familien/soknad/dele-omsorgsdager/health/isReady
         initialDelay: 20
         timeout: 1
     resources:
@@ -26,8 +26,8 @@ spec:
             cpu: 50m
             memory: 128Mi
     ingresses:
-        - https://www-q0.nav.no/familie/sykdom-i-familien/soknad/omsorgsdager-deling
-        - https://www.nav.no/familie/sykdom-i-familien/soknad/omsorgsdager-deling
+        - https://www-q0.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager
+        - https://www.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager
     replicas:
         min: 1
         max: 1
@@ -38,14 +38,12 @@ spec:
     vault:
         enabled: false
     env:
-        - name: APPRES_CMS_URL
-          value: https://appres.nav.no
         - name: API_URL
-          value: https://omsorgspenger-api.nav.no
+          value: https://omsorgsdageroverforingsoknad-api.nav.no
         - name: PUBLIC_PATH
-          value: /familie/sykdom-i-familien/soknad/omsorgsdager-deling
+          value: https://www.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager
         - name: LOGIN_URL
-          value: https://loginservice.nav.no/login?redirect=https://www.nav.no/familie/sykdom-i-familien/soknad/omsorgsdager-deling
+          value: https://loginservice.nav.no/login?redirect=https://www.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager
         - name: APP_VERSION
           value: {{image}}
         - name: PERSISTENCE
