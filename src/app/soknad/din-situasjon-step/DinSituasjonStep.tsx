@@ -3,10 +3,10 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 
-const ArbeidssituasjonStep = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+const DinSituasjon = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
     return (
         <SoknadFormStep
-            id={StepID.ARBEIDSSITUASJON}
+            id={StepID.DIN_SITUASJON}
             config={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
@@ -15,4 +15,4 @@ const ArbeidssituasjonStep = ({ onResetSoknad, onValidSubmit, config: soknadStep
     );
 };
 
-export default ArbeidssituasjonStep;
+export default DinSituasjon;

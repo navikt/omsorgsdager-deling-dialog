@@ -50,6 +50,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             bannerTitle={intlHelper(intl, 'application.title')}
             stepTitle={texts.stepTitle}
             pageTitle={texts.pageTitle}
+            backLinkHref={stepConfig.backLinkHref}
             steps={getStepsFromConfig(config, intl)}
             activeStepId={id}
             onCancel={handleAvbrytOgSlettSøknad}

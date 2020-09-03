@@ -11,7 +11,7 @@ import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
 import { navigateTo } from '../utils/navigationUtils';
-import ArbeidssituasjonStep from './arbeidssituasjon-step/ArbeidssituasjonStep';
+import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
@@ -57,13 +57,11 @@ const renderSoknadStep = (
                     onResetSoknad={() => null}
                 />
             );
-        case StepID.ARBEIDSSITUASJON:
+        case StepID.DIN_SITUASJON:
             return (
-                <ArbeidssituasjonStep
+                <DinSituasjonStep
                     config={soknadStepsConfig}
-                    onValidSubmit={() =>
-                        navigateToNextStepFromStep(StepID.ARBEIDSSITUASJON, soknadStepsConfig, history)
-                    }
+                    onValidSubmit={() => navigateToNextStepFromStep(StepID.DIN_SITUASJON, soknadStepsConfig, history)}
                     onResetSoknad={() => null}
                 />
             );
