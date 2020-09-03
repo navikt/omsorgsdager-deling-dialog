@@ -1,6 +1,5 @@
 import React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
@@ -8,9 +7,9 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
+import { getTypedFormQuestion } from '../../../common/form-question/FormQuestion';
 import { Arbeidssituasjon } from '../../types/SoknadFormData';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
-import { getTypedFormQuestion } from '../../../common/form-question/FormQuestion';
 
 interface Props {
     onValidSubmit: () => void;
@@ -26,6 +25,7 @@ const IntroFormQuestion = getTypedFormQuestion<IntroFormField>();
 
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
+
     return (
         <IntroFormComponents.FormikWrapper
             initialValues={introFormInitialValues}
@@ -45,28 +45,17 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                             legend={getIntroFormLegend(intl, IntroFormField.erArbeidstakerSnEllerFrilanser)}
                             validate={validateYesOrNoIsAnswered}
                         />
-                        <FormBlock>
-                            <IntroFormComponents.YesOrNoQuestion
-                                name={IntroFormField.erArbeidstakerSnEllerFrilanser}
-                                legend={getIntroFormLegend(intl, IntroFormField.erArbeidstakerSnEllerFrilanser)}
-                                validate={validateYesOrNoIsAnswered}
-                            />
-                        </FormBlock>
-                        <FormBlock>
-                            <IntroFormComponents.YesOrNoQuestion
-                                name={IntroFormField.harAleneomsorg}
-                                legend={getIntroFormLegend(intl, IntroFormField.harAleneomsorg)}
-                                validate={validateYesOrNoIsAnswered}
-                            />
-                        </FormBlock>
-                        <FormBlock>
-                            <IntroFormComponents.YesOrNoQuestion
-                                name={IntroFormField.mottakerErEktefelleEllerPartner}
-                                legend={getIntroFormLegend(intl, IntroFormField.mottakerErEktefelleEllerPartner)}
-                                validate={validateYesOrNoIsAnswered}
-                            />
-                        </FormBlock>
-                        <FormBlock>
+                        <IntroFormQuestion
+                            name={IntroFormField.harAleneomsorg}
+                            legend={getIntroFormLegend(intl, IntroFormField.harAleneomsorg)}
+                            validate={validateYesOrNoIsAnswered}
+                        />
+                        <IntroFormQuestion
+                            name={IntroFormField.mottakerErEktefelleEllerPartner}
+                            legend={getIntroFormLegend(intl, IntroFormField.mottakerErEktefelleEllerPartner)}
+                            validate={validateYesOrNoIsAnswered}
+                        />
+                        <IntroFormQuestion name={IntroFormField.arbeidssituasjonMottaker}>
                             <IntroFormComponents.CheckboxPanelGroup
                                 name={IntroFormField.arbeidssituasjonMottaker}
                                 legend={getIntroFormLegend(intl, IntroFormField.arbeidssituasjonMottaker)}
@@ -89,7 +78,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                     },
                                 ]}
                             />
-                        </FormBlock>
+                        </IntroFormQuestion>
                     </IntroFormComponents.Form>
                 );
             }}

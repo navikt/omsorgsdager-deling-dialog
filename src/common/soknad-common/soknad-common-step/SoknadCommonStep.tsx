@@ -11,18 +11,18 @@ import { History } from 'history';
 import { Systemtittel } from 'nav-frontend-typografi';
 import SoknadStepIndicator from '../soknad-step-indicator/SoknadStepIndicator';
 import { getStepTexts, SoknadStepsConfig } from '../stepConfigUtils';
-import './soknadStep.less';
+import './soknadCommonStep.less';
 
 const bem = bemHelper('step');
 
-export interface StepProps {
+export interface SoknadStepCommonProps<Steps> {
+    id: Steps;
     useValidationErrorSummary?: boolean;
     showStepIndicator?: boolean;
     topContentRenderer?: () => React.ReactElement<any>;
 }
 
 interface OwnProps<Steps> {
-    stepId: Steps;
     allSteps: SoknadStepsConfig<Steps>;
     children: React.ReactNode;
     onCancel?: () => void;
@@ -30,10 +30,10 @@ interface OwnProps<Steps> {
     bannerTitle?: string;
 }
 
-type Props<Steps> = StepProps & OwnProps<Steps>;
+type Props<Steps> = SoknadStepCommonProps<Steps> & OwnProps<Steps>;
 
 function SoknadStep<Steps extends string>({
-    stepId,
+    id: stepId,
     allSteps,
     bannerTitle,
     useValidationErrorSummary,

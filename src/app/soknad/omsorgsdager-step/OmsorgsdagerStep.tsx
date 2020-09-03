@@ -1,6 +1,18 @@
 import React from 'react';
-import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepConfigProps } from '../stepConfigProps';
+import { StepID } from '../StepID';
 
-const OmsorgsdagerStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Omsorgsdafer</SoknadFormStep>;
+const OmsorgsdagerStep = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+    return (
+        <SoknadFormStep
+            id={StepID.OMSORGSDAGER}
+            config={soknadStepsConfig}
+            onResetSoknad={onResetSoknad}
+            onValidSubmit={onValidSubmit}>
+            content
+        </SoknadFormStep>
+    );
+};
 
 export default OmsorgsdagerStep;

@@ -1,6 +1,18 @@
 import React from 'react';
-import SoknadFormStep, { SoknadStepProps } from '../SoknadFormStep';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepConfigProps } from '../stepConfigProps';
+import { StepID } from '../StepID';
 
-const DineBarnStep = (props: SoknadStepProps) => <SoknadFormStep {...props}>Dine Barn</SoknadFormStep>;
+const DineBarnStep = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+    return (
+        <SoknadFormStep
+            id={StepID.DINE_BARN}
+            config={soknadStepsConfig}
+            onResetSoknad={onResetSoknad}
+            onValidSubmit={onValidSubmit}>
+            Dine barn
+        </SoknadFormStep>
+    );
+};
 
 export default DineBarnStep;

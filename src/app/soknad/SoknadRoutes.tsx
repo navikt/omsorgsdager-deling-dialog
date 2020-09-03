@@ -44,8 +44,7 @@ const renderSoknadStep = (
         case StepID.DINE_BARN:
             return (
                 <DineBarnStep
-                    stepId={StepID.DINE_BARN}
-                    soknadStepsConfig={soknadStepsConfig}
+                    config={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DINE_BARN, soknadStepsConfig, history)}
                     onResetSoknad={() => null}
                 />
@@ -53,8 +52,7 @@ const renderSoknadStep = (
         case StepID.OM_BARNA:
             return (
                 <OmBarnaStep
-                    stepId={StepID.OM_BARNA}
-                    soknadStepsConfig={soknadStepsConfig}
+                    config={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.OM_BARNA, soknadStepsConfig, history)}
                     onResetSoknad={() => null}
                 />
@@ -62,8 +60,7 @@ const renderSoknadStep = (
         case StepID.ARBEIDSSITUASJON:
             return (
                 <ArbeidssituasjonStep
-                    stepId={StepID.ARBEIDSSITUASJON}
-                    soknadStepsConfig={soknadStepsConfig}
+                    config={soknadStepsConfig}
                     onValidSubmit={() =>
                         navigateToNextStepFromStep(StepID.ARBEIDSSITUASJON, soknadStepsConfig, history)
                     }
@@ -73,8 +70,7 @@ const renderSoknadStep = (
         case StepID.OMSORGSDAGER:
             return (
                 <OmsorgsdagerStep
-                    stepId={StepID.OMSORGSDAGER}
-                    soknadStepsConfig={soknadStepsConfig}
+                    config={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.OMSORGSDAGER, soknadStepsConfig, history)}
                     onResetSoknad={() => null}
                 />
@@ -82,20 +78,14 @@ const renderSoknadStep = (
         case StepID.MOTTAKER:
             return (
                 <MottakerStep
-                    stepId={StepID.MOTTAKER}
-                    soknadStepsConfig={soknadStepsConfig}
+                    config={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.MOTTAKER, soknadStepsConfig, history)}
                     onResetSoknad={() => null}
                 />
             );
         case StepID.OPPSUMMERING:
             return (
-                <OppsummeringStep
-                    stepId={StepID.OPPSUMMERING}
-                    soknadStepsConfig={soknadStepsConfig}
-                    onValidSubmit={() => null}
-                    onResetSoknad={() => null}
-                />
+                <OppsummeringStep config={soknadStepsConfig} onValidSubmit={() => null} onResetSoknad={() => null} />
             );
     }
 };
