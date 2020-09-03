@@ -4,7 +4,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { getStepsFromConfig } from '../../common/soknad-common/stepConfigUtils';
-import SoknadStepLayout from '../../common/soknad-common/soknad-step-layout/SoknadStepLayout';
+import SoknadStepLayout from '../../common/soknad-common/step/Step';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
 import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';

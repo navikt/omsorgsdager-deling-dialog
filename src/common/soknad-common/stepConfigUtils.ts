@@ -13,7 +13,7 @@ export enum SoknadApplicationType {
     'MELDING' = 'melding',
 }
 
-export interface SoknadSingleStepConfig<STEPS> {
+interface StepConfig<STEPS> {
     id: string;
     index: number;
     route: string;
@@ -26,10 +26,10 @@ export interface SoknadSingleStepConfig<STEPS> {
 }
 
 export interface SoknadStepsConfig<STEPS> {
-    [key: string]: SoknadSingleStepConfig<STEPS>;
+    [key: string]: StepConfig<STEPS>;
 }
 
-export const getStepTexts = <Step>(intl: IntlShape, stepConfig: SoknadSingleStepConfig<Step>): StepTexts => {
+export const getStepTexts = <Step>(intl: IntlShape, stepConfig: StepConfig<Step>): StepTexts => {
     return {
         pageTitle: intlHelper(intl, stepConfig.pageTitleIntlKey),
         stepTitle: intlHelper(intl, stepConfig.stepTitleIntlKey),

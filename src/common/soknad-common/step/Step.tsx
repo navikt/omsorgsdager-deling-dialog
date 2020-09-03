@@ -9,7 +9,7 @@ import { FormikValidationErrorSummary } from '@navikt/sif-common-formik/lib';
 import { History } from 'history';
 import { Systemtittel } from 'nav-frontend-typografi';
 import StepIndicator, { StepIndicatorStep } from '../step-indicator/StepIndicator';
-import './soknadStepLayout.less';
+import './step.less';
 
 const bem = bemHelper('step');
 
@@ -28,7 +28,7 @@ interface Props {
     onContinueLater?: () => void;
 }
 
-function SoknadStepLayout<Steps extends string>({
+function Step({
     bannerTitle,
     pageTitle,
     stepTitle,
@@ -81,4 +81,4 @@ function SoknadStepLayout<Steps extends string>({
     );
 }
 
-export default SoknadStepLayout;
+export default Step;
