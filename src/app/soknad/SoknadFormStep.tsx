@@ -4,7 +4,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { getStepsFromConfig } from '../../common/soknad-common/stepConfigUtils';
-import SoknadStepLayout from '../../common/soknad-common/step/Step';
+import Step from '../../common/soknad-common/step/Step';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
 import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
@@ -45,9 +45,8 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
     const stepConfig = config[id];
     const intl = useIntl();
     const texts = getStepTexts(intl, stepConfig);
-
     return (
-        <SoknadStepLayout
+        <Step
             bannerTitle={intlHelper(intl, 'application.title')}
             stepTitle={texts.stepTitle}
             pageTitle={texts.pageTitle}
@@ -71,7 +70,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
                     </FormBlock>
                 )}
             </SoknadFormComponents.Form>
-        </SoknadStepLayout>
+        </Step>
     );
 };
 
