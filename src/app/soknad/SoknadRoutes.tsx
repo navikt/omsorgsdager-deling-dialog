@@ -20,8 +20,10 @@ import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import { Barn } from '../types/SoknadFormData';
 
 interface Props {
+    barn: Barn[];
     mellomlagring: StorageData;
     person: Person;
 }
@@ -38,6 +40,7 @@ const navigateToNextStepFromStep = (stepID: StepID, allSteps: SoknadStepsConfig<
 };
 
 const renderSoknadStep = (
+    barn: Barn[],
     stepID: StepID,
     soknadStepsConfig: SoknadStepsConfig<StepID>,
     history: History
@@ -46,6 +49,7 @@ const renderSoknadStep = (
         case StepID.DINE_BARN:
             return (
                 <DineBarnStep
+                    barn={barn}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DINE_BARN, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
@@ -94,7 +98,7 @@ const renderSoknadStep = (
     }
 };
 
-const SoknadRoutes = ({ person }: Props) => {
+const SoknadRoutes = ({ person, barn }: Props) => {
     const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
     const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
 
@@ -102,7 +106,6 @@ const SoknadRoutes = ({ person }: Props) => {
 
     const startSoknad = () => {
         navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
-        console.log('Start');
     };
 
     if (!person.myndig) {
@@ -119,7 +122,7 @@ const SoknadRoutes = ({ person }: Props) => {
                         key={step}
                         path={stepConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(step, stepConfig, history)}
+                        render={() => renderSoknadStep(barn, step, stepConfig, history)}
                     />
                 );
             })}

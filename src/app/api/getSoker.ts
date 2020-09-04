@@ -5,7 +5,7 @@ import api, { ApiEndpoint } from './api';
 
 export type SokerRemoteData = RemoteData<AxiosError, Person>;
 
-const getSoker = async (): Promise<SokerRemoteData> => {
+const getSokerRemoteData = async (): Promise<SokerRemoteData> => {
     try {
         const { data } = await api.get<Person>(ApiEndpoint.soker);
         return Promise.resolve(success(data));
@@ -14,4 +14,4 @@ const getSoker = async (): Promise<SokerRemoteData> => {
     }
 };
 
-export default getSoker;
+export default getSokerRemoteData;

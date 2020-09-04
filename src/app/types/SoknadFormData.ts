@@ -49,6 +49,9 @@ export interface Barn {
     fødselsdato: Date;
 }
 
+export interface RegistrerteBarn {
+    barn: Barn[];
+}
 export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;

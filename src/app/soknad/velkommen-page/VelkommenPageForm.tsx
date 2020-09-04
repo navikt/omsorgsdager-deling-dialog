@@ -49,7 +49,7 @@ const VelkommenPageForm = ({ onStart }: Props) => {
                     />
                 </SoknadFormComponents.ConfirmationCheckbox>
                 <Box textAlignCenter={true} margin="xl">
-                    <Hovedknapp>{intlHelper(intl, 'start')}</Hovedknapp>
+                    <Hovedknapp>{intlHelper(intl, 'step.velkommen.button.start')}</Hovedknapp>
                     <FormBlock>
                         <Lenke
                             href="#"
