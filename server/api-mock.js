@@ -60,6 +60,13 @@ const søkerMock = {
     myndig: true,
 };
 
+const barnMock = {
+    barn: [
+        { fødselsdato: '1990-01-01', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
+        { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
+    ],
+};
+
 const startExpressServer = () => {
     const port = process.env.PORT || 8089;
 
@@ -80,6 +87,12 @@ const startExpressServer = () => {
     server.get('/soker', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
+        }, 200);
+    });
+
+    server.get('/barn', (req, res) => {
+        setTimeout(() => {
+            res.send(barnMock);
         }, 200);
     });
 

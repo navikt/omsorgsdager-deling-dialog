@@ -23,12 +23,12 @@ const Soknad = () => {
                     )}
                 />
             )}
-            success={([person, mellomlagring]) => (
+            success={([person, barn, mellomlagring]) => (
                 <SoknadFormComponents.FormikWrapper
                     initialValues={initialSoknadFormData}
                     onSubmit={() => null}
                     renderForm={() => {
-                        return <SoknadRoutes person={person} mellomlagring={mellomlagring} />;
+                        return <SoknadRoutes person={person} barn={barn} mellomlagring={mellomlagring} />;
                     }}></SoknadFormComponents.FormikWrapper>
             )}
         />
