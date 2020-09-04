@@ -25,7 +25,7 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const DinSituasjon = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+const DinSituasjon = ({ onResetSoknad, onValidSubmit, stepConfig }: StepConfigProps) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const { harBruktOmsorgsdagerEtter1Juli } = values;
@@ -33,7 +33,7 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig 
     return (
         <SoknadFormStep
             id={StepID.DIN_SITUASJON}
-            config={soknadStepsConfig}
+            stepConfig={stepConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}
             onStepCleanup={cleanupDinSituasjonStep}>

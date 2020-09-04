@@ -25,7 +25,7 @@ type Props = OwnProps & StepConfigProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    config,
+    stepConfig: config,
     onResetSoknad,
     onStepCleanup,
     onValidSubmit,
