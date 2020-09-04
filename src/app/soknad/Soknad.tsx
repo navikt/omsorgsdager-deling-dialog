@@ -1,11 +1,11 @@
 import React from 'react';
-import LoadingPage from '../../common/pages/LoadingPage';
 import RemoteDataHandler from '../../common/application-setup/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
+import LoadingPage from '../../common/pages/LoadingPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
-import SoknadRoutes from './SoknadRoutes';
-import SoknadFormComponents from './SoknadFormComponents';
 import { initialSoknadFormData } from '../types/SoknadFormData';
+import SoknadFormComponents from './SoknadFormComponents';
+import SoknadRoutes from './SoknadRoutes';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();

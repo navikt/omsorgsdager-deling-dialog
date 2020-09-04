@@ -1,21 +1,21 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
+import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import {
+    validateRequiredList,
+    validateRequiredNumber,
+    validateYesOrNoIsAnswered,
+} from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { useFormikContext } from 'formik';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
+import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
-import SoknadFormComponents from '../SoknadFormComponents';
-import { SoknadFormField, SoknadFormData } from '../../types/SoknadFormData';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { useIntl, FormattedMessage } from 'react-intl';
-import {
-    validateYesOrNoIsAnswered,
-    validateRequiredList,
-    validateRequiredNumber,
-} from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
-import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
-import { useFormikContext } from 'formik';
-import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
