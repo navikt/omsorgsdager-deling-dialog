@@ -4,6 +4,7 @@ export enum Arbeidssituasjon {
     'arbeidstaker' = 'arbeidstaker',
     'selvstendigNæringsdrivende' = 'selvstendigNæringsdrivende',
     'frilanser' = 'frilanser',
+    'annen' = 'annen',
 }
 
 export enum Mottaker {

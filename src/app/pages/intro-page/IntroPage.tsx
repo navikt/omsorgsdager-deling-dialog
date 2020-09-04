@@ -6,9 +6,12 @@ import InformationPoster from '@navikt/sif-common-core/lib/components/informatio
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import IntroForm from './IntroForm';
+import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
+import { useHistory } from 'react-router-dom';
 
 const IntroPage = () => {
     const intl = useIntl();
+    const history = useHistory();
     return (
         <Page title={intlHelper(intl, 'application.title')}>
             <Box margin="xxxl">
@@ -20,7 +23,7 @@ const IntroPage = () => {
                 </InformationPoster>
             </Box>
             <FormBlock>
-                <IntroForm onValidSubmit={() => null} />
+                <IntroForm onValidSubmit={() => navigateToSoknadFrontpage(history)} />
             </FormBlock>
         </Page>
     );
