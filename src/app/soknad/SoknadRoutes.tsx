@@ -99,24 +99,25 @@ const renderSoknadStep = (
 };
 
 const SoknadRoutes = ({ person, barn }: Props) => {
-    const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
-    const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
-
     const history = useHistory();
 
-    const startSoknad = () => {
-        navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
-    };
+    const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
+    const availableSteps = Object.keys(stepConfig) as Array<StepID>;
 
     if (!person.myndig) {
         return <div>Ikke myndig</div>;
     }
+
     return (
         <Switch>
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
-                <VelkommenPage onStartSoknad={startSoknad} />
+                <VelkommenPage
+                    onStartSoknad={() => {
+                        navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+                    }}
+                />
             </Route>
-            {stepsToRender.map((step) => {
+            {availableSteps.map((step) => {
                 return (
                     <Route
                         key={step}

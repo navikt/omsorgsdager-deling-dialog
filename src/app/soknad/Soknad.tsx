@@ -23,14 +23,17 @@ const Soknad = () => {
                     )}
                 />
             )}
-            success={([person, barn, mellomlagring]) => (
-                <SoknadFormComponents.FormikWrapper
-                    initialValues={initialSoknadFormData}
-                    onSubmit={() => null}
-                    renderForm={() => {
-                        return <SoknadRoutes person={person} barn={barn} mellomlagring={mellomlagring} />;
-                    }}></SoknadFormComponents.FormikWrapper>
-            )}
+            success={([person, barn, mellomlagring]) => {
+                return (
+                    <SoknadFormComponents.FormikWrapper
+                        initialValues={initialSoknadFormData}
+                        onSubmit={() => null}
+                        renderForm={() => {
+                            return <SoknadRoutes person={person} barn={barn} mellomlagring={mellomlagring} />;
+                        }}
+                    />
+                );
+            }}
         />
     );
 };
