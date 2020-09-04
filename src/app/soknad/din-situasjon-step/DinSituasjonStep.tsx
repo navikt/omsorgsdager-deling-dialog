@@ -5,7 +5,7 @@ import { StepID } from '../StepID';
 import SoknadFormComponents from '../SoknadFormComponents';
 import { SoknadFormField, SoknadFormData } from '../../types/SoknadFormData';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { useIntl } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import {
     validateYesOrNoIsAnswered,
     validateRequiredList,
@@ -15,6 +15,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import { useFormikContext } from 'formik';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -36,6 +37,9 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig 
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}
             onStepCleanup={cleanupDinSituasjonStep}>
+            <CounsellorPanel>
+                <FormattedMessage id="step.din_situasjon.veileder.intro" />
+            </CounsellorPanel>
             <FormBlock>
                 <SoknadFormComponents.YesOrNoQuestion
                     name={SoknadFormField.borINorge}
