@@ -10,7 +10,6 @@ import {
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
 import { QuestionVisibilityContext } from '../../../common/context/QuestionVisibilityContext';
 import { getTypedFormQuestion } from '../../../common/form-question/FormQuestion';
-import QuestionVisibilityBlock from '../../../common/question-visibility-block/QuestionVisibilityBlock';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import {
     getIntroFormAvslag,
@@ -47,9 +46,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                     ...values,
                     avslag,
                 });
-
                 const kanFortsette = avslag === undefined && visibility.areAllQuestionsAnswered();
-
                 return (
                     <IntroFormComponents.Form
                         includeValidationSummary={true}
@@ -60,42 +57,34 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                         submitButtonLabel={'Start melding om overføring'}>
                         <QuestionVisibilityContext.Provider value={{ visibility }}>
-                            <QuestionVisibilityBlock fieldName={IntroFormField.erArbeidstakerSnEllerFrilanser}>
-                                <IntroFormQuestion
-                                    name={IntroFormField.erArbeidstakerSnEllerFrilanser}
-                                    legend={getIntroFormLegend(intl, IntroFormField.erArbeidstakerSnEllerFrilanser)}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.erIkkeArbeidstakerSnEllerFrilanser}
-                                    stopMessage={<>Lorem ipsum</>}
-                                />
-                            </QuestionVisibilityBlock>
-                            <QuestionVisibilityBlock fieldName={IntroFormField.harAleneomsorg}>
-                                <IntroFormQuestion
-                                    name={IntroFormField.harAleneomsorg}
-                                    legend={getIntroFormLegend(intl, IntroFormField.harAleneomsorg)}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.harIkkeAleneomsorg}
-                                    stopMessage={<>Lorem ipsum</>}
-                                />
-                            </QuestionVisibilityBlock>
-                            <QuestionVisibilityBlock fieldName={IntroFormField.mottakerErEktefelleEllerPartner}>
-                                <IntroFormQuestion
-                                    name={IntroFormField.mottakerErEktefelleEllerPartner}
-                                    legend={getIntroFormLegend(intl, IntroFormField.mottakerErEktefelleEllerPartner)}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerPartner}
-                                    stopMessage={<>Lorem ipsum</>}
-                                />
-                            </QuestionVisibilityBlock>
-                            <QuestionVisibilityBlock fieldName={IntroFormField.mottakersArbeidssituasjonErOk}>
-                                <IntroFormQuestion
-                                    name={IntroFormField.mottakersArbeidssituasjonErOk}
-                                    legend={getIntroFormLegend(intl, IntroFormField.mottakersArbeidssituasjonErOk)}
-                                    validate={validateRequiredList}
-                                    showStop={avslag === IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk}
-                                    stopMessage={<>Lorem ipsum</>}
-                                />
-                            </QuestionVisibilityBlock>
+                            <IntroFormQuestion
+                                name={IntroFormField.erArbeidstakerSnEllerFrilanser}
+                                legend={getIntroFormLegend(intl, IntroFormField.erArbeidstakerSnEllerFrilanser)}
+                                validate={validateYesOrNoIsAnswered}
+                                showStop={avslag === IntroFormAvslag.erIkkeArbeidstakerSnEllerFrilanser}
+                                stopMessage={<>Lorem ipsum</>}
+                            />
+                            <IntroFormQuestion
+                                name={IntroFormField.harAleneomsorg}
+                                legend={getIntroFormLegend(intl, IntroFormField.harAleneomsorg)}
+                                validate={validateYesOrNoIsAnswered}
+                                showStop={avslag === IntroFormAvslag.harIkkeAleneomsorg}
+                                stopMessage={<>Lorem ipsum</>}
+                            />
+                            <IntroFormQuestion
+                                name={IntroFormField.mottakerErEktefelleEllerPartner}
+                                legend={getIntroFormLegend(intl, IntroFormField.mottakerErEktefelleEllerPartner)}
+                                validate={validateYesOrNoIsAnswered}
+                                showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerPartner}
+                                stopMessage={<>Lorem ipsum</>}
+                            />
+                            <IntroFormQuestion
+                                name={IntroFormField.mottakersArbeidssituasjonErOk}
+                                legend={getIntroFormLegend(intl, IntroFormField.mottakersArbeidssituasjonErOk)}
+                                validate={validateRequiredList}
+                                showStop={avslag === IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk}
+                                stopMessage={<>Lorem ipsum</>}
+                            />
                         </QuestionVisibilityContext.Provider>
                     </IntroFormComponents.Form>
                 );
