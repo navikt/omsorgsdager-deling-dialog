@@ -3,11 +3,11 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 
-const OppsummeringStep = ({ onResetSoknad, onValidSubmit, stepConfig: soknadStepsConfig }: StepConfigProps) => {
+const OppsummeringStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepConfigProps) => {
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
-            stepConfig={soknadStepsConfig}
+            soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
             content

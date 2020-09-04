@@ -24,7 +24,7 @@ type Props = OwnProps & StepConfigProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    stepConfig: config,
+    soknadStepsConfig: allStepsConfig,
     onResetSoknad,
     onStepCleanup,
     onValidSubmit,
@@ -37,11 +37,11 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
         onResetSoknad();
     };
 
-    const handleAvbrytOgFortsettSenere = () => {
-        onResetSoknad();
-    };
+    // const handleAvbrytOgFortsettSenere = () => {
+    //     onResetSoknad();
+    // };
 
-    const stepConfig = config[id];
+    const stepConfig = allStepsConfig[id];
     const intl = useIntl();
     const texts = getStepTexts(intl, stepConfig);
     return (
@@ -50,10 +50,9 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             stepTitle={texts.stepTitle}
             pageTitle={texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}
-            steps={getStepsFromConfig(config, intl)}
+            steps={getStepsFromConfig(allStepsConfig, intl)}
             activeStepId={id}
-            onCancel={handleAvbrytOgSlettSøknad}
-            onContinueLater={handleAvbrytOgFortsettSenere}>
+            onCancel={handleAvbrytOgSlettSøknad}>
             <SoknadFormComponents.Form
                 onValidSubmit={onValidSubmit}
                 includeButtons={false}
