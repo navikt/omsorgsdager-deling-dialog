@@ -1,5 +1,5 @@
 import { Locale } from '@navikt/sif-common-core/lib/types/Locale';
-import { Arbeidssituasjon, OverforeTilType } from './SoknadFormData';
+import { Arbeidssituasjon, Mottaker } from './SoknadFormData';
 import { ApiStringDate } from '@navikt/sif-common-core/lib/types/ApiStringDate';
 
 export interface AndreBarnApiData {
@@ -31,7 +31,7 @@ export interface SoknadApiData {
     antallDagerHarBruktEtter1Juli: number;
     harDeltDagerMedAndreTidligere: boolean;
     antallDagerHarDeltMedAndre: number;
-    overforeTilType: OverforeTilType;
+    overforeTilType: Mottaker;
     fnrMottaker: string;
     navnMottaker: string;
     antallDagerTilOverfore: number;

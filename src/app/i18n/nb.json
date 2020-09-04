@@ -32,5 +32,11 @@
     "step.oppsummering.nextButtonLabel": "Fortsett",
 
     "steg.footer.avbryt": "Avbryt",
-    "steg.footer.fortsettSenere": "Fortsett senere"
+    "steg.footer.fortsettSenere": "Fortsett senere",
+
+    "step.din_situasjon.form.borINorge.spm": "Bor du i Norge?",
+    "step.din_situasjon.form.arbeiderINorge.spm": "Arbeider du i Norge?",
+    "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
+    "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange dager har du brukt etter 1. juli 2020?"
 }

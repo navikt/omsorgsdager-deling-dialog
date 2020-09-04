@@ -5,6 +5,7 @@ import ErrorPage from '../../common/pages/ErrorPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
 import SoknadRoutes from './SoknadRoutes';
 import SoknadFormComponents from './SoknadFormComponents';
+import { initialSoknadFormData } from '../types/SoknadFormData';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();
@@ -24,7 +25,7 @@ const Soknad = () => {
             )}
             success={([person, mellomlagring]) => (
                 <SoknadFormComponents.FormikWrapper
-                    initialValues={{}}
+                    initialValues={initialSoknadFormData}
                     onSubmit={() => null}
                     renderForm={() => {
                         return <SoknadRoutes person={person} mellomlagring={mellomlagring} />;

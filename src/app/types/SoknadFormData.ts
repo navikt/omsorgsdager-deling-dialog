@@ -6,10 +6,10 @@ export enum Arbeidssituasjon {
     'frilanser' = 'frilanser',
 }
 
-export enum OverforeTilType {
-    'nyEktefelle' = 'nyEktefelle',
-    'nySamboerHarBoddSammenMinst12maneder' = 'nySamboerHarBoddSammenMinst12maneder',
-    'annenPerson' = 'annenPerson',
+export enum Mottaker {
+    'ektefelle' = 'ektefelle',
+    'samboer' = 'samboer',
+    'annen' = 'annen',
 }
 
 export enum SoknadFormField {
@@ -21,15 +21,16 @@ export enum SoknadFormField {
     harUtvidetRett = 'harUtvidetRett',
     harUtvidetRettFor = 'harUtvidetRettFor',
     borINorge = 'borINorge',
-    arbeidINorge = 'arbeidINorge',
+    arbeiderINorge = 'arbeiderINorge',
     arbeidssituasjon = 'arbeidssituasjon',
-    antallDagerHarBruktEtter1Juli = 'antallDagerHarBruktEtter1Juli',
+    harBruktOmsorgsdagerEtter1Juli = 'harBruktOmsorgsdagerEtter1Juli',
+    antallDagerBruktEtter1Juli = 'antallDagerBruktEtter1Juli',
     harDeltDagerMedAndreTidligere = 'harDeltDagerMedAndreTidligere',
     antallDagerHarDeltMedAndre = 'antallDagerHarDeltMedAndre',
-    overforeTilType = 'overforeTilType',
+    overføreTilType = 'overføreTilType',
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
-    antallDagerTilOverfore = 'antallDagerTilOverfore',
+    antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
     harBekreftetMottakerOpplysninger = 'harBekreftetMottakerOpplysninger',
 }
 
@@ -56,15 +57,16 @@ export interface SoknadFormData {
     [SoknadFormField.harUtvidetRett]: YesOrNo;
     [SoknadFormField.harUtvidetRettFor]: Array<Barn | AndreBarn>;
     [SoknadFormField.borINorge]: YesOrNo;
-    [SoknadFormField.arbeidINorge]: YesOrNo;
+    [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
-    [SoknadFormField.antallDagerHarBruktEtter1Juli]: number;
+    [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
+    [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo;
     [SoknadFormField.antallDagerHarDeltMedAndre]: number;
-    [SoknadFormField.overforeTilType]: OverforeTilType;
+    [SoknadFormField.overføreTilType]: Mottaker;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
-    [SoknadFormField.antallDagerTilOverfore]: number;
+    [SoknadFormField.antallDagerSomSkalOverføres]: number;
     [SoknadFormField.harBekreftetMottakerOpplysninger]: boolean;
 }
 
@@ -77,8 +79,9 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.harUtvidetRett]: YesOrNo.UNANSWERED,
     [SoknadFormField.harUtvidetRettFor]: [],
     [SoknadFormField.borINorge]: YesOrNo.UNANSWERED,
-    [SoknadFormField.arbeidINorge]: YesOrNo.UNANSWERED,
+    [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeidssituasjon]: [],
+    [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
