@@ -10,8 +10,7 @@ interface OwnProps {
 
 type Props = OwnProps & StepConfigProps;
 
-const DineBarnStep = ({ barn, onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: Props) => {
-    console.log(barn);
+const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: Props) => {
     return (
         <SoknadFormStep
             id={StepID.DINE_BARN}
