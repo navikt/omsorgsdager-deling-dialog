@@ -1,10 +1,11 @@
 import React from 'react';
-import LoadingPage from '../../common/pages/LoadingPage';
 import RemoteDataHandler from '../../common/application-setup/RemoteDataHandler';
 import ErrorPage from '../../common/pages/ErrorPage';
+import LoadingPage from '../../common/pages/LoadingPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
-import SoknadRoutes from './SoknadRoutes';
+import { initialSoknadFormData } from '../types/SoknadFormData';
 import SoknadFormComponents from './SoknadFormComponents';
+import SoknadRoutes from './SoknadRoutes';
 
 const Soknad = () => {
     const soknadEssentials = useSoknadEssentials();
@@ -22,14 +23,17 @@ const Soknad = () => {
                     )}
                 />
             )}
-            success={([person, mellomlagring]) => (
-                <SoknadFormComponents.FormikWrapper
-                    initialValues={{}}
-                    onSubmit={() => null}
-                    renderForm={() => {
-                        return <SoknadRoutes person={person} mellomlagring={mellomlagring} />;
-                    }}></SoknadFormComponents.FormikWrapper>
-            )}
+            success={([person, barn, mellomlagring]) => {
+                return (
+                    <SoknadFormComponents.FormikWrapper
+                        initialValues={initialSoknadFormData}
+                        onSubmit={() => null}
+                        renderForm={() => {
+                            return <SoknadRoutes person={person} barn={barn} mellomlagring={mellomlagring} />;
+                        }}
+                    />
+                );
+            }}
         />
     );
 };

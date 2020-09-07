@@ -3,10 +3,9 @@ import { useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { getStepsFromConfig } from '../../common/soknad-common/stepConfigUtils';
-import Step from '../../common/soknad-common/step/Step';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
-import { getStepTexts } from '../../common/soknad-common/stepConfigUtils';
+import Step from '../../common/soknad-common/step/Step';
+import { getStepsFromConfig, getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepConfigProps } from './stepConfigProps';
@@ -25,7 +24,7 @@ type Props = OwnProps & StepConfigProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    config,
+    soknadStepsConfig: allStepsConfig,
     onResetSoknad,
     onStepCleanup,
     onValidSubmit,
@@ -38,11 +37,11 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
         onResetSoknad();
     };
 
-    const handleAvbrytOgFortsettSenere = () => {
-        onResetSoknad();
-    };
+    // const handleAvbrytOgFortsettSenere = () => {
+    //     onResetSoknad();
+    // };
 
-    const stepConfig = config[id];
+    const stepConfig = allStepsConfig[id];
     const intl = useIntl();
     const texts = getStepTexts(intl, stepConfig);
     return (
@@ -51,10 +50,9 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             stepTitle={texts.stepTitle}
             pageTitle={texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}
-            steps={getStepsFromConfig(config, intl)}
+            steps={getStepsFromConfig(allStepsConfig, intl)}
             activeStepId={id}
-            onCancel={handleAvbrytOgSlettSøknad}
-            onContinueLater={handleAvbrytOgFortsettSenere}>
+            onCancel={handleAvbrytOgSlettSøknad}>
             <SoknadFormComponents.Form
                 onValidSubmit={onValidSubmit}
                 includeButtons={false}

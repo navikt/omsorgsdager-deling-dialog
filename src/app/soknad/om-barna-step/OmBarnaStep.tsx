@@ -3,11 +3,11 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 
-const OmBarnaStep = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: StepConfigProps) => {
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
-            config={soknadStepsConfig}
+            soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
             content

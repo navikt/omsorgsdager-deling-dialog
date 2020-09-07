@@ -27,15 +27,24 @@ interface Props {
 const DineBarnStep = ({
     onResetSoknad,
     onValidSubmit,
-    config: soknadStepsConfig,
+    //config: soknadStepsConfig,
     registrerteBarn,
 }: StepConfigProps & Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
+import { Barn } from '../../types/SoknadFormData';
+
+interface OwnProps {
+    barn: Barn[];
+}
+
+type Props = OwnProps & StepConfigProps;
+
+const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: Props) => {
     return (
         <SoknadFormStep
             id={StepID.DINE_BARN}
-            config={soknadStepsConfig}
+            soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info1')}</CounsellorPanel>

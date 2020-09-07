@@ -7,7 +7,7 @@ import FormikYesOrNoQuestion, {
 import InfoMessage from '../info-message/InfoMessage';
 import StopMessage from '../stop-message/StopMessage';
 
-interface Props<FieldName> extends FormikYesOrNoQuestionProps<FieldName> {
+export interface FormQuestionProps<FieldName> extends FormikYesOrNoQuestionProps<FieldName> {
     showStop?: boolean;
     description?: React.ReactNode;
     stopMessage?: React.ReactNode;
@@ -18,10 +18,10 @@ interface Props<FieldName> extends FormikYesOrNoQuestionProps<FieldName> {
 }
 
 export function getTypedFormQuestion<FieldName>() {
-    return (props: Props<FieldName>) => <FormQuestion<FieldName> {...props} />;
+    return (props: FormQuestionProps<FieldName>) => <FormQuestion<FieldName> {...props} />;
 }
 
-function FormQuestion<FieldName>(props: Props<FieldName>) {
+function FormQuestion<FieldName>(props: FormQuestionProps<FieldName>) {
     const { name, showStop, description, stopMessage, showInfo, infoMessage, legend, children } = props;
     return (
         <FormBlock>

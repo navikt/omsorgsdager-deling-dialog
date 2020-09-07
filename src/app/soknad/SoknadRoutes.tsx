@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { History } from 'history';
 import {
     getSoknadRootRoute,
+    getSoknadStepRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
     SoknadStepsConfig,
@@ -10,7 +11,7 @@ import {
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
-import { navigateTo } from '../utils/navigationUtils';
+import { navigateTo, navigateToSoknadFrontpage } from '../utils/navigationUtils';
 import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
@@ -18,8 +19,11 @@ import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { StepID } from './StepID';
+import VelkommenPage from './velkommen-page/VelkommenPage';
+import { Barn } from '../types/SoknadFormData';
 
 interface Props {
+    barn: Barn[];
     mellomlagring: StorageData;
     person: Person;
 }
@@ -36,6 +40,7 @@ const navigateToNextStepFromStep = (stepID: StepID, allSteps: SoknadStepsConfig<
 };
 
 const renderSoknadStep = (
+    barn: Barn[],
     stepID: StepID,
     soknadStepsConfig: SoknadStepsConfig<StepID>,
     history: History
@@ -44,74 +49,88 @@ const renderSoknadStep = (
         case StepID.DINE_BARN:
             return (
                 <DineBarnStep
+<<<<<<< HEAD
                     registrerteBarn={[
                         { aktørId: '1', fornavn: 'Aleksei', etternavn: 'Poroshin', fødselsdato: new Date() },
                     ]}
                     config={soknadStepsConfig}
+=======
+                    barn={barn}
+                    soknadStepsConfig={soknadStepsConfig}
+>>>>>>> master
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DINE_BARN, soknadStepsConfig, history)}
-                    onResetSoknad={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
         case StepID.OM_BARNA:
             return (
                 <OmBarnaStep
-                    config={soknadStepsConfig}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.OM_BARNA, soknadStepsConfig, history)}
-                    onResetSoknad={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
         case StepID.DIN_SITUASJON:
             return (
                 <DinSituasjonStep
-                    config={soknadStepsConfig}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DIN_SITUASJON, soknadStepsConfig, history)}
-                    onResetSoknad={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
         case StepID.OMSORGSDAGER:
             return (
                 <OmsorgsdagerStep
-                    config={soknadStepsConfig}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.OMSORGSDAGER, soknadStepsConfig, history)}
-                    onResetSoknad={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
         case StepID.MOTTAKER:
             return (
                 <MottakerStep
-                    config={soknadStepsConfig}
+                    soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.MOTTAKER, soknadStepsConfig, history)}
-                    onResetSoknad={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
         case StepID.OPPSUMMERING:
             return (
-                <OppsummeringStep config={soknadStepsConfig} onValidSubmit={() => null} onResetSoknad={() => null} />
+                <OppsummeringStep
+                    soknadStepsConfig={soknadStepsConfig}
+                    onValidSubmit={() => null}
+                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
+                />
             );
     }
 };
 
-const SoknadRoutes = ({ person }: Props) => {
-    const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
-    const stepsToRender = Object.keys(stepConfig) as Array<StepID>;
-
+const SoknadRoutes = ({ person, barn }: Props) => {
     const history = useHistory();
+
+    const stepConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
+    const availableSteps = Object.keys(stepConfig) as Array<StepID>;
 
     if (!person.myndig) {
         return <div>Ikke myndig</div>;
     }
+
     return (
         <Switch>
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
-                Velkommen
+                <VelkommenPage
+                    onStartSoknad={() => {
+                        navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+                    }}
+                />
             </Route>
-            {stepsToRender.map((step) => {
+            {availableSteps.map((step) => {
                 return (
                     <Route
                         key={step}
                         path={stepConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(step, stepConfig, history)}
+                        render={() => renderSoknadStep(barn, step, stepConfig, history)}
                     />
                 );
             })}

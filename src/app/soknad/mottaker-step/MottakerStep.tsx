@@ -3,11 +3,11 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 
-const MottakerStep = ({ onResetSoknad, onValidSubmit, config: soknadStepsConfig }: StepConfigProps) => {
+const MottakerStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: StepConfigProps) => {
     return (
         <SoknadFormStep
             id={StepID.MOTTAKER}
-            config={soknadStepsConfig}
+            soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
             content

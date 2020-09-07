@@ -37,5 +37,23 @@
     "step.oppsummering.nextButtonLabel": "Fortsett",
 
     "steg.footer.avbryt": "Avbryt",
-    "steg.footer.fortsettSenere": "Fortsett senere"
+    "steg.footer.fortsettSenere": "Fortsett senere",
+
+    "step.velkommen.banner.tittel": "Hei",
+    "step.velkommen.banner.tekst": "Jeg skal hjelpe deg å fylle ut dette skjemaet for å overføre omsorgsdager.",
+    "step.velkommen.personopplysninger.lenketekst": "Les om hvordan NAV behandler personopplysningene dine",
+    "step.velkommen.button.start": "Fortsett",
+
+    "samtykke.tekst": "Jeg bekrefter at jeg har lest og forstått",
+    "samtykke.harIkkeGodkjentVilkår": "Du må godkjenne vilkårene",
+    "samtykke.harForståttLabel": "For å gå videre med søknaden må du bekrefte at du har lest og forstått {plikterLink}.",
+    "samtykke.harForståttLabel.lenketekst": "dine plikter",
+    "fieldvalidation.samtykkeErPåkrevd": "Du må bekrefte at du har lest og forstått dine plikter",
+
+    "step.din_situasjon.veileder.intro": "For å ha rett på å overføre dager må du være yrkesaktiv, og bo i Norge. Det vil si.... Gjenbruke tekst fra overføring av korona dager.",
+    "step.din_situasjon.form.borINorge.spm": "Bor du i Norge?",
+    "step.din_situasjon.form.arbeiderINorge.spm": "Arbeider du i Norge?",
+    "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
+    "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange dager har du brukt etter 1. juli 2020?"
 }

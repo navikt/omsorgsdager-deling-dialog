@@ -60,6 +60,13 @@ const søkerMock = {
     myndig: true,
 };
 
+const barnMock = {
+    barn: [
+        { fødselsdato: '1990-01-01', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
+        { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
+    ],
+};
+
 const startExpressServer = () => {
     const port = process.env.PORT || 8089;
 
@@ -67,19 +74,35 @@ const startExpressServer = () => {
 
     server.get('/health/isReady', (req, res) => res.sendStatus(200));
 
-    server.get('/soker-not-logged-in', (req, res) => {
-        res.sendStatus(401);
-    });
-
     server.get('/login', (req, res) => {
         setTimeout(() => {
             res.sendStatus(404);
-        }, 5000);
+        }, 2000);
     });
 
     server.get('/soker', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
+        }, 200);
+    });
+    server.get('/soker-not-logged-in', (req, res) => {
+        res.sendStatus(401);
+    });
+    server.get('/soker-err', (req, res) => {
+        setTimeout(() => {
+            res.sendStatus(501);
+        }, 200);
+    });
+
+    server.get('/barn', (req, res) => {
+        setTimeout(() => {
+            res.send(barnMock);
+        }, 200);
+    });
+
+    server.get('/barn-err', (req, res) => {
+        setTimeout(() => {
+            res.sendStatus(501);
         }, 200);
     });
 

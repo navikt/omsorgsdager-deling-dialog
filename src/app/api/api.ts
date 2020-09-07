@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { relocateToLoginPage } from '../utils/navigationUtils';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
@@ -18,7 +17,6 @@ axios.interceptors.response.use(
     },
     (error: AxiosError) => {
         if (isForbidden(error) || isUnauthorized(error)) {
-            relocateToLoginPage();
             return Promise.reject(error);
         }
         return Promise.reject(error);
@@ -27,6 +25,7 @@ axios.interceptors.response.use(
 
 export enum ApiEndpoint {
     'soker' = 'soker',
+    'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
 }
 
