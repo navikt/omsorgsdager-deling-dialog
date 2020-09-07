@@ -29,10 +29,11 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepC
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const { harBruktOmsorgsdagerEtter1Juli } = values;
+    const stepId = StepID.DIN_SITUASJON;
 
     return (
         <SoknadFormStep
-            id={StepID.DIN_SITUASJON}
+            id={stepId}
             soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}
