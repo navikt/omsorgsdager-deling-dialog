@@ -74,14 +74,10 @@ const startExpressServer = () => {
 
     server.get('/health/isReady', (req, res) => res.sendStatus(200));
 
-    server.get('/soker-not-logged-in', (req, res) => {
-        res.sendStatus(401);
-    });
-
     server.get('/login', (req, res) => {
         setTimeout(() => {
             res.sendStatus(404);
-        }, 5000);
+        }, 2000);
     });
 
     server.get('/soker', (req, res) => {
@@ -89,10 +85,24 @@ const startExpressServer = () => {
             res.send(søkerMock);
         }, 200);
     });
+    server.get('/soker-not-logged-in', (req, res) => {
+        res.sendStatus(401);
+    });
+    server.get('/soker-err', (req, res) => {
+        setTimeout(() => {
+            res.sendStatus(501);
+        }, 200);
+    });
 
     server.get('/barn', (req, res) => {
         setTimeout(() => {
             res.send(barnMock);
+        }, 200);
+    });
+
+    server.get('/barn-err', (req, res) => {
+        setTimeout(() => {
+            res.sendStatus(501);
         }, 200);
     });
 

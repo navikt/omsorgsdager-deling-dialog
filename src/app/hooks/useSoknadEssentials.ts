@@ -8,6 +8,7 @@ import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
 import getBarnRemoteData from '../api/getBarn';
 import { Barn } from '../types/SoknadFormData';
+import { relocateToLoginPage } from '../utils/navigationUtils';
 
 export type CombinedType = [Person, Barn[], StorageData];
 
@@ -23,9 +24,12 @@ function useSoknadEssentials(): SoknadEssentialsRemoteData {
                 getMellomlagring(),
             ]);
             setData(combine(sokerResult, barnResult, mellomlagringResult));
-        } catch (e) {
-            if (isUserLoggedOut(e) === false) {
-                setData(e);
+        } catch (remoteDataError) {
+            if (isUserLoggedOut(remoteDataError.error)) {
+                setData(pending);
+                relocateToLoginPage();
+            } else {
+                setData(remoteDataError);
             }
         }
     };
