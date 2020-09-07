@@ -16,7 +16,6 @@ import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
-import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
@@ -69,14 +68,6 @@ const renderSoknadStep = (
                 <DinSituasjonStep
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DIN_SITUASJON, soknadStepsConfig, history)}
-                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
-                />
-            );
-        case StepID.OMSORGSDAGER:
-            return (
-                <OmsorgsdagerStep
-                    soknadStepsConfig={soknadStepsConfig}
-                    onValidSubmit={() => navigateToNextStepFromStep(StepID.OMSORGSDAGER, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );

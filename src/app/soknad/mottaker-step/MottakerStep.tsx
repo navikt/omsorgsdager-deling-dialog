@@ -22,13 +22,17 @@ import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldVal
 import StopMessage from '../../../common/stop-message/StopMessage';
 
 const getAntallDagerOptions = (intl: IntlShape): React.ReactNode => {
-    const dager = [<option key={'none'}></option>];
-    let cnt = 1;
-    while (cnt <= 10) {
-        dager.push(<option key={cnt}>{intlHelper(intl, 'dager', { dager: cnt })}</option>);
-        cnt++;
+    const options = [<option key={'none'}></option>];
+    let dag = 1;
+    while (dag <= 10) {
+        options.push(
+            <option key={dag} value={dag}>
+                {intlHelper(intl, 'dager', { dager: dag })}
+            </option>
+        );
+        dag++;
     }
-    return dager;
+    return options;
 };
 
 type Props = StepConfigProps & {
