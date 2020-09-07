@@ -26,9 +26,9 @@ export interface SoknadApiData {
     harUtvidetRett: boolean;
     harUtvidetRettFor: Array<BarnApiData | AndreBarnApiData>;
     borINorge: boolean;
-    arbeidINorge: boolean;
+    arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
-    antallDagerHarBruktEtter1Juli: number;
+    antallDagerHarBruktEtter1Juli?: number;
     harDeltDagerMedAndreTidligere: boolean;
     antallDagerHarDeltMedAndre: number;
     overforeTilType: Mottaker;

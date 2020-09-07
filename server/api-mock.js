@@ -80,15 +80,15 @@ const startExpressServer = () => {
         }, 2000);
     });
 
-    server.get('/soker', (req, res) => {
+    server.get('/sokerMelding', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
         }, 200);
     });
-    server.get('/soker-not-logged-in', (req, res) => {
+    server.get('/sokerMelding-not-logged-in', (req, res) => {
         res.sendStatus(401);
     });
-    server.get('/soker-err', (req, res) => {
+    server.get('/sokerMelding-err', (req, res) => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
