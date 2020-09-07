@@ -49,15 +49,8 @@ const renderSoknadStep = (
         case StepID.DINE_BARN:
             return (
                 <DineBarnStep
-<<<<<<< HEAD
-                    registrerteBarn={[
-                        { aktørId: '1', fornavn: 'Aleksei', etternavn: 'Poroshin', fødselsdato: new Date() },
-                    ]}
-                    config={soknadStepsConfig}
-=======
                     barn={barn}
                     soknadStepsConfig={soknadStepsConfig}
->>>>>>> master
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.DINE_BARN, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
