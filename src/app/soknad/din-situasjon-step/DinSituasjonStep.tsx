@@ -50,10 +50,10 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepC
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
                 validate={validateYesOrNoIsAnswered}
-                showStop={arbeiderINorge === YesOrNo.NO}
+                showStop={kanFortsette === false}
                 stopMessage="For å overføre dager ..."
             />
-            {arbeiderINorge === YesOrNo.YES && (
+            {kanFortsette === true && (
                 <>
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
