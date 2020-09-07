@@ -41,6 +41,7 @@ const navigateToNextStepFromStep = (stepID: StepID, allSteps: SoknadStepsConfig<
 
 const renderSoknadStep = (
     barn: Barn[],
+    søker: Person,
     stepID: StepID,
     soknadStepsConfig: SoknadStepsConfig<StepID>,
     history: History
@@ -82,6 +83,7 @@ const renderSoknadStep = (
         case StepID.MOTTAKER:
             return (
                 <MottakerStep
+                    søker={søker}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.MOTTAKER, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
@@ -123,7 +125,7 @@ const SoknadRoutes = ({ person, barn }: Props) => {
                         key={step}
                         path={stepConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(barn, step, stepConfig, history)}
+                        render={() => renderSoknadStep(barn, person, step, stepConfig, history)}
                     />
                 );
             })}

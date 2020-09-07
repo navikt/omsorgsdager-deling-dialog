@@ -1,6 +1,6 @@
-import { SoknadFormData, SoknadFormField } from '../types/SoknadFormData';
-import { SoknadApiData } from '../types/SoknadApiData';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import { SoknadApiData } from '../../types/SoknadApiData';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 
 export type DinSituasjonFormData = Pick<
     SoknadFormData,
@@ -26,11 +26,4 @@ export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSit
                 ? formData.antallDagerBruktEtter1Juli
                 : undefined,
     };
-};
-
-export const mapFormDataToApiData = (formData: SoknadFormData): Partial<SoknadApiData> => {
-    const apiData: Partial<SoknadApiData> = {
-        ...mapDinSituasjonToApiData(formData),
-    };
-    return apiData;
 };

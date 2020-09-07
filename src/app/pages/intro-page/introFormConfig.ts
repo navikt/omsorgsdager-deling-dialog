@@ -1,6 +1,6 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { QuestionConfig, Questions } from '@navikt/sif-common-question-config/lib';
-import { yesOrNoIsAnswered } from '../../utils/yesOrNoUtils';
+import { yesOrNoIsAnswered } from '../../../common/utils/yesOrNoUtils';
 
 export enum IntroFormField {
     'erArbeidstakerSnEllerFrilanser' = 'erArbeidstakerSnEllerFrilanser',

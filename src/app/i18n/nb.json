@@ -1,5 +1,5 @@
 {
-    "application.title": "Overføre omsorgsdager",
+    "application.title": "Overføring av omsorgsdager",
 
     "application.loadError.title": "Noe gikk galt ...",
     "application.loadError.message": "Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.",
@@ -29,7 +29,7 @@
     "step.omsorgsdager.nextButtonLabel": "Fortsett",
 
     "step.mottaker.pageTitle": "Mottaker",
-    "step.mottaker.stepTitle": "Mottaker",
+    "step.mottaker.stepTitle": "Hvem skal du overføre dager til?",
     "step.mottaker.nextButtonLabel": "Fortsett",
 
     "step.oppsummering.pageTitle": "Oppsummering",
@@ -49,11 +49,19 @@
     "samtykke.harForståttLabel": "For å gå videre med søknaden må du bekrefte at du har lest og forstått {plikterLink}.",
     "samtykke.harForståttLabel.lenketekst": "dine plikter",
     "fieldvalidation.samtykkeErPåkrevd": "Du må bekrefte at du har lest og forstått dine plikter",
+    "fieldvalidation.mottakersFnrErSøkersFnr": "Du har tastet inn ditt eget fødselsnummer",
 
     "step.din_situasjon.veileder.intro": "For å ha rett på å overføre dager må du være yrkesaktiv, og bo i Norge. Det vil si.... Gjenbruke tekst fra overføring av korona dager.",
     "step.din_situasjon.form.borINorge.spm": "Bor du i Norge?",
     "step.din_situasjon.form.arbeiderINorge.spm": "Arbeider du i Norge?",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
     "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
-    "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange dager har du brukt etter 1. juli 2020?"
+    "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange dager har du brukt etter 1. juli 2020?",
+
+    "step.mottaker.veileder.intro": "Introduksjonstekst ...",
+    "step.mottaker.form.overføreTilEktefelle.spm": "Skal du overføre dager til en ny ektefelle?",
+    "step.mottaker.form.overføreTilPartner.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
+    "step.mottaker.form.fnr.spm": "Hva er fødselsnummeret til den du skal overføre omsorgsdager til?",
+    "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til?",
+    "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange dager vil du overføre? Du kan maksimalt overføre 10 dager."
 }

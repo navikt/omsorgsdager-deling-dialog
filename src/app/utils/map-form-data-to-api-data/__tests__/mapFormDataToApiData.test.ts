@@ -1,7 +1,7 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { Arbeidssituasjon, SoknadFormField } from '../../types/SoknadFormData';
-import { jsonSort } from '../jsonSort';
-import { DinSituasjonApiData, DinSituasjonFormData, mapDinSituasjonToApiData } from '../mapFormDataToApiData';
+import { jsonSort } from '../../../../common/utils/jsonSort';
+import { Arbeidssituasjon, SoknadFormField } from '../../../types/SoknadFormData';
+import { DinSituasjonFormData, DinSituasjonApiData, mapDinSituasjonToApiData } from '../mapDinSituasjonToApiData';
 
 describe('mapFormDataToApiData', () => {
     describe('mapDinSituasjonToApiData', () => {

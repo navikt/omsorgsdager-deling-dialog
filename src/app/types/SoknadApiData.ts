@@ -31,9 +31,9 @@ export interface SoknadApiData {
     antallDagerHarBruktEtter1Juli?: number;
     harDeltDagerMedAndreTidligere: boolean;
     antallDagerHarDeltMedAndre: number;
-    overforeTilType: Mottaker;
-    fnrMottaker: string;
-    navnMottaker: string;
-    antallDagerTilOverfore: number;
+    mottakerType: Mottaker;
+    mottakerFnr: string;
+    mottakerNavn: string;
+    antallDagerSomSkalOverføres: number;
     harBekreftetMottakerOpplysninger: boolean;
 }
