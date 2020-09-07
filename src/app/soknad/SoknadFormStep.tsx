@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
@@ -62,11 +62,11 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
                 fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
                 {children}
                 {showSubmitButton && (
-                    <FormBlock>
+                    <Box textAlignCenter={true} margin="xl">
                         <StepSubmitButton disabled={buttonDisabled} showSpinner={showButtonSpinner}>
                             {texts.nextButtonLabel}
                         </StepSubmitButton>
-                    </FormBlock>
+                    </Box>
                 )}
             </SoknadFormComponents.Form>
         </Step>
