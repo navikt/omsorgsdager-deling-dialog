@@ -83,6 +83,8 @@ const renderSoknadStep = (
         case StepID.OPPSUMMERING:
             return (
                 <OppsummeringStep
+                    søker={søker}
+                    barn={barn}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}

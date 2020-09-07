@@ -20,7 +20,7 @@ export interface SoknadApiData {
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
-    andreBarn: AndreBarnApiData[];
+    andreBarn?: AndreBarnApiData[];
     harAleneomsorg: boolean;
     harAleneomsorgFor: Array<BarnApiData | AndreBarnApiData>;
     harUtvidetRett: boolean;

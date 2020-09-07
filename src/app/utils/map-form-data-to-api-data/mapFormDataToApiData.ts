@@ -3,9 +3,12 @@ import { SoknadFormData } from '../../types/SoknadFormData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
 
-export const mapFormDataToApiData = (formData: SoknadFormData): Partial<SoknadApiData> | undefined => {
+export const mapFormDataToApiData = (locale = 'nb', formData: SoknadFormData): Partial<SoknadApiData> | undefined => {
     try {
         const apiData: Partial<SoknadApiData> = {
+            språk: locale === 'en' ? 'nn' : 'nb',
+            harBekreftetOpplysninger: formData.harBekreftetMottakerOpplysninger,
+            harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,
             ...mapDinSituasjonToApiData(formData),
             ...mapMottakerToApiData(formData),
         };

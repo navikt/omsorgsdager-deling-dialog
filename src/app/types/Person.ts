@@ -4,6 +4,5 @@ export interface Person {
     mellomnavn?: string;
     kjønn: string;
     fødselsnummer: string;
-    kontonummer: string;
     myndig: boolean;
 }

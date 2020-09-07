@@ -16,6 +16,7 @@ interface OwnProps {
     onStepCleanup?: (values: SoknadFormData) => SoknadFormData;
     showSubmitButton?: boolean;
     showButtonSpinner?: boolean;
+    includeValidationSummary?: boolean;
     buttonDisabled?: boolean;
     children: React.ReactNode;
 }
@@ -31,6 +32,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
     children,
     showButtonSpinner,
     showSubmitButton = true,
+    includeValidationSummary = true,
     buttonDisabled,
 }: Props) => {
     const handleAvbrytOgSlettSøknad = () => {
@@ -56,7 +58,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             <SoknadFormComponents.Form
                 onValidSubmit={onValidSubmit}
                 includeButtons={false}
-                includeValidationSummary={true}
+                includeValidationSummary={includeValidationSummary}
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
                 fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
