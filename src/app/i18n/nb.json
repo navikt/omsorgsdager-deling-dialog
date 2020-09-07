@@ -10,6 +10,11 @@
     "step.dine-barn.pageTitle": "Dine barn",
     "step.dine-barn.stepTitle": "Dine barn",
     "step.dine-barn.nextButtonLabel": "Fortsett",
+    "step.dine-barn.info1": "For å vite hvor mange dager du har rett på trenger vi opplysninger om alle dine barn. Det er kun barn under 18 år som vises her..",
+    "step.dine-barn.info.ingenbarn": "Vi fant ingen barn registrert på deg. Hvis du har fosterbarn kan du legge til barnet selv/Du kan registrere barn selv ved å oppgi navn og fødselsnummer på barnet. Si noe om de som har fylt 18 år. ",
+    "step.dine-barn.info.spm1": "Har du andre barn?",
+    "step.dine-barn.info.spm2": "Har du flere barn?",
+    "step.dine-barn.info.spm.text": "Hvis du har flere barn som vi ikke har registrert på deg kan du legge inn disse selv ved å oppgi navn og fødselsnummer. Dette kan for eksempel være fosterbarn. Hvis du har et barn som er 18 år og som har utvidet rett må du legge til det.",
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
