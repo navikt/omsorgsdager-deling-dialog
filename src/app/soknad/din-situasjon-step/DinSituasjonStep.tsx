@@ -12,6 +12,7 @@ import {
 import { useFormikContext } from 'formik';
 import FormQuestion from '../../../common/form-question/FormQuestion';
 import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { DinSituasjonFormData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
 import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
@@ -26,9 +27,9 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const DinSituasjon = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepConfigProps) => {
+const DinSituasjonStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepConfigProps) => {
     const intl = useIntl();
-    const { values } = useFormikContext<SoknadFormData>();
+    const { values } = useFormikContext<DinSituasjonFormData>();
     const { harBruktOmsorgsdagerEtter1Juli } = values;
     const stepId = StepID.DIN_SITUASJON;
 
@@ -50,7 +51,7 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepC
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
                 validate={validateYesOrNoIsAnswered}
-                showStop={kanFortsette === false}
+                showStop={arbeiderINorge === YesOrNo.NO}
                 stopMessage="For å overføre dager ..."
             />
             {kanFortsette === true && (
@@ -95,4 +96,4 @@ const DinSituasjon = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepC
     );
 };
 
-export default DinSituasjon;
+export default DinSituasjonStep;

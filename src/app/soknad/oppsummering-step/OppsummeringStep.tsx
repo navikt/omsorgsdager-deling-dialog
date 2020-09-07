@@ -4,7 +4,7 @@ import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 import { useFormikContext } from 'formik';
 import { SoknadFormData } from '../../types/SoknadFormData';
-import { mapFormDataToApiData } from '../../utils/mapFormDataToApiData';
+import { mapFormDataToApiData } from '../../utils/map-form-data-to-api-data/mapFormDataToApiData';
 
 const OppsummeringStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepConfigProps) => {
     const { values } = useFormikContext<SoknadFormData>();
