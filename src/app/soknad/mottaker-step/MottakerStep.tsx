@@ -7,7 +7,7 @@ import {
     validateYesOrNoIsAnswered,
     validateFødselsnummer,
     validateRequiredField,
-    validateRequiredSelect,
+    validateRequiredNumber,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
 import { SoknadFormField, SoknadFormData } from '../../types/SoknadFormData';
@@ -104,7 +104,7 @@ const MottakerStep = ({ søker, onResetSoknad, onValidSubmit, soknadStepsConfig 
                         <SoknadFormComponents.Select
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={validateRequiredSelect}
+                            validate={validateAll([validateRequiredNumber({ min: 1, max: 10 })])}
                             bredde="s">
                             {getAntallDagerOptions(intl)}
                         </SoknadFormComponents.Select>
