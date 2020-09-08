@@ -5,35 +5,35 @@ import { yesOrNoIsAnswered } from '../../../common/utils/yesOrNoUtils';
 export enum IntroFormField {
     'erArbeidstakerSnEllerFrilanser' = 'erArbeidstakerSnEllerFrilanser',
     'harAleneomsorg' = 'harAleneomsorg',
-    'mottakerErEktefelleEllerPartner' = 'mottakerErEktefelleEllerPartner',
+    'mottakerErIkkeEktefelleEllerSamboer' = 'mottakerErEktefelleEllerSamboer',
     'mottakersArbeidssituasjonErOk' = 'mottakersArbeidssituasjonErOk',
 }
 
 export interface IntroFormData {
     [IntroFormField.erArbeidstakerSnEllerFrilanser]: YesOrNo;
     [IntroFormField.harAleneomsorg]: YesOrNo;
-    [IntroFormField.mottakerErEktefelleEllerPartner]: YesOrNo;
+    [IntroFormField.mottakerErIkkeEktefelleEllerSamboer]: YesOrNo;
     [IntroFormField.mottakersArbeidssituasjonErOk]: YesOrNo;
 }
 
 export const introFormInitialValues: Partial<IntroFormData> = {
     [IntroFormField.erArbeidstakerSnEllerFrilanser]: YesOrNo.UNANSWERED,
     [IntroFormField.harAleneomsorg]: YesOrNo.UNANSWERED,
-    [IntroFormField.mottakerErEktefelleEllerPartner]: YesOrNo.UNANSWERED,
+    [IntroFormField.mottakerErIkkeEktefelleEllerSamboer]: YesOrNo.UNANSWERED,
     [IntroFormField.mottakersArbeidssituasjonErOk]: YesOrNo.UNANSWERED,
 };
 
 export enum IntroFormAvslag {
     erIkkeArbeidstakerSnEllerFrilanser = 'erIkkeArbeidstakerSnEllerFrilanser',
     harIkkeAleneomsorg = 'harIkkeAleneomsorg',
-    mottakerErIkkeEktefelleEllerPartner = 'mottakerErIkkeEktefelleEllerPartner',
+    mottakerErIkkeEktefelleEllerSamboer = 'mottakerErIkkeEktefelleEllerSamboer',
     mottakersArbeidssituasjonErIkkeOk = 'mottakersArbeidssituasjonErIkkeOk',
 }
 
 export const getIntroFormAvslag = ({
     erArbeidstakerSnEllerFrilanser,
     harAleneomsorg,
-    mottakerErEktefelleEllerPartner,
+    mottakerErEktefelleEllerSamboer,
     mottakersArbeidssituasjonErOk,
 }: IntroFormData): IntroFormAvslag | undefined => {
     if (erArbeidstakerSnEllerFrilanser === YesOrNo.NO) {
@@ -42,8 +42,8 @@ export const getIntroFormAvslag = ({
     if (harAleneomsorg === YesOrNo.NO) {
         return IntroFormAvslag.harIkkeAleneomsorg;
     }
-    if (mottakerErEktefelleEllerPartner == YesOrNo.NO) {
-        return IntroFormAvslag.mottakerErIkkeEktefelleEllerPartner;
+    if (mottakerErEktefelleEllerSamboer == YesOrNo.NO) {
+        return IntroFormAvslag.mottakerErIkkeEktefelleEllerSamboer;
     }
     if (mottakersArbeidssituasjonErOk === YesOrNo.NO) {
         return IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk;
@@ -66,17 +66,17 @@ const IntroFormConfig: QuestionConfig<IntroFormQuestionsPayload, IntroFormField>
             avslag !== IntroFormAvslag.erIkkeArbeidstakerSnEllerFrilanser,
         isAnswered: ({ harAleneomsorg }) => yesOrNoIsAnswered(harAleneomsorg),
     },
-    [Q.mottakerErEktefelleEllerPartner]: {
+    [Q.mottakerErIkkeEktefelleEllerSamboer]: {
         parentQuestion: Q.harAleneomsorg,
         isIncluded: ({ harAleneomsorg, avslag }) =>
             yesOrNoIsAnswered(harAleneomsorg) && avslag !== IntroFormAvslag.harIkkeAleneomsorg,
-        isAnswered: ({ mottakerErEktefelleEllerPartner }) => yesOrNoIsAnswered(mottakerErEktefelleEllerPartner),
+        isAnswered: ({ mottakerErEktefelleEllerSamboer }) => yesOrNoIsAnswered(mottakerErEktefelleEllerSamboer),
     },
     [Q.mottakersArbeidssituasjonErOk]: {
-        parentQuestion: Q.mottakerErEktefelleEllerPartner,
-        isIncluded: ({ mottakerErEktefelleEllerPartner, avslag }) =>
-            yesOrNoIsAnswered(mottakerErEktefelleEllerPartner) &&
-            avslag !== IntroFormAvslag.mottakerErIkkeEktefelleEllerPartner,
+        parentQuestion: Q.mottakerErIkkeEktefelleEllerSamboer,
+        isIncluded: ({ mottakerErEktefelleEllerSamboer, avslag }) =>
+            yesOrNoIsAnswered(mottakerErEktefelleEllerSamboer) &&
+            avslag !== IntroFormAvslag.mottakerErIkkeEktefelleEllerSamboer,
         isAnswered: ({ mottakersArbeidssituasjonErOk }) => yesOrNoIsAnswered(mottakersArbeidssituasjonErOk),
     },
 };

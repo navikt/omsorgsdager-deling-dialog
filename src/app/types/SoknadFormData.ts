@@ -29,7 +29,7 @@ export enum SoknadFormField {
     harDeltDagerMedAndreTidligere = 'harDeltDagerMedAndreTidligere',
     antallDagerHarDeltMedAndre = 'antallDagerHarDeltMedAndre',
     overføreTilEktefelle = 'overføreTilEktefelle',
-    overføreTilPartner = 'overføreTilPartner',
+    overføreTilSamboer = 'overføreTilSamboer',
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
     antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
@@ -66,7 +66,7 @@ export interface SoknadFormData {
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo;
     [SoknadFormField.antallDagerHarDeltMedAndre]: number;
     [SoknadFormField.overføreTilEktefelle]: YesOrNo;
-    [SoknadFormField.overføreTilPartner]: YesOrNo;
+    [SoknadFormField.overføreTilSamboer]: YesOrNo;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
     [SoknadFormField.antallDagerSomSkalOverføres]: number;
@@ -87,7 +87,7 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo.UNANSWERED,
     [SoknadFormField.overføreTilEktefelle]: YesOrNo.UNANSWERED,
-    [SoknadFormField.overføreTilPartner]: YesOrNo.UNANSWERED,
+    [SoknadFormField.overføreTilSamboer]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
     [SoknadFormField.harBekreftetMottakerOpplysninger]: false,

@@ -5,7 +5,7 @@ import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 export type MottakerFormData = Pick<
     SoknadFormData,
     | SoknadFormField.overføreTilEktefelle
-    | SoknadFormField.overføreTilPartner
+    | SoknadFormField.overføreTilSamboer
     | SoknadFormField.fnrMottaker
     | SoknadFormField.navnMottaker
     | SoknadFormField.antallDagerSomSkalOverføres

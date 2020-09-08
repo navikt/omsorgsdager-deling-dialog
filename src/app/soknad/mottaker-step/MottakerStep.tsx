@@ -43,13 +43,13 @@ const MottakerStep = ({ søker, onResetSoknad, onValidSubmit, soknadStepsConfig 
     const intl = useIntl();
     const stepId = StepID.MOTTAKER;
     const { values } = useFormikContext<SoknadFormData>();
-    const { overføreTilEktefelle, overføreTilPartner } = values;
+    const { overføreTilEktefelle, overføreTilSamboer } = values;
 
     const kanFortsette =
         overføreTilEktefelle === YesOrNo.YES ||
-        (overføreTilPartner === YesOrNo.YES && overføreTilEktefelle === YesOrNo.NO);
+        (overføreTilSamboer === YesOrNo.YES && overføreTilEktefelle === YesOrNo.NO);
 
-    const kanIkkeFortsette = overføreTilEktefelle === YesOrNo.NO && overføreTilPartner === YesOrNo.NO;
+    const kanIkkeFortsette = overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer === YesOrNo.NO;
 
     return (
         <SoknadFormStep
@@ -72,8 +72,8 @@ const MottakerStep = ({ søker, onResetSoknad, onValidSubmit, soknadStepsConfig 
             {overføreTilEktefelle === YesOrNo.NO && (
                 <FormBlock>
                     <SoknadFormComponents.YesOrNoQuestion
-                        name={SoknadFormField.overføreTilPartner}
-                        legend={intlHelper(intl, 'step.mottaker.form.overføreTilPartner.spm')}
+                        name={SoknadFormField.overføreTilSamboer}
+                        legend={intlHelper(intl, 'step.mottaker.form.overføreTilSamboer.spm')}
                         validate={validateYesOrNoIsAnswered}
                     />
                 </FormBlock>

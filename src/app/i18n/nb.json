@@ -66,7 +66,7 @@
 
     "step.mottaker.veileder.intro": "Introduksjonstekst ...",
     "step.mottaker.form.overføreTilEktefelle.spm": "Skal du overføre dager til en ny ektefelle?",
-    "step.mottaker.form.overføreTilPartner.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
+    "step.mottaker.form.overføreTilSamboer.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
     "step.mottaker.form.fnr.spm": "Hva er fødselsnummeret til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange dager vil du overføre? Du kan maksimalt overføre 10 dager.",

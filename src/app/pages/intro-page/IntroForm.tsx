@@ -63,9 +63,9 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 stopMessage={<>Lorem ipsum</>}
                             />
                             <IntroFormQuestion
-                                name={IntroFormField.mottakerErEktefelleEllerPartner}
+                                name={IntroFormField.mottakerErIkkeEktefelleEllerSamboer}
                                 validate={validateYesOrNoIsAnswered}
-                                showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerPartner}
+                                showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerSamboer}
                                 stopMessage={<>Lorem ipsum</>}
                             />
                             <IntroFormQuestion
