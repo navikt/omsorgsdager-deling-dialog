@@ -11,7 +11,7 @@ import {
 import { Person } from '../types/Person';
 import StorageData from '../types/StorageData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
-import { navigateTo, navigateToSoknadFrontpage } from '../utils/navigationUtils';
+import { navigateTo, navigateToSoknadFrontpage, relocateToReceiptPage } from '../utils/navigationUtils';
 import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
@@ -84,6 +84,7 @@ const renderSoknadStep = (
         case StepID.OPPSUMMERING:
             return (
                 <OppsummeringStep
+                    onMeldingSent={() => relocateToReceiptPage()}
                     søker={søker}
                     barn={barn}
                     soknadStepsConfig={soknadStepsConfig}

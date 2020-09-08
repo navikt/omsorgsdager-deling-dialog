@@ -9,7 +9,6 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { getTypedFormComponents, FormikCheckboxPanelGroup, YesOrNo } from '@navikt/sif-common-formik/lib';
 import { SoknadFormField, SoknadFormData, Barn } from 'app/types/SoknadFormData';
 import { validateYesOrNoIsAnswered } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-//import { useFormikContext } from 'formik';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { useFormikContext } from 'formik';
