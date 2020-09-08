@@ -25,7 +25,7 @@ type Props = OwnProps & StepConfigProps;
 const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
-    const kanFortsette = barn.length !== undefined || values.andreBarn.length !== 0;
+    const kanFortsette = (barn !== undefined && barn.length > 0) || values.andreBarn.length > 0;
 
     return (
         <SoknadFormStep

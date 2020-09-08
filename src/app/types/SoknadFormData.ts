@@ -42,7 +42,6 @@ export interface Barn {
     etternavn: string;
     mellomnavn?: string;
     aktørId: string;
-    // fødselsdato?: Date;
     fødselsdato: Date;
 }
 
