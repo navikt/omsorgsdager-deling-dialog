@@ -19,28 +19,15 @@ import ItemList from '@navikt/sif-common-core/lib/components/item-list/ItemList'
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 
-interface Props {
-    //  registrerteBarn: Barn[] | undefined;
-    registrerteBarn: Barn[];
-}
-
-const DineBarnStep = ({
-    onResetSoknad,
-    onValidSubmit,
-    //config: soknadStepsConfig,
-    registrerteBarn,
-}: StepConfigProps & Props) => {
-    const intl = useIntl();
-    const { values } = useFormikContext<SoknadFormData>();
-import { Barn } from '../../types/SoknadFormData';
-
 interface OwnProps {
     barn: Barn[];
 }
 
 type Props = OwnProps & StepConfigProps;
 
-const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig }: Props) => {
+const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
+    const intl = useIntl();
+    const { values } = useFormikContext<SoknadFormData>();
     return (
         <SoknadFormStep
             id={StepID.DINE_BARN}
@@ -48,7 +35,7 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info1')}</CounsellorPanel>
-            {values.andreBarn === undefined && registrerteBarn.length === 0 && (
+            {values.andreBarn === undefined && barn.length === 0 && (
                 <Box margin="l">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
                 </Box>
@@ -63,17 +50,7 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
                         ' ' +
                         formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)
                     }
-                    items={registrerteBarn}
-                />
-            </Box>
-            <Box margin="l">
-                <AnnetBarnListAndDialog<SoknadFormField>
-                    name={SoknadFormField.andreBarn}
-                    labels={{
-                        addLabel: 'Legg til barn',
-                        listTitle: 'Registrerte barn',
-                        modalTitle: 'Legg til barn',
-                    }}
+                    items={barn}
                 />
             </Box>
             <Box margin="l">
@@ -85,6 +62,16 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
                     }>
                     {intlHelper(intl, 'step.dine-barn.info.spm.text')}
                 </ContentWithHeader>
+            </Box>
+            <Box margin="l">
+                <AnnetBarnListAndDialog<SoknadFormField>
+                    name={SoknadFormField.andreBarn}
+                    labels={{
+                        addLabel: 'Legg til barn',
+                        listTitle: 'Andre barn',
+                        modalTitle: 'Legg til barn',
+                    }}
+                />
             </Box>
         </SoknadFormStep>
     );

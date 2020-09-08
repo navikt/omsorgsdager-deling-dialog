@@ -18,6 +18,12 @@
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
+    "step.om-barna.info": "INFO",
+    "step.om-barna.info2": "Du får kun omsorgsdager for barn over 12 år dersom de har utvidet rett. Hvis du har et barn som er fylt 18 i dette kalenderåret og du har utvidet rett, må du legge det til...",
+    "step.om-barna.form.spm1": "Har du aleneomsrogen for ett eller flere barn?",
+    "step.om-barna.form.spm2": "Hvilke av barna har du aleneomsorgen for?",
+    "step.om-barna.form.spm3": "Har noen av barna utvidet rett? ",
+    "step.om-barna.form.spm4": "Hvilke av barna har utvidet rett? ",
     "step.om-barna.nextButtonLabel": "Fortsett",
 
     "step.din-situasjon.pageTitle": "Din situasjon",

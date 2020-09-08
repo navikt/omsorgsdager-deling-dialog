@@ -58,6 +58,7 @@ const renderSoknadStep = (
         case StepID.OM_BARNA:
             return (
                 <OmBarnaStep
+                    barn={barn}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.OM_BARNA, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
