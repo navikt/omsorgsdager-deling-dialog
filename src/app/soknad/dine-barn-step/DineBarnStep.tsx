@@ -5,9 +5,6 @@ import { StepID } from '../StepID';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
 import { useIntl } from 'react-intl';
-//import { validateRequiredList } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-//import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
-// import Panel from 'nav-frontend-paneler';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import ContentWithHeader from '@navikt/sif-common-core/lib/components/content-with-header/ContentWithHeader';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -28,13 +25,16 @@ type Props = OwnProps & StepConfigProps;
 const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
+    const kanFortsette = barn.length !== undefined || values.andreBarn.length !== 0;
+
     return (
         <SoknadFormStep
             id={StepID.DINE_BARN}
             soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
-            onValidSubmit={onValidSubmit}>
-            <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info1')}</CounsellorPanel>
+            onValidSubmit={onValidSubmit}
+            showSubmitButton={kanFortsette}>
+            <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
             {values.andreBarn === undefined && barn.length === 0 && (
                 <Box margin="l">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
@@ -45,7 +45,8 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
                     getItemId={(registrerteBarn) => registrerteBarn.aktørId}
                     getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
                     labelRenderer={(registrerteBarn) =>
-                        'Født ' +
+                        intlHelper(intl, 'step.dine-barn.født') +
+                        ' ' +
                         prettifyDate(registrerteBarn.fødselsdato) +
                         ' ' +
                         formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)
@@ -56,9 +57,9 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
             <Box margin="l">
                 <ContentWithHeader
                     header={
-                        values.andreBarn === undefined
-                            ? intlHelper(intl, 'step.dine-barn.info.spm1')
-                            : intlHelper(intl, 'step.dine-barn.info.spm2')
+                        values.andreBarn === undefined || values.andreBarn.length === 0
+                            ? intlHelper(intl, 'step.dine-barn.info.spm.andreBarn')
+                            : intlHelper(intl, 'step.dine-barn.info.spm.flereBarn')
                     }>
                     {intlHelper(intl, 'step.dine-barn.info.spm.text')}
                 </ContentWithHeader>

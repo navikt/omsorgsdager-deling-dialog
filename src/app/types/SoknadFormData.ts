@@ -51,9 +51,9 @@ export interface SoknadFormData {
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
     [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
-    [SoknadFormField.harAleneomsorgFor]: Array<Barn | AnnetBarn>;
+    [SoknadFormField.harAleneomsorgFor]: Array<string>;
     [SoknadFormField.harUtvidetRett]: YesOrNo;
-    [SoknadFormField.harUtvidetRettFor]: Array<Barn | AnnetBarn>;
+    [SoknadFormField.harUtvidetRettFor]: Array<string>;
     [SoknadFormField.borINorge]: YesOrNo;
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
