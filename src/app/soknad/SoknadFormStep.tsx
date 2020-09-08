@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import StepSubmitButton from '../../common/soknad-common/step-submit-button/StepSubmitButton';
@@ -16,6 +16,7 @@ interface OwnProps {
     onStepCleanup?: (values: SoknadFormData) => SoknadFormData;
     showSubmitButton?: boolean;
     showButtonSpinner?: boolean;
+    includeValidationSummary?: boolean;
     buttonDisabled?: boolean;
     children: React.ReactNode;
 }
@@ -31,6 +32,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
     children,
     showButtonSpinner,
     showSubmitButton = true,
+    includeValidationSummary = true,
     buttonDisabled,
 }: Props) => {
     const handleAvbrytOgSlettSøknad = () => {
@@ -56,17 +58,17 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             <SoknadFormComponents.Form
                 onValidSubmit={onValidSubmit}
                 includeButtons={false}
-                includeValidationSummary={true}
+                includeValidationSummary={includeValidationSummary}
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
                 fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
                 {children}
                 {showSubmitButton && (
-                    <FormBlock>
+                    <Box textAlignCenter={true} margin="xl">
                         <StepSubmitButton disabled={buttonDisabled} showSpinner={showButtonSpinner}>
                             {texts.nextButtonLabel}
                         </StepSubmitButton>
-                    </FormBlock>
+                    </Box>
                 )}
             </SoknadFormComponents.Form>
         </Step>

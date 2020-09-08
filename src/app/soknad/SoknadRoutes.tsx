@@ -16,7 +16,6 @@ import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
-import OmsorgsdagerStep from './omsorgsdager-step/OmsorgsdagerStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
@@ -41,6 +40,7 @@ const navigateToNextStepFromStep = (stepID: StepID, allSteps: SoknadStepsConfig<
 
 const renderSoknadStep = (
     barn: Barn[],
+    søker: Person,
     stepID: StepID,
     soknadStepsConfig: SoknadStepsConfig<StepID>,
     history: History
@@ -72,17 +72,10 @@ const renderSoknadStep = (
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
                 />
             );
-        case StepID.OMSORGSDAGER:
-            return (
-                <OmsorgsdagerStep
-                    soknadStepsConfig={soknadStepsConfig}
-                    onValidSubmit={() => navigateToNextStepFromStep(StepID.OMSORGSDAGER, soknadStepsConfig, history)}
-                    onResetSoknad={() => navigateToSoknadFrontpage(history)}
-                />
-            );
         case StepID.MOTTAKER:
             return (
                 <MottakerStep
+                    søker={søker}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => navigateToNextStepFromStep(StepID.MOTTAKER, soknadStepsConfig, history)}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
@@ -91,6 +84,8 @@ const renderSoknadStep = (
         case StepID.OPPSUMMERING:
             return (
                 <OppsummeringStep
+                    søker={søker}
+                    barn={barn}
                     soknadStepsConfig={soknadStepsConfig}
                     onValidSubmit={() => null}
                     onResetSoknad={() => navigateToSoknadFrontpage(history)}
@@ -124,7 +119,7 @@ const SoknadRoutes = ({ person, barn }: Props) => {
                         key={step}
                         path={stepConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(barn, step, stepConfig, history)}
+                        render={() => renderSoknadStep(barn, person, step, stepConfig, history)}
                     />
                 );
             })}

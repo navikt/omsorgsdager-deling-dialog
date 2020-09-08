@@ -20,20 +20,20 @@ export interface SoknadApiData {
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
-    andreBarn: AndreBarnApiData[];
+    andreBarn?: AndreBarnApiData[];
     harAleneomsorg: boolean;
     harAleneomsorgFor: Array<BarnApiData | AndreBarnApiData>;
     harUtvidetRett: boolean;
     harUtvidetRettFor: Array<BarnApiData | AndreBarnApiData>;
     borINorge: boolean;
-    arbeidINorge: boolean;
+    arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
-    antallDagerHarBruktEtter1Juli: number;
+    antallDagerHarBruktEtter1Juli?: number;
     harDeltDagerMedAndreTidligere: boolean;
     antallDagerHarDeltMedAndre: number;
-    overforeTilType: Mottaker;
-    fnrMottaker: string;
-    navnMottaker: string;
-    antallDagerTilOverfore: number;
+    mottakerType: Mottaker;
+    mottakerFnr: string;
+    mottakerNavn: string;
+    antallDagerSomSkalOverføres: number;
     harBekreftetMottakerOpplysninger: boolean;
 }

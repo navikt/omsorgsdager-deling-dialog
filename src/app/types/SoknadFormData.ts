@@ -29,7 +29,8 @@ export enum SoknadFormField {
     antallDagerBruktEtter1Juli = 'antallDagerBruktEtter1Juli',
     harDeltDagerMedAndreTidligere = 'harDeltDagerMedAndreTidligere',
     antallDagerHarDeltMedAndre = 'antallDagerHarDeltMedAndre',
-    overføreTilType = 'overføreTilType',
+    overføreTilEktefelle = 'overføreTilEktefelle',
+    overføreTilPartner = 'overføreTilPartner',
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
     antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
@@ -60,7 +61,8 @@ export interface SoknadFormData {
     [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo;
     [SoknadFormField.antallDagerHarDeltMedAndre]: number;
-    [SoknadFormField.overføreTilType]: Mottaker;
+    [SoknadFormField.overføreTilEktefelle]: YesOrNo;
+    [SoknadFormField.overføreTilPartner]: YesOrNo;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
     [SoknadFormField.antallDagerSomSkalOverføres]: number;
@@ -80,6 +82,8 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.arbeidssituasjon]: [],
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
     [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo.UNANSWERED,
+    [SoknadFormField.overføreTilEktefelle]: YesOrNo.UNANSWERED,
+    [SoknadFormField.overføreTilPartner]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
     [SoknadFormField.harBekreftetMottakerOpplysninger]: false,
