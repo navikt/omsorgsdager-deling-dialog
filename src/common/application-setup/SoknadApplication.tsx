@@ -11,7 +11,6 @@ import getSentryLoggerForApp from '@navikt/sif-common-sentry/lib';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { GlobalSoknadApplicationRoutes } from './SoknadApplicationCommonRoutes';
-import '@navikt/sif-common-core/lib/styles/globalStyles.less';
 
 interface AppStatusSanityConfig {
     projectId: string;

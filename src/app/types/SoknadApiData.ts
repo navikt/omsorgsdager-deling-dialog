@@ -28,7 +28,7 @@ export interface SoknadApiData {
     borINorge: boolean;
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
-    antallDagerHarBruktEtter1Juli?: number;
+    antallDagerBruktEtter1Juli?: number;
     harDeltDagerMedAndreTidligere: boolean;
     antallDagerHarDeltMedAndre: number;
     mottakerType: Mottaker;

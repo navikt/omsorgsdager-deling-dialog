@@ -16,7 +16,7 @@ describe('mapFormDataToApiData', () => {
             const expectedResult: DinSituasjonApiData = {
                 arbeiderINorge: true,
                 borINorge: true,
-                antallDagerHarBruktEtter1Juli: 5,
+                antallDagerBruktEtter1Juli: 5,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
             const result = mapDinSituasjonToApiData(mockData);

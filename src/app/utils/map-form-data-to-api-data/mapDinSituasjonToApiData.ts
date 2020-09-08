@@ -13,7 +13,7 @@ export type DinSituasjonFormData = Pick<
 
 export type DinSituasjonApiData = Pick<
     SoknadApiData,
-    'arbeiderINorge' | 'borINorge' | 'arbeidssituasjon' | 'antallDagerHarBruktEtter1Juli'
+    'arbeiderINorge' | 'borINorge' | 'arbeidssituasjon' | 'antallDagerBruktEtter1Juli'
 >;
 
 export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSituasjonApiData => {
@@ -21,7 +21,7 @@ export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSit
         arbeiderINorge: formData.arbeiderINorge === YesOrNo.YES,
         borINorge: formData.borINorge === YesOrNo.YES,
         arbeidssituasjon: formData.arbeidssituasjon,
-        antallDagerHarBruktEtter1Juli:
+        antallDagerBruktEtter1Juli:
             formData.harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES && formData.antallDagerBruktEtter1Juli !== undefined
                 ? formData.antallDagerBruktEtter1Juli
                 : undefined,

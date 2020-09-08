@@ -3,7 +3,7 @@ import { SoknadFormData } from '../../types/SoknadFormData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
 
-export const mapFormDataToApiData = (locale = 'nb', formData: SoknadFormData): Partial<SoknadApiData> | undefined => {
+export const mapFormDataToApiData = (locale = 'nb', formData: SoknadFormData): SoknadApiData | undefined => {
     try {
         const apiData: Partial<SoknadApiData> = {
             språk: locale === 'en' ? 'nn' : 'nb',
@@ -12,7 +12,7 @@ export const mapFormDataToApiData = (locale = 'nb', formData: SoknadFormData): P
             ...mapDinSituasjonToApiData(formData),
             ...mapMottakerToApiData(formData),
         };
-        return apiData;
+        return apiData as SoknadApiData; // Hack frem til vi har mappet all data
     } catch (error) {
         console.error('mapFormDataToApiData failed', error);
         return undefined;

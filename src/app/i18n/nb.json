@@ -10,6 +10,11 @@
     "arbeidssituasjon.selvstendigNæringsdrivende": "Selvstendig næringsdrivende",
     "arbeidssituasjon.frilanser": "Frilanser",
 
+    "mottaker.ektefelle": "ektefelle",
+    "mottaker.samboer": "samboer",
+
+    "Fødselsnummer": "Fødselsnummer",
+
     "backlink.label": "Tilbake",
 
     "step.dine-barn.pageTitle": "Dine barn",
@@ -65,6 +70,19 @@
     "step.mottaker.form.fnr.spm": "Hva er fødselsnummeret til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange dager vil du overføre? Du kan maksimalt overføre 10 dager.",
+
+    "step.oppsummering.dinSituasjon.header": "Din situasjon",
+    "step.oppsummering.dinSituasjon.arbeiderINorge": "Arbeider du i Norge?",
+    "step.oppsummering.dinSituasjon.borINorge": "Bor du i Norge?",
+    "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
+    "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
+
+    "step.oppsummering.mottaker.header": "Mottaker",
+    "step.oppsummering.mottaker.type": "Hvem skal du overføre dager til?",
+    "step.oppsummering.mottaker.navn": "Navn",
+    "step.oppsummering.mottaker.fnr": "Fødselsnummer",
+    "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange dager vil du overføre?",
 
     "step.oppsummering.bekrefterOpplysninger": "Jeg bekrefter at opplysningene jeg har gitt er riktige, og at jeg ikke har holdt tilbake opplysninger som har betydning for min rett til denne kompensasjonen."
 }
