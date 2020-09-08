@@ -19,10 +19,22 @@
 
     "step.dine-barn.pageTitle": "Dine barn",
     "step.dine-barn.stepTitle": "Dine barn",
+    "step.dine-barn.født": "Født",
     "step.dine-barn.nextButtonLabel": "Fortsett",
+    "step.dine-barn.info": "For å vite hvor mange dager du har rett på trenger vi opplysninger om alle dine barn. Det er kun barn under 18 år som vises her..",
+    "step.dine-barn.info.ingenbarn": "Vi fant ingen barn registrert på deg. Hvis du har fosterbarn kan du legge til barnet selv/Du kan registrere barn selv ved å oppgi navn og fødselsnummer på barnet. Si noe om de som har fylt 18 år. ",
+    "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
+    "step.dine-barn.info.spm.flereBarn": "Har du flere barn?",
+    "step.dine-barn.info.spm.text": "Hvis du har flere barn som vi ikke har registrert på deg kan du legge inn disse selv ved å oppgi navn og fødselsnummer. Dette kan for eksempel være fosterbarn. Hvis du har et barn som er 18 år og som har utvidet rett må du legge til det.",
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
+    "step.om-barna.info": "INFO",
+    "step.om-barna.info2": "Du får kun omsorgsdager for barn over 12 år dersom de har utvidet rett. Hvis du har et barn som er fylt 18 i dette kalenderåret og du har utvidet rett, må du legge det til...",
+    "step.om-barna.form.spm1": "Har du aleneomsrogen for ett eller flere barn?",
+    "step.om-barna.form.spm2": "Hvilke av barna har du aleneomsorgen for?",
+    "step.om-barna.form.spm3": "Har noen av barna utvidet rett? ",
+    "step.om-barna.form.spm4": "Hvilke av barna har utvidet rett? ",
     "step.om-barna.nextButtonLabel": "Fortsett",
 
     "step.din-situasjon.pageTitle": "Din situasjon",

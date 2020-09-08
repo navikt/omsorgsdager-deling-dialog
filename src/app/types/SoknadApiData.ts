@@ -3,8 +3,9 @@ import { Arbeidssituasjon, Mottaker } from './SoknadFormData';
 import { ApiStringDate } from '@navikt/sif-common-core/lib/types/ApiStringDate';
 
 export interface AndreBarnApiData {
+    id?: string;
     fnr: string;
-    ingenFnr: boolean;
+    fødselsdato: Date;
     navn: string;
 }
 

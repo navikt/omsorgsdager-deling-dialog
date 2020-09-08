@@ -1,4 +1,5 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 
 export enum Arbeidssituasjon {
     'arbeidstaker' = 'arbeidstaker',
@@ -36,12 +37,6 @@ export enum SoknadFormField {
     harBekreftetMottakerOpplysninger = 'harBekreftetMottakerOpplysninger',
 }
 
-export interface AndreBarn {
-    fnr: string;
-    ingenFnr: boolean;
-    navn: string;
-}
-
 export interface Barn {
     fornavn: string;
     etternavn: string;
@@ -53,11 +48,11 @@ export interface Barn {
 export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
-    [SoknadFormField.andreBarn]: AndreBarn[];
+    [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
-    [SoknadFormField.harAleneomsorgFor]: Array<Barn | AndreBarn>;
+    [SoknadFormField.harAleneomsorgFor]: Array<string>;
     [SoknadFormField.harUtvidetRett]: YesOrNo;
-    [SoknadFormField.harUtvidetRettFor]: Array<Barn | AndreBarn>;
+    [SoknadFormField.harUtvidetRettFor]: Array<string>;
     [SoknadFormField.borINorge]: YesOrNo;
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];

@@ -1,5 +1,6 @@
 import { MessageFileFormat } from '@navikt/sif-common-core/lib/dev-utils/intl/devIntlUtils';
 import { allCommonMessages } from '@navikt/sif-common-core/lib/i18n/allCommonMessages';
+import annetBarnMessages from '@navikt/sif-common-forms/lib/annet-barn/annetBarnMessages';
 
 const appMessagesNB = require('./nb.json');
 const introFormMessagesNB = require('../pages/intro-page/introFormMessagesNB.json');
@@ -12,9 +13,11 @@ const bokmålstekster = {
     ...introFormMessagesNB,
     ...dinePlikterNB,
     ...personopplysningerNB,
+    ...annetBarnMessages.nb,
 };
 const nynorsktekster = {
     ...allCommonMessages.nn,
+    ...annetBarnMessages.nn,
 };
 
 export const applicationIntlMessages: MessageFileFormat = {
