@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import Guide from '@navikt/sif-common-core/lib/components/guide/Guide';
 import ResponsivePanel from '@navikt/sif-common-core/lib/components/responsive-panel/ResponsivePanel';
 import VeilederSVG from '@navikt/sif-common-core/lib/components/veileder-svg/VeilederSVG';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import { useFormikContext } from 'formik';
-import FødselsnummerSvar from '../../../common/summary/FødselsnummerSvar';
 import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
 import { Arbeidssituasjon, Barn, Mottaker, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
@@ -19,6 +17,7 @@ import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
+import SøkerSummary from './SøkerSummary';
 
 type Props = StepConfigProps & {
     søker: Person;
@@ -87,18 +86,9 @@ const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, barn }: Pr
                     <>
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
-                                <Box margin="l">
-                                    <strong>{formatName(søker.fornavn, søker.etternavn, søker.mellomnavn)}</strong>
-                                    <br />
-                                    <FormattedMessage id="Fødselsnummer" />:{' '}
-                                    <FødselsnummerSvar fødselsnummer={søker.fødselsnummer} />
-                                </Box>
-                                <Box margin="xl">
-                                    <DinSituasjonSummary apiValues={apiValues} />
-                                </Box>
-                                <Box margin="xl">
-                                    <MottakerSummary apiValues={apiValues} />
-                                </Box>
+                                <SøkerSummary søker={søker} />
+                                <DinSituasjonSummary apiValues={apiValues} />
+                                <MottakerSummary apiValues={apiValues} />
                             </ResponsivePanel>
                         </Box>
 

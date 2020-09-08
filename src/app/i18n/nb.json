@@ -71,6 +71,8 @@
     "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange dager vil du overføre? Du kan maksimalt overføre 10 dager.",
 
+    "step.oppsummering.søker.header": "Søker",
+
     "step.oppsummering.dinSituasjon.header": "Din situasjon",
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Arbeider du i Norge?",
     "step.oppsummering.dinSituasjon.borINorge": "Bor du i Norge?",
