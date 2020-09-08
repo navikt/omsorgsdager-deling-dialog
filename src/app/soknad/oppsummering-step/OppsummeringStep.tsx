@@ -59,7 +59,7 @@ interface SendSoknadStatus {
     showErrorMessage: boolean;
 }
 
-const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, onMeldingSent }: Props) => {
+const OppsummeringStep = ({ søker, onMeldingSent, ...restProps }: Props) => {
     const intl = useIntl();
     const history = useHistory();
     const [sendStatus, setSendSoknadStatus] = useState<SendSoknadStatus>({
@@ -100,8 +100,7 @@ const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, onMeldingS
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
-            soknadStepsConfig={soknadStepsConfig}
-            onResetSoknad={onResetSoknad}
+            {...restProps}
             includeValidationSummary={false}
             showButtonSpinner={sendingInProgress}
             buttonDisabled={sendingInProgress}
