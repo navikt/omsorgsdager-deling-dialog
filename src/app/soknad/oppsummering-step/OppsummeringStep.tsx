@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useHistory } from 'react-router-dom';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
+import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import Guide from '@navikt/sif-common-core/lib/components/guide/Guide';
 import ResponsivePanel from '@navikt/sif-common-core/lib/components/responsive-panel/ResponsivePanel';
 import VeilederSVG from '@navikt/sif-common-core/lib/components/veileder-svg/VeilederSVG';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { useFormikContext } from 'formik';
+import debounce from 'lodash.debounce';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { sendMelding } from '../../api/sendMelding';
 import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
 import { Arbeidssituasjon, Barn, Mottaker, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { mapFormDataToApiData } from '../../utils/map-form-data-to-api-data/mapFormDataToApiData';
+import { navigateToErrorPage, relocateToLoginPage } from '../../utils/navigationUtils';
 import { validateBekrefterOpplysninger } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
@@ -22,6 +29,7 @@ import SøkerSummary from './SøkerSummary';
 type Props = StepConfigProps & {
     søker: Person;
     barn?: Barn[];
+    onMeldingSent: (apiValues: SoknadApiData) => void;
 };
 
 const mockApiValues: SoknadApiData = {
@@ -46,37 +54,66 @@ const mockApiValues: SoknadApiData = {
     andreBarn: [],
 };
 
-const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, barn }: Props) => {
-    const [sendingInProgress, setSendingInProgress] = useState(false);
+interface SendSoknadStatus {
+    sendCounter: number;
+    showErrorMessage: boolean;
+}
+
+const OppsummeringStep = ({ søker, onMeldingSent, ...formStepProps }: Props) => {
     const intl = useIntl();
+    const history = useHistory();
+    const [sendStatus, setSendSoknadStatus] = useState<SendSoknadStatus>({
+        sendCounter: 0,
+        showErrorMessage: false,
+    });
+    const [sendingInProgress, setSendingInProgress] = useState(false);
     const { values } = useFormikContext<SoknadFormData>();
     const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values);
-    const hasValidApiData = true;
 
-    const triggerSend = (values: Partial<SoknadApiData>) => {
-        console.log('sending', values);
-    };
+    async function send(data: SoknadApiData) {
+        const sendCounter = sendStatus.sendCounter + 1;
+        try {
+            setSendSoknadStatus({ sendCounter, showErrorMessage: false });
+            await sendMelding(data);
+            onMeldingSent(data);
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                relocateToLoginPage();
+            } else {
+                if (sendCounter === 3) {
+                    navigateToErrorPage(history);
+                } else {
+                    setSendSoknadStatus({
+                        sendCounter,
+                        showErrorMessage: true,
+                    });
+                    setSendingInProgress(false);
+                }
+            }
+        }
+    }
+
+    const triggerSend = debounce(send, 250); // Prevent double
 
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
-            soknadStepsConfig={soknadStepsConfig}
-            onResetSoknad={onResetSoknad}
+            {...formStepProps}
             includeValidationSummary={false}
             showButtonSpinner={sendingInProgress}
             buttonDisabled={sendingInProgress}
             onValidSubmit={() => {
                 if (apiValues) {
+                    // Allow formik to complete its process
                     setTimeout(() => {
                         setSendingInProgress(true);
+                        // Allow view to update
                         setTimeout(() => {
-                            // Wait to prevent double click send
                             triggerSend(apiValues);
-                        });
+                        }, 0);
                     });
                 }
-            }}
-            showSubmitButton={hasValidApiData}>
+            }}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     Info
@@ -102,6 +139,20 @@ const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, barn }: Pr
                     </>
                 )}
             </Box>
+            {sendStatus.showErrorMessage && sendingInProgress === false && (
+                <FormBlock>
+                    {sendStatus.sendCounter === 1 && (
+                        <AlertStripeFeil>
+                            <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.førsteGang" />
+                        </AlertStripeFeil>
+                    )}
+                    {sendStatus.sendCounter === 2 && (
+                        <AlertStripeFeil>
+                            <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.andreGang" />
+                        </AlertStripeFeil>
+                    )}
+                </FormBlock>
+            )}
         </SoknadFormStep>
     );
 };

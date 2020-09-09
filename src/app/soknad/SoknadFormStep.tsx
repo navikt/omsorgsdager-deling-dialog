@@ -25,8 +25,9 @@ type Props = OwnProps & StepConfigProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    soknadStepsConfig: allStepsConfig,
+    soknadStepsConfig,
     onResetSoknad,
+    onContinueLater,
     onStepCleanup,
     onValidSubmit,
     children,
@@ -35,15 +36,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
     includeValidationSummary = true,
     buttonDisabled,
 }: Props) => {
-    const handleAvbrytOgSlettSøknad = () => {
-        onResetSoknad();
-    };
-
-    // const handleAvbrytOgFortsettSenere = () => {
-    //     onResetSoknad();
-    // };
-
-    const stepConfig = allStepsConfig[id];
+    const stepConfig = soknadStepsConfig[id];
     const intl = useIntl();
     const texts = getStepTexts(intl, stepConfig);
     return (
@@ -52,9 +45,10 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             stepTitle={texts.stepTitle}
             pageTitle={texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}
-            steps={getStepsFromConfig(allStepsConfig, intl)}
+            steps={getStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}
-            onCancel={handleAvbrytOgSlettSøknad}>
+            onCancel={onResetSoknad}
+            onContinueLater={onContinueLater ? () => onContinueLater(id) : undefined}>
             <SoknadFormComponents.Form
                 onValidSubmit={onValidSubmit}
                 includeButtons={false}

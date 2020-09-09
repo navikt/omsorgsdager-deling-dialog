@@ -5,4 +5,5 @@ export interface StepConfigProps {
     soknadStepsConfig: SoknadStepsConfig<StepID>;
     onValidSubmit: () => void;
     onResetSoknad: () => void;
+    onContinueLater?: (stepId: StepID) => void;
 }

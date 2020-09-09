@@ -37,6 +37,7 @@
         "@navikt/sif-common-sentry": "0.0.11",
         "@sentry/browser": "^5.22.3",
         "@testing-library/react": "^10.4.8",
+        "@types/lodash.delay": "^4.1.6",
         "axios": "^0.19.2",
         "busboy": "^0.3.0",
         "classnames": "^2.2.6",
