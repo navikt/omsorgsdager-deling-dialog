@@ -27,12 +27,21 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
         setInitialFormData({ ...initialSoknadFormData });
-        if (redirectToFrontpage && location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
-            relocateToSoknad();
-            setInitializing(false);
-        } else {
-            setInitializing(false);
+        if (redirectToFrontpage) {
+            if (location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
+                relocateToSoknad();
+                setInitializing(false);
+            } else {
+                setInitializing(false);
+            }
         }
+    };
+
+    const startSoknad = async () => {
+        await resetSoknad();
+        setTimeout(() => {
+            navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+        });
     };
 
     const continueLater = async (stepID: StepID, values: SoknadFormData) => {
@@ -65,6 +74,10 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         return <LoadingPage />;
     }
 
+    if (søker.myndig === false) {
+        return <div>Ikke myndig</div>;
+    }
+
     return (
         <SoknadFormComponents.FormikWrapper
             initialValues={initialFormData}
@@ -74,6 +87,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                     <SoknadRoutes
                         søker={søker}
                         barn={barn}
+                        onStartSoknad={startSoknad}
                         onResetSoknad={resetSoknad}
                         onContinueLater={(stepId) => continueLater(stepId, values)}
                     />

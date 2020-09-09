@@ -3,7 +3,6 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import {
     getSoknadRootRoute,
-    getSoknadStepRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
 } from '../../common/soknad-common/stepConfigUtils';
@@ -23,21 +22,18 @@ import VelkommenPage from './velkommen-page/VelkommenPage';
 interface Props {
     barn: Barn[];
     søker: Person;
+    onStartSoknad: () => void;
     onResetSoknad: () => void;
     onContinueLater?: (stepID: StepID) => void;
 }
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({ søker, barn, onResetSoknad, onContinueLater }: Props) => {
+const SoknadRoutes = ({ søker, barn, onStartSoknad, onResetSoknad, onContinueLater }: Props) => {
     const history = useHistory();
     const { values } = useFormikContext<SoknadFormData>();
     const soknadStepsConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
     const availableSteps = Object.keys(soknadStepsConfig) as Array<StepID>;
-
-    if (!søker.myndig) {
-        return <div>Ikke myndig</div>;
-    }
 
     const navigateToNextStepFromStep = (stepID: StepID) => {
         const stepToPersist = soknadStepsConfig[stepID].nextStep;
@@ -106,13 +102,6 @@ const SoknadRoutes = ({ søker, barn, onResetSoknad, onContinueLater }: Props) =
                     />
                 );
         }
-    };
-
-    const onStartSoknad = () => {
-        soknadTempStorage.persist(values, StepID.DINE_BARN, { søker, barn });
-        setTimeout(() => {
-            navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
-        });
     };
 
     return (
