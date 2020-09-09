@@ -15,6 +15,8 @@ import { SoknadFormData } from '../../types/SoknadFormData';
 import ItemList from '@navikt/sif-common-core/lib/components/item-list/ItemList';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
+import { nYearsAgo } from '../../utils/aldersUtils';
+import { dateToday } from '@navikt/sif-common-core/lib/utils/dateUtils';
 
 interface OwnProps {
     barn: Barn[];
@@ -25,6 +27,7 @@ type Props = OwnProps & StepConfigProps;
 const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
+
     const kanFortsette = (barn !== undefined && barn.length > 0) || values.andreBarn.length > 0;
 
     return (
@@ -35,25 +38,29 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
             onValidSubmit={onValidSubmit}
             showSubmitButton={kanFortsette}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
-            {values.andreBarn === undefined && barn.length === 0 && (
+            {values.andreBarn.length > 0 && barn.length > 0 && (
                 <Box margin="l">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
                 </Box>
             )}
-            <Box margin="l">
-                <ItemList<Barn>
-                    getItemId={(registrerteBarn) => registrerteBarn.aktørId}
-                    getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
-                    labelRenderer={(registrerteBarn) =>
-                        intlHelper(intl, 'step.dine-barn.født') +
-                        ' ' +
-                        prettifyDate(registrerteBarn.fødselsdato) +
-                        ' ' +
-                        formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)
-                    }
-                    items={barn}
-                />
-            </Box>
+            {barn.length > 0 && (
+                <Box margin="l">
+                    <ContentWithHeader header={intlHelper(intl, 'step.dine-barn.listHeader.registrerteBarn')}>
+                        <ItemList<Barn>
+                            getItemId={(registrerteBarn) => registrerteBarn.aktørId}
+                            getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
+                            labelRenderer={(registrerteBarn) =>
+                                intlHelper(intl, 'step.dine-barn.født') +
+                                ' ' +
+                                prettifyDate(registrerteBarn.fødselsdato) +
+                                ' ' +
+                                formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)
+                            }
+                            items={barn}
+                        />
+                    </ContentWithHeader>
+                </Box>
+            )}
             <Box margin="l">
                 <ContentWithHeader
                     header={
@@ -72,6 +79,8 @@ const DineBarnStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadS
                         listTitle: 'Andre barn',
                         modalTitle: 'Legg til barn',
                     }}
+                    maxDate={dateToday}
+                    minDate={nYearsAgo(18)}
                 />
             </Box>
         </SoknadFormStep>
