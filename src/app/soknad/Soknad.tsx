@@ -30,7 +30,7 @@ const Soknad = () => {
                 />
             )}
             success={([person, barn, mellomlagring]) => {
-                return <SoknadContent person={person} barn={barn} mellomlagring={mellomlagring} />;
+                return <SoknadContent søker={person} barn={barn} mellomlagring={mellomlagring} />;
             }}
         />
     );

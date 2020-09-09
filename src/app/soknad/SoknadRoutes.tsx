@@ -22,27 +22,27 @@ import VelkommenPage from './velkommen-page/VelkommenPage';
 
 interface Props {
     barn: Barn[];
-    person: Person;
+    søker: Person;
     onResetSoknad: () => void;
     onContinueLater?: (stepID: StepID) => void;
 }
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({ person, barn, onResetSoknad, onContinueLater }: Props) => {
+const SoknadRoutes = ({ søker, barn, onResetSoknad, onContinueLater }: Props) => {
     const history = useHistory();
     const { values } = useFormikContext<SoknadFormData>();
     const soknadStepsConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
     const availableSteps = Object.keys(soknadStepsConfig) as Array<StepID>;
 
-    if (!person.myndig) {
+    if (!søker.myndig) {
         return <div>Ikke myndig</div>;
     }
 
     const navigateToNextStepFromStep = (stepID: StepID) => {
         const stepToPersist = soknadStepsConfig[stepID].nextStep;
         if (stepToPersist) {
-            soknadTempStorage.persist(values, stepToPersist);
+            soknadTempStorage.persist(values, stepToPersist, { søker, barn });
         }
         const step = soknadStepsConfig[stepID];
         setTimeout(() => {
@@ -109,7 +109,7 @@ const SoknadRoutes = ({ person, barn, onResetSoknad, onContinueLater }: Props) =
     };
 
     const onStartSoknad = () => {
-        soknadTempStorage.persist(values, StepID.DINE_BARN);
+        soknadTempStorage.persist(values, StepID.DINE_BARN, { søker, barn });
         setTimeout(() => {
             navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
         });
@@ -126,7 +126,7 @@ const SoknadRoutes = ({ person, barn, onResetSoknad, onContinueLater }: Props) =
                         key={step}
                         path={soknadStepsConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(barn, person, step)}
+                        render={() => renderSoknadStep(barn, søker, step)}
                     />
                 );
             })}

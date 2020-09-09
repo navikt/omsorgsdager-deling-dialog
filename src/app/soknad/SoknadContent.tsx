@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import LoadingPage from '../../common/pages/LoadingPage';
 import { getSoknadStepRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
 import { Person } from '../types/Person';
@@ -7,18 +8,17 @@ import { Barn, initialSoknadFormData, SoknadFormData } from '../types/SoknadForm
 import { navigateTo, relocateToNavFrontpage, relocateToSoknad } from '../utils/navigationUtils';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
-import soknadTempStorage, { SoknadTemporaryStorageData, isStorageDataValid } from './SoknadTempStorage';
+import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
 import { StepID } from './StepID';
-import LoadingPage from '../../common/pages/LoadingPage';
 
 interface Props {
-    person: Person;
+    søker: Person;
     mellomlagring: SoknadTemporaryStorageData;
     barn: Barn[];
     route?: string;
 }
 
-const SoknadContent = ({ person, barn, mellomlagring }: Props) => {
+const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const history = useHistory();
     const [initializing, setInitializing] = useState(true);
 
@@ -26,21 +26,22 @@ const SoknadContent = ({ person, barn, mellomlagring }: Props) => {
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
-        if (redirectToFrontpage) {
-            if (location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
-                relocateToSoknad();
-            }
+        setInitialFormData({ ...initialSoknadFormData });
+        if (redirectToFrontpage && location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
+            relocateToSoknad();
+            setInitializing(false);
+        } else {
+            setInitializing(false);
         }
     };
 
     const continueLater = async (stepID: StepID, values: SoknadFormData) => {
-        await soknadTempStorage.persist(values, stepID);
+        await soknadTempStorage.persist(values, stepID, { søker, barn });
         relocateToNavFrontpage();
     };
 
     useEffect(() => {
-        console.log(mellomlagring);
-        if (isStorageDataValid(mellomlagring)) {
+        if (isStorageDataValid(mellomlagring, { søker, barn })) {
             setInitialFormData(mellomlagring.formData);
             const currentRoute = history.location.pathname;
             const lastStepRoute = getSoknadStepRoute(mellomlagring.metadata.lastStepID, SoknadApplicationType.MELDING);
@@ -56,9 +57,9 @@ const SoknadContent = ({ person, barn, mellomlagring }: Props) => {
                 setInitializing(false);
             }
         } else {
-            setInitializing(false);
+            resetSoknad(true);
         }
-    }, [history, mellomlagring]);
+    }, [history, mellomlagring, søker, barn]);
 
     if (initializing) {
         return <LoadingPage />;
@@ -71,7 +72,7 @@ const SoknadContent = ({ person, barn, mellomlagring }: Props) => {
             renderForm={({ values }) => {
                 return (
                     <SoknadRoutes
-                        person={person}
+                        søker={søker}
                         barn={barn}
                         onResetSoknad={resetSoknad}
                         onContinueLater={(stepId) => continueLater(stepId, values)}
