@@ -45,11 +45,9 @@ const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
                             getItemId={(registrerteBarn) => registrerteBarn.aktørId}
                             getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
                             labelRenderer={(registrerteBarn) =>
-                                intlHelper(intl, 'step.dine-barn.født') +
-                                ' ' +
-                                prettifyDate(registrerteBarn.fødselsdato) +
-                                ' ' +
-                                formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)
+                                `${intlHelper(intl, 'step.dine-barn.født')} ${prettifyDate(
+                                    registrerteBarn.fødselsdato
+                                )} ${formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)}`
                             }
                             items={barn}
                         />

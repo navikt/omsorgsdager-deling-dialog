@@ -32,7 +32,10 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
     const checkboxes: CheckboksPanelProps[] = [];
     barn.map((barnet) =>
         checkboxes.push({
-            label: formatName(barnet.fornavn, barnet.etternavn) + ' ' + prettifyDate(barnet.fødselsdato),
+            label: `${intlHelper(intl, 'step.om-barna.født')} ${prettifyDate(barnet.fødselsdato)} ${formatName(
+                barnet.fornavn,
+                barnet.etternavn
+            )}`,
             value: barnet.aktørId,
         })
     );
@@ -40,7 +43,7 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
     if (values.andreBarn !== undefined) {
         values.andreBarn.map((barnet) =>
             checkboxes.push({
-                label: barnet.navn + ' ' + prettifyDate(barnet.fødselsdato),
+                label: `${intlHelper(intl, 'step.om-barna.født')} ${prettifyDate(barnet.fødselsdato)} ${barnet.navn}`,
                 value: barnet.fnr,
             })
         );
@@ -55,7 +58,7 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
     };
 
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
-
+    console.log(checkboxes);
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
