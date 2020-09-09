@@ -28,7 +28,7 @@ import SøkerSummary from './SøkerSummary';
 
 type Props = StepConfigProps & {
     søker: Person;
-    barn?: Barn[];
+    barn: Barn[];
     onMeldingSent: (apiValues: SoknadApiData) => void;
 };
 
@@ -59,7 +59,7 @@ interface SendSoknadStatus {
     showErrorMessage: boolean;
 }
 
-const OppsummeringStep = ({ søker, onMeldingSent, ...formStepProps }: Props) => {
+const OppsummeringStep = ({ søker, barn, onMeldingSent, ...formStepProps }: Props) => {
     const intl = useIntl();
     const history = useHistory();
     const [sendStatus, setSendSoknadStatus] = useState<SendSoknadStatus>({
@@ -68,8 +68,7 @@ const OppsummeringStep = ({ søker, onMeldingSent, ...formStepProps }: Props) =>
     });
     const [sendingInProgress, setSendingInProgress] = useState(false);
     const { values } = useFormikContext<SoknadFormData>();
-    const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values);
-
+    const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values, barn);
     async function send(data: SoknadApiData) {
         const sendCounter = sendStatus.sendCounter + 1;
         try {
