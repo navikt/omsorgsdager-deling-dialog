@@ -32,7 +32,7 @@ const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 const SoknadRoutes = ({ søker, barn, onStartSoknad, onResetSoknad, onContinueLater }: Props) => {
     const history = useHistory();
     const { values } = useFormikContext<SoknadFormData>();
-    const soknadStepsConfig = getSoknadStepsConfig(getAvailableSteps(), OVERFORING_APPLICATION_TYPE);
+    const soknadStepsConfig = getSoknadStepsConfig(getAvailableSteps(values), OVERFORING_APPLICATION_TYPE);
     const availableSteps = Object.keys(soknadStepsConfig) as Array<StepID>;
 
     const navigateToNextStepFromStep = (stepID: StepID) => {
