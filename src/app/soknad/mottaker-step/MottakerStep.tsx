@@ -39,7 +39,7 @@ type Props = StepConfigProps & {
     søker: Person;
 };
 
-const MottakerStep = ({ søker, onResetSoknad, onValidSubmit, soknadStepsConfig }: Props) => {
+const MottakerStep = ({ søker, ...formStepProps }: Props) => {
     const intl = useIntl();
     const stepId = StepID.MOTTAKER;
     const { values } = useFormikContext<SoknadFormData>();
@@ -52,12 +52,7 @@ const MottakerStep = ({ søker, onResetSoknad, onValidSubmit, soknadStepsConfig 
     const kanIkkeFortsette = overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer === YesOrNo.NO;
 
     return (
-        <SoknadFormStep
-            id={stepId}
-            soknadStepsConfig={soknadStepsConfig}
-            onResetSoknad={onResetSoknad}
-            showSubmitButton={kanFortsette}
-            onValidSubmit={onValidSubmit}>
+        <SoknadFormStep id={stepId} {...formStepProps} showSubmitButton={kanFortsette}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro" />
             </CounsellorPanel>

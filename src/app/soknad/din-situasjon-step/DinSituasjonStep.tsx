@@ -27,7 +27,7 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const DinSituasjonStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: StepConfigProps) => {
+const DinSituasjonStep = (props: StepConfigProps) => {
     const intl = useIntl();
     const { values } = useFormikContext<DinSituasjonFormData>();
     const { harBruktOmsorgsdagerEtter1Juli } = values;
@@ -37,13 +37,7 @@ const DinSituasjonStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig }: S
     const kanFortsette = arbeiderINorge === YesOrNo.YES;
 
     return (
-        <SoknadFormStep
-            id={stepId}
-            soknadStepsConfig={soknadStepsConfig}
-            showSubmitButton={kanFortsette}
-            onResetSoknad={onResetSoknad}
-            onValidSubmit={onValidSubmit}
-            onStepCleanup={cleanupDinSituasjonStep}>
+        <SoknadFormStep id={stepId} {...props} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
             <CounsellorPanel>
                 <FormattedMessage id="step.din_situasjon.veileder.intro" />
             </CounsellorPanel>

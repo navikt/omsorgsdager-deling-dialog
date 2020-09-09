@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
 
-const defaultAxiosConfig = {
+export const defaultAxiosConfig = {
     withCredentials: true,
 };
 
@@ -27,6 +27,7 @@ export enum ApiEndpoint {
     'soker' = 'sokerMelding',
     'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
+    'sendMelding' = 'sendMelding',
 }
 
 const api = {

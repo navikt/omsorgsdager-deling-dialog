@@ -1,9 +1,9 @@
 import { failure, RemoteData, success } from '@devexperts/remote-data-ts';
 import { AxiosError } from 'axios';
-import StorageData from '../types/StorageData';
 import api, { ApiEndpoint } from './api';
+import { SoknadTemporaryStorageData } from '../soknad/SoknadTempStorage';
 
-export type MellomlagringRemoteData = RemoteData<AxiosError<any>, StorageData>;
+export type MellomlagringRemoteData = RemoteData<AxiosError<any>, SoknadTemporaryStorageData>;
 
 const getMellomlagring = async (): Promise<MellomlagringRemoteData> => {
     try {

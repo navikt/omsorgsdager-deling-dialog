@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { combine, pending, RemoteData } from '@devexperts/remote-data-ts';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { AxiosError } from 'axios';
+import getBarnRemoteData from '../api/getBarn';
 import getMellomlagring from '../api/getMellomlagring';
 import getSokerRemoteData from '../api/getSoker';
+import { SoknadTemporaryStorageData } from '../soknad/SoknadTempStorage';
 import { Person } from '../types/Person';
-import StorageData from '../types/StorageData';
-import getBarnRemoteData from '../api/getBarn';
 import { Barn } from '../types/SoknadFormData';
 import { relocateToLoginPage } from '../utils/navigationUtils';
 
-export type CombinedType = [Person, Barn[], StorageData];
+export type CombinedType = [Person, Barn[], SoknadTemporaryStorageData];
 
 export type SoknadEssentialsRemoteData = RemoteData<AxiosError, CombinedType>;
 
