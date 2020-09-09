@@ -46,11 +46,14 @@ const mockApiValues: SoknadApiData = {
     andreBarn: [],
 };
 
-const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, barn }: Props) => {
+const OppsummeringStep = ({ onResetSoknad, soknadStepsConfig, søker, barn = [] }: Props) => {
     const [sendingInProgress, setSendingInProgress] = useState(false);
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
-    const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values);
+    const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values, barn);
+
+    console.log(apiValues);
+
     const hasValidApiData = true;
 
     const triggerSend = (values: Partial<SoknadApiData>) => {

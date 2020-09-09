@@ -1,6 +1,8 @@
-/* import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { SoknadApiData, BarnApiData } from '../../types/SoknadApiData';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
+import { AndreBarnApiData, BarnApiData, SoknadApiData } from '../../types/SoknadApiData';
+import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { mapAnnetBarnToApiBarn, mapBarnToApiBarn } from './mapUtils';
 
 export type OmBarnaFormData = Pick<
     SoknadFormData,
@@ -16,23 +18,33 @@ export type OmBarnaApiData = Pick<
     'harAleneomsorg' | 'harAleneomsorgFor' | 'harUtvidetRett' | 'harUtvidetRettFor' | 'andreBarn'
 >;
 
-const getAleneOmsorgFor = (value: string, formData: OmBarnaFormData, barn: BarnApiData[]) => {
-    if (formData.andreBarn.find((barn) => barn.fnr === value)) {
-        return formData.andreBarn.filter((barn) => barn.fnr === value);
-    } else if (barn.find((barnet) => barnet.aktørId === value)) {
-        return barn.filter((barnet) => barnet.aktørId === value);
-    } else return [];
+const getBarnFromId = (
+    fnrEllerAktørnr: string,
+    andreBarn: AnnetBarn[],
+    barn: Barn[]
+): BarnApiData | AndreBarnApiData => {
+    const annetBarn = andreBarn.find((barn) => barn.fnr === fnrEllerAktørnr);
+    if (annetBarn) {
+        return mapAnnetBarnToApiBarn(annetBarn);
+    }
+    const registrertBarn = barn.find((barn) => barn.aktørId === fnrEllerAktørnr);
+    if (registrertBarn) {
+        return mapBarnToApiBarn(registrertBarn);
+    }
+    throw new Error('mapOmBarnaToApiData failed');
 };
 
-export const mapOmBarnaToApiData = (formData: OmBarnaFormData, barn: BarnApiData[]): OmBarnaApiData => {
+export const mapOmBarnaToApiData = (formData: SoknadFormData, barn: Barn[]): OmBarnaApiData => {
     return {
         harAleneomsorg: formData.harAleneomsorg === YesOrNo.YES,
-          harAleneomsorgFor:
+        harAleneomsorgFor:
             formData.harAleneomsorg === YesOrNo.YES
-                ? formData.harAleneomsorgFor.map((id) => getAleneOmsorgFor(id, formData, barn))
-                : [], 
+                ? formData.harAleneomsorgFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
+                : [],
         harUtvidetRett: formData.harUtvidetRett === YesOrNo.YES,
-         harUtvidetRettFor: formData.harUtvidetRett === YesOrNo.YES ? formData.harUtvidetRettFor : undefined,
+        harUtvidetRettFor:
+            formData.harUtvidetRett === YesOrNo.YES
+                ? formData.harUtvidetRettFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
+                : [],
     };
 };
-*/
