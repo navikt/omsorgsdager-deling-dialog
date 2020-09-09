@@ -24,7 +24,12 @@ const persistSetup = persistence<SoknadTemporaryStorageData>({
 });
 
 export const isStorageDataValid = (data: SoknadTemporaryStorageData): SoknadTemporaryStorageData | undefined => {
-    if (data?.metadata?.version === STORAGE_VERSION) {
+    if (
+        data?.metadata?.version === STORAGE_VERSION &&
+        data?.metadata.lastStepID !== undefined &&
+        data.formData !== undefined &&
+        JSON.stringify(data.formData) !== JSON.stringify({})
+    ) {
         return data;
     }
     return undefined;

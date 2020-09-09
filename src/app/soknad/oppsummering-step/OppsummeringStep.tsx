@@ -59,7 +59,7 @@ interface SendSoknadStatus {
     showErrorMessage: boolean;
 }
 
-const OppsummeringStep = ({ søker, onMeldingSent, ...restProps }: Props) => {
+const OppsummeringStep = ({ søker, onMeldingSent, ...formStepProps }: Props) => {
     const intl = useIntl();
     const history = useHistory();
     const [sendStatus, setSendSoknadStatus] = useState<SendSoknadStatus>({
@@ -67,10 +67,8 @@ const OppsummeringStep = ({ søker, onMeldingSent, ...restProps }: Props) => {
         showErrorMessage: false,
     });
     const [sendingInProgress, setSendingInProgress] = useState(false);
-
     const { values } = useFormikContext<SoknadFormData>();
     const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values);
-    const hasValidApiData = true;
 
     async function send(data: SoknadApiData) {
         const sendCounter = sendStatus.sendCounter + 1;
@@ -100,19 +98,22 @@ const OppsummeringStep = ({ søker, onMeldingSent, ...restProps }: Props) => {
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
-            {...restProps}
+            {...formStepProps}
             includeValidationSummary={false}
             showButtonSpinner={sendingInProgress}
             buttonDisabled={sendingInProgress}
             onValidSubmit={() => {
                 if (apiValues) {
-                    setSendingInProgress(true);
+                    // Allow formik to complete its process
                     setTimeout(() => {
-                        triggerSend(apiValues);
-                    }, 0);
+                        setSendingInProgress(true);
+                        // Allow view to update
+                        setTimeout(() => {
+                            triggerSend(apiValues);
+                        }, 0);
+                    });
                 }
-            }}
-            showSubmitButton={hasValidApiData}>
+            }}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     Info

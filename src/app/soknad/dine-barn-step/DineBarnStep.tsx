@@ -22,13 +22,13 @@ interface OwnProps {
 
 type Props = OwnProps & StepConfigProps;
 
-const DineBarnStep = ({ barn, ...restProps }: Props) => {
+const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const kanFortsette = (barn !== undefined && barn.length > 0) || values.andreBarn.length > 0;
 
     return (
-        <SoknadFormStep id={StepID.DINE_BARN} {...restProps} showSubmitButton={kanFortsette}>
+        <SoknadFormStep id={StepID.DINE_BARN} {...formStepProps} showSubmitButton={kanFortsette}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
             {values.andreBarn === undefined && barn.length === 0 && (
                 <Box margin="l">
