@@ -25,6 +25,7 @@ import { StepID } from '../StepID';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
 import SøkerSummary from './SøkerSummary';
+import OmBarnaSummary from './OmBarnaSummary';
 
 type Props = StepConfigProps & {
     søker: Person;
@@ -123,6 +124,7 @@ const OppsummeringStep = ({ søker, barn, onMeldingSent, ...formStepProps }: Pro
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
                                 <SøkerSummary søker={søker} />
+                                <OmBarnaSummary apiValues={apiValues} />
                                 <DinSituasjonSummary apiValues={apiValues} />
                                 <MottakerSummary apiValues={apiValues} />
                             </ResponsivePanel>
