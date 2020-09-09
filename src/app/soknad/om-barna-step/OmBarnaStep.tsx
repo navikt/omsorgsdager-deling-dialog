@@ -58,7 +58,6 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
     };
 
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
-    console.log(checkboxes);
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
