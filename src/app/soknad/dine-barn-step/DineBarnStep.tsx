@@ -27,7 +27,7 @@ type Props = OwnProps & StepConfigProps;
 const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
     const intl = useIntl();
     const {
-        values: { andreBarn = [] },
+        values: { andreBarn },
     } = useFormikContext<SoknadFormData>();
 
     const kanFortsette = (barn !== undefined && barn.length > 0) || andreBarn.length > 0;
@@ -59,7 +59,7 @@ const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
             <Box margin="l">
                 <ContentWithHeader
                     header={
-                        andreBarn === undefined || andreBarn.length === 0
+                        andreBarn.length === 0
                             ? intlHelper(intl, 'step.dine-barn.info.spm.andreBarn')
                             : intlHelper(intl, 'step.dine-barn.info.spm.flereBarn')
                     }>
