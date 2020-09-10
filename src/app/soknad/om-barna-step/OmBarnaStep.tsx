@@ -27,6 +27,14 @@ type Props = OwnProps & StepConfigProps;
 
 const SoknadFormComponents = getTypedFormComponents<SoknadFormField, SoknadFormData>();
 
+const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
+    const cleanedValues = { ...values };
+    if (values.harUtvidetRett === YesOrNo.NO) {
+        cleanedValues.harUtvidetRettFor = [];
+    }
+    return cleanedValues;
+};
+
 const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
@@ -65,7 +73,8 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
             soknadStepsConfig={soknadStepsConfig}
             onResetSoknad={onResetSoknad}
             onValidSubmit={onValidSubmit}
-            showSubmitButton={kanFortsette}>
+            showSubmitButton={kanFortsette}
+            onStepCleanup={cleanupOmBarnaStep}>
             <CounsellorPanel>{intlHelper(intl, 'step.om-barna.info')}</CounsellorPanel>
             <FormBlock>
                 <FormQuestion
