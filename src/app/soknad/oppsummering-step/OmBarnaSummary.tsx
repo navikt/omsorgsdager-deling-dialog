@@ -7,6 +7,7 @@ import { OmBarnaApiData } from '../../utils/map-form-data-to-api-data/mapOmBarna
 import SummarySection from '../../../common/summary/summary-section/SummarySection';
 import SummaryList from '@navikt/sif-common-core/lib/components/summary-list/SummaryList';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
+import { prettifyApiDate } from '../../../common/summary/DatoSvar';
 
 interface Props {
     apiValues: OmBarnaApiData;
@@ -23,7 +24,7 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
                 <SummaryList
                     items={apiValues.harAleneomsorgFor}
                     itemRenderer={(barn) =>
-                        `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${barn.fødselsdato} ${
+                        `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(barn.fødselsdato)} ${
                             barn.navn ? barn.navn : formatName(barn.fornavn, barn.etternavn)
                         }`
                     }
@@ -37,9 +38,9 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
                     <SummaryList
                         items={apiValues.harUtvidetRettFor}
                         itemRenderer={(barn) =>
-                            `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${barn.fødselsdato} ${
-                                barn.navn ? barn.navn : formatName(barn.fornavn, barn.etternavn)
-                            }`
+                            `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(
+                                barn.fødselsdato
+                            )} ${barn.navn ? barn.navn : formatName(barn.fornavn, barn.etternavn)}`
                         }
                     />
                 </SummaryBlock>
