@@ -18,9 +18,10 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import soknadTempStorage from './SoknadTempStorage';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import { SoknadSteps } from './stepConfigProps';
 
 interface Props {
-    barn: Barn[];
+    barn?: Barn[];
     søker: Person;
     onStartSoknad: () => void;
     onResetSoknad: () => void;
@@ -29,11 +30,11 @@ interface Props {
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({ søker, barn, onStartSoknad, onResetSoknad, onContinueLater }: Props) => {
+const SoknadRoutes = ({ søker, barn = [], onStartSoknad, onResetSoknad, onContinueLater }: Props) => {
     const history = useHistory();
     const { values } = useFormikContext<SoknadFormData>();
-    const soknadStepsConfig = getSoknadStepsConfig(getAvailableSteps(values), OVERFORING_APPLICATION_TYPE);
-    const availableSteps = Object.keys(soknadStepsConfig) as Array<StepID>;
+    const soknadStepsConfig = getSoknadStepsConfig(SoknadSteps, OVERFORING_APPLICATION_TYPE);
+    const availableSteps = getAvailableSteps(values, søker, barn);
 
     const navigateToNextStepFromStep = (stepID: StepID) => {
         const stepToPersist = soknadStepsConfig[stepID].nextStep;
@@ -119,7 +120,7 @@ const SoknadRoutes = ({ søker, barn, onStartSoknad, onResetSoknad, onContinueLa
                     />
                 );
             })}
-            <Route path="*">Unknown route</Route>
+            <Route path="*">Unknown route or no valid steps</Route>
         </Switch>
     );
 };

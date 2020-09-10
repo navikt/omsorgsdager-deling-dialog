@@ -21,10 +21,12 @@ import { Person } from '../../types/Person';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import StopMessage from '../../../common/stop-message/StopMessage';
 
+export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
+
 const getAntallDagerOptions = (intl: IntlShape): React.ReactNode => {
     const options = [<option key={'none'}></option>];
-    let dag = 1;
-    while (dag <= 10) {
+    let dag = ANTALL_DAGER_RANGE.min;
+    while (dag <= ANTALL_DAGER_RANGE.max) {
         options.push(
             <option key={dag} value={dag}>
                 {intlHelper(intl, 'dager', { dager: dag })}
@@ -103,7 +105,7 @@ const MottakerStep = ({ søker, ...formStepProps }: Props) => {
                         <SoknadFormComponents.Select
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={validateAll([validateRequiredNumber({ min: 1, max: 10 })])}
+                            validate={validateAll([validateRequiredNumber(ANTALL_DAGER_RANGE)])}
                             bredde="s">
                             {getAntallDagerOptions(intl)}
                         </SoknadFormComponents.Select>

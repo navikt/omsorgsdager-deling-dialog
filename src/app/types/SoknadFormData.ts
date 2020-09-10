@@ -48,11 +48,11 @@ export interface Barn {
 export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
-    [SoknadFormField.andreBarn]: AnnetBarn[];
+    [SoknadFormField.andreBarn]?: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
-    [SoknadFormField.harAleneomsorgFor]: Array<string>;
+    [SoknadFormField.harAleneomsorgFor]?: Array<string>;
     [SoknadFormField.harUtvidetRett]: YesOrNo;
-    [SoknadFormField.harUtvidetRettFor]: Array<string>;
+    [SoknadFormField.harUtvidetRettFor]?: Array<string>;
     [SoknadFormField.borINorge]: YesOrNo;
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];

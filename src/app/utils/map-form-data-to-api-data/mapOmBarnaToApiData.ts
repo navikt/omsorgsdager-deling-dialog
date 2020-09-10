@@ -10,7 +10,6 @@ export type OmBarnaFormData = Pick<
     | SoknadFormField.harAleneomsorgFor
     | SoknadFormField.harUtvidetRett
     | SoknadFormField.harUtvidetRettFor
-    | SoknadFormField.andreBarn
 >;
 
 export type OmBarnaApiData = Pick<
@@ -20,14 +19,14 @@ export type OmBarnaApiData = Pick<
 
 const getBarnFromId = (
     fnrEllerAktørnr: string,
-    andreBarn: AnnetBarn[],
-    barn: Barn[]
+    andreBarn: AnnetBarn[] | undefined,
+    barn: Barn[] | undefined
 ): BarnApiData | AndreBarnApiData => {
-    const annetBarn = andreBarn.find((barn) => barn.fnr === fnrEllerAktørnr);
+    const annetBarn = (andreBarn || []).find((barn) => barn.fnr === fnrEllerAktørnr);
     if (annetBarn) {
         return mapAnnetBarnToApiBarn(annetBarn);
     }
-    const registrertBarn = barn.find((barn) => barn.aktørId === fnrEllerAktørnr);
+    const registrertBarn = (barn || []).find((barn) => barn.aktørId === fnrEllerAktørnr);
     if (registrertBarn) {
         return mapBarnToApiBarn(registrertBarn);
     }
@@ -38,12 +37,12 @@ export const mapOmBarnaToApiData = (formData: SoknadFormData, barn: Barn[]): OmB
     return {
         harAleneomsorg: formData.harAleneomsorg === YesOrNo.YES,
         harAleneomsorgFor:
-            formData.harAleneomsorg === YesOrNo.YES
+            formData.harAleneomsorg === YesOrNo.YES && formData.harAleneomsorgFor
                 ? formData.harAleneomsorgFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
                 : [],
         harUtvidetRett: formData.harUtvidetRett === YesOrNo.YES,
         harUtvidetRettFor:
-            formData.harUtvidetRett === YesOrNo.YES
+            formData.harUtvidetRett === YesOrNo.YES && formData.harUtvidetRettFor
                 ? formData.harUtvidetRettFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
                 : [],
     };

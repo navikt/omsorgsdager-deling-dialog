@@ -18,6 +18,7 @@ import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
+
 interface OwnProps {
     barn: Barn[];
 }
@@ -53,7 +54,7 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
     const alleBarnOver12ogIngenUtvidetRett = (): boolean => {
         const kunBarnOver12iBarn = barn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
         const kunBarnOver12iAndreBarn =
-            values.andreBarn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
+            (values.andreBarn || []).filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
         return harUtvidetRett === YesOrNo.NO && kunBarnOver12iBarn && kunBarnOver12iAndreBarn;
     };
 
