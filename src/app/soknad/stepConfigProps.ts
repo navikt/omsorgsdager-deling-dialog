@@ -7,3 +7,11 @@ export interface StepConfigProps {
     onResetSoknad: () => void;
     onContinueLater?: (stepId: StepID) => void;
 }
+
+export const SoknadSteps: StepID[] = [
+    StepID.DINE_BARN,
+    StepID.OM_BARNA,
+    StepID.DIN_SITUASJON,
+    StepID.MOTTAKER,
+    StepID.OPPSUMMERING,
+];

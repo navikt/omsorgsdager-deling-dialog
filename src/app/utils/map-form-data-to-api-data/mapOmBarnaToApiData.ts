@@ -10,7 +10,6 @@ export type OmBarnaFormData = Pick<
     | SoknadFormField.harAleneomsorgFor
     | SoknadFormField.harUtvidetRett
     | SoknadFormField.harUtvidetRettFor
-    | SoknadFormField.andreBarn
 >;
 
 export type OmBarnaApiData = Pick<
@@ -34,17 +33,16 @@ const getBarnFromId = (
     throw new Error('mapOmBarnaToApiData failed');
 };
 
-export const mapOmBarnaToApiData = (formData: SoknadFormData, barn: Barn[]): OmBarnaApiData => {
+export const mapOmBarnaToApiData = (
+    { harAleneomsorg, harAleneomsorgFor, harUtvidetRett, harUtvidetRettFor, andreBarn }: SoknadFormData,
+    barn: Barn[]
+): OmBarnaApiData => {
     return {
-        harAleneomsorg: formData.harAleneomsorg === YesOrNo.YES,
+        harAleneomsorg: harAleneomsorg === YesOrNo.YES,
         harAleneomsorgFor:
-            formData.harAleneomsorg === YesOrNo.YES
-                ? formData.harAleneomsorgFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
-                : [],
-        harUtvidetRett: formData.harUtvidetRett === YesOrNo.YES,
+            harAleneomsorg === YesOrNo.YES ? harAleneomsorgFor.map((id) => getBarnFromId(id, andreBarn, barn)) : [],
+        harUtvidetRett: harUtvidetRett === YesOrNo.YES,
         harUtvidetRettFor:
-            formData.harUtvidetRett === YesOrNo.YES
-                ? formData.harUtvidetRettFor.map((id) => getBarnFromId(id, formData.andreBarn, barn))
-                : [],
+            harUtvidetRett === YesOrNo.YES ? harUtvidetRettFor.map((id) => getBarnFromId(id, andreBarn, barn)) : [],
     };
 };

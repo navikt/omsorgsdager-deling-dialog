@@ -26,14 +26,16 @@ type Props = OwnProps & StepConfigProps;
 
 const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
     const intl = useIntl();
-    const { values } = useFormikContext<SoknadFormData>();
+    const {
+        values: { andreBarn },
+    } = useFormikContext<SoknadFormData>();
 
-    const kanFortsette = (barn !== undefined && barn.length > 0) || values.andreBarn.length > 0;
+    const kanFortsette = (barn !== undefined && barn.length > 0) || andreBarn.length > 0;
 
     return (
         <SoknadFormStep id={StepID.DINE_BARN} {...formStepProps} showSubmitButton={kanFortsette}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
-            {values.andreBarn.length > 0 && barn.length > 0 && (
+            {andreBarn.length > 0 && barn.length > 0 && (
                 <Box margin="l">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
                 </Box>
@@ -57,7 +59,7 @@ const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
             <Box margin="l">
                 <ContentWithHeader
                     header={
-                        values.andreBarn === undefined || values.andreBarn.length === 0
+                        andreBarn.length === 0
                             ? intlHelper(intl, 'step.dine-barn.info.spm.andreBarn')
                             : intlHelper(intl, 'step.dine-barn.info.spm.flereBarn')
                     }>
