@@ -22,7 +22,7 @@ const getBarnFromId = (
     andreBarn: AnnetBarn[],
     barn: Barn[]
 ): BarnApiData | AndreBarnApiData => {
-    const annetBarn = (andreBarn || []).find((barn) => barn.fnr === fnrEllerAktørnr);
+    const annetBarn = andreBarn.find((barn) => barn.fnr === fnrEllerAktørnr);
     if (annetBarn) {
         return mapAnnetBarnToApiBarn(annetBarn);
     }

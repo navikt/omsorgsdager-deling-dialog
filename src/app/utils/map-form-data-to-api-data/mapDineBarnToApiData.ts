@@ -8,6 +8,6 @@ export type DineBarnApiData = Pick<SoknadApiData, 'andreBarn'>;
 
 export const mapDineBarnToApiData = ({ andreBarn }: DineBarnFormData): DineBarnApiData => {
     return {
-        andreBarn: (andreBarn || []).map(mapAnnetBarnToApiBarn),
+        andreBarn: andreBarn.map(mapAnnetBarnToApiBarn),
     };
 };
