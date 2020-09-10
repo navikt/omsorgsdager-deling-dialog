@@ -87,9 +87,14 @@
 
     "step.oppsummering.søker.header": "Søker",
 
+    "step.oppsummering.dine-barn.header": "Dine barn",
+    "step.oppsummering.dine-barn.født": "Født",
+    "step.oppsummering.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
+    "step.oppsummering.dine-barn.listHeader.andreBarn": "Andre barn",
+
     "step.oppsummering.om-barna.header": "Om barna",
     "step.oppsummering.om-barna.født": "Født",
-    "step.oppsummering.om-barna.harAleneOmsorg": "Har du aleneomsorg for ett eller flere barn?",
+    "step.oppsummering.om-barna.harAleneomsorg": "Har du aleneomsorg for ett eller flere barn?",
     "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",
