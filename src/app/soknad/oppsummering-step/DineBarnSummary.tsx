@@ -30,7 +30,7 @@ const DineBarnSummary = ({ apiValues, barn }: Props) => {
                     />
                 </SummaryBlock>
             )}
-            {apiValues.andreBarn !== undefined && (
+            {apiValues.andreBarn.length > 0 && (
                 <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dine-barn.listHeader.andreBarn')}>
                     <SummaryList
                         items={apiValues.andreBarn}

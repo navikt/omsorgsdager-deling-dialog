@@ -14,7 +14,7 @@ export type OmBarnaFormData = Pick<
 
 export type OmBarnaApiData = Pick<
     SoknadApiData,
-    'harAleneomsorg' | 'harAleneomsorgFor' | 'harUtvidetRett' | 'harUtvidetRettFor' | 'andreBarn'
+    'harAleneomsorg' | 'harAleneomsorgFor' | 'harUtvidetRett' | 'harUtvidetRettFor'
 >;
 
 const getBarnFromId = (
