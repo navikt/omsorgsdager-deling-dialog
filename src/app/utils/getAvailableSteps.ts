@@ -73,7 +73,7 @@ const mottakerIsComplete = (
         overføreTilEktefelle,
         overføreTilSamboer,
         fnrMottaker,
-        navnMottaker,
+        navnMottaker = '',
         antallDagerSomSkalOverføres,
     }: Partial<MottakerFormData>,
     søker: Person
@@ -84,10 +84,9 @@ const mottakerIsComplete = (
     if (overføreTilSamboer === YesOrNo.NO && overføreTilEktefelle !== YesOrNo.YES) {
         return false;
     }
-    if (
-        validateFødselsnummer(fnrMottaker || '') !== undefined ||
-        validateFødselsnummerIsDifferentThan(søker.fødselsnummer) !== undefined
-    ) {
+    const fnrValid = validateFødselsnummer(fnrMottaker || '');
+    const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
+    if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }
     if ((navnMottaker || '')?.length < 1) {
