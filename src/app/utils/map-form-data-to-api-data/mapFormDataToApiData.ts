@@ -11,16 +11,16 @@ export const mapFormDataToApiData = (
     barn: Barn[]
 ): SoknadApiData | undefined => {
     try {
-        const apiData: Partial<SoknadApiData> = {
+        const apiData: SoknadApiData = {
             språk: locale === 'en' ? 'nn' : 'nb',
-            harBekreftetOpplysninger: formData.harBekreftetMottakerOpplysninger,
+            harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
             harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,
             ...mapDinSituasjonToApiData(formData),
             ...mapMottakerToApiData(formData),
             ...mapDineBarnToApiData(formData),
             ...mapOmBarnaToApiData(formData, barn),
         };
-        return apiData as SoknadApiData; // Hack frem til vi har mappet all data
+        return apiData;
     } catch (error) {
         console.error('mapFormDataToApiData failed', error);
         return undefined;

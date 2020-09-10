@@ -1,28 +1,34 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useFormikContext } from 'formik';
+import LoadingPage from '../../common/pages/LoadingPage';
 import {
     getSoknadRootRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
 } from '../../common/soknad-common/stepConfigUtils';
+import GlobalRoutes from '../config/routeConfig';
 import { Person } from '../types/Person';
+import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
-import { navigateTo, relocateToReceiptPage } from '../utils/navigationUtils';
+import { navigateTo } from '../utils/navigationUtils';
 import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import soknadTempStorage from './SoknadTempStorage';
+import { SoknadSteps } from './stepConfigProps';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
-import { SoknadSteps } from './stepConfigProps';
+import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 
 interface Props {
     barn?: Barn[];
     søker: Person;
+    meldingSent: boolean;
+    onMeldingSent: (apiValues: SoknadApiData) => void;
     onStartSoknad: () => void;
     onResetSoknad: () => void;
     onContinueLater?: (stepID: StepID) => void;
@@ -30,7 +36,15 @@ interface Props {
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({ søker, barn = [], onStartSoknad, onResetSoknad, onContinueLater }: Props) => {
+const SoknadRoutes = ({
+    søker,
+    barn = [],
+    meldingSent,
+    onStartSoknad,
+    onResetSoknad,
+    onContinueLater,
+    onMeldingSent,
+}: Props) => {
     const history = useHistory();
     const { values } = useFormikContext<SoknadFormData>();
     const soknadStepsConfig = getSoknadStepsConfig(SoknadSteps, OVERFORING_APPLICATION_TYPE);
@@ -93,7 +107,7 @@ const SoknadRoutes = ({ søker, barn = [], onStartSoknad, onResetSoknad, onConti
             case StepID.OPPSUMMERING:
                 return (
                     <OppsummeringStep
-                        onMeldingSent={() => relocateToReceiptPage()}
+                        onMeldingSent={(apiData) => onMeldingSent(apiData)}
                         søker={søker}
                         barn={barn}
                         soknadStepsConfig={soknadStepsConfig}
@@ -109,6 +123,10 @@ const SoknadRoutes = ({ søker, barn = [], onStartSoknad, onResetSoknad, onConti
         <Switch>
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
                 <VelkommenPage onStartSoknad={onStartSoknad} />
+            </Route>
+            <Route path={GlobalRoutes.MELDING_SENT} exact={true}>
+                {meldingSent && <KvitteringPage />}
+                {!meldingSent && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
                 return (

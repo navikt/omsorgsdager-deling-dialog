@@ -14,7 +14,7 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { sendMelding } from '../../api/sendMelding';
 import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
-import { Arbeidssituasjon, Barn, Mottaker, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { mapFormDataToApiData } from '../../utils/map-form-data-to-api-data/mapFormDataToApiData';
 import { navigateToErrorPage, relocateToLoginPage } from '../../utils/navigationUtils';
 import { validateBekrefterOpplysninger } from '../../validation/fieldValidation';
@@ -24,36 +24,14 @@ import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
-import SøkerSummary from './SøkerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
 import DineBarnSummary from './DineBarnSummary';
+import SøkerSummary from './SøkerSummary';
 
 type Props = StepConfigProps & {
     søker: Person;
     barn: Barn[];
     onMeldingSent: (apiValues: SoknadApiData) => void;
-};
-
-const mockApiValues: SoknadApiData = {
-    antallDagerHarDeltMedAndre: 2,
-    antallDagerSomSkalOverføres: 10,
-    antallDagerBruktEtter1Juli: 3,
-    arbeiderINorge: true,
-    arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
-    borINorge: true,
-    harAleneomsorg: true,
-    harAleneomsorgFor: [],
-    harBekreftetMottakerOpplysninger: true,
-    harBekreftetOpplysninger: true,
-    harDeltDagerMedAndreTidligere: false,
-    harForståttRettigheterOgPlikter: true,
-    harUtvidetRett: false,
-    harUtvidetRettFor: [],
-    mottakerFnr: '12101020000',
-    mottakerNavn: 'Snurre Sprett',
-    mottakerType: Mottaker.samboer,
-    språk: 'nb',
-    andreBarn: [],
 };
 
 interface SendSoknadStatus {
@@ -70,7 +48,7 @@ const OppsummeringStep = ({ søker, barn, onMeldingSent, ...formStepProps }: Pro
     });
     const [sendingInProgress, setSendingInProgress] = useState(false);
     const { values } = useFormikContext<SoknadFormData>();
-    const apiValues = 1 === 1 + 1 ? mockApiValues : mapFormDataToApiData(intl.locale, values, barn);
+    const apiValues = mapFormDataToApiData(intl.locale, values, barn);
     async function send(data: SoknadApiData) {
         const sendCounter = sendStatus.sendCounter + 1;
         try {
