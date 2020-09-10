@@ -33,8 +33,8 @@
     "step.om-barna.info": "INFO",
     "step.om-barna.født": "Født",
     "step.om-barna.info.barnOver12": "Du får kun omsorgsdager for barn over 12 år dersom de har utvidet rett. Hvis du har et barn som er fylt 18 i dette kalenderåret og du har utvidet rett, må du legge det til...",
-    "step.om-barna.form.spm.harAleneOmsorg": "Har du aleneomsrogen for ett eller flere barn?",
-    "step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorgen for?",
+    "step.om-barna.form.spm.harAleneOmsorg": "Har du aleneomsorg for ett eller flere barn?",
+    "step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
     "step.om-barna.form.spm.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
     "step.om-barna.form.spm.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",
     "step.om-barna.nextButtonLabel": "Fortsett",
@@ -89,8 +89,8 @@
 
     "step.oppsummering.om-barna.header": "Om barna",
     "step.oppsummering.om-barna.født": "Født",
-    "step.oppsummering.om-barna.harAleneOmsorg": "Har du aleneomsrogen for ett eller flere barn?",
-    "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorgen for?",
+    "step.oppsummering.om-barna.harAleneOmsorg": "Har du aleneomsorg for ett eller flere barn?",
+    "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",
 
