@@ -123,13 +123,13 @@ const startExpressServer = () => {
         res.sendStatus(401);
     });
 
-    server.post('/soknad', (req, res) => {
+    server.post('/sendMelding', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         res.sendStatus(200);
     });
 
-    server.post('/soknad-err', (req, res) => {
+    server.post('/sendMelding-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         res.sendStatus(501);

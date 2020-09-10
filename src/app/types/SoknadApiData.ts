@@ -29,11 +29,8 @@ export interface SoknadApiData {
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
     antallDagerBruktEtter1Juli?: number;
-    harDeltDagerMedAndreTidligere: boolean;
-    antallDagerHarDeltMedAndre: number;
     mottakerType: Mottaker;
     mottakerFnr: string;
     mottakerNavn: string;
     antallDagerSomSkalOverføres: number;
-    harBekreftetMottakerOpplysninger: boolean;
 }

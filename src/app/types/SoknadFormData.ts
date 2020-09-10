@@ -34,7 +34,6 @@ export enum SoknadFormField {
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
     antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
-    harBekreftetMottakerOpplysninger = 'harBekreftetMottakerOpplysninger',
 }
 
 export interface Barn {
@@ -65,7 +64,6 @@ export interface SoknadFormData {
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
     [SoknadFormField.antallDagerSomSkalOverføres]: number;
-    [SoknadFormField.harBekreftetMottakerOpplysninger]: boolean;
 }
 
 export const initialSoknadFormData: Partial<SoknadFormData> = {
@@ -85,5 +83,4 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.overføreTilSamboer]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
-    [SoknadFormField.harBekreftetMottakerOpplysninger]: false,
 };
