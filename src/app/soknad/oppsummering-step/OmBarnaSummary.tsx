@@ -17,7 +17,7 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
     const intl = useIntl();
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.om-barna.header')}>
-            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.harAleneOmsorg')}>
+            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg')}>
                 <JaNeiSvar harSvartJa={apiValues?.harAleneomsorg} />
             </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg')}>
