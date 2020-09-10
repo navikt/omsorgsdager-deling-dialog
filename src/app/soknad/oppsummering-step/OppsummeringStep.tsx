@@ -24,8 +24,8 @@ import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
-import SøkerSummary from './SøkerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
+import SøkerSummary from './SøkerSummary';
 
 type Props = StepConfigProps & {
     søker: Person;

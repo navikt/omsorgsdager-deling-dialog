@@ -5,7 +5,7 @@ import { getSoknadStepRoute, SoknadApplicationType } from '../../common/soknad-c
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
 import { Person } from '../types/Person';
 import { Barn, initialSoknadFormData, SoknadFormData } from '../types/SoknadFormData';
-import { navigateTo, relocateToNavFrontpage, relocateToSoknad } from '../utils/navigationUtils';
+import { navigateTo, relocateToNavFrontpage, relocateToSoknad, navigateToReceiptPage } from '../utils/navigationUtils';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
@@ -23,6 +23,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const [initializing, setInitializing] = useState(true);
 
     const [initialFormData, setInitialFormData] = useState<Partial<SoknadFormData>>({ ...initialSoknadFormData });
+    const [meldingSent, setMeldingSent] = useState(false);
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -47,6 +48,12 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const continueLater = async (stepID: StepID, values: SoknadFormData) => {
         await soknadTempStorage.persist(values, stepID, { søker, barn });
         relocateToNavFrontpage();
+    };
+
+    const onMeldingSent = async () => {
+        await soknadTempStorage.purge();
+        setMeldingSent(true);
+        navigateToReceiptPage(history);
     };
 
     useEffect(() => {
@@ -87,6 +94,8 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                     <SoknadRoutes
                         søker={søker}
                         barn={barn}
+                        meldingSent={meldingSent}
+                        onMeldingSent={onMeldingSent}
                         onStartSoknad={startSoknad}
                         onResetSoknad={resetSoknad}
                         onContinueLater={(stepId) => continueLater(stepId, values)}
