@@ -22,10 +22,18 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
             </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg')}>
                 <SummaryList
-                    items={apiValues.harAleneomsorgFor}
+                    items={apiValues.harAleneomsorgFor.barn}
+                    itemRenderer={(barn) =>
+                        `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(
+                            barn.fødselsdato
+                        )} ${formatName(barn.fornavn, barn.etternavn)}`
+                    }
+                />
+                <SummaryList
+                    items={apiValues.harAleneomsorgFor.andreBarn}
                     itemRenderer={(barn) =>
                         `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(barn.fødselsdato)} ${
-                            barn.navn ? barn.navn : formatName(barn.fornavn, barn.etternavn)
+                            barn.navn
                         }`
                     }
                 />
@@ -36,11 +44,19 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
             {apiValues.harUtvidetRett && (
                 <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaUtvRett')}>
                     <SummaryList
-                        items={apiValues.harUtvidetRettFor}
+                        items={apiValues.harUtvidetRettFor.barn}
                         itemRenderer={(barn) =>
                             `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(
                                 barn.fødselsdato
-                            )} ${barn.navn ? barn.navn : formatName(barn.fornavn, barn.etternavn)}`
+                            )} ${formatName(barn.fornavn, barn.etternavn)}`
+                        }
+                    />
+                    <SummaryList
+                        items={apiValues.harUtvidetRettFor.andreBarn}
+                        itemRenderer={(barn) =>
+                            `${intlHelper(intl, 'step.oppsummering.om-barna.født')} ${prettifyApiDate(
+                                barn.fødselsdato
+                            )} ${barn.navn}`
                         }
                     />
                 </SummaryBlock>

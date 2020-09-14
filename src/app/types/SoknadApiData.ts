@@ -16,15 +16,20 @@ export interface BarnApiData {
     fødselsdato: ApiStringDate;
 }
 
+export interface BarnOgAndreBarnApiData {
+    barn: BarnApiData[];
+    andreBarn: AndreBarnApiData[];
+}
+
 export interface SoknadApiData {
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
     andreBarn: AndreBarnApiData[];
     harAleneomsorg: boolean;
-    harAleneomsorgFor: Array<BarnApiData | AndreBarnApiData>;
+    harAleneomsorgFor: BarnOgAndreBarnApiData;
     harUtvidetRett: boolean;
-    harUtvidetRettFor: Array<BarnApiData | AndreBarnApiData>;
+    harUtvidetRettFor: BarnOgAndreBarnApiData;
     borINorge: boolean;
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
