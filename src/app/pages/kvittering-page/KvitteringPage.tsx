@@ -1,17 +1,18 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import InformationPoster from '@navikt/sif-common-core/lib/components/information-poster/InformationPoster';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import Kvittering from '../../../common/kvittering/Kvittering';
 
 const KvitteringPage = () => {
     const intl = useIntl();
     return (
         <Page title={intlHelper(intl, 'application.title')}>
-            <Box margin="xxxl">
-                <InformationPoster>Søknad mottatt</InformationPoster>
-            </Box>
+            <Kvittering
+                tittel="Søknad mottatt"
+                liste={{ tittel: 'Hva skjer nå?', punkter: ['Det vet bare lillegutt'] }}>
+                <p>Her kan det komme mer innhold</p>
+            </Kvittering>
         </Page>
     );
 };
