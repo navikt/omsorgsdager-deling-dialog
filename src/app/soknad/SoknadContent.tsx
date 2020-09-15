@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import LoadingPage from '../../common/pages/LoadingPage';
 import { getSoknadStepRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
+import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
 import { Barn, initialSoknadFormData, SoknadFormData } from '../types/SoknadFormData';
 import { navigateTo, relocateToNavFrontpage, relocateToSoknad, navigateToReceiptPage } from '../utils/navigationUtils';
@@ -82,7 +83,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     }
 
     if (søker.myndig === false) {
-        return <div>Ikke myndig</div>;
+        return <IkkeMyndigPage />;
     }
 
     return (
