@@ -24,7 +24,7 @@ axios.interceptors.response.use(
 );
 
 export enum ApiEndpoint {
-    'soker' = 'sokerMelding-ikke-myndig',
+    'soker' = 'sokerMelding',
     'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
     'sendMelding' = 'sendMelding',
