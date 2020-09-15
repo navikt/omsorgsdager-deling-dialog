@@ -125,7 +125,7 @@ const SoknadRoutes = ({
                 <VelkommenPage onStartSoknad={onStartSoknad} />
             </Route>
             <Route path={GlobalRoutes.MELDING_SENT} exact={true}>
-                {(meldingSent || 1 + 1 === 2) && <KvitteringPage />}
+                {meldingSent && <KvitteringPage />}
                 {!meldingSent && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
