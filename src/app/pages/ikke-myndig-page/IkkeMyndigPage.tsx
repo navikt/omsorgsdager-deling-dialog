@@ -6,7 +6,7 @@ import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { Innholdstittel } from 'nav-frontend-typografi';
 // import getLenker from '../../lenker';
-import './_ikkeMyndigPage.less';
+import './ikkeMyndigPage.less';
 
 const IkkeMyndigPage = () => {
     const intl = useIntl();
