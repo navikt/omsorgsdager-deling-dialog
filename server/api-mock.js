@@ -123,13 +123,13 @@ const startExpressServer = () => {
         res.sendStatus(401);
     });
 
-    server.post('/sendMelding', (req, res) => {
+    server.post('/melding/dele-dager', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         res.sendStatus(200);
     });
 
-    server.post('/sendMelding-err', (req, res) => {
+    server.post('/melding/dele-dager-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         res.sendStatus(501);
