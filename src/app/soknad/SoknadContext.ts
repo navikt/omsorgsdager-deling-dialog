@@ -25,7 +25,7 @@ export const SoknadContext = createContext<SoknadContext | undefined>(undefined)
 export const useSoknadContext = () => {
     const context = useContext(SoknadContext);
     if (context === undefined) {
-        throw new Error('useStartSoknad needs to be called within a SoknadContext');
+        throw new Error('useSoknadContext needs to be called within a SoknadContext');
     }
     return context;
 };
