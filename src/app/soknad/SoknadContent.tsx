@@ -34,29 +34,6 @@ interface Props {
     route?: string;
 }
 
-// async function send(data: SoknadApiData) {
-//         const sendCounter = sendStatus.sendCounter + 1;
-//         try {
-//             setSendSoknadStatus({ sendCounter, showErrorMessage: false });
-//             await sendMelding(data);
-//             onMeldingSent(data);
-//         } catch (error) {
-//             if (isUserLoggedOut(error)) {
-//                 relocateToLoginPage();
-//             } else {
-//                 if (sendCounter === 3) {
-//                     navigateToErrorPage(history);
-//                 } else {
-//                     setSendSoknadStatus({
-//                         sendCounter,
-//                         showErrorMessage: true,
-//                     });
-//                     setSendingInProgress(false);
-//                 }
-//             }
-//         }
-//     }
-
 const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const history = useHistory();
     const [initializing, setInitializing] = useState(true);
