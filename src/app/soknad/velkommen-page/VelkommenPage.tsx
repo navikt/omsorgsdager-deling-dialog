@@ -9,7 +9,7 @@ import VelkommenPageForm from './VelkommenPageForm';
 
 const VelkommenPage = () => {
     const intl = useIntl();
-    const { onStartSoknad } = useSoknadContext();
+    const { startSoknad } = useSoknadContext();
     return (
         <Page
             title={intlHelper(intl, 'application.title')}
@@ -23,7 +23,7 @@ const VelkommenPage = () => {
                 />
             )}>
             <Box margin="xxxl">
-                <VelkommenPageForm onStart={onStartSoknad} />
+                <VelkommenPageForm onStart={startSoknad} />
             </Box>
         </Page>
     );

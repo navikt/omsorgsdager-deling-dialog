@@ -29,28 +29,15 @@ type Props = {
 
 const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
     const intl = useIntl();
-    const { sendSoknadStatus: sendStatus, onSendSoknad } = useSoknadContext();
+    const { sendSoknadStatus, sendSoknad } = useSoknadContext();
 
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
             includeValidationSummary={false}
-            showButtonSpinner={sendStatus.sendingInProgress}
-            buttonDisabled={sendStatus.sendingInProgress}
-            onSendSoknad={apiValues ? () => onSendSoknad(apiValues) : apiValues}
-            // onValidSubmit={() => {
-            //     if (apiValues) {
-            //         // Allow formik to complete its process
-            //         setTimeout(() => {
-            //             setSendingInProgress(true);
-            //             // Allow view to update
-            //             setTimeout(() => {
-            //                 triggerSend(apiValues);
-            //             }, 0);
-            //         });
-            //     }
-            // }}
-        >
+            showButtonSpinner={sendSoknadStatus.sendingInProgress}
+            buttonDisabled={sendSoknadStatus.sendingInProgress}
+            onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     Info
@@ -78,14 +65,14 @@ const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
                     </>
                 )}
             </Box>
-            {sendStatus.showErrorMessage && sendStatus.sendingInProgress === false && (
+            {sendSoknadStatus.showErrorMessage && sendSoknadStatus.sendingInProgress === false && (
                 <FormBlock>
-                    {sendStatus.sendCounter === 1 && (
+                    {sendSoknadStatus.sendCounter === 1 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.førsteGang" />
                         </AlertStripeFeil>
                     )}
-                    {sendStatus.sendCounter === 2 && (
+                    {sendSoknadStatus.sendCounter === 2 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.andreGang" />
                         </AlertStripeFeil>

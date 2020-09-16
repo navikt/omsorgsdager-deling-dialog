@@ -65,7 +65,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         });
     };
 
-    const continueLater = async (stepID: StepID, values: SoknadFormData) => {
+    const continueSoknadLater = async (stepID: StepID, values: SoknadFormData) => {
         await soknadTempStorage.persist(values, stepID, { søker, barn });
         relocateToNavFrontpage();
     };
@@ -100,7 +100,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         }
     };
 
-    const startSendSoknad = (apiValues: SoknadApiData) => {
+    const triggerSendSoknad = (apiValues: SoknadApiData) => {
         setTimeout(() => {
             setSendSoknadStatus({ ...sendSoknadStatus, soknadSent: false, sendingInProgress: true });
             setTimeout(() => {
@@ -162,11 +162,11 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                         value={{
                             soknadStepsConfig,
                             sendSoknadStatus,
-                            onResetSoknad: resetSoknad,
-                            onContinueSoknadLater: (stepId) => continueLater(stepId, values),
-                            onStartSoknad: startSoknad,
-                            onSendSoknad: startSendSoknad,
-                            onGotoNextStepFromStep: (stepID: StepID) => {
+                            resetSoknad,
+                            continueSoknadLater: (stepId) => continueSoknadLater(stepId, values),
+                            startSoknad,
+                            sendSoknad: triggerSendSoknad,
+                            gotoNextStepFromStep: (stepID: StepID) => {
                                 navigateToNextStepFromStep(stepID);
                             },
                         }}>
