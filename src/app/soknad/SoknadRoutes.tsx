@@ -1,132 +1,64 @@
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { Route, Switch } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import LoadingPage from '../../common/pages/LoadingPage';
-import {
-    getSoknadRootRoute,
-    getSoknadStepsConfig,
-    SoknadApplicationType,
-} from '../../common/soknad-common/stepConfigUtils';
+import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
 import GlobalRoutes from '../config/routeConfig';
+import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
-import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { getAvailableSteps } from '../utils/getAvailableSteps';
-import { navigateTo } from '../utils/navigationUtils';
+import { mapFormDataToApiData } from '../utils/map-form-data-to-api-data/mapFormDataToApiData';
 import DinSituasjonStep from './din-situasjon-step/DinSituasjonStep';
 import DineBarnStep from './dine-barn-step/DineBarnStep';
 import MottakerStep from './mottaker-step/MottakerStep';
 import OmBarnaStep from './om-barna-step/OmBarnaStep';
 import OppsummeringStep from './oppsummering-step/OppsummeringStep';
-import soknadTempStorage from './SoknadTempStorage';
-import { SoknadSteps } from './stepConfigProps';
+import { useSoknadContext } from './SoknadContext';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
-import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 
 interface Props {
     barn?: Barn[];
     søker: Person;
-    meldingSent: boolean;
-    onMeldingSent: (apiValues: SoknadApiData) => void;
-    onStartSoknad: () => void;
-    onResetSoknad: () => void;
-    onContinueLater?: (stepID: StepID) => void;
 }
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({
-    søker,
-    barn = [],
-    meldingSent,
-    onStartSoknad,
-    onResetSoknad,
-    onContinueLater,
-    onMeldingSent,
-}: Props) => {
-    const history = useHistory();
+const SoknadRoutes = ({ søker, barn = [] }: Props) => {
+    const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
-    const soknadStepsConfig = getSoknadStepsConfig(SoknadSteps, OVERFORING_APPLICATION_TYPE);
     const availableSteps = getAvailableSteps(values, søker, barn);
-
-    const navigateToNextStepFromStep = (stepID: StepID) => {
-        const stepToPersist = soknadStepsConfig[stepID].nextStep;
-        if (stepToPersist) {
-            soknadTempStorage.persist(values, stepToPersist, { søker, barn });
-        }
-        const step = soknadStepsConfig[stepID];
-        setTimeout(() => {
-            if (step.nextStepRoute) {
-                navigateTo(step.nextStepRoute, history);
-            }
-        });
-    };
+    const {
+        soknadStepsConfig,
+        sendSoknadStatus: { soknadSent },
+    } = useSoknadContext();
 
     const renderSoknadStep = (barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
         switch (stepID) {
             case StepID.DINE_BARN:
-                return (
-                    <DineBarnStep
-                        barn={barn}
-                        soknadStepsConfig={soknadStepsConfig}
-                        onValidSubmit={() => navigateToNextStepFromStep(StepID.DINE_BARN)}
-                        onResetSoknad={onResetSoknad}
-                        onContinueLater={onContinueLater}
-                    />
-                );
+                return <DineBarnStep barn={barn} />;
             case StepID.OM_BARNA:
-                return (
-                    <OmBarnaStep
-                        barn={barn}
-                        soknadStepsConfig={soknadStepsConfig}
-                        onValidSubmit={() => navigateToNextStepFromStep(StepID.OM_BARNA)}
-                        onResetSoknad={onResetSoknad}
-                        onContinueLater={onContinueLater}
-                    />
-                );
+                return <OmBarnaStep barn={barn} />;
             case StepID.DIN_SITUASJON:
-                return (
-                    <DinSituasjonStep
-                        soknadStepsConfig={soknadStepsConfig}
-                        onValidSubmit={() => navigateToNextStepFromStep(StepID.DIN_SITUASJON)}
-                        onResetSoknad={onResetSoknad}
-                        onContinueLater={onContinueLater}
-                    />
-                );
+                return <DinSituasjonStep />;
             case StepID.MOTTAKER:
-                return (
-                    <MottakerStep
-                        søker={søker}
-                        soknadStepsConfig={soknadStepsConfig}
-                        onValidSubmit={() => navigateToNextStepFromStep(StepID.MOTTAKER)}
-                        onResetSoknad={onResetSoknad}
-                        onContinueLater={onContinueLater}
-                    />
-                );
+                return <MottakerStep søker={søker} />;
             case StepID.OPPSUMMERING:
-                return (
-                    <OppsummeringStep
-                        onMeldingSent={(apiData) => onMeldingSent(apiData)}
-                        søker={søker}
-                        barn={barn}
-                        soknadStepsConfig={soknadStepsConfig}
-                        onValidSubmit={() => null}
-                        onResetSoknad={onResetSoknad}
-                        onContinueLater={onContinueLater}
-                    />
-                );
+                const apiValues = mapFormDataToApiData(intl.locale, values, barn);
+                return <OppsummeringStep apiValues={apiValues} søker={søker} barn={barn} />;
         }
     };
 
     return (
         <Switch>
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
-                <VelkommenPage onStartSoknad={onStartSoknad} />
+                <VelkommenPage />
             </Route>
             <Route path={GlobalRoutes.MELDING_SENT} exact={true}>
-                {meldingSent && <KvitteringPage />}
-                {!meldingSent && <LoadingPage />}
+                {soknadSent && <KvitteringPage />}
+                {!soknadSent && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
                 return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
@@ -22,18 +21,17 @@ interface OwnProps {
     barn: Barn[];
 }
 
-type Props = OwnProps & StepConfigProps;
+type Props = OwnProps;
 
-const DineBarnStep = ({ barn, ...formStepProps }: Props) => {
+const DineBarnStep = ({ barn }: Props) => {
     const intl = useIntl();
     const {
         values: { andreBarn },
     } = useFormikContext<SoknadFormData>();
-
     const kanFortsette = (barn !== undefined && barn.length > 0) || andreBarn.length > 0;
 
     return (
-        <SoknadFormStep id={StepID.DINE_BARN} {...formStepProps} showSubmitButton={kanFortsette}>
+        <SoknadFormStep id={StepID.DINE_BARN} showSubmitButton={kanFortsette}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
             {andreBarn.length > 0 && barn.length > 0 && (
                 <Box margin="l">
