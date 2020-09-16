@@ -56,7 +56,7 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
                 <VelkommenPage />
             </Route>
-            <Route path={GlobalRoutes.MELDING_SENT} exact={true}>
+            <Route path={GlobalRoutes.SOKNAD_SENT} exact={true}>
                 {soknadSent && <KvitteringPage />}
                 {!soknadSent && <LoadingPage />}
             </Route>

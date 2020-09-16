@@ -1,13 +1,13 @@
-import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import LoadingPage from '../../common/pages/LoadingPage';
 import {
     getSoknadStepRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
 } from '../../common/soknad-common/stepConfigUtils';
-import { sendMelding } from '../api/sendMelding';
+import { sendSoknad } from '../api/sendSoknad';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
@@ -20,7 +20,7 @@ import {
     relocateToNavFrontpage,
     relocateToSoknad,
 } from '../utils/navigationUtils';
-import { SoknadContext, SendSoknadStatus } from './SoknadContext';
+import { SendSoknadStatus, SoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
@@ -49,7 +49,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         await soknadTempStorage.purge();
         setInitialFormData({ ...initialSoknadFormData });
         if (redirectToFrontpage) {
-            if (location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
+            if (location.pathname !== getRouteUrl(GlobalRoutes.SOKNAD)) {
                 relocateToSoknad();
                 setInitializing(false);
             } else {
@@ -76,11 +76,11 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         navigateToReceiptPage(history);
     };
 
-    const sendSoknad = async (apiValues: SoknadApiData) => {
+    const send = async (apiValues: SoknadApiData) => {
         const sendCounter = sendSoknadStatus.sendCounter + 1;
         try {
             setSendSoknadStatus({ sendingInProgress: true, soknadSent: false, sendCounter, showErrorMessage: false });
-            await sendMelding(apiValues);
+            await sendSoknad(apiValues);
             onSoknadSent();
         } catch (error) {
             if (isUserLoggedOut(error)) {
@@ -100,11 +100,11 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         }
     };
 
-    const triggerSendSoknad = (apiValues: SoknadApiData) => {
+    const triggerSend = (apiValues: SoknadApiData) => {
         setTimeout(() => {
             setSendSoknadStatus({ ...sendSoknadStatus, soknadSent: false, sendingInProgress: true });
             setTimeout(() => {
-                sendSoknad(apiValues);
+                send(apiValues);
             });
         });
     };
@@ -165,7 +165,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                             resetSoknad,
                             continueSoknadLater: (stepId) => continueSoknadLater(stepId, values),
                             startSoknad,
-                            sendSoknad: triggerSendSoknad,
+                            sendSoknad: triggerSend,
                             gotoNextStepFromStep: (stepID: StepID) => {
                                 navigateToNextStepFromStep(stepID);
                             },
