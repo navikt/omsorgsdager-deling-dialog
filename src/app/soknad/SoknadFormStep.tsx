@@ -35,7 +35,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
     buttonDisabled,
 }: Props) => {
     const intl = useIntl();
-    const { onResetSoknad, onContinue, soknadStepsConfig, onContinueLater } = useSoknadContext();
+    const { soknadStepsConfig, onResetSoknad, onGotoNextStepFromStep, onContinueSoknadLater } = useSoknadContext();
     const stepConfig = soknadStepsConfig[id];
     const texts = getStepTexts(intl, stepConfig);
 
@@ -48,13 +48,13 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             steps={getStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}
             onCancel={onResetSoknad}
-            onContinueLater={onContinueLater ? () => onContinueLater(id) : undefined}>
+            onContinueLater={onContinueSoknadLater ? () => onContinueSoknadLater(id) : undefined}>
             <SoknadFormComponents.Form
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
-                onValidSubmit={onSendSoknad ? onSendSoknad : () => onContinue(id)}
+                onValidSubmit={onSendSoknad ? onSendSoknad : () => onGotoNextStepFromStep(id)}
                 fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
                 {children}
                 {showSubmitButton && (

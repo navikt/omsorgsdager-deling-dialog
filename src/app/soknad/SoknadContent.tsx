@@ -163,11 +163,10 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                             soknadStepsConfig,
                             sendSoknadStatus,
                             onResetSoknad: resetSoknad,
-                            onContinueLater: (stepId) => continueLater(stepId, values),
+                            onContinueSoknadLater: (stepId) => continueLater(stepId, values),
                             onStartSoknad: startSoknad,
                             onSendSoknad: startSendSoknad,
-                            onSoknadSent: onSoknadSent,
-                            onContinue: (stepID: StepID) => {
+                            onGotoNextStepFromStep: (stepID: StepID) => {
                                 navigateToNextStepFromStep(stepID);
                             },
                         }}>

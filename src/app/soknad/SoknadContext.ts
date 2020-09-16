@@ -14,11 +14,10 @@ export interface SoknadContext {
     soknadStepsConfig: SoknadStepsConfig<StepID>;
     sendSoknadStatus: SendSoknadStatus;
     onStartSoknad: () => void;
-    onResetSoknad: () => void;
+    onGotoNextStepFromStep: (stepId: StepID) => void;
     onSendSoknad: (apiValues: SoknadApiData) => void;
-    onSoknadSent: () => void;
-    onContinue: (stepId: StepID) => void;
-    onContinueLater?: (stepId: StepID) => void;
+    onResetSoknad: () => void;
+    onContinueSoknadLater?: (stepId: StepID) => void;
 }
 
 export const SoknadContext = createContext<SoknadContext | undefined>(undefined);
