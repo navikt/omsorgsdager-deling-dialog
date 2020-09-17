@@ -1,14 +1,17 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { StepID } from '../soknad/StepID';
-import { Barn, SoknadFormData } from '../types/SoknadFormData';
-import { DineBarnFormData } from './map-form-data-to-api-data/mapDineBarnToApiData';
-import { OmBarnaFormData } from './map-form-data-to-api-data/mapOmBarnaToApiData';
-import { DinSituasjonFormData } from './map-form-data-to-api-data/mapDinSituasjonToApiData';
-import { MottakerFormData } from './map-form-data-to-api-data/mapMottakerToApiData';
-import { ANTALL_DAGER_RANGE } from '../soknad/mottaker-step/MottakerStep';
 import { validateFødselsnummer } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
+import { ANTALL_DAGER_RANGE } from '../soknad/mottaker-step/MottakerStep';
+import { StepID } from '../soknad/StepID';
 import { Person } from '../types/Person';
+import {
+    Barn,
+    DineBarnFormData,
+    DinSituasjonFormData,
+    MottakerFormData,
+    OmBarnaFormData,
+    SoknadFormData,
+} from '../types/SoknadFormData';
+import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
 
 const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn[]): boolean => {
     return barn.length > 0 || (andreBarn || []).length > 0;
