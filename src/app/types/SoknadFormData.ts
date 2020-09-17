@@ -66,21 +66,30 @@ export interface SoknadFormData {
     [SoknadFormField.antallDagerSomSkalOverføres]: number;
 }
 
-export const initialSoknadFormData: Partial<SoknadFormData> = {
-    [SoknadFormField.harForståttRettigheterOgPlikter]: false,
-    [SoknadFormField.harBekreftetOpplysninger]: false,
-    [SoknadFormField.andreBarn]: [],
-    [SoknadFormField.harAleneomsorg]: YesOrNo.UNANSWERED,
-    [SoknadFormField.harAleneomsorgFor]: [],
-    [SoknadFormField.harUtvidetRett]: YesOrNo.UNANSWERED,
-    [SoknadFormField.harUtvidetRettFor]: [],
-    [SoknadFormField.borINorge]: YesOrNo.UNANSWERED,
-    [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
-    [SoknadFormField.arbeidssituasjon]: [],
-    [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
-    [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo.UNANSWERED,
-    [SoknadFormField.overføreTilEktefelle]: YesOrNo.UNANSWERED,
-    [SoknadFormField.overføreTilSamboer]: YesOrNo.UNANSWERED,
-    [SoknadFormField.fnrMottaker]: '',
-    [SoknadFormField.navnMottaker]: '',
-};
+export type DineBarnFormData = Pick<SoknadFormData, SoknadFormField.andreBarn>;
+
+export type OmBarnaFormData = Pick<
+    SoknadFormData,
+    | SoknadFormField.harAleneomsorg
+    | SoknadFormField.harAleneomsorgFor
+    | SoknadFormField.harUtvidetRett
+    | SoknadFormField.harUtvidetRettFor
+>;
+
+export type DinSituasjonFormData = Pick<
+    SoknadFormData,
+    | SoknadFormField.arbeiderINorge
+    | SoknadFormField.borINorge
+    | SoknadFormField.arbeidssituasjon
+    | SoknadFormField.harBruktOmsorgsdagerEtter1Juli
+    | SoknadFormField.antallDagerBruktEtter1Juli
+>;
+
+export type MottakerFormData = Pick<
+    SoknadFormData,
+    | SoknadFormField.overføreTilEktefelle
+    | SoknadFormField.overføreTilSamboer
+    | SoknadFormField.fnrMottaker
+    | SoknadFormField.navnMottaker
+    | SoknadFormField.antallDagerSomSkalOverføres
+>;

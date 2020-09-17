@@ -1,15 +1,6 @@
-import { SoknadApiData } from '../../types/SoknadApiData';
-import { SoknadFormData, SoknadFormField, Mottaker } from '../../types/SoknadFormData';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-
-export type MottakerFormData = Pick<
-    SoknadFormData,
-    | SoknadFormField.overføreTilEktefelle
-    | SoknadFormField.overføreTilSamboer
-    | SoknadFormField.fnrMottaker
-    | SoknadFormField.navnMottaker
-    | SoknadFormField.antallDagerSomSkalOverføres
->;
+import { SoknadApiData } from '../../types/SoknadApiData';
+import { Mottaker, MottakerFormData } from '../../types/SoknadFormData';
 
 export type MottakerApiData = Pick<
     SoknadApiData,
