@@ -9,6 +9,7 @@ import {
 } from '../../common/soknad-common/stepConfigUtils';
 import { sendSoknad } from '../api/sendSoknad';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
+import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
@@ -136,7 +137,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     }
 
     if (søker.myndig === false) {
-        return <div>Ikke myndig</div>;
+        return <IkkeMyndigPage />;
     }
 
     const soknadStepsConfig = getSoknadStepsConfig(SoknadSteps, SoknadApplicationType.MELDING);
