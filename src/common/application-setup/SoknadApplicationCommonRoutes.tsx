@@ -8,21 +8,21 @@ export enum GlobalSoknadApplicationRoutes {
     start = '/',
     error = '/feil',
     unavailable = '/utilgjengelig',
-    unknown = '*',
+    unknownRoute = '*',
 }
 
 interface Props {
     contentRoutes: React.ReactNode[];
     errorContentRenderer?: () => React.ReactNode;
     unavailableContentRenderer?: () => React.ReactNode;
-    unknownContentRenderer?: () => React.ReactNode;
+    unknownRouteContentRenderer?: () => React.ReactNode;
 }
 
 const SoknadApplicationCommonRoutes = ({
     contentRoutes,
     errorContentRenderer,
     unavailableContentRenderer,
-    unknownContentRenderer,
+    unknownRouteContentRenderer,
 }: Props) => (
     <Switch>
         {...contentRoutes}
@@ -32,8 +32,8 @@ const SoknadApplicationCommonRoutes = ({
         <Route path={GlobalSoknadApplicationRoutes.unavailable}>
             <UnavailablePage contentRenderer={unavailableContentRenderer} />
         </Route>
-        <Route path={GlobalSoknadApplicationRoutes.unknown}>
-            <UnknownPage contentRenderer={unknownContentRenderer} />
+        <Route path={GlobalSoknadApplicationRoutes.unknownRoute}>
+            <UnknownPage contentRenderer={unknownRouteContentRenderer} />
         </Route>
     </Switch>
 );

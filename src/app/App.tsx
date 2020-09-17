@@ -10,6 +10,7 @@ import IntroPage from './pages/intro-page/IntroPage';
 import Soknad from './soknad/Soknad';
 
 import './styles/app.less';
+import SoknadErrorMessages from '../common/soknad-error-messages/SoknadErrorsMessages';
 
 Modal.setAppElement('#app');
 
@@ -32,6 +33,9 @@ render(
         }}
         publicPath={publicPath}>
         <SoknadApplicationCommonRoutes
+            errorContentRenderer={() => <SoknadErrorMessages.GeneralApplicationError />}
+            unavailableContentRenderer={() => <SoknadErrorMessages.ApplicationUnavailable />}
+            unknownRouteContentRenderer={() => <SoknadErrorMessages.UnknownRoute />}
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,
                 <Route path="/melding" key="soknad" component={Soknad} />,
