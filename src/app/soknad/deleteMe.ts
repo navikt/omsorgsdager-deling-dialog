@@ -2,6 +2,7 @@ import { SendSoknadStatus } from './SoknadContext';
 import { initial, RemoteData } from '@devexperts/remote-data-ts';
 import { SoknadApiData } from '../types/SoknadApiData';
 
+// Forskjellige states funnet i bruk:
 export const initialState: SendSoknadStatus = {
     sendCounter: 0,
     sendingInProgress: false,
@@ -34,6 +35,8 @@ export const onServerErrorCounterLessThanThree = (previousState: SendSoknadStatu
     sendCounter: previousState.sendCounter + 1,
     showErrorMessage: true,
 });
+
+// Bassert på det over => Foreslår dette istede:
 
 export interface SendSoknadStatus2 {
     failures: number;
