@@ -3,5 +3,12 @@
     "introForm.erArbeidstakerSnEllerFrilanser.spm": "Er du arbeidstaker, selvstendig næringsdrivende eller frilanser?",
     "introForm.harAleneomsorg.spm": "Har du aleneomsorg for ett eller flere barn?",
     "introForm.mottakerErEktefelleEllerSamboer.spm": "Skal du overføre dager til ny ekstefelle eller en samboer du har bodd sammen med i minst 12 måneder?",
-    "introForm.mottakersArbeidssituasjonErOk.spm": "Er den du skal overføre til arbeidstaker, selvstendig næringsdrivende eller frilanser?"
+    "introForm.mottakersArbeidssituasjonErOk.spm": "Er den du skal overføre til arbeidstaker, selvstendig næringsdrivende eller frilanser?",
+    "introForm.info.1": "Her kan du som er alene om omsorgen overføre dager til ny ektefelle eller til en samboer du har bodd med i minst 12 måneder.",
+    "introForm.info.2": "Den du overfører omsorgsdager til må",
+    "introForm.info.væreyrkesaktiv": "være yrkesaktiv (være arbeidstaker, selvstendig næringsdrivende eller frilanser)",
+    "introForm.info.haBarnUnder12": "ikke ha egne barn under 12 år som bor fast hos seg",
+    "introForm.info.ikkeFylt70": "ikke ha fylt 70 år",
+    "introForm.info.3": "Du kan overføre opptil 10 omsorgsdager, så lenge du har disse tilgjengelig.",
+    "introForm.info.4": "Når du overfører omsorgsdager er det en fast ordning frem til du eventuelt vil stoppe det. Slik stopper du det"
 }

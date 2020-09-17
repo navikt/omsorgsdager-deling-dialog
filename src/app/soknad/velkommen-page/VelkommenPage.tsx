@@ -5,6 +5,7 @@ import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import VelkommenPageForm from './VelkommenPageForm';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
+import { Sidetittel } from 'nav-frontend-typografi';
 
 interface Props {
     onStartSoknad: () => void;
@@ -24,6 +25,10 @@ const VelkommenPage = ({ onStartSoknad }: Props) => {
                     }}
                 />
             )}>
+            <Box margin="xxxl" textAlignCenter={true}>
+                <Sidetittel>{intlHelper(intl, 'step.velkommen.tittel')}</Sidetittel>
+            </Box>
+
             <Box margin="xxxl">
                 <VelkommenPageForm onStart={onStartSoknad} />
             </Box>
