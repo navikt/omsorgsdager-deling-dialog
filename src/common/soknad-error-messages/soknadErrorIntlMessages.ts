@@ -5,6 +5,7 @@ const soknadErrorIntlMessages: MessageFileFormat = {
         'common.soknadErrorMessages.defaultTitle': 'Noe gikk galt...',
         'common.soknadErrorMessages.generalError.content':
             'Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.',
+
         'common.soknadErrorMessages.generalSoknadError.content':
             'Beklager, her har det dessverre skjedd en feil. Vennligst gå tilbake og prøv igjen. Dersom feilen fortsetter, prøv igjen litt senere.',
         'common.soknadErrorMessages.gotoSoknadFrontpage': 'Gå tilbake til startsiden for søknaden',
