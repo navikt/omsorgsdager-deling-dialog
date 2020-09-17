@@ -4,7 +4,7 @@ import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import SoknadErrorMessages from '../soknad-error-messages/SoknadErrorsMessages';
+import SoknadErrorMessages from '../soknad-error-messages/SoknadErrorMessages';
 
 interface Props {
     pageTitle?: string;

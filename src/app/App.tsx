@@ -5,12 +5,11 @@ import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUti
 import Modal from 'nav-frontend-modal';
 import SoknadApplication from '../common/application-setup/SoknadApplication';
 import SoknadApplicationCommonRoutes from '../common/application-setup/SoknadApplicationCommonRoutes';
+import SoknadErrorMessages from '../common/soknad-error-messages/SoknadErrorMessages';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
 import Soknad from './soknad/Soknad';
-
 import './styles/app.less';
-import SoknadErrorMessages from '../common/soknad-error-messages/SoknadErrorsMessages';
 
 Modal.setAppElement('#app');
 
