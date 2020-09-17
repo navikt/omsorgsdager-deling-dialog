@@ -15,12 +15,7 @@ const bokmålstekster = {
     ...personopplysningerNB,
     ...annetBarnMessages.nb,
 };
-const nynorsktekster = {
-    ...allCommonMessages.nn,
-    ...annetBarnMessages.nn,
-};
 
 export const applicationIntlMessages: MessageFileFormat = {
     nb: bokmålstekster,
-    nn: nynorsktekster,
 };
