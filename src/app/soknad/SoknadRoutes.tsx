@@ -18,6 +18,7 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import { isSuccess } from '@devexperts/remote-data-ts';
 
 interface Props {
     barn?: Barn[];
@@ -32,7 +33,7 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
     const availableSteps = getAvailableSteps(values, søker, barn);
     const {
         soknadStepsConfig,
-        sendSoknadStatus: { soknadSent },
+        sendSoknadStatus,
     } = useSoknadContext();
 
     const renderSoknadStep = (barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
@@ -57,8 +58,8 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
                 <VelkommenPage />
             </Route>
             <Route path={GlobalRoutes.SOKNAD_SENT} exact={true}>
-                {soknadSent && <KvitteringPage />}
-                {!soknadSent && <LoadingPage />}
+                {isSuccess(sendSoknadStatus.status) && <KvitteringPage />}
+                {!isSuccess(sendSoknadStatus.status) && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
                 return (

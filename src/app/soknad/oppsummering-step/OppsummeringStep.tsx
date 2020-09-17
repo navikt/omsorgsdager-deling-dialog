@@ -20,6 +20,7 @@ import OmBarnaSummary from './OmBarnaSummary';
 import DineBarnSummary from './DineBarnSummary';
 import SøkerSummary from './SøkerSummary';
 import { useSoknadContext } from '../SoknadContext';
+import { isFailure, isPending } from '@devexperts/remote-data-ts';
 
 type Props = {
     søker: Person;
@@ -35,8 +36,8 @@ const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
             includeValidationSummary={false}
-            showButtonSpinner={sendSoknadStatus.sendingInProgress}
-            buttonDisabled={sendSoknadStatus.sendingInProgress}
+            showButtonSpinner={isPending(sendSoknadStatus.status)}
+            buttonDisabled={isPending(sendSoknadStatus.status)}
             onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
@@ -65,14 +66,14 @@ const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
                     </>
                 )}
             </Box>
-            {sendSoknadStatus.showErrorMessage && sendSoknadStatus.sendingInProgress === false && (
+            {isFailure(sendSoknadStatus.status) && (
                 <FormBlock>
-                    {sendSoknadStatus.sendCounter === 1 && (
+                    {sendSoknadStatus.failures === 1 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.førsteGang" />
                         </AlertStripeFeil>
                     )}
-                    {sendSoknadStatus.sendCounter === 2 && (
+                    {sendSoknadStatus.failures === 2 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.andreGang" />
                         </AlertStripeFeil>

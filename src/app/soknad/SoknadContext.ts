@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 import { SoknadStepsConfig } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { StepID } from './StepID';
+import { SendSoknadStatus2 } from './deleteMe';
 
 export interface SendSoknadStatus {
     sendingInProgress: boolean;
@@ -12,7 +13,7 @@ export interface SendSoknadStatus {
 
 export interface SoknadContext {
     soknadStepsConfig: SoknadStepsConfig<StepID>;
-    sendSoknadStatus: SendSoknadStatus;
+    sendSoknadStatus: SendSoknadStatus2;
     startSoknad: () => void;
     gotoNextStepFromStep: (stepId: StepID) => void;
     sendSoknad: (apiValues: SoknadApiData) => void;
