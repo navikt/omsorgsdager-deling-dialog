@@ -11,15 +11,15 @@ import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
 import { Barn, SoknadFormField } from '../../types/SoknadFormData';
 import { validateBekrefterOpplysninger } from '../../validation/fieldValidation';
+import { useSoknadContext } from '../SoknadContext';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import DineBarnSummary from './DineBarnSummary';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
-import DineBarnSummary from './DineBarnSummary';
 import SøkerSummary from './SøkerSummary';
-import { useSoknadContext } from '../SoknadContext';
 
 type Props = {
     søker: Person;
@@ -27,7 +27,7 @@ type Props = {
     apiValues?: SoknadApiData;
 };
 
-const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
+const OppsummeringStep = ({ søker, apiValues }: Props) => {
     const intl = useIntl();
     const { sendSoknadStatus, sendSoknad } = useSoknadContext();
 
@@ -48,7 +48,7 @@ const OppsummeringStep = ({ søker, barn, apiValues }: Props) => {
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
                                 <SøkerSummary søker={søker} />
-                                <DineBarnSummary apiValues={apiValues} barn={barn} />
+                                <DineBarnSummary apiValues={apiValues} />
                                 <OmBarnaSummary apiValues={apiValues} />
                                 <DinSituasjonSummary apiValues={apiValues} />
                                 <MottakerSummary apiValues={apiValues} />

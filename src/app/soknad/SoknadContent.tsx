@@ -11,7 +11,7 @@ import { sendSoknad } from '../api/sendSoknad';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
-import { Barn, initialSoknadFormData, SoknadFormData } from '../types/SoknadFormData';
+import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import {
     navigateTo,
     navigateToErrorPage,
@@ -20,6 +20,7 @@ import {
     relocateToNavFrontpage,
     relocateToSoknad,
 } from '../utils/navigationUtils';
+import { initialSoknadFormData } from './initialSoknadValues';
 import { SendSoknadStatus, SoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';

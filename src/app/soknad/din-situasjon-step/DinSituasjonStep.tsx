@@ -11,8 +11,7 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
 import FormQuestion from '../../../common/form-question/FormQuestion';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import { DinSituasjonFormData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
+import { DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';

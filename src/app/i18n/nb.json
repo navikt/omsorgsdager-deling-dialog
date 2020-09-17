@@ -87,8 +87,7 @@
 
     "step.oppsummering.dine-barn.header": "Dine barn",
     "step.oppsummering.dine-barn.født": "Født",
-    "step.oppsummering.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
-    "step.oppsummering.dine-barn.listHeader.andreBarn": "Andre barn",
+    "step.oppsummering.dine-barn.listHeader": "Dine barn",
 
     "step.oppsummering.om-barna.header": "Om barna",
     "step.oppsummering.om-barna.født": "Født",

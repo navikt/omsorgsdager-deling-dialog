@@ -1,15 +1,6 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { SoknadApiData } from '../../types/SoknadApiData';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-
-export type DinSituasjonFormData = Pick<
-    SoknadFormData,
-    | SoknadFormField.arbeiderINorge
-    | SoknadFormField.borINorge
-    | SoknadFormField.arbeidssituasjon
-    | SoknadFormField.harBruktOmsorgsdagerEtter1Juli
-    | SoknadFormField.antallDagerBruktEtter1Juli
->;
+import { DinSituasjonFormData } from '../../types/SoknadFormData';
 
 export type DinSituasjonApiData = Pick<
     SoknadApiData,
