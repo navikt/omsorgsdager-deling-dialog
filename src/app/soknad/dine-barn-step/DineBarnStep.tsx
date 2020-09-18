@@ -77,6 +77,7 @@ const DineBarnStep = ({ barn }: Props) => {
                     }}
                     maxDate={dateToday}
                     minDate={nYearsAgo(18)}
+                    advarsel={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.advarsel')}
                 />
             </Box>
             {andreBarn.length > 0 && barn.length > 0 && (

@@ -35,6 +35,7 @@
     "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
     "step.dine-barn.info.spm.flereBarn": "Har du flere barn?",
     "step.dine-barn.info.spm.text": "Har du flere barn som ikke er registrert her, kan du legge inn disse selv. Det kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
+    "step.dine-barn.formLeggTilBarn.advarsel": "Du kan ikke legge til barn som er fylt 18 år i forrige kalenderår",
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
