@@ -15,6 +15,7 @@ export interface SoknadApiData {
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
+    soknadId: string;
     barn: ApiBarn[];
     harAleneomsorg: boolean;
     harUtvidetRett: boolean;

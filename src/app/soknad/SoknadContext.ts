@@ -14,6 +14,7 @@ export const initialSendSoknadState: SendSoknadStatus = {
     status: initial,
 };
 export interface SoknadContext {
+    soknadId: string | undefined;
     soknadStepsConfig: SoknadStepsConfig<StepID>;
     sendSoknadStatus: SendSoknadStatus;
     startSoknad: () => void;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
 import LoadingPage from '../../common/pages/LoadingPage';
@@ -21,19 +21,20 @@ import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
 
 interface Props {
+    soknadId?: string;
     barn?: Barn[];
     søker: Person;
 }
 
 const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
-const SoknadRoutes = ({ søker, barn = [] }: Props) => {
+const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const availableSteps = getAvailableSteps(values, søker, barn);
     const { soknadStepsConfig, sendSoknadStatus } = useSoknadContext();
 
-    const renderSoknadStep = (barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
+    const renderSoknadStep = (id: string, barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
         switch (stepID) {
             case StepID.DINE_BARN:
                 return <DineBarnStep barn={barn} />;
@@ -44,7 +45,7 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
             case StepID.MOTTAKER:
                 return <MottakerStep søker={søker} />;
             case StepID.OPPSUMMERING:
-                const apiValues = mapFormDataToApiData(intl.locale, values, barn);
+                const apiValues = mapFormDataToApiData(id, intl.locale, values, barn);
                 return <OppsummeringStep apiValues={apiValues} søker={søker} barn={barn} />;
         }
     };
@@ -59,12 +60,15 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
                 {!isSuccess(sendSoknadStatus.status) && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
+                if (soknadId === undefined) {
+                    return <Redirect key="redirectToWelcome" to={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} />;
+                }
                 return (
                     <Route
                         key={step}
                         path={soknadStepsConfig[step].route}
                         exact={true}
-                        render={() => renderSoknadStep(barn, søker, step)}
+                        render={() => renderSoknadStep(soknadId, barn, søker, step)}
                     />
                 );
             })}
