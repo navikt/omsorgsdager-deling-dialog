@@ -32,10 +32,13 @@ const DineBarnStep = ({ barn }: Props) => {
 
     return (
         <SoknadFormStep id={StepID.DINE_BARN} showSubmitButton={kanFortsette}>
-            <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
-            {andreBarn.length > 0 && barn.length === 0 && (
-                <Box margin="xl">
-                    <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
+            <CounsellorPanel>
+                <p>{intlHelper(intl, 'step.dine-barn.info.title')}</p>
+                {intlHelper(intl, 'step.dine-barn.info')}
+            </CounsellorPanel>
+            {andreBarn.length > 0 && barn.length > 0 && (
+                <Box margin="l">
+                    <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn.1')}</AlertStripe>
                 </Box>
             )}
             {barn.length > 0 && (
@@ -74,8 +77,14 @@ const DineBarnStep = ({ barn }: Props) => {
                     }}
                     maxDate={dateToday}
                     minDate={nYearsAgo(18)}
+                    advarsel={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.advarsel')}
                 />
             </Box>
+            {andreBarn.length > 0 && barn.length > 0 && (
+                <Box margin="l">
+                    <AlertStripe type={'advarsel'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn.2')}</AlertStripe>
+                </Box>
+            )}
         </SoknadFormStep>
     );
 };

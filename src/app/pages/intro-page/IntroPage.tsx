@@ -16,12 +16,18 @@ const IntroPage = () => {
         <Page title={intlHelper(intl, 'application.title')}>
             <Box margin="xxxl">
                 <InformationPoster>
-                    WIP: Her kan du som er alene om omsorgen overføre dager til ny ektefelle eller til en samboer du har
-                    bodd med i minst 12 måneder. Du kan overføre så mange dager du har tilgjengelig, men ikke flere enn
-                    10. Den du overfører til må kunne bruke dagene. Det betyr at den som skal få dager må være
-                    yrkesaktiv. Hvis den du skal overføre til har egne barn i husstanden under.
+                    <p>{intlHelper(intl, 'introForm.info.1')}</p>
+                    <p>{intlHelper(intl, 'introForm.info.2')}</p>
+                    <ul>
+                        <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
+                        <li>{intlHelper(intl, 'introForm.info.haBarnUnder12')}</li>
+                        <li>{intlHelper(intl, 'introForm.info.ikkeFylt70')}</li>
+                    </ul>
+                    <p>{intlHelper(intl, 'introForm.info.3')}</p>
+                    <p>{intlHelper(intl, 'introForm.info.4')}</p>
                 </InformationPoster>
             </Box>
+
             <FormBlock>
                 <IntroForm onValidSubmit={() => navigateToSoknadFrontpage(history)} />
             </FormBlock>

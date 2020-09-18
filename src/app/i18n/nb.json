@@ -1,5 +1,5 @@
 {
-    "application.title": "Overføring av omsorgsdager",
+    "application.title": "Overføring av omsorgsdager til ny samboer/ektefelle/omsorgsperson?",
 
     "application.loadError.title": "Noe gikk galt ...",
     "application.loadError.message": "Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.",
@@ -23,16 +23,19 @@
 
     "backlink.label": "Tilbake",
 
-    "step.dine-barn.pageTitle": "Dine barn",
-    "step.dine-barn.stepTitle": "Dine barn",
+    "step.dine-barn.pageTitle": "Dine egne barn",
+    "step.dine-barn.stepTitle": "Dine egne barn",
     "step.dine-barn.født": "Født",
     "step.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
     "step.dine-barn.nextButtonLabel": "Fortsett",
-    "step.dine-barn.info": "For å vite hvor mange dager du har rett på trenger vi opplysninger om alle dine barn. Det er kun barn under 18 år som vises her.",
-    "step.dine-barn.info.ingenbarn": "Vi fant ingen barn registrert på deg. Hvis du har fosterbarn kan du legge til barnet selv/Du kan registrere barn selv ved å oppgi navn og fødselsnummer på barnet. Si noe om de som har fylt 18 år. ",
+    "step.dine-barn.info.title": "Nå skal du legge inn opplysninger om dine egne barn, som bor fast hos deg.",
+    "step.dine-barn.info": "Det er kun barn under 18 som vises her. Hvis du har et barn som er fylt 18 år, og som du har fått ekstra omsorgsdager for på grunn av at barnet har kronisk sykdom eller funksjonshemning, kan du selv legge til dette barnet.",
+    "step.dine-barn.info.ingenbarn.1": "Vi fant ingen barn registrert på deg. Har du  barn som ikke er registrert her, kan du selv legge inn disse. Dette kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
+    "step.dine-barn.info.ingenbarn.2": "Du må legge til minst ett barn for å kunne gå videre.",
     "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
     "step.dine-barn.info.spm.flereBarn": "Har du flere barn?",
-    "step.dine-barn.info.spm.text": "Hvis du har flere barn som vi ikke har registrert på deg kan du legge inn disse selv ved å oppgi navn og fødselsnummer. Dette kan for eksempel være fosterbarn. Hvis du har et barn som er 18 år og som har utvidet rett må du legge til det.",
+    "step.dine-barn.info.spm.text": "Har du flere barn som ikke er registrert her, kan du legge inn disse selv. Det kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
+    "step.dine-barn.formLeggTilBarn.advarsel": "Du kan ikke legge til barn som er fylt 18 år i forrige kalenderår",
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
@@ -66,6 +69,7 @@
 
     "step.velkommen.banner.tittel": "Hei",
     "step.velkommen.banner.tekst": "Jeg skal hjelpe deg å fylle ut dette skjemaet for å overføre omsorgsdager.",
+    "step.velkommen.tittel": "Overføring av omsorgsdager",
     "step.velkommen.personopplysninger.lenketekst": "Les om hvordan NAV behandler personopplysningene dine",
     "step.velkommen.button.start": "Fortsett",
 
