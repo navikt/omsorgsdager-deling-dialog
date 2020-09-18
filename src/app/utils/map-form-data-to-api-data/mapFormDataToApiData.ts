@@ -12,7 +12,7 @@ export const mapFormDataToApiData = (
 ): SoknadApiData | undefined => {
     try {
         const apiData: SoknadApiData = {
-            soknadId,
+            id: soknadId,
             språk: locale === 'en' ? 'nn' : 'nb',
             harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
             harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,

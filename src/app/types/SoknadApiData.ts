@@ -12,10 +12,10 @@ export interface ApiBarn {
 }
 
 export interface SoknadApiData {
+    id: string;
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
-    soknadId: string;
     barn: ApiBarn[];
     harAleneomsorg: boolean;
     harUtvidetRett: boolean;
