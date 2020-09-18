@@ -36,7 +36,7 @@ const DineBarnStep = ({ barn }: Props) => {
                 <p>{intlHelper(intl, 'step.dine-barn.info.title')}</p>
                 {intlHelper(intl, 'step.dine-barn.info')}
             </CounsellorPanel>
-            {andreBarn.length > 0 && barn.length > 0 && (
+            {andreBarn.length === 0 && barn.length === 0 && (
                 <Box margin="l">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn.1')}</AlertStripe>
                 </Box>
@@ -80,7 +80,7 @@ const DineBarnStep = ({ barn }: Props) => {
                     advarsel={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.advarsel')}
                 />
             </Box>
-            {andreBarn.length > 0 && barn.length > 0 && (
+            {andreBarn.length === 0 && barn.length === 0 && (
                 <Box margin="l">
                     <AlertStripe type={'advarsel'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn.2')}</AlertStripe>
                 </Box>
