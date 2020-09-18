@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Route, Switch } from 'react-router-dom';
+import { isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
 import LoadingPage from '../../common/pages/LoadingPage';
 import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
@@ -30,10 +31,7 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const availableSteps = getAvailableSteps(values, søker, barn);
-    const {
-        soknadStepsConfig,
-        sendSoknadStatus: { soknadSent },
-    } = useSoknadContext();
+    const { soknadStepsConfig, sendSoknadStatus } = useSoknadContext();
 
     const renderSoknadStep = (barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
         switch (stepID) {
@@ -57,8 +55,8 @@ const SoknadRoutes = ({ søker, barn = [] }: Props) => {
                 <VelkommenPage />
             </Route>
             <Route path={GlobalRoutes.SOKNAD_SENT} exact={true}>
-                {soknadSent && <KvitteringPage />}
-                {!soknadSent && <LoadingPage />}
+                {isSuccess(sendSoknadStatus.status) && <KvitteringPage />}
+                {!isSuccess(sendSoknadStatus.status) && <LoadingPage />}
             </Route>
             {availableSteps.map((step) => {
                 return (

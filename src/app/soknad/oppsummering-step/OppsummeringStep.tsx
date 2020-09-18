@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { isFailure, isPending } from '@devexperts/remote-data-ts';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import Guide from '@navikt/sif-common-core/lib/components/guide/Guide';
@@ -35,8 +36,8 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
             includeValidationSummary={false}
-            showButtonSpinner={sendSoknadStatus.sendingInProgress}
-            buttonDisabled={sendSoknadStatus.sendingInProgress}
+            showButtonSpinner={isPending(sendSoknadStatus.status)}
+            buttonDisabled={isPending(sendSoknadStatus.status)}
             onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
@@ -65,14 +66,14 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                     </>
                 )}
             </Box>
-            {sendSoknadStatus.showErrorMessage && sendSoknadStatus.sendingInProgress === false && (
+            {isFailure(sendSoknadStatus.status) && (
                 <FormBlock>
-                    {sendSoknadStatus.sendCounter === 1 && (
+                    {sendSoknadStatus.failures === 1 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.førsteGang" />
                         </AlertStripeFeil>
                     )}
-                    {sendSoknadStatus.sendCounter === 2 && (
+                    {sendSoknadStatus.failures === 2 && (
                         <AlertStripeFeil>
                             <FormattedMessage id="step.oppsummering.sendMelding.feilmelding.andreGang" />
                         </AlertStripeFeil>

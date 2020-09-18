@@ -1,15 +1,18 @@
 import { createContext, useContext } from 'react';
+import { initial, RemoteData } from '@devexperts/remote-data-ts';
 import { SoknadStepsConfig } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { StepID } from './StepID';
 
 export interface SendSoknadStatus {
-    sendingInProgress: boolean;
-    sendCounter: number;
-    showErrorMessage: boolean;
-    soknadSent?: boolean;
+    failures: number;
+    status: RemoteData<Error, SoknadApiData>;
 }
 
+export const initialSendSoknadState: SendSoknadStatus = {
+    failures: 0,
+    status: initial,
+};
 export interface SoknadContext {
     soknadStepsConfig: SoknadStepsConfig<StepID>;
     sendSoknadStatus: SendSoknadStatus;

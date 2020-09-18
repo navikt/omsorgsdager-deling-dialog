@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { failure, pending, success } from '@devexperts/remote-data-ts';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import LoadingPage from '../../common/pages/LoadingPage';
 import {
@@ -22,7 +23,7 @@ import {
     relocateToSoknad,
 } from '../utils/navigationUtils';
 import { initialSoknadFormData } from './initialSoknadValues';
-import { SendSoknadStatus, SoknadContext } from './SoknadContext';
+import { initialSendSoknadState, SendSoknadStatus, SoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
@@ -41,11 +42,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const [initializing, setInitializing] = useState(true);
 
     const [initialFormData, setInitialFormData] = useState<Partial<SoknadFormData>>({ ...initialSoknadFormData });
-    const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>({
-        sendCounter: 0,
-        sendingInProgress: false,
-        showErrorMessage: false,
-    });
+    const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -72,30 +69,26 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         relocateToNavFrontpage();
     };
 
-    const onSoknadSent = async () => {
+    const onSoknadSent = async (apiValues: SoknadApiData) => {
         // await soknadTempStorage.purge();
-        setSendSoknadStatus({ sendCounter: 0, soknadSent: true, sendingInProgress: false, showErrorMessage: false });
+        setSendSoknadStatus({ failures: 0, status: success(apiValues) });
         navigateToReceiptPage(history);
     };
 
     const send = async (apiValues: SoknadApiData) => {
-        const sendCounter = sendSoknadStatus.sendCounter + 1;
         try {
-            setSendSoknadStatus({ sendingInProgress: true, soknadSent: false, sendCounter, showErrorMessage: false });
             await sendSoknad(apiValues);
-            onSoknadSent();
+            onSoknadSent(apiValues);
         } catch (error) {
             if (isUserLoggedOut(error)) {
                 relocateToLoginPage();
             } else {
-                if (sendCounter === 3) {
+                if (sendSoknadStatus.failures >= 2) {
                     navigateToErrorPage(history);
                 } else {
                     setSendSoknadStatus({
-                        sendingInProgress: false,
-                        soknadSent: false,
-                        sendCounter,
-                        showErrorMessage: true,
+                        failures: sendSoknadStatus.failures + 1,
+                        status: failure(error),
                     });
                 }
             }
@@ -104,7 +97,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
 
     const triggerSend = (apiValues: SoknadApiData) => {
         setTimeout(() => {
-            setSendSoknadStatus({ ...sendSoknadStatus, soknadSent: false, sendingInProgress: true });
+            setSendSoknadStatus({ ...sendSoknadStatus, status: pending });
             setTimeout(() => {
                 send(apiValues);
             });
