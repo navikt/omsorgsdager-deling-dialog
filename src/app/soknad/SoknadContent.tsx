@@ -79,9 +79,9 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     };
 
     const onSoknadSent = async (apiValues: SoknadApiData) => {
-        // await soknadTempStorage.purge();
+        await soknadTempStorage.purge();
         setSendSoknadStatus({ failures: 0, status: success(apiValues) });
-        setSoknadId(ulid());
+        setSoknadId(undefined);
         navigateToReceiptPage(history);
     };
 
