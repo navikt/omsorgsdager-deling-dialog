@@ -33,13 +33,13 @@ const DineBarnStep = ({ barn }: Props) => {
     return (
         <SoknadFormStep id={StepID.DINE_BARN} showSubmitButton={kanFortsette}>
             <CounsellorPanel>{intlHelper(intl, 'step.dine-barn.info')}</CounsellorPanel>
-            {andreBarn.length > 0 && barn.length > 0 && (
-                <Box margin="l">
+            {andreBarn.length > 0 && barn.length === 0 && (
+                <Box margin="xl">
                     <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn')}</AlertStripe>
                 </Box>
             )}
             {barn.length > 0 && (
-                <Box margin="l">
+                <Box margin="xl">
                     <ContentWithHeader header={intlHelper(intl, 'step.dine-barn.listHeader.registrerteBarn')}>
                         <ItemList<Barn>
                             getItemId={(registrerteBarn) => registrerteBarn.aktørId}
@@ -54,7 +54,7 @@ const DineBarnStep = ({ barn }: Props) => {
                     </ContentWithHeader>
                 </Box>
             )}
-            <Box margin="l">
+            <Box margin="xl">
                 <ContentWithHeader
                     header={
                         andreBarn.length === 0

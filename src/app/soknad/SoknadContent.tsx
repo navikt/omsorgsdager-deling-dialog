@@ -60,9 +60,16 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         }
     };
 
+    const abortSoknad = async () => {
+        await soknadTempStorage.purge();
+        relocateToSoknad();
+    };
+
     const startSoknad = async () => {
         await resetSoknad();
-        setSoknadId(ulid());
+        const sId = ulid();
+        setSoknadId(sId);
+        await soknadTempStorage.persist(sId, initialFormData, StepID.DINE_BARN, { søker, barn });
         setTimeout(() => {
             navigateTo(getSoknadStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
         });
@@ -164,7 +171,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                             soknadId,
                             soknadStepsConfig,
                             sendSoknadStatus,
-                            resetSoknad,
+                            resetSoknad: abortSoknad,
                             continueSoknadLater: soknadId
                                 ? (stepId) => continueSoknadLater(soknadId, stepId, values)
                                 : undefined,
