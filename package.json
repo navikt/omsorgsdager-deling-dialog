@@ -35,7 +35,7 @@
         "@navikt/sif-common-forms": "^8.0.15",
         "@navikt/sif-common-question-config": "0.0.6",
         "@navikt/sif-common-sentry": "0.0.11",
-        "@sentry/browser": "^5.23.0",
+        "@sentry/browser": "^5.24.0",
         "@testing-library/react": "^10.4.8",
         "@types/lodash.delay": "^4.1.6",
         "axios": "^0.19.2",
