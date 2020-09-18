@@ -60,11 +60,6 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         }
     };
 
-    const abortSoknad = async () => {
-        await soknadTempStorage.purge();
-        relocateToSoknad();
-    };
-
     const startSoknad = async () => {
         await resetSoknad();
         setSoknadId(ulid());
@@ -169,7 +164,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
                             soknadId,
                             soknadStepsConfig,
                             sendSoknadStatus,
-                            resetSoknad: abortSoknad,
+                            resetSoknad,
                             continueSoknadLater: soknadId
                                 ? (stepId) => continueSoknadLater(soknadId, stepId, values)
                                 : undefined,
