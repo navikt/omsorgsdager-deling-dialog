@@ -5,12 +5,14 @@ import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
 
 export const mapFormDataToApiData = (
+    soknadId: string,
     locale = 'nb',
     formData: SoknadFormData,
     registrerteBarn: Barn[]
 ): SoknadApiData | undefined => {
     try {
         const apiData: SoknadApiData = {
+            soknadId,
             språk: locale === 'en' ? 'nn' : 'nb',
             harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
             harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,

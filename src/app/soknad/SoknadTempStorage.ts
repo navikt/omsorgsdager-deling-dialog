@@ -8,6 +8,7 @@ import { StepID } from './StepID';
 
 export interface SoknadTemporaryStorageData {
     metadata: {
+        soknadId: string;
         lastStepID: StepID;
         version: string;
         userHash: string;
@@ -23,7 +24,12 @@ interface UserHashInfo {
 }
 
 interface SoknadTemporaryStorage extends Omit<PersistenceInterface<SoknadTemporaryStorageData>, 'persist'> {
-    persist: (formData: Partial<SoknadFormData>, lastStepID: StepID, søkerInfo: UserHashInfo) => Promise<AxiosResponse>;
+    persist: (
+        soknadId: string,
+        formData: Partial<SoknadFormData>,
+        lastStepID: StepID,
+        søkerInfo: UserHashInfo
+    ) => Promise<AxiosResponse>;
 }
 
 const persistSetup = persistence<SoknadTemporaryStorageData>({
@@ -39,6 +45,7 @@ export const isStorageDataValid = (
         data?.metadata?.version === STORAGE_VERSION &&
         data?.metadata.lastStepID !== undefined &&
         data.formData !== undefined &&
+        data.metadata.soknadId !== undefined &&
         JSON.stringify(data.formData) !== JSON.stringify({}) &&
         hash(userHashInfo) === data.metadata.userHash
     ) {
@@ -48,10 +55,10 @@ export const isStorageDataValid = (
 };
 
 const soknadTempStorage: SoknadTemporaryStorage = {
-    persist: (formData: SoknadFormData, lastStepID: StepID, userHashInfo: UserHashInfo) => {
+    persist: (soknadId: string, formData: SoknadFormData, lastStepID: StepID, userHashInfo: UserHashInfo) => {
         return persistSetup.persist({
             formData,
-            metadata: { lastStepID, version: STORAGE_VERSION, userHash: hash(userHashInfo) },
+            metadata: { soknadId, lastStepID, version: STORAGE_VERSION, userHash: hash(userHashInfo) },
         });
     },
     purge: persistSetup.purge,

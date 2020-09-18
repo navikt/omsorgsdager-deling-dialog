@@ -79,6 +79,7 @@
         "react-router-dom": "^5.2.0",
         "react-simple-timefield": "^3.0.0",
         "snyk": "^1.398.1",
+        "ulid": "^2.3.0",
         "use-media": "^1.4.0"
     },
     "devDependencies": {
