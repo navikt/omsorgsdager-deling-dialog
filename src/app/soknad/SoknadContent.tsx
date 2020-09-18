@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { failure, pending, success } from '@devexperts/remote-data-ts';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import LoadingPage from '../../common/pages/LoadingPage';
-import { getSoknadStepRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
+import {
+    getSoknadStepRoute,
+    getSoknadStepsConfig,
+    SoknadApplicationType,
+} from '../../common/soknad-common/stepConfigUtils';
+import { sendSoknad } from '../api/sendSoknad';
 import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
+import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
-import { navigateTo, navigateToReceiptPage, relocateToNavFrontpage, relocateToSoknad } from '../utils/navigationUtils';
+import {
+    navigateTo,
+    navigateToErrorPage,
+    navigateToReceiptPage,
+    relocateToLoginPage,
+    relocateToNavFrontpage,
+    relocateToSoknad,
+} from '../utils/navigationUtils';
 import { initialSoknadFormData } from './initialSoknadValues';
+import { initialSendSoknadState, SendSoknadStatus, SoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
+import { SoknadSteps } from './stepConfigProps';
 import { StepID } from './StepID';
 
 interface Props {
@@ -25,13 +42,13 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     const [initializing, setInitializing] = useState(true);
 
     const [initialFormData, setInitialFormData] = useState<Partial<SoknadFormData>>({ ...initialSoknadFormData });
-    const [meldingSent, setMeldingSent] = useState(false);
+    const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
         setInitialFormData({ ...initialSoknadFormData });
         if (redirectToFrontpage) {
-            if (location.pathname !== getRouteUrl(GlobalRoutes.MELDING)) {
+            if (location.pathname !== getRouteUrl(GlobalRoutes.SOKNAD)) {
                 relocateToSoknad();
                 setInitializing(false);
             } else {
@@ -47,15 +64,44 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         });
     };
 
-    const continueLater = async (stepID: StepID, values: SoknadFormData) => {
+    const continueSoknadLater = async (stepID: StepID, values: SoknadFormData) => {
         await soknadTempStorage.persist(values, stepID, { søker, barn });
         relocateToNavFrontpage();
     };
 
-    const onMeldingSent = async () => {
-        await soknadTempStorage.purge();
-        setMeldingSent(true);
+    const onSoknadSent = async (apiValues: SoknadApiData) => {
+        // await soknadTempStorage.purge();
+        setSendSoknadStatus({ failures: 0, status: success(apiValues) });
         navigateToReceiptPage(history);
+    };
+
+    const send = async (apiValues: SoknadApiData) => {
+        try {
+            await sendSoknad(apiValues);
+            onSoknadSent(apiValues);
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                relocateToLoginPage();
+            } else {
+                if (sendSoknadStatus.failures >= 2) {
+                    navigateToErrorPage(history);
+                } else {
+                    setSendSoknadStatus({
+                        failures: sendSoknadStatus.failures + 1,
+                        status: failure(error),
+                    });
+                }
+            }
+        }
+    };
+
+    const triggerSend = (apiValues: SoknadApiData) => {
+        setTimeout(() => {
+            setSendSoknadStatus({ ...sendSoknadStatus, status: pending });
+            setTimeout(() => {
+                send(apiValues);
+            });
+        });
     };
 
     useEffect(() => {
@@ -87,21 +133,40 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         return <IkkeMyndigPage />;
     }
 
+    const soknadStepsConfig = getSoknadStepsConfig(SoknadSteps, SoknadApplicationType.MELDING);
+
     return (
         <SoknadFormComponents.FormikWrapper
             initialValues={initialFormData}
             onSubmit={() => null}
             renderForm={({ values }) => {
+                const navigateToNextStepFromStep = (stepID: StepID) => {
+                    const stepToPersist = soknadStepsConfig[stepID].nextStep;
+                    if (stepToPersist) {
+                        soknadTempStorage.persist(values, stepToPersist, { søker, barn });
+                    }
+                    const step = soknadStepsConfig[stepID];
+                    setTimeout(() => {
+                        if (step.nextStepRoute) {
+                            navigateTo(step.nextStepRoute, history);
+                        }
+                    });
+                };
                 return (
-                    <SoknadRoutes
-                        søker={søker}
-                        barn={barn}
-                        meldingSent={meldingSent}
-                        onMeldingSent={onMeldingSent}
-                        onStartSoknad={startSoknad}
-                        onResetSoknad={resetSoknad}
-                        onContinueLater={(stepId) => continueLater(stepId, values)}
-                    />
+                    <SoknadContext.Provider
+                        value={{
+                            soknadStepsConfig,
+                            sendSoknadStatus,
+                            resetSoknad,
+                            continueSoknadLater: (stepId) => continueSoknadLater(stepId, values),
+                            startSoknad,
+                            sendSoknad: triggerSend,
+                            gotoNextStepFromStep: (stepID: StepID) => {
+                                navigateToNextStepFromStep(stepID);
+                            },
+                        }}>
+                        <SoknadRoutes søker={søker} barn={barn} />
+                    </SoknadContext.Provider>
                 );
             }}
         />

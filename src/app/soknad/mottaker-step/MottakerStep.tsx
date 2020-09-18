@@ -1,25 +1,24 @@
 import React from 'react';
-import { FormattedMessage, useIntl, IntlShape } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
-    validateYesOrNoIsAnswered,
     validateFødselsnummer,
     validateRequiredField,
     validateRequiredNumber,
+    validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
-import { SoknadFormField, SoknadFormData } from '../../types/SoknadFormData';
-import SoknadFormComponents from '../SoknadFormComponents';
-import SoknadFormStep from '../SoknadFormStep';
-import { StepConfigProps } from '../stepConfigProps';
-import { StepID } from '../StepID';
-import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import StopMessage from '../../../common/stop-message/StopMessage';
 import { validateAll } from '../../../common/utils/fieldValidations';
 import { Person } from '../../types/Person';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
-import StopMessage from '../../../common/stop-message/StopMessage';
+import SoknadFormComponents from '../SoknadFormComponents';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepID } from '../StepID';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 
@@ -37,15 +36,16 @@ const getAntallDagerOptions = (intl: IntlShape): React.ReactNode => {
     return options;
 };
 
-type Props = StepConfigProps & {
+type Props = {
     søker: Person;
 };
 
-const MottakerStep = ({ søker, ...formStepProps }: Props) => {
+const MottakerStep = ({ søker }: Props) => {
     const intl = useIntl();
     const stepId = StepID.MOTTAKER;
-    const { values } = useFormikContext<SoknadFormData>();
-    const { overføreTilEktefelle, overføreTilSamboer } = values;
+    const {
+        values: { overføreTilEktefelle, overføreTilSamboer },
+    } = useFormikContext<SoknadFormData>();
 
     const kanFortsette =
         overføreTilEktefelle === YesOrNo.YES ||
@@ -54,7 +54,7 @@ const MottakerStep = ({ søker, ...formStepProps }: Props) => {
     const kanIkkeFortsette = overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer === YesOrNo.NO;
 
     return (
-        <SoknadFormStep id={stepId} {...formStepProps} showSubmitButton={kanFortsette}>
+        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro" />
             </CounsellorPanel>

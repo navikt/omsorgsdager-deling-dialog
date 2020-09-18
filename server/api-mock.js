@@ -140,13 +140,17 @@ const startExpressServer = () => {
     server.post('/melding/dele-dager', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
-        res.sendStatus(200);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
     });
 
     server.post('/melding/dele-dager-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
-        res.sendStatus(501);
+        setTimeout(() => {
+            res.sendStatus(501);
+        }, 2000);
     });
 
     server.post('/soknad-logget-ut', (req, res) => {

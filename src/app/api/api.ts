@@ -27,7 +27,7 @@ export enum ApiEndpoint {
     'soker' = 'sokerMelding',
     'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
-    'sendMelding' = 'melding/dele-dager',
+    'sendSoknad' = 'melding/dele-dager',
 }
 
 const api = {

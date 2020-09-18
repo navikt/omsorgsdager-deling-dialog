@@ -5,10 +5,10 @@ import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUti
 import Modal from 'nav-frontend-modal';
 import SoknadApplication from '../common/application-setup/SoknadApplication';
 import SoknadApplicationCommonRoutes from '../common/application-setup/SoknadApplicationCommonRoutes';
+import SoknadErrorMessages from '../common/soknad-error-messages/SoknadErrorMessages';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
 import Soknad from './soknad/Soknad';
-
 import './styles/app.less';
 
 Modal.setAppElement('#app');
@@ -32,6 +32,9 @@ render(
         }}
         publicPath={publicPath}>
         <SoknadApplicationCommonRoutes
+            errorContentRenderer={() => <SoknadErrorMessages.GeneralApplicationError />}
+            unavailableContentRenderer={() => <SoknadErrorMessages.ApplicationUnavailable />}
+            unknownRouteContentRenderer={() => <SoknadErrorMessages.UnknownRoute />}
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,
                 <Route path="/melding" key="soknad" component={Soknad} />,

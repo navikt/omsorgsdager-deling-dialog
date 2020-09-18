@@ -1,29 +1,28 @@
 import React from 'react';
-import SoknadFormStep from '../SoknadFormStep';
-import { StepConfigProps } from '../stepConfigProps';
-import { StepID } from '../StepID';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { useIntl } from 'react-intl';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
-import { getTypedFormComponents, FormikCheckboxPanelGroup, YesOrNo } from '@navikt/sif-common-formik/lib';
-import { SoknadFormField, SoknadFormData, Barn } from 'app/types/SoknadFormData';
-import { validateYesOrNoIsAnswered } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { useFormikContext } from 'formik';
-import FormQuestion from '../../../common/form-question/FormQuestion';
-import { validateRequiredList } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
+import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
+import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
-import { aldersBegrensingOver } from '../../utils/aldersUtils';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
+import {
+    validateRequiredList,
+    validateYesOrNoIsAnswered,
+} from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { FormikCheckboxPanelGroup, getTypedFormComponents, YesOrNo } from '@navikt/sif-common-formik/lib';
+import { useFormikContext } from 'formik';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
+import FormQuestion from '../../../common/form-question/FormQuestion';
+import { Barn, SoknadFormData, SoknadFormField } from 'app/types/SoknadFormData';
+import { aldersBegrensingOver } from '../../utils/aldersUtils';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepID } from '../StepID';
 
-interface OwnProps {
+interface Props {
     barn: Barn[];
 }
-
-type Props = OwnProps & StepConfigProps;
 
 const SoknadFormComponents = getTypedFormComponents<SoknadFormField, SoknadFormData>();
 
@@ -35,7 +34,7 @@ const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadStepsConfig, barn }: Props) => {
+const OmBarnaStep = ({ barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const checkboxes: CheckboksPanelProps[] = [];
@@ -68,13 +67,7 @@ const OmBarnaStep = ({ onResetSoknad, onValidSubmit, soknadStepsConfig: soknadSt
 
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
     return (
-        <SoknadFormStep
-            id={StepID.OM_BARNA}
-            soknadStepsConfig={soknadStepsConfig}
-            onResetSoknad={onResetSoknad}
-            onValidSubmit={onValidSubmit}
-            showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupOmBarnaStep}>
+        <SoknadFormStep id={StepID.OM_BARNA} showSubmitButton={kanFortsette} onStepCleanup={cleanupOmBarnaStep}>
             <CounsellorPanel>{intlHelper(intl, 'step.om-barna.info')}</CounsellorPanel>
             <FormBlock>
                 <FormQuestion

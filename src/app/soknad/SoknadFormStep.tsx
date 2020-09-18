@@ -7,13 +7,14 @@ import StepSubmitButton from '../../common/soknad-common/step-submit-button/Step
 import Step from '../../common/soknad-common/step/Step';
 import { getStepsFromConfig, getStepTexts } from '../../common/soknad-common/stepConfigUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
+import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
-import { StepConfigProps } from './stepConfigProps';
 import { StepID } from './StepID';
 
 interface OwnProps {
     id: StepID;
     onStepCleanup?: (values: SoknadFormData) => SoknadFormData;
+    onSendSoknad?: () => void;
     showSubmitButton?: boolean;
     showButtonSpinner?: boolean;
     includeValidationSummary?: boolean;
@@ -21,24 +22,23 @@ interface OwnProps {
     children: React.ReactNode;
 }
 
-type Props = OwnProps & StepConfigProps;
+type Props = OwnProps;
 
 const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
-    soknadStepsConfig,
-    onResetSoknad,
-    onContinueLater,
     onStepCleanup,
-    onValidSubmit,
+    onSendSoknad,
     children,
     showButtonSpinner,
     showSubmitButton = true,
     includeValidationSummary = true,
     buttonDisabled,
 }: Props) => {
-    const stepConfig = soknadStepsConfig[id];
     const intl = useIntl();
+    const { soknadStepsConfig, resetSoknad, gotoNextStepFromStep, continueSoknadLater } = useSoknadContext();
+    const stepConfig = soknadStepsConfig[id];
     const texts = getStepTexts(intl, stepConfig);
+
     return (
         <Step
             bannerTitle={intlHelper(intl, 'application.title')}
@@ -47,14 +47,14 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             backLinkHref={stepConfig.backLinkHref}
             steps={getStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}
-            onCancel={onResetSoknad}
-            onContinueLater={onContinueLater ? () => onContinueLater(id) : undefined}>
+            onCancel={resetSoknad}
+            onContinueLater={continueSoknadLater ? () => continueSoknadLater(id) : undefined}>
             <SoknadFormComponents.Form
-                onValidSubmit={onValidSubmit}
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
+                onValidSubmit={onSendSoknad ? onSendSoknad : () => gotoNextStepFromStep(id)}
                 fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
                 {children}
                 {showSubmitButton && (

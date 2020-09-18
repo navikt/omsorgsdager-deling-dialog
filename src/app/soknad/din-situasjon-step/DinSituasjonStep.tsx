@@ -15,7 +15,6 @@ import { DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../typ
 import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepConfigProps } from '../stepConfigProps';
 import { StepID } from '../StepID';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
@@ -26,7 +25,7 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const DinSituasjonStep = (props: StepConfigProps) => {
+const DinSituasjonStep = () => {
     const intl = useIntl();
     const { values } = useFormikContext<DinSituasjonFormData>();
     const { harBruktOmsorgsdagerEtter1Juli } = values;
@@ -36,7 +35,7 @@ const DinSituasjonStep = (props: StepConfigProps) => {
     const kanFortsette = arbeiderINorge === YesOrNo.YES;
 
     return (
-        <SoknadFormStep id={stepId} {...props} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
+        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
             <CounsellorPanel>
                 <FormattedMessage id="step.din_situasjon.veileder.intro" />
             </CounsellorPanel>
