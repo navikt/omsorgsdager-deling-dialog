@@ -19,6 +19,9 @@ import {
     IntroFormQuestions,
 } from './introFormConfig';
 import IntroFormQuestion from './IntroFormQuestion';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 interface Props {
     onValidSubmit: () => void;
@@ -54,25 +57,46 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 name={IntroFormField.erArbeidstakerSnEllerFrilanser}
                                 validate={validateYesOrNoIsAnswered}
                                 showStop={avslag === IntroFormAvslag.erIkkeArbeidstakerSnEllerFrilanser}
-                                stopMessage={<>Lorem ipsum</>}
+                                stopMessage={
+                                    <>{intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}</>
+                                }
                             />
                             <IntroFormQuestion
                                 name={IntroFormField.harAleneomsorg}
                                 validate={validateYesOrNoIsAnswered}
                                 showStop={avslag === IntroFormAvslag.harIkkeAleneomsorg}
-                                stopMessage={<>Lorem ipsum</>}
+                                stopMessage={<>{intlHelper(intl, 'introForm.form.harAleneomsorg.stopMessage')}</>}
+                                description={
+                                    <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                                        <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.1')}</p>
+                                        <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.2')}</p>
+                                        <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                                            {intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.lenke')}
+                                        </Lenke>
+                                    </ExpandableInfo>
+                                }
                             />
                             <IntroFormQuestion
                                 name={IntroFormField.mottakerErIkkeEktefelleEllerSamboer}
                                 validate={validateYesOrNoIsAnswered}
                                 showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerSamboer}
-                                stopMessage={<>Lorem ipsum</>}
+                                stopMessage={
+                                    <>
+                                        {intlHelper(intl, 'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage')}{' '}
+                                        <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                                            {intlHelper(
+                                                intl,
+                                                'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage.lenke'
+                                            )}
+                                        </Lenke>
+                                    </>
+                                }
                             />
                             <IntroFormQuestion
                                 name={IntroFormField.mottakersArbeidssituasjonErOk}
                                 validate={validateRequiredList}
                                 showStop={avslag === IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk}
-                                stopMessage={<>Lorem ipsum</>}
+                                stopMessage={<p>{intlHelper(intl, 'introForm.info.væreyrkesaktiv.stopMessage')}</p>}
                             />
                         </QuestionVisibilityContext.Provider>
                     </IntroFormComponents.Form>
