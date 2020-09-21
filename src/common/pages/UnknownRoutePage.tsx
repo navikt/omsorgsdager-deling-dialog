@@ -5,14 +5,12 @@ import ErrorPage from './ErrorPage';
 interface Props {
     contentRenderer?: () => React.ReactNode;
 }
-const UnavailablePage = ({ contentRenderer }: Props) => {
+const UnknownRoutePage = ({ contentRenderer }: Props) => {
     return (
         <ErrorPage
-            contentRenderer={() =>
-                contentRenderer ? contentRenderer() : () => <SoknadErrorMessages.ApplicationUnavailable />
-            }
+            contentRenderer={() => (contentRenderer ? contentRenderer() : () => <SoknadErrorMessages.UnknownRoute />)}
         />
     );
 };
 
-export default UnavailablePage;
+export default UnknownRoutePage;

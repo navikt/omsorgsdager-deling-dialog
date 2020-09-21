@@ -16,7 +16,7 @@ const ErrorPage = ({ contentRenderer, pageTitle, bannerTitle }: Props) => {
     return (
         <Page
             title={pageTitle || intlHelper(intl, 'common.errorPage.pageTitle')}
-            topContentRenderer={bannerTitle ? () => <StepBanner text={bannerTitle} /> : undefined}>
+            topContentRenderer={() => <StepBanner text={bannerTitle || intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
                 {contentRenderer ? contentRenderer() : <SoknadErrorMessages.GeneralApplicationError />}
             </Box>
