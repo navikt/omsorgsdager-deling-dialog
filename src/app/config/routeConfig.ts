@@ -1,12 +1,12 @@
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 
-enum GlobalRoutes {
+enum AppRoutes {
     NOT_OPEN = '/utilgjengelig',
     SOKNAD = '/melding',
     SOKNAD_SENT = '/melding/melding-sendt',
     ERROR = '/feil',
 }
 
-export const getRouteUrl = (route: GlobalRoutes): string => `${getEnvironmentVariable('PUBLIC_PATH')}${route}`;
+export const getRouteUrl = (route: AppRoutes): string => `${getEnvironmentVariable('PUBLIC_PATH')}${route}`;
 
-export default GlobalRoutes;
+export default AppRoutes;

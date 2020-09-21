@@ -9,7 +9,7 @@ import {
     SoknadApplicationType,
 } from '../../common/soknad-common/stepConfigUtils';
 import { sendSoknad } from '../api/sendSoknad';
-import GlobalRoutes, { getRouteUrl } from '../config/routeConfig';
+import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
@@ -51,7 +51,7 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
         setInitialFormData({ ...initialSoknadFormData });
         setSoknadId(undefined);
         if (redirectToFrontpage) {
-            if (location.pathname !== getRouteUrl(GlobalRoutes.SOKNAD)) {
+            if (location.pathname !== getRouteUrl(AppRoutes.SOKNAD)) {
                 relocateToSoknad();
                 setInitializing(false);
             } else {

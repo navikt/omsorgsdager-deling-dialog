@@ -5,7 +5,7 @@ import { isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
 import LoadingPage from '../../common/pages/LoadingPage';
 import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
-import GlobalRoutes from '../config/routeConfig';
+import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
@@ -55,7 +55,7 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
             <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
                 <VelkommenPage />
             </Route>
-            <Route path={GlobalRoutes.SOKNAD_SENT} exact={true}>
+            <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
                 {isSuccess(sendSoknadStatus.status) && <KvitteringPage />}
                 {!isSuccess(sendSoknadStatus.status) && <LoadingPage />}
             </Route>
