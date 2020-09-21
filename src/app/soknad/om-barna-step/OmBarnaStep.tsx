@@ -19,6 +19,9 @@ import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormDat
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 interface Props {
     barn: Barn[];
@@ -68,7 +71,14 @@ const OmBarnaStep = ({ barn }: Props) => {
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
     return (
         <SoknadFormStep id={StepID.OM_BARNA} showSubmitButton={kanFortsette} onStepCleanup={cleanupOmBarnaStep}>
-            <CounsellorPanel>{intlHelper(intl, 'step.om-barna.info')}</CounsellorPanel>
+            <CounsellorPanel>
+                <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
+                <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
+                <p>{intlHelper(intl, 'step.om-barna.info.3')}</p>
+                <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                    {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
+                </Lenke>
+            </CounsellorPanel>
             <FormBlock>
                 <FormQuestion
                     name={SoknadFormField.harAleneomsorg}
@@ -76,6 +86,15 @@ const OmBarnaStep = ({ barn }: Props) => {
                     validate={validateYesOrNoIsAnswered}
                     showStop={harAleneomsorg === YesOrNo.NO}
                     stopMessage="For å overføre dager ..."
+                    description={
+                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                            <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.1')}</p>
+                            <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.2')}</p>
+                            <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                                {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
+                            </Lenke>
+                        </ExpandableInfo>
+                    }
                 />
             </FormBlock>
             {harAleneomsorg === YesOrNo.YES && (

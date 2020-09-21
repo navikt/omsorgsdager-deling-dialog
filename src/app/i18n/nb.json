@@ -23,6 +23,10 @@
 
     "backlink.label": "Tilbake",
 
+    "hvaBetyrDette": "Hva betyr dette?",
+
+    "lesMerOmFastBostedOgSamvær": "Les mer om fast bosted og samvær",
+
     "step.dine-barn.pageTitle": "Dine egne barn",
     "step.dine-barn.stepTitle": "Dine egne barn",
     "step.dine-barn.født": "Født",
@@ -35,17 +39,22 @@
     "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
     "step.dine-barn.info.spm.flereBarn": "Har du flere barn?",
     "step.dine-barn.info.spm.text": "Har du flere barn som ikke er registrert her, kan du legge inn disse selv. Det kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
-    "step.dine-barn.formLeggTilBarn.advarsel": "Du kan ikke legge til barn som er fylt 18 år i forrige kalenderår",
+    "step.dine-barn.formLeggTilBarn.advarsel": "Du kan ikke legge til barn som er 19 år eller eldre.",
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
-    "step.om-barna.info": "INFO",
+    "step.om-barna.info.1": "Når det gjelder omsorgspenger, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg. Det vil si at barnet har folkeregistrert adresse hos deg.",
+    "step.om-barna.info.2": "Hvis du og den andre forelderen har en avtale om delt bosted, hvor barnet bor fast hos dere begge, vil ingen av dere bli regnet som alene om omsorgen.",
+    "step.om-barna.info.3": "Hvis du er alene om omsorgen per i dag, men blir sammen med den andre forelderen igjen, må du melde fra om det til NAV.",
     "step.om-barna.født": "Født",
     "step.om-barna.info.barnOver12": "Du får kun omsorgsdager for barn over 12 år dersom de har utvidet rett. Hvis du har et barn som er fylt 18 i dette kalenderåret og du har utvidet rett, må du legge det til...",
-    "step.om-barna.form.spm.harAleneOmsorg": "Har du aleneomsorg for ett eller flere barn?",
-    "step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
-    "step.om-barna.form.spm.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
-    "step.om-barna.form.spm.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",
+    "step.om-barna.form.spm.harAleneOmsorg": "Er du alene om omsorgen for barn?",
+    "step.om-barna.form.harAleneOmsorg.hvaBetyr.1": "Når det gjelder omsorgspenger, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg.",
+    "step.om-barna.form.harAleneOmsorg.hvaBetyr.2": "Hvis du og den andre forelderen har en avtale om delt bosted, hvor barnet bor fast hos dere begge, vil ingen av dere bli regnet som alene om omsorgen.",
+    "step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg": "Hvilke barn er du alene om omsorgen for?",
+    "step.om-barna.form.spm.harNoenUtvidetRett.flereBarn": "Har du fått ekstra omsorgsdager for noen av barna på grunn av kronisk sykdom eller funksjonshemning?",
+    "step.om-barna.form.spm.harNoenUtvidetRett.ettBarn": "Har du fått ekstra omsorgsdager for noen av barna på grunn av kronisk sykdom eller funksjonshemning?",
+    "step.om-barna.form.spm.hvilkeAvBarnaUtvRett": "Kryss av for barn du har fått ekstra omsorgsdager for",
     "step.om-barna.nextButtonLabel": "Fortsett",
 
     "step.din-situasjon.pageTitle": "Din situasjon",
@@ -67,8 +76,8 @@
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Fortsett senere",
 
-    "step.velkommen.banner.tittel": "Hei",
-    "step.velkommen.banner.tekst": "Jeg skal hjelpe deg å fylle ut dette skjemaet for å overføre omsorgsdager.",
+    "step.velkommen.banner.tittel": "Hei!",
+    "step.velkommen.banner.tekst": "Jeg vil hjelpe deg med å fylle ut skjemaet slik at du kan overføre omsorgsdager til en ny ektefelle eller en samboer du har bodd med i minst 12 måneder.",
     "step.velkommen.tittel": "Overføring av omsorgsdager",
     "step.velkommen.personopplysninger.lenketekst": "Les om hvordan NAV behandler personopplysningene dine",
     "step.velkommen.button.start": "Fortsett",
