@@ -9,6 +9,8 @@ import IntroForm from './IntroForm';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import { useHistory } from 'react-router-dom';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 const IntroPage = () => {
     const intl = useIntl();
@@ -20,6 +22,13 @@ const IntroPage = () => {
             <Box margin="xxxl">
                 <InformationPoster>
                     <p>{intlHelper(intl, 'introForm.info.1')}</p>
+                    <ul>
+                        <li>{intlHelper(intl, 'introForm.info.1.list.ektefelle')}</li>
+                        <li>{intlHelper(intl, 'introForm.info.1.list.samboer')}</li>
+                    </ul>
+                    <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
+                        {intlHelper(intl, 'introForm.info.1.list.lenke.andreForelderen')}
+                    </Lenke>
                     <p>{intlHelper(intl, 'introForm.info.2')}</p>
                     <ul>
                         <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
