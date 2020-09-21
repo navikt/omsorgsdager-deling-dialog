@@ -5,6 +5,7 @@ interface Lenker {
     saksbehandlingstider: string;
     dittNAV: string;
     meldingOmDelingAvOmsorgsdager: string;
+    merOmFastBostedOgSamvær: string;
 }
 
 const LenkerBokmål: Lenker = {
@@ -16,6 +17,7 @@ const LenkerBokmål: Lenker = {
     saksbehandlingstider: 'https://www.nav.no/no/NAV+og+samfunn/Om+NAV/Saksbehandlingstider+i+NAV',
     dittNAV: `https://www.nav.no/no/Ditt+NAV`,
     meldingOmDelingAvOmsorgsdager: `https://www.nav.no/soknader/nb/person/familie/omsorgspenger/NAV%2009-06.08/brev`,
+    merOmFastBostedOgSamvær: `https://www.regjeringen.no/no/tema/familie-og-barn/innsiktsartikler/bosted-og-samvar/samvar/id749587/`,
 };
 
 const getLenker = (locale?: string): Lenker => {
