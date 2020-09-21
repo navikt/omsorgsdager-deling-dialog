@@ -8,12 +8,15 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import IntroForm from './IntroForm';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import { useHistory } from 'react-router-dom';
+import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 
 const IntroPage = () => {
     const intl = useIntl();
     const history = useHistory();
     return (
-        <Page title={intlHelper(intl, 'application.title')}>
+        <Page
+            title={intlHelper(intl, 'application.title')}
+            topContentRenderer={() => <StepBanner text={intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
                 <InformationPoster>
                     <p>{intlHelper(intl, 'introForm.info.1')}</p>

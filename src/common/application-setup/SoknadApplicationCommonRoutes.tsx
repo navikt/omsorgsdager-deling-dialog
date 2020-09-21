@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ErrorPage from '../pages/ErrorPage';
 import UnavailablePage from '../pages/UnavailablePage';
-import UnknownPage from '../pages/UnknownPage';
+import UnknownRoutePage from '../pages/UnknownRoutePage';
 
 export enum GlobalSoknadApplicationRoutes {
     start = '/',
@@ -33,7 +33,7 @@ const SoknadApplicationCommonRoutes = ({
             <UnavailablePage contentRenderer={unavailableContentRenderer} />
         </Route>
         <Route path={GlobalSoknadApplicationRoutes.unknownRoute}>
-            <UnknownPage contentRenderer={unknownRouteContentRenderer} />
+            <UnknownRoutePage contentRenderer={unknownRouteContentRenderer} />
         </Route>
     </Switch>
 );
