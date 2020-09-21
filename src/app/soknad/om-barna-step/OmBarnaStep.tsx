@@ -111,7 +111,11 @@ const OmBarnaStep = ({ barn }: Props) => {
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harUtvidetRett}
-                            legend={intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett')}
+                            legend={
+                                checkboxes.length === 1
+                                    ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
+                                    : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
+                            }
                             validate={validateYesOrNoIsAnswered}
                         />
                     </FormBlock>

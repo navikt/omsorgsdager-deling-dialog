@@ -19,6 +19,8 @@ import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldVal
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 
@@ -56,7 +58,21 @@ const MottakerStep = ({ søker }: Props) => {
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette}>
             <CounsellorPanel>
-                <FormattedMessage id="step.mottaker.veileder.intro" />
+                <FormattedMessage id="step.mottaker.veileder.intro.1" />
+
+                <p>
+                    <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
+                        {intlHelper(intl, 'step.mottaker.veileder.intro.lenke')}
+                    </Lenke>
+                </p>
+                <p>
+                    <FormattedMessage id="step.mottaker.veileder.intro.2" />
+                    <ul>
+                        <li>{intlHelper(intl, 'arbeidstaker')}</li>
+                        <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
+                        <li>{intlHelper(intl, 'frilanser')}</li>
+                    </ul>
+                </p>
             </CounsellorPanel>
 
             <FormBlock>
@@ -76,7 +92,16 @@ const MottakerStep = ({ søker }: Props) => {
                 </FormBlock>
             )}
 
-            {kanIkkeFortsette && <StopMessage>Du må velge ...</StopMessage>}
+            {kanIkkeFortsette && (
+                <StopMessage>
+                    {intlHelper(intl, 'step.mottaker.form.stopMessage')}{' '}
+                    <p>
+                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
+                            {intlHelper(intl, 'step.mottaker.form.stopMessage.lenke')}
+                        </Lenke>
+                    </p>
+                </StopMessage>
+            )}
 
             {kanFortsette && (
                 <>

@@ -31,7 +31,6 @@ const DinePlikterContent: React.FunctionComponent = () => {
                         <Lenke href={getLenker(intl.locale).rettOgPlikt} target="_blank">
                             <FormattedMessage id="modal.dinePlikter.part2b" />
                         </Lenke>
-                        .
                     </span>
                 </li>
             </ul>

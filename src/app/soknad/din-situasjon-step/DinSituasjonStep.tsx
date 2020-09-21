@@ -16,6 +16,8 @@ import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -37,14 +39,20 @@ const DinSituasjonStep = () => {
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
             <CounsellorPanel>
-                <FormattedMessage id="step.din_situasjon.veileder.intro" />
+                <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
+                <p>
+                    <FormattedMessage id="step.din_situasjon.veileder.intro.2" />
+                    <Lenke href={getLenker(intl.locale).navno} target="_blank">
+                        {intlHelper(intl, 'nav.no')}
+                    </Lenke>
+                </p>
             </CounsellorPanel>
             <FormQuestion
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
                 validate={validateYesOrNoIsAnswered}
                 showStop={arbeiderINorge === YesOrNo.NO}
-                stopMessage="For å overføre dager ..."
+                stopMessage={`${intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.stopMessage')} `}
             />
             {kanFortsette === true && (
                 <>
