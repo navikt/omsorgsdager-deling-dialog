@@ -18,12 +18,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
         "baseUrl": "./src",
-        "paths": {
-            "@navikt/sif-common-forms/lib*": ["../node_modules/@navikt/sif-common-forms/lib*"],
-            "@navikt/sif-common-formik/lib*": ["../node_modules/@navikt/sif-common-formik/lib*"],
-            "@navikt/sif-common-core/lib*": ["../node_modules/@navikt/sif-common-core/lib*"],
-            "@navikt/sif-common-sentry/lib*": ["../node_modules/@navikt/sif-common-sentry/lib*"]
-        },
+        "paths": {},
 
         "typeRoots": ["./node_modules/@types", "./src/@types"]
     },

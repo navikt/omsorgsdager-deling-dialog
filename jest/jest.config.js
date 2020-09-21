@@ -7,10 +7,6 @@ module.exports = {
     moduleNameMapper: {
         '\\.(css|jpg|png|svg|less)$': '<rootDir>/node_modules/jest-css-modules',
         'nav-(.*)-style': '<rootDir>/node_modules/jest-css-modules',
-        '^app/(.*)': '<rootDir>/src/app/$1',
-        '^common/forms/(.*)': '<rootDir>/node_modules/@navikt/sif-common-forms/lib/$1',
-        '^common/formik/(.*)': '<rootDir>/node_modules/@navikt/sif-common-formik/lib/$1',
-        '^common/(.*)': '<rootDir>/node_modules/@sif-common-core/$1',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     transformIgnorePatterns: ['node_modules/(?!(nav-frontend-spinner-style)/)'],

@@ -17,25 +17,7 @@ const webpackConfig = {
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json', '.jsx'],
-        alias: {
-            app: path.resolve(__dirname, './../../app'),
-            ['@navikt/sif-common-forms/lib']: path.resolve(
-                __dirname,
-                './../../../node_modules/@navikt/sif-common-forms/lib'
-            ),
-            ['@navikt/sif-common-formik/lib']: path.resolve(
-                __dirname,
-                './../../../node_modules/@navikt/sif-common-formik/lib'
-            ),
-            ['@navikt/sif-common-core/lib']: path.resolve(
-                __dirname,
-                './../../../node_modules/@navikt/sif-common-core/lib'
-            ),
-            ['@navikt/sif-common-sentry/lib']: path.resolve(
-                __dirname,
-                './../../../node_modules/@navikt/sif-common-sentry/lib'
-            ),
-        },
+        alias: {},
     },
     module: {
         rules: [
