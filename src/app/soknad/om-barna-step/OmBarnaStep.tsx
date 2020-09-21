@@ -15,7 +15,7 @@ import { useFormikContext } from 'formik';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
 import FormQuestion from '../../../common/form-question/FormQuestion';
-import { Barn, SoknadFormData, SoknadFormField } from 'app/types/SoknadFormData';
+import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';

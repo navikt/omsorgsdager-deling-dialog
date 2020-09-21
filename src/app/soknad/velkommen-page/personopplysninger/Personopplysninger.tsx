@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import Lenke from 'nav-frontend-lenker';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import getLenker from 'app/lenker';
+import getLenker from '../../../lenker';
 
 const getText = (part: string) => <FormattedMessage id={`modal.personopplysninger.${part}`} />;
 

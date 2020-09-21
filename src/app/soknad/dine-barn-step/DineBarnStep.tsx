@@ -1,21 +1,19 @@
 import React from 'react';
-import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
-import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
 import { useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import ContentWithHeader from '@navikt/sif-common-core/lib/components/content-with-header/ContentWithHeader';
-import AlertStripe from 'nav-frontend-alertstriper';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { SoknadFormField, Barn } from 'app/types/SoknadFormData';
-import { useFormikContext } from 'formik';
-import { SoknadFormData } from '../../types/SoknadFormData';
+import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import ItemList from '@navikt/sif-common-core/lib/components/item-list/ItemList';
+import { dateToday, prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
-import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
+import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
+import { useFormikContext } from 'formik';
+import AlertStripe from 'nav-frontend-alertstriper';
+import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { nYearsAgo } from '../../utils/aldersUtils';
-import { dateToday } from '@navikt/sif-common-core/lib/utils/dateUtils';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepID } from '../StepID';
 
 interface OwnProps {
     barn: Barn[];

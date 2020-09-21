@@ -1,5 +1,5 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { jsonSort } from '../../../../common/utils/jsonSort';
+import { jsonSort } from '@navikt/sif-common-core/lib/utils/jsonSort';
 import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormField } from '../../../types/SoknadFormData';
 import { DinSituasjonApiData, mapDinSituasjonToApiData } from '../mapDinSituasjonToApiData';
 

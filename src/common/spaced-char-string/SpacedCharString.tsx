@@ -1,5 +1,8 @@
 import React from 'react';
-import { stringToSpacedCharString } from '../utils/accessibility';
+
+export const stringToSpacedCharString = (str: string) => {
+    return (str || '').split('').join(' ');
+};
 
 interface Props {
     str: string;

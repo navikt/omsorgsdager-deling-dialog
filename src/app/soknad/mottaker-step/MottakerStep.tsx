@@ -12,7 +12,7 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
 import StopMessage from '../../../common/stop-message/StopMessage';
-import { validateAll } from '../../../common/utils/fieldValidations';
+import { validateAll } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { Person } from '../../types/Person';
 import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
