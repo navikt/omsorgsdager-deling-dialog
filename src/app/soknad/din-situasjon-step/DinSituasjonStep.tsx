@@ -16,6 +16,8 @@ import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -34,27 +36,44 @@ const DinSituasjonStep = () => {
     const { arbeiderINorge } = values;
     const kanFortsette = arbeiderINorge === YesOrNo.YES;
 
+    const arbeiderINorgeStopMessage = (
+        <>
+            {intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.stopMessage')}
+            <ul>
+                <li>{intlHelper(intl, 'arbeidstaker')}</li>
+                <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
+                <li>{intlHelper(intl, 'frilanser')}</li>
+            </ul>
+        </>
+    );
+
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
             <CounsellorPanel>
-                <FormattedMessage id="step.din_situasjon.veileder.intro" />
+                <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
+                <p>
+                    <FormattedMessage id="step.din_situasjon.veileder.intro.2" />
+                    <Lenke href={getLenker(intl.locale).navno} target="_blank">
+                        {intlHelper(intl, 'nav.no')}
+                    </Lenke>
+                </p>
             </CounsellorPanel>
+            <FormBlock>
+                <SoknadFormComponents.YesOrNoQuestion
+                    name={SoknadFormField.borINorge}
+                    legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
+                    validate={validateYesOrNoIsAnswered}
+                />
+            </FormBlock>
             <FormQuestion
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
                 validate={validateYesOrNoIsAnswered}
                 showStop={arbeiderINorge === YesOrNo.NO}
-                stopMessage="For å overføre dager ..."
+                stopMessage={arbeiderINorgeStopMessage}
             />
             {kanFortsette === true && (
                 <>
-                    <FormBlock>
-                        <SoknadFormComponents.YesOrNoQuestion
-                            name={SoknadFormField.borINorge}
-                            legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
-                            validate={validateYesOrNoIsAnswered}
-                        />
-                    </FormBlock>
                     <FormBlock>
                         <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeidssituasjon.spm')}

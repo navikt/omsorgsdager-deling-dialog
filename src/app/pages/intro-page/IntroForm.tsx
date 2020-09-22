@@ -96,7 +96,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 name={IntroFormField.mottakersArbeidssituasjonErOk}
                                 validate={validateRequiredList}
                                 showStop={avslag === IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk}
-                                stopMessage={<p>{intlHelper(intl, 'introForm.info.væreyrkesaktiv.stopMessage')}</p>}
+                                stopMessage={intlHelper(intl, 'introForm.info.væreyrkesaktiv.stopMessage')}
                             />
                         </QuestionVisibilityContext.Provider>
                     </IntroFormComponents.Form>

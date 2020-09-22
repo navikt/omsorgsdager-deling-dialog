@@ -19,6 +19,9 @@ import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormDat
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 
 interface Props {
     barn: Barn[];
@@ -68,14 +71,30 @@ const OmBarnaStep = ({ barn }: Props) => {
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
     return (
         <SoknadFormStep id={StepID.OM_BARNA} showSubmitButton={kanFortsette} onStepCleanup={cleanupOmBarnaStep}>
-            <CounsellorPanel>{intlHelper(intl, 'step.om-barna.info')}</CounsellorPanel>
+            <CounsellorPanel>
+                <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
+                <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
+                <p>{intlHelper(intl, 'step.om-barna.info.3')}</p>
+                <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                    {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
+                </Lenke>
+            </CounsellorPanel>
             <FormBlock>
                 <FormQuestion
                     name={SoknadFormField.harAleneomsorg}
                     legend={intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg')}
                     validate={validateYesOrNoIsAnswered}
                     showStop={harAleneomsorg === YesOrNo.NO}
-                    stopMessage="For å overføre dager ..."
+                    stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
+                    description={
+                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                            {intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.1')}
+                            <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.2')}</p>
+                            <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                                {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
+                            </Lenke>
+                        </ExpandableInfo>
+                    }
                 />
             </FormBlock>
             {harAleneomsorg === YesOrNo.YES && (
@@ -92,7 +111,11 @@ const OmBarnaStep = ({ barn }: Props) => {
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harUtvidetRett}
-                            legend={intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett')}
+                            legend={
+                                checkboxes.length === 1
+                                    ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
+                                    : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
+                            }
                             validate={validateYesOrNoIsAnswered}
                         />
                     </FormBlock>
