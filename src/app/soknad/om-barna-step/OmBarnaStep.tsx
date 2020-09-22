@@ -85,10 +85,10 @@ const OmBarnaStep = ({ barn }: Props) => {
                     legend={intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg')}
                     validate={validateYesOrNoIsAnswered}
                     showStop={harAleneomsorg === YesOrNo.NO}
-                    stopMessage="For å overføre dager ..."
+                    stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
                     description={
                         <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
-                            <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.1')}</p>
+                            {intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.1')}
                             <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.2')}</p>
                             <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
                                 {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}

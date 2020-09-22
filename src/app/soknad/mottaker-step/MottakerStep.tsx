@@ -62,17 +62,16 @@ const MottakerStep = ({ søker }: Props) => {
 
                 <p>
                     <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                        {intlHelper(intl, 'step.mottaker.veileder.intro.lenke')}
+                        <FormattedMessage id="step.mottaker.veileder.intro.lenke" />
                     </Lenke>
                 </p>
-                <p>
-                    <FormattedMessage id="step.mottaker.veileder.intro.2" />
-                    <ul>
-                        <li>{intlHelper(intl, 'arbeidstaker')}</li>
-                        <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
-                        <li>{intlHelper(intl, 'frilanser')}</li>
-                    </ul>
-                </p>
+
+                <FormattedMessage id="step.mottaker.veileder.intro.2" />
+                <ul>
+                    <li>{intlHelper(intl, 'arbeidstaker')}</li>
+                    <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
+                    <li>{intlHelper(intl, 'frilanser')}</li>
+                </ul>
             </CounsellorPanel>
 
             <FormBlock>
@@ -94,10 +93,10 @@ const MottakerStep = ({ søker }: Props) => {
 
             {kanIkkeFortsette && (
                 <StopMessage>
-                    {intlHelper(intl, 'step.mottaker.form.stopMessage')}{' '}
+                    <FormattedMessage id="step.mottaker.form.stopMessage" />
                     <p>
                         <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                            {intlHelper(intl, 'step.mottaker.form.stopMessage.lenke')}
+                            <FormattedMessage id="step.mottaker.form.stopMessage.lenke" />
                         </Lenke>
                     </p>
                 </StopMessage>

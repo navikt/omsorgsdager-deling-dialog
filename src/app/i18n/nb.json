@@ -125,6 +125,7 @@
     "step.oppsummering.om-barna.header": "Om barna",
     "step.oppsummering.om-barna.født": "Født",
     "step.oppsummering.om-barna.harAleneomsorg": "Har du aleneomsorg for ett eller flere barn?",
+    "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle eller samboer du har bodd med i minst 12 måneder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
     "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",

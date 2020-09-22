@@ -36,6 +36,17 @@ const DinSituasjonStep = () => {
     const { arbeiderINorge } = values;
     const kanFortsette = arbeiderINorge === YesOrNo.YES;
 
+    const arbeiderINorgeStopMessage = (
+        <>
+            {intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.stopMessage')}
+            <ul>
+                <li>{intlHelper(intl, 'arbeidstaker')}</li>
+                <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
+                <li>{intlHelper(intl, 'frilanser')}</li>
+            </ul>
+        </>
+    );
+
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
             <CounsellorPanel>
@@ -47,22 +58,22 @@ const DinSituasjonStep = () => {
                     </Lenke>
                 </p>
             </CounsellorPanel>
+            <FormBlock>
+                <SoknadFormComponents.YesOrNoQuestion
+                    name={SoknadFormField.borINorge}
+                    legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
+                    validate={validateYesOrNoIsAnswered}
+                />
+            </FormBlock>
             <FormQuestion
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
                 validate={validateYesOrNoIsAnswered}
                 showStop={arbeiderINorge === YesOrNo.NO}
-                stopMessage={`${intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.stopMessage')} `}
+                stopMessage={arbeiderINorgeStopMessage}
             />
             {kanFortsette === true && (
                 <>
-                    <FormBlock>
-                        <SoknadFormComponents.YesOrNoQuestion
-                            name={SoknadFormField.borINorge}
-                            legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
-                            validate={validateYesOrNoIsAnswered}
-                        />
-                    </FormBlock>
                     <FormBlock>
                         <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeidssituasjon.spm')}
