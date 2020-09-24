@@ -53,7 +53,7 @@ const DinSituasjonStep = () => {
                 <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
                 <p>
                     <FormattedMessage id="step.din_situasjon.veileder.intro.2" />
-                    <Lenke href={getLenker(intl.locale).navno} target="_blank">
+                    <Lenke href={getLenker(intl.locale).medlemskapIFolketrygden} target="_blank">
                         {intlHelper(intl, 'nav.no')}
                     </Lenke>
                 </p>

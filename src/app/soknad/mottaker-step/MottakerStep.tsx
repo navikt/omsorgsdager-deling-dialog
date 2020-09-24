@@ -21,6 +21,7 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
+import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 
@@ -93,7 +94,7 @@ const MottakerStep = ({ søker }: Props) => {
 
             {kanIkkeFortsette && (
                 <StopMessage>
-                    <FormattedMessage id="step.mottaker.form.stopMessage" />
+                    <FormattedHtmlMessage id="step.mottaker.form.stopMessage.html" />
                     <p>
                         <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
                             <FormattedMessage id="step.mottaker.form.stopMessage.lenke" />

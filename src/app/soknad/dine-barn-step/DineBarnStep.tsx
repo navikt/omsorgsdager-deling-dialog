@@ -34,11 +34,7 @@ const DineBarnStep = ({ barn }: Props) => {
                 <p>{intlHelper(intl, 'step.dine-barn.info.title')}</p>
                 {intlHelper(intl, 'step.dine-barn.info')}
             </CounsellorPanel>
-            {andreBarn.length === 0 && barn.length === 0 && (
-                <Box margin="l">
-                    <AlertStripe type={'info'}>{intlHelper(intl, 'step.dine-barn.info.ingenbarn.1')}</AlertStripe>
-                </Box>
-            )}
+
             {barn.length > 0 && (
                 <Box margin="xl">
                     <ContentWithHeader header={intlHelper(intl, 'step.dine-barn.listHeader.registrerteBarn')}>
@@ -75,7 +71,7 @@ const DineBarnStep = ({ barn }: Props) => {
                     }}
                     maxDate={dateToday}
                     minDate={nYearsAgo(18)}
-                    advarsel={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.advarsel')}
+                    aldersGrenseText={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.aldersGrenseInfo')}
                 />
             </Box>
             {andreBarn.length === 0 && barn.length === 0 && (
