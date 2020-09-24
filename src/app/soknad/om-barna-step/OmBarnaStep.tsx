@@ -19,7 +19,6 @@ import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormDat
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
 
@@ -72,7 +71,7 @@ const OmBarnaStep = ({ barn }: Props) => {
     return (
         <SoknadFormStep id={StepID.OM_BARNA} showSubmitButton={kanFortsette} onStepCleanup={cleanupOmBarnaStep}>
             <CounsellorPanel>
-                <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
+                {intlHelper(intl, 'step.om-barna.info.1')}
                 <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
                 <p>{intlHelper(intl, 'step.om-barna.info.3')}</p>
                 <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
@@ -86,15 +85,6 @@ const OmBarnaStep = ({ barn }: Props) => {
                     validate={validateYesOrNoIsAnswered}
                     showStop={harAleneomsorg === YesOrNo.NO}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
-                    description={
-                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
-                            {intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.1')}
-                            <p>{intlHelper(intl, 'step.om-barna.form.harAleneOmsorg.hvaBetyr.2')}</p>
-                            <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
-                                {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
-                            </Lenke>
-                        </ExpandableInfo>
-                    }
                 />
             </FormBlock>
             {harAleneomsorg === YesOrNo.YES && (
