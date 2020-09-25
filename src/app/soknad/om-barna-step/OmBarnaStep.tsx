@@ -120,7 +120,7 @@ const OmBarnaStep = ({ barn }: Props) => {
                             />
                         </FormBlock>
                     )}
-                    {harUtvidetRett === YesOrNo.NO && (
+                    {alleBarnOver12ogIngenUtvidetRett() && (
                         <Box margin="l">
                             <AlertStripe type={'info'}>{intlHelper(intl, 'step.om-barna.info.barnOver12')}</AlertStripe>
                         </Box>
