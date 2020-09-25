@@ -1,5 +1,5 @@
 {
-    "application.title": "Overføring av omsorgsdager til ny samboer/ektefelle/omsorgsperson?",
+    "application.title": "Overføring av omsorgsdager til ny ektefelle eller samboer",
 
     "application.loadError.title": "Noe gikk galt ...",
     "application.loadError.message": "Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.",
@@ -39,7 +39,7 @@
     "step.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
     "step.dine-barn.nextButtonLabel": "Fortsett",
     "step.dine-barn.info.title": "Nå skal du legge inn opplysninger om dine egne barn, som bor fast hos deg.",
-    "step.dine-barn.info": "Det er kun barn under 18 som vises her. Hvis du har et barn som er fylt 18 år, og som du har fått ekstra omsorgsdager for på grunn av at barnet har kronisk sykdom eller funksjonshemning, kan du selv legge til dette barnet.",
+    "step.dine-barn.info": "Det er kun barn under 18 år som vises automatisk her. Hvis du har et barn som er fylt 18 år, og som du har fått ekstra omsorgsdager for på grunn av at barnet har kronisk sykdom eller funksjonshemning, kan du selv legge til dette barnet.",
     "step.dine-barn.info.ingenbarn.1": "Vi fant ingen barn registrert på deg. Har du  barn som ikke er registrert her, kan du selv legge inn disse. Dette kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
     "step.dine-barn.info.ingenbarn.2": "Du må legge til minst ett barn for å kunne gå videre.",
     "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
@@ -49,9 +49,9 @@
 
     "step.om-barna.pageTitle": "Om barna",
     "step.om-barna.stepTitle": "Om barna",
-    "step.om-barna.info.1": "Når det gjelder omsorgspenger, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg. Det vil si at barnet har folkeregistrert adresse hos deg.",
-    "step.om-barna.info.2": "Hvis du og den andre forelderen har en avtale om delt bosted, hvor barnet bor fast hos dere begge, vil ingen av dere bli regnet som alene om omsorgen.",
-    "step.om-barna.info.3": "Hvis du er alene om omsorgen per i dag, men blir sammen med den andre forelderen igjen, må du melde fra om det til NAV.",
+    "step.om-barna.info.1": "Når det gjelder omsorgsdager, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg. Det vil si at barnet har folkeregistrert adresse hos deg.",
+    "step.om-barna.info.2": "Hvis du og den andre forelderen har en avtale om delt bosted bor barnet fast hos dere begge og ingen av dere blir regnet som alene om omsorgen.",
+    "step.om-barna.info.3": "Hvis du er alene om omsorgen nå, men blir sammen med den andre forelderen, må du melde fra om det til NAV.",
     "step.om-barna.født": "Født",
     "step.om-barna.info.barnOver12": "For å få omsorgsdager for barn som er 13 år eller eldre, må du ha søkt om og fått innvilget ekstra omsorgsdager fordi barnet har en kronisk sykdom eller funksjonshemning.",
     "step.om-barna.form.spm.harAleneOmsorg": "Er du alene om omsorgen for barn?",
@@ -88,7 +88,7 @@
 
     "samtykke.tekst": "Jeg bekrefter at jeg har lest og forstått",
     "samtykke.harIkkeGodkjentVilkår": "Du må godkjenne vilkårene",
-    "samtykke.harForståttLabel": "For å gå videre med søknaden må du bekrefte at du har lest og forstått {plikterLink}.",
+    "samtykke.harForståttLabel": "For å gå videre må du bekrefte at du har lest og forstått {plikterLink}.",
     "samtykke.harForståttLabel.lenketekst": "dine plikter",
     "fieldvalidation.samtykkeErPåkrevd": "Du må bekrefte at du har lest og forstått dine plikter",
     "fieldvalidation.mottakersFnrErSøkersFnr": "Du har tastet inn ditt eget fødselsnummer",
@@ -103,9 +103,7 @@
     "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
     "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
 
-    "step.mottaker.veileder.intro.1": "I dette skjemaet kan du overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd sammen med i minst 12 måneder. ",
-    "step.mottaker.veileder.intro.2": "Den du skal overføre omsorgsdager til må være yrkesaktiv, altså være èn eller flere av punktene under:",
-    "step.mottaker.veileder.intro.lenke": "Hvis du vil dele omsorgsdager med den andre forelderen, kan du gjøre det her",
+    "step.mottaker.veileder.intro.1": "Den du skal overføre omsorgsdager til må være yrkesaktiv, altså være èn eller flere av punktene under:",
     "step.mottaker.form.overføreTilEktefelle.spm": "Skal du overføre dager til en ny ektefelle?",
     "step.mottaker.form.overføreTilSamboer.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
     "step.mottaker.form.stopMessage.html": "I dette skjemaet kan du <strong>kun</strong> overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd med i minst 12 måneder.",
