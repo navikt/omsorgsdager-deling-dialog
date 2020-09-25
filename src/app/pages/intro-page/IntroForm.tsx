@@ -68,7 +68,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 stopMessage={<>{intlHelper(intl, 'introForm.form.harAleneomsorg.stopMessage')}</>}
                                 description={
                                     <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
-                                        <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.1')}</p>
+                                        {intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.1')}
                                         <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.2')}</p>
                                         <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
                                             {intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.lenke')}

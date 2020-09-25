@@ -61,13 +61,6 @@ const MottakerStep = ({ søker }: Props) => {
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro.1" />
 
-                <p>
-                    <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                        <FormattedMessage id="step.mottaker.veileder.intro.lenke" />
-                    </Lenke>
-                </p>
-
-                <FormattedMessage id="step.mottaker.veileder.intro.2" />
                 <ul>
                     <li>{intlHelper(intl, 'arbeidstaker')}</li>
                     <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>

@@ -3,8 +3,8 @@
     "introForm.erArbeidstakerSnEllerFrilanser.spm": "Er du arbeidstaker, selvstendig næringsdrivende eller frilanser?",
     "introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage": "For å ha rett på omsorgsdager og overføre disse til en annen, må du være yrkesaktiv. Det betyr at du må enten arbeidstaker, selvstendig næringsdrivende, frilanser, eller en kombinasjon av disse.",
     "introForm.harAleneomsorg.spm": "Er du alene om omsorgen for barn?",
-    "introForm.form.harAleneomsorg.hvaBetyr.1": "Når det gjelder omsorgspenger, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg.",
-    "introForm.form.harAleneomsorg.hvaBetyr.2": "Hvis du og den andre forelderen har en avtale om delt bosted, hvor barnet bor fast hos dere begge, vil ingen av dere bli regnet som alene om omsorgen.",
+    "introForm.form.harAleneomsorg.hvaBetyr.1": "Når det gjelder omsorgsdager, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg.",
+    "introForm.form.harAleneomsorg.hvaBetyr.2": "Hvis du og den andre forelderen har en avtale om delt bosted bor barnet fast hos dere begge og ingen av dere blir regnet som alene om omsorgen.",
     "introForm.form.harAleneomsorg.hvaBetyr.lenke": "Les mer om fast bosted og samvær",
     "introForm.form.harAleneomsorg.stopMessage": "For å kunne overføre omsorgsdager til ny ektefelle eller samboer, må du være alene om omsorgen for barnet du har omsorgsdager for.",
     "introForm.mottakerErEktefelleEllerSamboer.spm": "Skal du overføre omsorgsdager til ny ektefelle eller en samboer du har bodd med i minst 12 måneder?",
@@ -15,11 +15,11 @@
     "introForm.info.1.list.ektefelle": "ny ektefelle, eller",
     "introForm.info.1.list.samboer": "en samboer du har bodd med i minst 12 måneder",
     "introForm.info.1.list.lenke.andreForelderen": "Hvis du vil dele omsorgsdager med den andre forelderen, kan du gjøre det her ",
-    "introForm.info.2": "Den du overfører omsorgsdager til må",
+    "introForm.info.2": "Du og den du overfører omsorgsdager til må",
     "introForm.info.væreyrkesaktiv": "være yrkesaktiv (arbeidstaker, selvstendig næringsdrivende eller frilanser)",
-    "introForm.info.væreyrkesaktiv.stopMessage": "For at den du vil overføre omsorgsdager til skal kunne bruke omsorgsdager må den være yrkesaktiv. Det betyr enten å være arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse.",
-    "introForm.info.haBarnUnder12": "ikke ha egne barn under 12 år som bor fast hos seg",
+    "introForm.info.væreyrkesaktiv.stopMessage": "Den du skal overføre omsorgsdager til må være yrkesaktiv for å kunne bruke omsorgsdager. Yrkesaktiv betyr å være arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse.",
     "introForm.info.ikkeFylt70": "ikke ha fylt 70 år",
-    "introForm.info.3": "Du kan overføre opptil 10 omsorgsdager, så lenge du har disse tilgjengelig.",
-    "introForm.info.4": "Når du overfører omsorgsdager er det en fast ordning frem til du eventuelt vil stoppe det. Slik stopper du det"
+    "introForm.info.3": "Når du overfører omsorgsdager er det en fast ordning så lenge du har rett til omsorgsdager, eller frem til du eventuelt vil stoppe det.",
+    "introForm.info.3.lenkeStopOrdningen": "Slik stopper du ordningen",
+    "introForm.info.4": "Du kan overføre opptil 10 omsorgsdager for hvert år. Hvis du ønsker å overføre 10 dager, men for eksempel har brukt 2 av disse selv i år, blir det overført 8 dager i år og 10 dager fra neste år."
 }
