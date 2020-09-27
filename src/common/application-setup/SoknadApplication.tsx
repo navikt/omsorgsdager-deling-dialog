@@ -7,7 +7,7 @@ import ApplicationMessages from '@navikt/sif-common-core/lib/dev-utils/intl/appl
 import { MessageFileFormat } from '@navikt/sif-common-core/lib/dev-utils/intl/devIntlUtils';
 import { Locale } from '@navikt/sif-common-core/lib/types/Locale';
 import { getLocaleFromSessionStorage, setLocaleInSessionStorage } from '@navikt/sif-common-core/lib/utils/localeUtils';
-import getSentryLoggerForApp from '@navikt/sif-common-sentry/lib';
+import getSentryLoggerForApp from '@navikt/sif-common-sentry';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { GlobalSoknadApplicationRoutes } from './SoknadApplicationCommonRoutes';
@@ -47,7 +47,7 @@ const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus
     const hasMultipleLocales = Object.keys(messages).length > 1;
 
     if (sentryKey) {
-        getSentryLoggerForApp(sentryKey).init();
+        getSentryLoggerForApp(sentryKey, ['dist/js/bundle.js']).init();
     }
 
     return (
