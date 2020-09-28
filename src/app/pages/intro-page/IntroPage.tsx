@@ -1,16 +1,16 @@
 import React from 'react';
-import Page from '@navikt/sif-common-core/lib/components/page/Page';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { useIntl } from 'react-intl';
-import InformationPoster from '@navikt/sif-common-core/lib/components/information-poster/InformationPoster';
+import { useHistory } from 'react-router-dom';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
-import IntroForm from './IntroForm';
-import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
-import { useHistory } from 'react-router-dom';
+import InformationPoster from '@navikt/sif-common-core/lib/components/information-poster/InformationPoster';
+import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
+import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
+import IntroForm from './IntroForm';
 
 const IntroPage = () => {
     const intl = useIntl();
