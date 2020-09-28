@@ -34,7 +34,7 @@
         "@navikt/sif-common-formik": "^10.0.7",
         "@navikt/sif-common-forms": "^8.0.16",
         "@navikt/sif-common-question-config": "0.0.6",
-        "@navikt/sif-common-sentry": "0.0.12",
+        "@navikt/sif-common-sentry": "0.0.13",
         "@sentry/browser": "^5.24.0",
         "@testing-library/react": "^10.4.8",
         "@types/lodash.delay": "^4.1.6",

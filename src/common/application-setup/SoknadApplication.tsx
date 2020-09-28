@@ -47,7 +47,7 @@ const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus
     const hasMultipleLocales = Object.keys(messages).length > 1;
 
     if (sentryKey) {
-        getSentryLoggerForApp(sentryKey, ['dist/js/bundle.js']).init();
+        getSentryLoggerForApp(sentryKey, [/sykdom-i-familien/]).init();
     }
 
     return (
