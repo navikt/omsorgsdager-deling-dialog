@@ -12,6 +12,7 @@ server.use(helmet());
 server.use(compression());
 server.set('views', path.resolve(`${__dirname}/dist`));
 server.set('view engine', 'mustache');
+server.set('Content-Security-Policy', "default-src 'self' *.nav.no");
 server.engine('html', mustacheExpress());
 
 createEnvSettingsFile(path.resolve(`${__dirname}/dist/js/settings.js`));
