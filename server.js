@@ -10,21 +10,7 @@ const getDecorator = require('./src/build/scripts/decorator');
 const server = express();
 server.use(
     helmet({
-        contentSecurityPolicy: {
-            directives: {
-                defaultSrc: ["'self'"],
-                scriptSrc: ["'self'", '*.nav.no'],
-                baseUri: ["'self'"],
-                blockAllMixedContent: true,
-                fontSrc: ["'self'", 'https:', 'data:', '*.nav.no'],
-                frameAncestors: ["'self'", '*.nav.no'],
-                imgSrc: ["'self'", 'data:', '*.nav.no'],
-                objectSrc: ['none', '*.nav.no'],
-                scriptSrcAttr: ['none'],
-                styleSrc: ["'self'", 'https:', 'unsafe-inline', '*.nav.no'],
-                upgradeInsecureRequests: true,
-            },
-        },
+        contentSecurityPolicy: false,
     })
 );
 
