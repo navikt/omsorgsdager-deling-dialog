@@ -43,7 +43,6 @@ const IntroPage = () => {
                     <p>{intlHelper(intl, 'introForm.info.4')}</p>
                 </InformationPoster>
             </Box>
-
             <FormBlock>
                 <IntroForm onValidSubmit={() => navigateToSoknadFrontpage(history)} />
             </FormBlock>

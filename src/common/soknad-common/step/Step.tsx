@@ -41,13 +41,18 @@ function Step({
     showStepIndicator = true,
     children,
 }: Props) {
+    const currentStepIndex = steps.findIndex((s) => s.id === activeStepId);
     return (
         <Page
             className={bem.block}
             title={pageTitle}
             topContentRenderer={() => (
                 <>
-                    {bannerTitle && <StepBanner text={bannerTitle} />}
+                    {bannerTitle && (
+                        <>
+                            <StepBanner text={bannerTitle} />
+                        </>
+                    )}
                     {useValidationErrorSummary !== false && <FormikValidationErrorSummary />}
                 </>
             )}>
@@ -63,20 +68,25 @@ function Step({
                             }}
                         />
                     )}
-                    <StepIndicator steps={steps} activeStep={steps.findIndex((s) => s.id === activeStepId)} />
+                    <div role="presentation" aria-hidden={true}>
+                        <StepIndicator steps={steps} activeStep={currentStepIndex} />
+                    </div>
                 </>
             )}
-            <Box margin="xxl">
-                <Systemtittel className={bem.element('title')} tag="h1">
-                    {stepTitle}
-                </Systemtittel>
-            </Box>
+            <main aria-label={`Steg ${currentStepIndex + 1} av ${steps.length}:  ${pageTitle}`}>
+                <Box margin="xxl">
+                    <Systemtittel className={bem.element('title')} tag="h1">
+                        {stepTitle}
+                    </Systemtittel>
+                </Box>
 
-            <Box margin="xl">{children}</Box>
-
-            {(onCancel || onContinueLater) && (
-                <StepFooter onAvbrytOgSlett={onCancel} onAvbrytOgFortsettSenere={onContinueLater} />
-            )}
+                <Box margin="xl">{children}</Box>
+                {(onCancel || onContinueLater) && (
+                    <div role="complementary">
+                        <StepFooter onAvbrytOgSlett={onCancel} onAvbrytOgFortsettSenere={onContinueLater} />
+                    </div>
+                )}
+            </main>
         </Page>
     );
 }
