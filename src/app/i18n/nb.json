@@ -33,8 +33,8 @@
 
     "nav.no": "nav.no",
 
-    "step.dine-barn.pageTitle": "Dine egne barn",
-    "step.dine-barn.stepTitle": "Dine egne barn",
+    "step.dine-barn.pageTitle": "Barna dine",
+    "step.dine-barn.stepTitle": "Barna dine",
     "step.dine-barn.født": "Født",
     "step.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
     "step.dine-barn.nextButtonLabel": "Fortsett",
@@ -47,8 +47,8 @@
     "step.dine-barn.info.spm.text": "Har du flere barn som ikke er registrert her, kan du legge inn disse selv. Det kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
     "step.dine-barn.formLeggTilBarn.aldersGrenseInfo": "(Du kan ikke legge til barn som er 19 år eller eldre)",
 
-    "step.om-barna.pageTitle": "Om barna",
-    "step.om-barna.stepTitle": "Om barna",
+    "step.om-barna.pageTitle": "Om barna dine",
+    "step.om-barna.stepTitle": "Om barna dine",
     "step.om-barna.info.1": "Når det gjelder omsorgsdager, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg. Det vil si at barnet har folkeregistrert adresse hos deg.",
     "step.om-barna.info.2": "Hvis du og den andre forelderen har en avtale om delt bosted bor barnet fast hos dere begge og ingen av dere blir regnet som alene om omsorgen.",
     "step.om-barna.info.3": "Hvis du er alene om omsorgen nå, men blir sammen med den andre forelderen, må du melde fra om det til NAV.",
@@ -81,7 +81,7 @@
     "steg.footer.fortsettSenere": "Fortsett senere",
 
     "step.velkommen.banner.tittel": "Hei!",
-    "step.velkommen.banner.tekst": "Jeg vil hjelpe deg med å fylle ut skjemaet slik at du kan overføre omsorgsdager til en ny ektefelle eller en samboer du har bodd med i minst 12 måneder.",
+    "step.velkommen.banner.tekst": "Jeg vil hjelpe deg med å fylle ut skjemaet, slik at du kan overføre omsorgsdager.",
     "step.velkommen.tittel": "Overføring av omsorgsdager",
     "step.velkommen.personopplysninger.lenketekst": "Les om hvordan NAV behandler personopplysningene dine",
     "step.velkommen.button.start": "Fortsett",
