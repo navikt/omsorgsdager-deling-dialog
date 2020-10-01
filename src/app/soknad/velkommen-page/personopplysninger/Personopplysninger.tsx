@@ -33,13 +33,10 @@ const BehandlingAvPersonopplysningerContent: React.FunctionComponent = () => {
                 <Normaltekst>{getText('svar.part1')}</Normaltekst>
                 <ul>
                     <li>{getText('svar.1')}</li>
-                    <li>{getText('svar.2')}</li>
-                    <li>{getText('svar.3')}</li>
                 </ul>
             </Box>
 
             <Box margin="xl">
-                <Ingress>{getText('personvern.tittel')}</Ingress>
                 <Normaltekst>
                     {getText('personvern.part1a')}{' '}
                     <Lenke href={getLenker(intl.locale).personvern} target="_blank">
