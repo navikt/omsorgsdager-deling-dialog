@@ -1,9 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { isSuccess } from '@devexperts/remote-data-ts';
+import { isFailure, isPending, isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
-import LoadingPage from '../../common/pages/LoadingPage';
 import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
@@ -19,6 +18,8 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import LoadWrapper from '../../common/load-wrapper/LoadWrapper';
+import ErrorPage from '../../common/pages/ErrorPage';
 
 interface Props {
     soknadId?: string;
@@ -56,8 +57,18 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                 <VelkommenPage />
             </Route>
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
-                {isSuccess(sendSoknadStatus.status) && <KvitteringPage />}
-                {!isSuccess(sendSoknadStatus.status) && <LoadingPage />}
+                <LoadWrapper
+                    isLoading={isPending(sendSoknadStatus.status)}
+                    contentRenderer={() => {
+                        if (isSuccess(sendSoknadStatus.status) && <KvitteringPage />) {
+                            return <KvitteringPage />;
+                        }
+                        if (isFailure(sendSoknadStatus.status)) {
+                            return <ErrorPage />;
+                        }
+                        return <div>Det oppstod en feil</div>;
+                    }}
+                />
             </Route>
             {availableSteps.map((step) => {
                 if (soknadId === undefined) {

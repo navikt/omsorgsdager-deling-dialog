@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
@@ -10,23 +11,21 @@ import {
     validateRequiredList,
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import { FormikCheckboxPanelGroup, getTypedFormComponents, YesOrNo } from '@navikt/sif-common-formik/lib';
 import { useFormikContext } from 'formik';
 import AlertStripe from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
 import FormQuestion from '../../../common/form-question/FormQuestion';
+import getLenker from '../../lenker';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
+import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
 
 interface Props {
     barn: Barn[];
 }
-
-const SoknadFormComponents = getTypedFormComponents<SoknadFormField, SoknadFormData>();
 
 const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -90,7 +89,7 @@ const OmBarnaStep = ({ barn }: Props) => {
             {harAleneomsorg === YesOrNo.YES && (
                 <>
                     <FormBlock>
-                        <FormikCheckboxPanelGroup<SoknadFormField>
+                        <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
                             name={SoknadFormField.harAleneomsorgFor}
                             checkboxes={checkboxes}
@@ -112,7 +111,7 @@ const OmBarnaStep = ({ barn }: Props) => {
 
                     {harUtvidetRett === YesOrNo.YES && (
                         <FormBlock>
-                            <FormikCheckboxPanelGroup<SoknadFormField>
+                            <SoknadFormComponents.CheckboxPanelGroup
                                 legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
                                 name={SoknadFormField.harUtvidetRettFor}
                                 checkboxes={checkboxes}

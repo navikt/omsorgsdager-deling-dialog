@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
@@ -8,8 +8,9 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
+import Lenke from 'nav-frontend-lenker';
 import { QuestionVisibilityContext } from '../../../common/context/QuestionVisibilityContext';
-import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
+import getLenker from '../../lenker';
 import {
     getIntroFormAvslag,
     IntroFormAvslag,
@@ -19,9 +20,6 @@ import {
     IntroFormQuestions,
 } from './introFormConfig';
 import IntroFormQuestion from './IntroFormQuestion';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
 
 interface Props {
     onValidSubmit: () => void;
@@ -31,11 +29,12 @@ const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData
 
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
-    const history = useHistory();
     return (
         <IntroFormComponents.FormikWrapper
             initialValues={introFormInitialValues}
-            onSubmit={onValidSubmit}
+            onSubmit={() => {
+                onValidSubmit();
+            }}
             renderForm={({ values }) => {
                 const avslag = getIntroFormAvslag(values);
                 const visibility = IntroFormQuestions.getVisbility({
@@ -47,9 +46,6 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                     <IntroFormComponents.Form
                         includeValidationSummary={true}
                         includeButtons={kanFortsette}
-                        onValidSubmit={() => {
-                            navigateToSoknadFrontpage(history);
-                        }}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                         submitButtonLabel={intlHelper(intl, 'introForm.start')}>
                         <QuestionVisibilityContext.Provider value={{ visibility }}>

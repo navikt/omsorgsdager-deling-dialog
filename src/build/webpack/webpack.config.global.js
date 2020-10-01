@@ -23,7 +23,11 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                include: [path.resolve(__dirname, './../../app'), path.resolve(__dirname, './../../common')],
+                include: [
+                    path.resolve(__dirname, './../../app'),
+                    path.resolve(__dirname, './../../common'),
+                    path.resolve(__dirname, './../../sif-common'),
+                ],
                 loader: require.resolve('awesome-typescript-loader'),
             },
             {

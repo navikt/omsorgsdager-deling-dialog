@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import ContentWithHeader from '@navikt/sif-common-core/lib/components/content-with-header/ContentWithHeader';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
@@ -21,6 +21,19 @@ interface OwnProps {
 
 type Props = OwnProps;
 
+const barnItemLabelRenderer = (barn: Barn, intl: IntlShape): React.ReactNode => {
+    return (
+        <div style={{ display: 'flex' }}>
+            <span style={{ order: 2, paddingLeft: '1rem', justifySelf: 'flex-end' }}>
+                {formatName(barn.fornavn, barn.etternavn, barn.mellomnavn)}
+            </span>
+            <span style={{ order: 1 }}>
+                {intlHelper(intl, 'step.dine-barn.født')} {prettifyDate(barn.fødselsdato)}
+            </span>
+        </div>
+    );
+};
+
 const DineBarnStep = ({ barn }: Props) => {
     const intl = useIntl();
     const {
@@ -41,11 +54,7 @@ const DineBarnStep = ({ barn }: Props) => {
                         <ItemList<Barn>
                             getItemId={(registrerteBarn) => registrerteBarn.aktørId}
                             getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
-                            labelRenderer={(registrerteBarn) =>
-                                `${intlHelper(intl, 'step.dine-barn.født')} ${prettifyDate(
-                                    registrerteBarn.fødselsdato
-                                )} ${formatName(registrerteBarn.fornavn, registrerteBarn.etternavn)}`
-                            }
+                            labelRenderer={(barn) => barnItemLabelRenderer(barn, intl)}
                             items={barn}
                         />
                     </ContentWithHeader>

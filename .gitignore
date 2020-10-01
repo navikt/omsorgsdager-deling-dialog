@@ -6,3 +6,4 @@
 /src/navikt
 .DS_Store
 .env
+/src/sif-common
