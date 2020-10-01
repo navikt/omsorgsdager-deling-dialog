@@ -44,7 +44,13 @@ const IntroPage = () => {
                 </InformationPoster>
             </Box>
             <FormBlock>
-                <IntroForm onValidSubmit={() => navigateToSoknadFrontpage(history)} />
+                <IntroForm
+                    onValidSubmit={() => {
+                        setTimeout(() => {
+                            navigateToSoknadFrontpage(history);
+                        });
+                    }}
+                />
             </FormBlock>
         </Page>
     );

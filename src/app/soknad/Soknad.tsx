@@ -11,6 +11,7 @@ import SoknadErrorMessages from '../../common/soknad-error-messages/SoknadErrorM
 const Soknad = () => {
     const intl = useIntl();
     const soknadEssentials = useSoknadEssentials();
+
     return (
         <RemoteDataHandler<CombinedType>
             remoteData={soknadEssentials}

@@ -119,7 +119,6 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
     };
 
     useEffect(() => {
-        console.log('useEffect');
         if (isStorageDataValid(mellomlagring, { søker, barn })) {
             setInitialFormData(mellomlagring.formData);
             setSoknadId(mellomlagring.metadata.soknadId);
@@ -127,21 +126,16 @@ const SoknadContent = ({ søker, barn, mellomlagring }: Props) => {
             const lastStepRoute = getSoknadStepRoute(mellomlagring.metadata.lastStepID, SoknadApplicationType.MELDING);
             if (currentRoute !== lastStepRoute) {
                 setTimeout(() => {
-                    console.log('nav');
                     navigateTo(
                         getSoknadStepRoute(mellomlagring.metadata.lastStepID, SoknadApplicationType.MELDING),
                         history
                     );
-                    console.log('then init');
                     setInitializing(false);
                 });
             } else {
-                console.log('set initializing 2');
                 setInitializing(false);
             }
         } else {
-            console.log('reset 1');
-            console.log(history.location.pathname);
             resetSoknad(history.location.pathname !== AppRoutes.SOKNAD);
         }
     }, [history, mellomlagring, søker, barn]);
