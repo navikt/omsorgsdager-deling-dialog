@@ -18,8 +18,8 @@ interface AppStatusSanityConfig {
 }
 
 interface Props {
-    /** Title on app - not visual to user */
-    title: string;
+    /** App name - not visual to user */
+    appName: string;
     /** Locale messages */
     intlMessages: MessageFileFormat;
     /** Key used in sentry logging for identifying the app in the logs */
@@ -41,7 +41,7 @@ moment.locale(localeFromSessionStorage);
 const isValidAppStatusSanityConfig = (appStatus: AppStatusSanityConfig | any): appStatus is AppStatusSanityConfig =>
     appStatus !== undefined && appStatus.dataset !== undefined && appStatus.projectId !== undefined;
 
-const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus, publicPath, children }: Props) => {
+const SoknadApplication = ({ intlMessages: messages, appName, sentryKey, appStatus, publicPath, children }: Props) => {
     const [locale, setLocale] = React.useState<Locale>(localeFromSessionStorage);
     const localeMessages = messages[locale] || messages['nb'];
     const hasMultipleLocales = Object.keys(messages).length > 1;
@@ -75,7 +75,7 @@ const SoknadApplication = ({ intlMessages: messages, title, sentryKey, appStatus
                     ) : (
                         <>{children}</>
                     )}
-                    <ApplicationMessages messages={messages} title={title} />
+                    <ApplicationMessages messages={messages} title={appName} />
                 </BrowserRouter>
             </IntlProvider>
         </Normaltekst>
