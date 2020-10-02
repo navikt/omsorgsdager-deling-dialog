@@ -4,8 +4,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import FormikYesOrNoQuestion, {
     FormikYesOrNoQuestionProps,
 } from '@navikt/sif-common-formik/lib/components/formik-yes-or-no-question/FormikYesOrNoQuestion';
-import InfoMessage from '../info-message/InfoMessage';
-import StopMessage from '../stop-message/StopMessage';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 export interface FormQuestionProps<FieldName> extends FormikYesOrNoQuestionProps<FieldName> {
     showStop?: boolean;
@@ -27,8 +26,16 @@ function FormQuestion<FieldName>(props: FormQuestionProps<FieldName>) {
         <FormBlock>
             {children || <FormikYesOrNoQuestion name={name} legend={legend} description={description} />}
             <div aria-live="polite">
-                {showStop && stopMessage && <StopMessage>{stopMessage}</StopMessage>}
-                {showInfo && infoMessage && <InfoMessage>{infoMessage}</InfoMessage>}
+                {showStop && stopMessage && (
+                    <FormBlock>
+                        <AlertStripeAdvarsel>{stopMessage}</AlertStripeAdvarsel>
+                    </FormBlock>
+                )}
+                {showInfo && infoMessage && (
+                    <FormBlock>
+                        <AlertStripeInfo>{infoMessage}</AlertStripeInfo>
+                    </FormBlock>
+                )}
             </div>
         </FormBlock>
     );

@@ -9,7 +9,7 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
 import Lenke from 'nav-frontend-lenker';
-import { QuestionVisibilityContext } from '../../../common/context/QuestionVisibilityContext';
+import { QuestionVisibilityContext } from '../../../common/question-visibility/QuestionVisibilityContext';
 import getLenker from '../../lenker';
 import {
     getIntroFormAvslag,

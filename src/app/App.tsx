@@ -3,9 +3,8 @@ import { render } from 'react-dom';
 import { Route } from 'react-router-dom';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import Modal from 'nav-frontend-modal';
-import SoknadApplication from '../common/application-setup/SoknadApplication';
-import SoknadApplicationCommonRoutes from '../common/application-setup/SoknadApplicationCommonRoutes';
-import SoknadErrorMessages from '../common/soknad-error-messages/SoknadErrorMessages';
+import SoknadApplication from '../common/soknad-application-setup/SoknadApplication';
+import SoknadApplicationCommonRoutes from '../common/soknad-application-setup/SoknadApplicationCommonRoutes';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
 import Soknad from './soknad/Soknad';
@@ -32,9 +31,6 @@ render(
         }}
         publicPath={publicPath}>
         <SoknadApplicationCommonRoutes
-            errorContentRenderer={() => <SoknadErrorMessages.GeneralApplicationError />}
-            unavailableContentRenderer={() => <SoknadErrorMessages.ApplicationUnavailable />}
-            unknownRouteContentRenderer={() => <SoknadErrorMessages.UnknownRoute />}
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,
                 <Route path="/melding" key="soknad" component={Soknad} />,

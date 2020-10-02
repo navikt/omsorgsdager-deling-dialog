@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import SummarySection from '../../../common/summary/summary-section/SummarySection';
+import SummarySection from '../../../common/soknad-summary/summary-section/SummarySection';
 import { BarnApiData } from '../../utils/map-form-data-to-api-data/mapBarnToApiData';
 import BarnSummaryList from './BarnSummaryList';
 

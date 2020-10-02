@@ -9,7 +9,7 @@ const UnavailablePage = ({ contentRenderer }: Props) => {
     return (
         <ErrorPage
             contentRenderer={() =>
-                contentRenderer ? contentRenderer() : () => <SoknadErrorMessages.ApplicationUnavailable />
+                contentRenderer ? contentRenderer : () => <SoknadErrorMessages.ApplicationUnavailable />
             }
         />
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import RemoteDataHandler from '../../common/application-setup/RemoteDataHandler';
-import ErrorPage from '../../common/pages/ErrorPage';
-import LoadingPage from '../../common/pages/LoadingPage';
+import RemoteDataHandler from '../../common/remote-data-handler/RemoteDataHandler';
+import ErrorPage from '../../common/soknad-common-pages/ErrorPage';
+import LoadingPage from '../../common/soknad-common-pages/LoadingPage';
 import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
 import SoknadContent from './SoknadContent';
 import SoknadErrorMessages from '../../common/soknad-error-messages/SoknadErrorMessages';

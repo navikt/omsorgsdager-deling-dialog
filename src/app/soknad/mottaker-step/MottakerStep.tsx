@@ -2,26 +2,26 @@ import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
+    validateAll,
     validateFødselsnummer,
     validateRequiredField,
     validateRequiredNumber,
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
-import StopMessage from '../../../common/stop-message/StopMessage';
-import { validateAll } from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
 import { Person } from '../../types/Person';
 import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../StepID';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
-import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 
@@ -86,14 +86,16 @@ const MottakerStep = ({ søker }: Props) => {
             )}
 
             {kanIkkeFortsette && (
-                <StopMessage>
-                    <FormattedHtmlMessage id="step.mottaker.form.stopMessage.html" />
-                    <p>
-                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                            <FormattedMessage id="step.mottaker.form.stopMessage.lenke" />
-                        </Lenke>
-                    </p>
-                </StopMessage>
+                <FormBlock>
+                    <AlertStripeAdvarsel>
+                        <FormattedHtmlMessage id="step.mottaker.form.stopMessage.html" />
+                        <p>
+                            <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
+                                <FormattedMessage id="step.mottaker.form.stopMessage.lenke" />
+                            </Lenke>
+                        </p>
+                    </AlertStripeAdvarsel>
+                </FormBlock>
             )}
 
             {kanFortsette && (

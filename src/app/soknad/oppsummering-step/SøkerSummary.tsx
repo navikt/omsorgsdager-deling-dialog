@@ -2,10 +2,10 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
-import FødselsnummerSvar from '../../../common/summary/FødselsnummerSvar';
-import SummarySection from '../../../common/summary/summary-section/SummarySection';
+import FødselsnummerSvar from '../../../common/soknad-summary/FødselsnummerSvar';
+import SummarySection from '../../../common/soknad-summary/summary-section/SummarySection';
 import { Person } from '../../types/Person';
-import SummaryBlock from '../../../common/summary/summary-block/SummaryBlock';
+import SummaryBlock from '../../../common/soknad-summary/summary-block/SummaryBlock';
 
 interface Props {
     søker: Person;

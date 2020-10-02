@@ -1,6 +1,6 @@
 import React from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
 import bemUtils from '@navikt/sif-common-core/lib/utils/bemUtils';
+import { Undertittel } from 'nav-frontend-typografi';
 import './summarySection.less';
 
 interface Props {

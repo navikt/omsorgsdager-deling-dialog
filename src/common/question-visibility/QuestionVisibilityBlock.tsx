@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { QuestionVisibilityContext } from '../context/QuestionVisibilityContext';
+import { QuestionVisibilityContext } from './QuestionVisibilityContext';
 
 interface Props<FormFields> {
     fieldName: FormFields;

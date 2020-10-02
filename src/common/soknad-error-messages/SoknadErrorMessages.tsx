@@ -1,9 +1,9 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import ErrorGuide from '@navikt/sif-common-core/lib/components/error-guide/ErrorGuide';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Lenke from 'nav-frontend-lenker';
 import { Ingress } from 'nav-frontend-typografi';
-import ErrorGuide from '../error-guide/ErrorGuide';
-import { FormattedMessage, useIntl } from 'react-intl';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 
 interface ErrorWithFrontpageUrlProps {
     soknadFrontpageUrl?: string;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import FødselsnummerSvar from '../../../common/summary/FødselsnummerSvar';
-import SummaryBlock from '../../../common/summary/summary-block/SummaryBlock';
+import FødselsnummerSvar from '../../../common/soknad-summary/FødselsnummerSvar';
+import SummaryBlock from '../../../common/soknad-summary/summary-block/SummaryBlock';
 import { MottakerApiData } from '../../utils/map-form-data-to-api-data/mapMottakerToApiData';
-import SummarySection from '../../../common/summary/summary-section/SummarySection';
+import SummarySection from '../../../common/soknad-summary/summary-section/SummarySection';
 
 interface Props {
     apiValues: MottakerApiData;
