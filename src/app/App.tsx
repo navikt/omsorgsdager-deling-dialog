@@ -7,7 +7,7 @@ import SoknadApplication from '../common/soknad-application-setup/SoknadApplicat
 import SoknadApplicationCommonRoutes from '../common/soknad-application-setup/SoknadApplicationCommonRoutes';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
-import Soknad from './soknad/Soknad';
+import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
 import './styles/app.less';
 
 Modal.setAppElement('#app');
@@ -33,7 +33,7 @@ render(
         <SoknadApplicationCommonRoutes
             contentRoutes={[
                 <Route path="/" key="intro" exact={true} component={IntroPage} />,
-                <Route path="/melding" key="soknad" component={Soknad} />,
+                <Route path="/melding" key="soknad" component={SoknadRemoteDataFetcher} />,
             ]}
         />
     </SoknadApplication>,

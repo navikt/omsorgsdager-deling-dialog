@@ -9,7 +9,7 @@ import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
 import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
-import { StepID } from './StepID';
+import { StepID } from './soknadStepsConfig';
 
 interface OwnProps {
     id: StepID;

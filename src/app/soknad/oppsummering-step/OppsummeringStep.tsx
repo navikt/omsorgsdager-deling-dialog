@@ -15,7 +15,7 @@ import { validateBekrefterOpplysninger } from '../../validation/fieldValidation'
 import { useSoknadContext } from '../SoknadContext';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
+import { StepID } from '../soknadStepsConfig';
 import DineBarnSummary from './DineBarnSummary';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';

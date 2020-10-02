@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { combine, pending, initial, RemoteData } from '@devexperts/remote-data-ts';
+import { combine, initial, pending, RemoteData } from '@devexperts/remote-data-ts';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { AxiosError } from 'axios';
 import getBarnRemoteData from '../api/getBarn';
@@ -10,9 +10,9 @@ import { Person } from '../types/Person';
 import { Barn } from '../types/SoknadFormData';
 import { relocateToLoginPage } from '../utils/navigationUtils';
 
-export type CombinedType = [Person, Barn[], SoknadTemporaryStorageData];
+export type SoknadEssentials = [Person, Barn[], SoknadTemporaryStorageData];
 
-export type SoknadEssentialsRemoteData = RemoteData<AxiosError, CombinedType>;
+export type SoknadEssentialsRemoteData = RemoteData<AxiosError, SoknadEssentials>;
 
 function useSoknadEssentials(): SoknadEssentialsRemoteData {
     const [data, setData] = useState<SoknadEssentialsRemoteData>(initial);

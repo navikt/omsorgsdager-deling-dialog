@@ -4,7 +4,7 @@ import * as hash from 'object-hash';
 import { ApiEndpoint, defaultAxiosConfig } from '../api/api';
 import { Person } from '../types/Person';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
-import { StepID } from './StepID';
+import { StepID } from './soknadStepsConfig';
 
 export interface SoknadTemporaryStorageData {
     metadata: {

@@ -21,7 +21,7 @@ import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
+import { StepID } from '../soknadStepsConfig';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 

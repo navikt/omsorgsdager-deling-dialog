@@ -13,7 +13,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { nYearsAgo } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
+import { StepID } from '../soknadStepsConfig';
 
 interface OwnProps {
     barn: Barn[];

@@ -1,7 +1,7 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { validateFødselsnummer } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { ANTALL_DAGER_RANGE } from '../soknad/mottaker-step/MottakerStep';
-import { StepID } from '../soknad/StepID';
+import { StepID } from '../soknad/soknadStepsConfig';
 import { Person } from '../types/Person';
 import {
     Barn,

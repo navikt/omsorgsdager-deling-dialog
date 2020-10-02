@@ -1,30 +1,191 @@
-import React from 'react';
-import { useIntl } from 'react-intl';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import RemoteDataHandler from '../../common/remote-data-handler/RemoteDataHandler';
-import ErrorPage from '../../common/soknad-common-pages/ErrorPage';
-import LoadingPage from '../../common/soknad-common-pages/LoadingPage';
-import useSoknadEssentials, { CombinedType } from '../hooks/useSoknadEssentials';
-import SoknadContent from './SoknadContent';
-import SoknadErrorMessages from '../../common/soknad-error-messages/SoknadErrorMessages';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { failure, pending, success } from '@devexperts/remote-data-ts';
+import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
+import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import { ulid } from 'ulid';
+import { SoknadApplicationType } from '../../common/soknad-step/soknadStepTypes';
+import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
+import { sendSoknad } from '../api/sendSoknad';
+import AppRoutes, { getRouteUrl } from '../config/routeConfig';
+import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
+import { Person } from '../types/Person';
+import { SoknadApiData } from '../types/SoknadApiData';
+import { Barn, SoknadFormData } from '../types/SoknadFormData';
+import {
+    navigateTo,
+    navigateToErrorPage,
+    navigateToKvitteringPage,
+    relocateToLoginPage,
+    relocateToNavFrontpage,
+    relocateToSoknad,
+} from '../utils/navigationUtils';
+import { initialSoknadFormData } from './initialSoknadValues';
+import { initialSendSoknadState, SendSoknadStatus, SoknadContext } from './SoknadContext';
+import SoknadFormComponents from './SoknadFormComponents';
+import SoknadRoutes from './SoknadRoutes';
+import { soknadStepsConfig } from './soknadStepsConfig';
+import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
+import { StepID } from './soknadStepsConfig';
 
-const Soknad = () => {
-    const intl = useIntl();
-    const soknadEssentials = useSoknadEssentials();
+interface Props {
+    søker: Person;
+    barn: Barn[];
+    mellomlagring: SoknadTemporaryStorageData;
+    route?: string;
+}
+
+const Soknad = ({ søker, barn, mellomlagring }: Props) => {
+    const history = useHistory();
+    const [initializing, setInitializing] = useState(true);
+
+    const [initialFormData, setInitialFormData] = useState<Partial<SoknadFormData>>({ ...initialSoknadFormData });
+    const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
+    const [soknadId, setSoknadId] = useState<string | undefined>();
+
+    const resetSoknad = async (redirectToFrontpage = true) => {
+        await soknadTempStorage.purge();
+        setInitialFormData({ ...initialSoknadFormData });
+        setSoknadId(undefined);
+        if (redirectToFrontpage) {
+            if (location.pathname !== getRouteUrl(AppRoutes.SOKNAD)) {
+                relocateToSoknad();
+                setInitializing(false);
+            } else {
+                setInitializing(false);
+            }
+        } else {
+            setInitializing(false);
+        }
+    };
+
+    const abortSoknad = async () => {
+        await soknadTempStorage.purge();
+        relocateToSoknad();
+    };
+
+    const startSoknad = async () => {
+        await resetSoknad();
+        const sId = ulid();
+        setSoknadId(sId);
+        await soknadTempStorage.persist(sId, initialFormData, StepID.DINE_BARN, { søker, barn });
+        setTimeout(() => {
+            navigateTo(soknadStepUtils.getStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+        });
+    };
+
+    const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData) => {
+        await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
+        relocateToNavFrontpage();
+    };
+
+    const onSoknadSent = async (apiValues: SoknadApiData) => {
+        await soknadTempStorage.purge();
+        setSendSoknadStatus({ failures: 0, status: success(apiValues) });
+        setSoknadId(undefined);
+        navigateToKvitteringPage(history);
+    };
+
+    const send = async (apiValues: SoknadApiData) => {
+        try {
+            await sendSoknad(apiValues);
+            onSoknadSent(apiValues);
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                relocateToLoginPage();
+            } else {
+                if (sendSoknadStatus.failures >= 2) {
+                    navigateToErrorPage(history);
+                } else {
+                    setSendSoknadStatus({
+                        failures: sendSoknadStatus.failures + 1,
+                        status: failure(error),
+                    });
+                }
+            }
+        }
+    };
+
+    const triggerSend = (apiValues: SoknadApiData) => {
+        setTimeout(() => {
+            setSendSoknadStatus({ ...sendSoknadStatus, status: pending });
+            setTimeout(() => {
+                send(apiValues);
+            });
+        });
+    };
+
+    useEffect(() => {
+        if (isStorageDataValid(mellomlagring, { søker, barn })) {
+            setInitialFormData(mellomlagring.formData);
+            setSoknadId(mellomlagring.metadata.soknadId);
+            const currentRoute = history.location.pathname;
+            const lastStepRoute = soknadStepUtils.getStepRoute(
+                mellomlagring.metadata.lastStepID,
+                SoknadApplicationType.MELDING
+            );
+            if (currentRoute !== lastStepRoute) {
+                setTimeout(() => {
+                    navigateTo(
+                        soknadStepUtils.getStepRoute(mellomlagring.metadata.lastStepID, SoknadApplicationType.MELDING),
+                        history
+                    );
+                    setInitializing(false);
+                });
+            } else {
+                setInitializing(false);
+            }
+        } else {
+            resetSoknad(history.location.pathname !== AppRoutes.SOKNAD);
+        }
+    }, [history, mellomlagring, søker, barn]);
 
     return (
-        <RemoteDataHandler<CombinedType>
-            remoteData={soknadEssentials}
-            initializing={() => <LoadingPage />}
-            loading={() => <LoadingPage />}
-            error={() => (
-                <ErrorPage
-                    bannerTitle={intlHelper(intl, 'application.title')}
-                    contentRenderer={() => <SoknadErrorMessages.GeneralApplicationError />}
-                />
-            )}
-            success={([person, barn, mellomlagring]) => {
-                return <SoknadContent søker={person} barn={barn} mellomlagring={mellomlagring} />;
+        <LoadWrapper
+            isLoading={initializing}
+            contentRenderer={() => {
+                if (søker.myndig === false) {
+                    return <IkkeMyndigPage />;
+                }
+                return (
+                    <SoknadFormComponents.FormikWrapper
+                        initialValues={initialFormData}
+                        onSubmit={() => null}
+                        renderForm={({ values }) => {
+                            const navigateToNextStepFromStep = (stepID: StepID) => {
+                                const stepToPersist = soknadStepsConfig[stepID].nextStep;
+                                if (stepToPersist && soknadId) {
+                                    soknadTempStorage.persist(soknadId, values, stepToPersist, { søker, barn });
+                                }
+                                const step = soknadStepsConfig[stepID];
+                                setTimeout(() => {
+                                    if (step.nextStepRoute) {
+                                        navigateTo(step.nextStepRoute, history);
+                                    }
+                                });
+                            };
+                            return (
+                                <SoknadContext.Provider
+                                    value={{
+                                        soknadId,
+                                        soknadStepsConfig,
+                                        sendSoknadStatus,
+                                        resetSoknad: abortSoknad,
+                                        continueSoknadLater: soknadId
+                                            ? (stepId) => continueSoknadLater(soknadId, stepId, values)
+                                            : undefined,
+                                        startSoknad,
+                                        sendSoknad: triggerSend,
+                                        gotoNextStepFromStep: (stepID: StepID) => {
+                                            navigateToNextStepFromStep(stepID);
+                                        },
+                                    }}>
+                                    <SoknadRoutes soknadId={soknadId} søker={søker} barn={barn} />
+                                </SoknadContext.Provider>
+                            );
+                        }}
+                    />
+                );
             }}
         />
     );

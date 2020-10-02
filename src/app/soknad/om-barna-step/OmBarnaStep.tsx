@@ -21,7 +21,7 @@ import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormDat
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
+import { StepID } from '../soknadStepsConfig';
 
 interface Props {
     barn: Barn[];

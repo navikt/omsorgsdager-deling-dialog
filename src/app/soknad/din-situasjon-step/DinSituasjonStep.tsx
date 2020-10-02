@@ -10,14 +10,13 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
+import Lenke from 'nav-frontend-lenker';
 import FormQuestion from '../../../common/form-question/FormQuestion';
-import { DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import { getArbeidssituasjonOptions } from '../shared/shared-form-elements';
+import getLenker from '../../lenker';
+import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../StepID';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
+import { StepID } from '../soknadStepsConfig';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -78,7 +77,23 @@ const DinSituasjonStep = () => {
                         <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeidssituasjon.spm')}
                             name={SoknadFormField.arbeidssituasjon}
-                            checkboxes={getArbeidssituasjonOptions(intl)}
+                            checkboxes={[
+                                {
+                                    value: Arbeidssituasjon.arbeidstaker,
+                                    label: intlHelper(intl, `arbeidssituasjon.${Arbeidssituasjon.arbeidstaker}`),
+                                },
+                                {
+                                    value: Arbeidssituasjon.selvstendigNæringsdrivende,
+                                    label: intlHelper(
+                                        intl,
+                                        `arbeidssituasjon.${Arbeidssituasjon.selvstendigNæringsdrivende}`
+                                    ),
+                                },
+                                {
+                                    value: Arbeidssituasjon.frilanser,
+                                    label: intlHelper(intl, `arbeidssituasjon.${Arbeidssituasjon.frilanser}`),
+                                },
+                            ]}
                             validate={validateRequiredList}
                         />
                     </FormBlock>
