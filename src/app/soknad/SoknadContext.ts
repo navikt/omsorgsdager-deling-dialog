@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 import { initial, RemoteData } from '@devexperts/remote-data-ts';
-import { SoknadStepsConfig } from '../../common/soknad-step/stepConfigUtils';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { StepID } from './StepID';
+import { SoknadStepsConfig } from '../../common/soknad-step/soknadStepTypes';
 
 export interface SendSoknadStatus {
     failures: number;

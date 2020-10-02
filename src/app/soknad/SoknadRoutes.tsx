@@ -5,7 +5,7 @@ import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-d
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { useFormikContext } from 'formik';
 import ErrorPage from '../../common/soknad-common-pages/ErrorPage';
-import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-step/stepConfigUtils';
+import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
@@ -20,6 +20,7 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import { SoknadApplicationType } from '../../common/soknad-step/soknadStepTypes';
 
 interface Props {
     soknadId?: string;
@@ -53,7 +54,7 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
 
     return (
         <Switch>
-            <Route path={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
+            <Route path={soknadStepUtils.getRootRoute(OVERFORING_APPLICATION_TYPE)} exact={true}>
                 <VelkommenPage />
             </Route>
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
@@ -72,7 +73,12 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
             </Route>
             {availableSteps.map((step) => {
                 if (soknadId === undefined) {
-                    return <Redirect key="redirectToWelcome" to={getSoknadRootRoute(OVERFORING_APPLICATION_TYPE)} />;
+                    return (
+                        <Redirect
+                            key="redirectToWelcome"
+                            to={soknadStepUtils.getRootRoute(OVERFORING_APPLICATION_TYPE)}
+                        />
+                    );
                 }
                 return (
                     <Route

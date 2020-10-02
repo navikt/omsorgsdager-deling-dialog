@@ -1,6 +1,7 @@
 import { IntlShape } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { StepIndicatorStep } from './step-indicator/StepIndicator';
+import { SoknadApplicationType, SoknadStepsConfig, StepConfig } from './soknadStepTypes';
 
 interface StepTexts {
     pageTitle: string;
@@ -8,28 +9,7 @@ interface StepTexts {
     nextButtonLabel: string;
 }
 
-export enum SoknadApplicationType {
-    'SOKNAD' = 'soknad',
-    'MELDING' = 'melding',
-}
-
-interface StepConfig<STEPS> {
-    id: string;
-    index: number;
-    route: string;
-    nextStep?: STEPS;
-    nextStepRoute?: string;
-    backLinkHref?: string;
-    pageTitleIntlKey: string;
-    stepTitleIntlKey: string;
-    nextButtonLabelIntlKey: string;
-}
-
-export interface SoknadStepsConfig<STEPS> {
-    [key: string]: StepConfig<STEPS>;
-}
-
-export const getStepTexts = <Step>(intl: IntlShape, stepConfig: StepConfig<Step>): StepTexts => {
+const getStepTexts = <Step>(intl: IntlShape, stepConfig: StepConfig<Step>): StepTexts => {
     return {
         pageTitle: intlHelper(intl, stepConfig.pageTitleIntlKey),
         stepTitle: intlHelper(intl, stepConfig.stepTitleIntlKey),
@@ -37,15 +17,15 @@ export const getStepTexts = <Step>(intl: IntlShape, stepConfig: StepConfig<Step>
     };
 };
 
-export const getSoknadRootRoute = (applicationType: SoknadApplicationType): string => {
+const getRootRoute = (applicationType: SoknadApplicationType): string => {
     return `/${applicationType}/`;
 };
 
-export const getSoknadStepRoute = <STEPS>(stepId: STEPS, applicationType: SoknadApplicationType): string => {
-    return `${getSoknadRootRoute(applicationType)}${stepId}`;
+const getStepRoute = <STEPS>(stepId: STEPS, applicationType: SoknadApplicationType): string => {
+    return `${getRootRoute(applicationType)}${stepId}`;
 };
 
-export const getSoknadStepsConfig = <STEPS extends string>(
+const getStepsConfig = <STEPS extends string>(
     steps: STEPS[],
     applicationType: SoknadApplicationType
 ): SoknadStepsConfig<STEPS> => {
@@ -54,15 +34,15 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     let idx = 0;
     steps.forEach((stepId) => {
         const nextStep = idx < numSteps - 1 ? steps[idx + 1] : undefined;
-        const nextStepRoute = nextStep ? getSoknadStepRoute(nextStep, applicationType) : undefined;
+        const nextStepRoute = nextStep ? getStepRoute(nextStep, applicationType) : undefined;
         config[stepId] = {
             id: stepId,
             pageTitleIntlKey: `step.${stepId}.pageTitle`,
             stepTitleIntlKey: `step.${stepId}.stepTitle`,
             nextButtonLabelIntlKey: `step.${stepId}.nextButtonLabel`,
-            route: getSoknadStepRoute(stepId, applicationType),
+            route: getStepRoute(stepId, applicationType),
             index: idx,
-            backLinkHref: idx > 0 ? getSoknadStepRoute(steps[idx - 1], applicationType) : undefined,
+            backLinkHref: idx > 0 ? getStepRoute(steps[idx - 1], applicationType) : undefined,
             nextStep,
             nextStepRoute,
         };
@@ -71,7 +51,10 @@ export const getSoknadStepsConfig = <STEPS extends string>(
     return config;
 };
 
-export function getStepsFromConfig<Steps>(stepsConfig: SoknadStepsConfig<Steps>, intl: IntlShape): StepIndicatorStep[] {
+function getStepIndicatorStepsFromConfig<Steps>(
+    stepsConfig: SoknadStepsConfig<Steps>,
+    intl: IntlShape
+): StepIndicatorStep[] {
     return Object.keys(stepsConfig).map((key) => {
         const stepConfig = stepsConfig[key];
         const step: StepIndicatorStep = {
@@ -82,3 +65,13 @@ export function getStepsFromConfig<Steps>(stepsConfig: SoknadStepsConfig<Steps>,
         return step;
     });
 }
+
+const soknadStepUtils = {
+    getStepTexts,
+    getRootRoute,
+    getStepRoute,
+    getStepsConfig,
+    getStepIndicatorStepsFromConfig,
+};
+
+export default soknadStepUtils;

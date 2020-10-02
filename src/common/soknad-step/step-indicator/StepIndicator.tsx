@@ -1,6 +1,6 @@
 import React from 'react';
 import NAVStepIndicator from 'nav-frontend-stegindikator/lib/stegindikator';
-import { default as Step } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
+import Step from 'nav-frontend-stegindikator/lib/stegindikator-steg';
 
 export interface StepIndicatorStep {
     id: string;

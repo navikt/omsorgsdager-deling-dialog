@@ -10,7 +10,7 @@ interface Props {
 
 const bem = bemUtils('summarySection');
 
-const SummarySection: React.FunctionComponent<Props> = ({ header, children }: Props) => (
+const SummarySection = ({ header, children }: Props) => (
     <div className={bem.block}>
         <Undertittel tag="h3" className={bem.element('header')}>
             {header}
