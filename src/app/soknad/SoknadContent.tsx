@@ -8,7 +8,7 @@ import {
     getSoknadStepRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
-} from '../../common/soknad-common/stepConfigUtils';
+} from '../../common/soknad-step/stepConfigUtils';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';

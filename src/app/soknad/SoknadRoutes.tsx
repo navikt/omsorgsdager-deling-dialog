@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
-import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
+import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-step/stepConfigUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
