@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
+import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { ulid } from 'ulid';
-import LoadWrapper from '../../common/load-wrapper/LoadWrapper';
 import {
     getSoknadStepRoute,
     getSoknadStepsConfig,
     SoknadApplicationType,
-} from '../../common/soknad-common/stepConfigUtils';
+} from '../../common/soknad-step/stepConfigUtils';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
