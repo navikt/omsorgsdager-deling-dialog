@@ -9,10 +9,15 @@ const KvitteringPage = () => {
     return (
         <Page title={intlHelper(intl, 'application.title')}>
             <Kvittering
-                tittel="Søknad mottatt"
-                liste={{ tittel: 'Hva skjer nå?', punkter: ['Det vet bare lillegutt'] }}>
-                <p>Her kan det komme mer innhold</p>
-            </Kvittering>
+                tittel={intlHelper(intl, 'kvittering.tittel')}
+                liste={{
+                    tittel: intlHelper(intl, 'kvittering.info.tittel'),
+                    punkter: [
+                        intlHelper(intl, 'kvittering.info.1'),
+                        intlHelper(intl, 'kvittering.info.2'),
+                        intlHelper(intl, 'kvittering.info.3'),
+                    ],
+                }}></Kvittering>
         </Page>
     );
 };

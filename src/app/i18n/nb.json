@@ -112,35 +112,42 @@
     "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til? (Skriv inn hele navnet)",
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange omsorgsdager vil du overføre? Du kan maksimalt overføre 10 dager, så lenge du har disse tilgjengelig.",
 
-    "step.oppsummering.søker.header": "Søker",
+    "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om overføring av omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
+    "step.oppsummering.søker.header": "Om deg",
 
-    "step.oppsummering.dine-barn.header": "Dine barn",
+    "step.oppsummering.dine-barn.header": "Barna dine",
     "step.oppsummering.dine-barn.født": "Født",
     "step.oppsummering.dine-barn.listHeader": "Dine barn",
 
-    "step.oppsummering.om-barna.header": "Om barna",
+    "step.oppsummering.om-barna.header": "Om barna dine",
     "step.oppsummering.om-barna.født": "Født",
-    "step.oppsummering.om-barna.harAleneomsorg": "Har du aleneomsorg for ett eller flere barn?",
+    "step.oppsummering.om-barna.harAleneomsorg": "Er du alene om omsorgen for barn?",
     "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle eller samboer du har bodd med i minst 12 måneder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
-    "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Hvilke av barna har du aleneomsorg for?",
-    "step.oppsummering.om-barna.harNoenUtvidetRett": "Har noen av barna utvidet rett? ",
-    "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Hvilke av barna har utvidet rett? ",
+    "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Barn du er alene om omsorgen for",
+    "step.oppsummering.om-barna.harNoenUtvidetRett": "Har du fått ekstra omsorgsdager for barn som har en kronisk sykdom eller en funksjonshemning?",
+    "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Barn du har fått ekstra omsorgsdager for",
 
     "step.oppsummering.dinSituasjon.header": "Din situasjon",
-    "step.oppsummering.dinSituasjon.arbeiderINorge": "Arbeider du i Norge?",
+    "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.borINorge": "Bor du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
     "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
     "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
 
-    "step.oppsummering.mottaker.header": "Mottaker",
+    "step.oppsummering.mottaker.header": "Om den du skal overføre omsorgsdager til",
     "step.oppsummering.mottaker.type": "Hvem skal du overføre dager til?",
     "step.oppsummering.mottaker.navn": "Navn",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
-    "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange dager vil du overføre?",
+    "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du overføre?",
 
-    "step.oppsummering.bekrefterOpplysninger": "Jeg bekrefter at opplysningene jeg har gitt er riktige, og at jeg ikke har holdt tilbake opplysninger som har betydning for min rett til denne kompensasjonen.",
+    "step.oppsummering.bekrefterOpplysninger": "Jeg bekrefter at opplysningene jeg har gitt er riktige, og at jeg ikke har holdt tilbake opplysninger som har betydning for min rett til omsorgsdager.",
 
     "step.oppsummering.sendMelding.feilmelding.førsteGang": "Det oppstod en feil under innsending. Vennligst prøv på nytt.",
-    "step.oppsummering.sendMelding.feilmelding.andreGang": "Det oppstod fortsatt en feil under innsending. Vennligst vent litt og prøv på nytt."
+    "step.oppsummering.sendMelding.feilmelding.andreGang": "Det oppstod fortsatt en feil under innsending. Vennligst vent litt og prøv på nytt.",
+
+    "kvittering.tittel": "Melding om overføring av omsorgsdager er mottatt",
+    "kvittering.info.tittel": "Hva skjer videre nå?",
+    "kvittering.info.1": "Vi behandler meldingen fra deg om overføring av omsorgsdager.",
+    "kvittering.info.2": "Vi kontakter deg hvis vi trenger flere opplysninger fra deg.",
+    "kvittering.info.3": "Når vi har behandlet meldingen din får både du og den du overfører omsorgsdager til et svar fra oss. Vi gir beskjed når meldingen er ferdig behandlet."
 }

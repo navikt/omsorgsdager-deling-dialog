@@ -41,7 +41,7 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
             onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
-                    Info
+                    <FormattedMessage id="step.oppsummering.info" />
                 </Guide>
                 {apiValues === undefined && <div>Api verdier mangler</div>}
                 {apiValues !== undefined && (
