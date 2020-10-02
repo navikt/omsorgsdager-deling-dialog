@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { isFailure, isPending, isSuccess } from '@devexperts/remote-data-ts';
+import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-data-ts';
 import { useFormikContext } from 'formik';
 import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-common/stepConfigUtils';
 import AppRoutes from '../config/routeConfig';
@@ -58,7 +58,7 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
             </Route>
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
                 <LoadWrapper
-                    isLoading={isPending(sendSoknadStatus.status)}
+                    isLoading={isPending(sendSoknadStatus.status) || isInitial(sendSoknadStatus.status)}
                     contentRenderer={() => {
                         if (isSuccess(sendSoknadStatus.status) && <KvitteringPage />) {
                             return <KvitteringPage />;
