@@ -13,14 +13,14 @@ import './styles/app.less';
 
 Modal.setAppElement('#app');
 
-const APPLICATION_KEY = 'pleiepengesoknad';
+const APPLICATION_KEY = 'omsorgsdager-deling';
 const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
 render(
     <SoknadApplication
-        title="Pleiepengesøknad"
+        appName="Overføring av omsorgsdager til ny ektefelle eller samboer"
         intlMessages={applicationIntlMessages}
         sentryKey={APPLICATION_KEY}
         appStatus={{
