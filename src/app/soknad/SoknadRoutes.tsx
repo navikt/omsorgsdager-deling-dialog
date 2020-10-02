@@ -2,7 +2,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-data-ts';
+import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { useFormikContext } from 'formik';
+import ErrorPage from '../../common/pages/ErrorPage';
 import { getSoknadRootRoute, SoknadApplicationType } from '../../common/soknad-step/stepConfigUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
@@ -18,8 +20,6 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './StepID';
 import VelkommenPage from './velkommen-page/VelkommenPage';
-import LoadWrapper from '../../common/load-wrapper/LoadWrapper';
-import ErrorPage from '../../common/pages/ErrorPage';
 
 interface Props {
     soknadId?: string;

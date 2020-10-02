@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
+import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { ulid } from 'ulid';
-import LoadWrapper from '../../common/load-wrapper/LoadWrapper';
 import {
     getSoknadStepRoute,
     getSoknadStepsConfig,
