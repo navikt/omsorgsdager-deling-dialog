@@ -17,6 +17,10 @@ interface AppStatusSanityConfig {
     dataset: string;
 }
 
+interface AppStatus {
+    applicationKey: string;
+    sanityConfig: AppStatusSanityConfig;
+}
 interface Props {
     /** App name - not visual to user */
     appName: string;
@@ -25,10 +29,7 @@ interface Props {
     /** Key used in sentry logging for identifying the app in the logs */
     sentryKey?: string;
     /** Config for connecting to the appStatus sanity project */
-    appStatus?: {
-        applicationKey: string;
-        sanityConfig: AppStatusSanityConfig;
-    };
+    appStatus?: AppStatus;
     /** The content */
     children: React.ReactNode;
     /** Public path */
@@ -38,8 +39,10 @@ interface Props {
 const localeFromSessionStorage = getLocaleFromSessionStorage();
 moment.locale(localeFromSessionStorage);
 
-const isValidAppStatusSanityConfig = (appStatus: AppStatusSanityConfig | any): appStatus is AppStatusSanityConfig =>
-    appStatus !== undefined && appStatus.dataset !== undefined && appStatus.projectId !== undefined;
+const isValidAppStatus = (appStatus: AppStatus | any): appStatus is AppStatus =>
+    appStatus !== undefined &&
+    appStatus.sanityConfig?.dataset !== undefined &&
+    appStatus.sanityConfig?.projectId !== undefined;
 
 const SoknadApplication = ({ intlMessages: messages, appName, sentryKey, appStatus, publicPath, children }: Props) => {
     const [locale, setLocale] = React.useState<Locale>(localeFromSessionStorage);
@@ -63,7 +66,7 @@ const SoknadApplication = ({ intlMessages: messages, appName, sentryKey, appStat
                     />
                 )}
                 <BrowserRouter basename={publicPath}>
-                    {isValidAppStatusSanityConfig(appStatus) ? (
+                    {isValidAppStatus(appStatus) ? (
                         <AppStatusWrapper
                             applicationKey={appStatus.applicationKey}
                             sanityConfig={appStatus.sanityConfig}
