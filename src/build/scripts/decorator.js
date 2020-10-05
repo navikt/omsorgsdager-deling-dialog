@@ -10,6 +10,7 @@ const getDecorator = () =>
     new Promise((resolve, reject) => {
         const callback = (error, response, body) => {
             if (!error && response.statusCode >= 200 && response.statusCode < 400) {
+                const publicPath = '/familie/sykdom-i-familien/soknad/dele-omsorgsdager'; // process.env.PUBLIC_PATH
                 const { document } = new JSDOM(body).window;
                 const prop = 'innerHTML';
                 const data = {
@@ -17,7 +18,7 @@ const getDecorator = () =>
                     NAV_STYLES: document.getElementById('styles')[prop],
                     NAV_HEADING: document.getElementById('header-withmenu')[prop],
                     NAV_FOOTER: document.getElementById('footer-withmenu')[prop],
-                    PUBLIC_PATH: `${process.env.PUBLIC_PATH}`,
+                    PUBLIC_PATH: `${publicPath}`,
                 };
                 resolve(data);
             } else {
