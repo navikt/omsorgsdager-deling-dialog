@@ -5,8 +5,6 @@ import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-d
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { useFormikContext } from 'formik';
 import ErrorPage from '../../common/soknad-common-pages/ErrorPage';
-import { SoknadApplicationType } from '../../common/soknad-step/soknadStepTypes';
-import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
@@ -27,8 +25,6 @@ interface Props {
     barn?: Barn[];
     søker: Person;
 }
-
-const OVERFORING_APPLICATION_TYPE = SoknadApplicationType.MELDING;
 
 const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
     const intl = useIntl();
@@ -52,11 +48,9 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
         }
     };
 
-    const soknadRootPath = soknadStepUtils.getRootRoute(OVERFORING_APPLICATION_TYPE);
-
     return (
         <Switch>
-            <Route path={soknadRootPath} exact={true}>
+            <Route path={AppRoutes.SOKNAD} exact={true}>
                 <VelkommenPage />
             </Route>
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
@@ -73,7 +67,7 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                     }}
                 />
             </Route>
-            {soknadId === undefined && <Redirect key="redirectToWelcome" to={soknadRootPath} />}
+            {soknadId === undefined && <Redirect key="redirectToWelcome" to={AppRoutes.SOKNAD} />}
             {soknadId &&
                 availableSteps.map((step) => {
                     return (
