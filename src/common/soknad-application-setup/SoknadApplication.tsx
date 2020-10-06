@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { BrowserRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import AppStatusWrapper from '@navikt/sif-common-core/lib/components/app-status-wrapper/AppStatusWrapper';
 import LanguageToggle from '@navikt/sif-common-core/lib/components/language-toggle/LanguageToggle';
 import ApplicationMessages from '@navikt/sif-common-core/lib/dev-utils/intl/application-messages/ApplicationMessages';
@@ -10,7 +10,8 @@ import { getLocaleFromSessionStorage, setLocaleInSessionStorage } from '@navikt/
 import getSentryLoggerForApp from '@navikt/sif-common-sentry';
 import moment from 'moment';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { GlobalSoknadApplicationRoutes } from './SoknadApplicationCommonRoutes';
+import ErrorPage from '../soknad-common-pages/ErrorPage';
+import SoknadErrorMessages from '../soknad-error-messages/SoknadErrorMessages';
 
 interface AppStatusSanityConfig {
     projectId: string;
@@ -72,11 +73,11 @@ const SoknadApplication = ({ intlMessages: messages, appName, sentryKey, appStat
                             sanityConfig={appStatus.sanityConfig}
                             contentRenderer={() => <>{children}</>}
                             unavailableContentRenderer={() => (
-                                <Redirect to={GlobalSoknadApplicationRoutes.unavailable} />
+                                <ErrorPage contentRenderer={() => <SoknadErrorMessages.ApplicationUnavailable />} />
                             )}
                         />
                     ) : (
-                        <>{children}</>
+                        children
                     )}
                     <ApplicationMessages messages={messages} title={appName} />
                 </BrowserRouter>

@@ -9,13 +9,13 @@ import SoknadErrorMessages from '../soknad-error-messages/SoknadErrorMessages';
 interface Props {
     pageTitle?: string;
     bannerTitle?: string;
-    contentRenderer?: () => React.ReactNode;
+    contentRenderer?: () => JSX.Element;
 }
 const ErrorPage = ({ contentRenderer, pageTitle, bannerTitle }: Props) => {
     const intl = useIntl();
     return (
         <Page
-            title={pageTitle || intlHelper(intl, 'Noe gikk galt ...')}
+            title={pageTitle || intlHelper(intl, 'page.error.pageTitle')}
             topContentRenderer={() => <StepBanner text={bannerTitle || intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
                 {contentRenderer ? contentRenderer() : <SoknadErrorMessages.GeneralApplicationError />}
