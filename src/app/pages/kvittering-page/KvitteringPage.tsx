@@ -1,8 +1,10 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
+import Lenke from 'nav-frontend-lenker';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Kvittering from '../../../common/kvittering/Kvittering';
+import getLenker from '../../lenker';
 
 const KvitteringPage = () => {
     const intl = useIntl();
@@ -15,7 +17,11 @@ const KvitteringPage = () => {
                     punkter: [
                         intlHelper(intl, 'kvittering.info.1'),
                         intlHelper(intl, 'kvittering.info.2'),
-                        intlHelper(intl, 'kvittering.info.3'),
+                        <span key="pkt3">
+                            {intlHelper(intl, 'kvittering.info.3a')}{' '}
+                            <Lenke href={getLenker().dittNAV}>{intlHelper(intl, 'kvittering.info.3b')}</Lenke>
+                            {intlHelper(intl, 'kvittering.info.3c')}
+                        </span>,
                     ],
                 }}></Kvittering>
         </Page>

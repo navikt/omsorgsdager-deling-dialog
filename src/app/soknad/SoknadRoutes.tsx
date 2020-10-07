@@ -5,6 +5,8 @@ import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-d
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { useFormikContext } from 'formik';
 import ErrorPage from '../../common/soknad-common-pages/ErrorPage';
+import SoknadErrorMessages, { LastAvailableStepInfo } from '../../common/soknad-error-messages/SoknadErrorMessages';
+import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
@@ -48,6 +50,14 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
         }
     };
 
+    const lastAvailableStep = availableSteps.slice(-1)[0];
+    const lastAvailableStepInfo: LastAvailableStepInfo | undefined = lastAvailableStep
+        ? {
+              route: soknadStepsConfig[lastAvailableStep].route,
+              title: soknadStepUtils.getStepTexts(intl, soknadStepsConfig[lastAvailableStep]).stepTitle,
+          }
+        : undefined;
+
     return (
         <Switch>
             <Route path={AppRoutes.SOKNAD} exact={true}>
@@ -79,7 +89,12 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                         />
                     );
                 })}
-            <Route path="*">Unknown route or no valid steps</Route>
+            <Route path="*">
+                <ErrorPage
+                    contentRenderer={() => (
+                        <SoknadErrorMessages.MissingSoknadDataError lastAvailableStep={lastAvailableStepInfo} />
+                    )}></ErrorPage>
+            </Route>
         </Switch>
     );
 };

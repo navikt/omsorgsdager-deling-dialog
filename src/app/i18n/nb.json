@@ -149,5 +149,7 @@
     "kvittering.info.tittel": "Hva skjer videre nå?",
     "kvittering.info.1": "Vi behandler meldingen fra deg om overføring av omsorgsdager.",
     "kvittering.info.2": "Vi kontakter deg hvis vi trenger flere opplysninger fra deg.",
-    "kvittering.info.3": "Når vi har behandlet meldingen din får både du og den du overfører omsorgsdager til et svar fra oss. Vi gir beskjed når meldingen er ferdig behandlet."
+    "kvittering.info.3a": "Når vi har behandlet meldingen din får både du og den du overfører omsorgsdager til et svar fra oss i posten, og på deres egne sider på",
+    "kvittering.info.3b": "Ditt NAV",
+    "kvittering.info.3c": ". Vi gir beskjed når meldingen er ferdig behandlet."
 }

@@ -57,16 +57,8 @@ const dinSituasjonIsComplete = ({
     if (harBruktOmsorgsdagerEtter1Juli === YesOrNo.UNANSWERED) {
         return false;
     }
-    if (harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES) {
-        if (antallDagerBruktEtter1Juli === undefined) {
-            return false;
-        }
-        if (antallDagerBruktEtter1Juli < ANTALL_DAGER_RANGE.min) {
-            return false;
-        }
-        if (antallDagerBruktEtter1Juli > ANTALL_DAGER_RANGE.max) {
-            return false;
-        }
+    if (harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES && antallDagerBruktEtter1Juli === undefined) {
+        return false;
     }
     return true;
 };

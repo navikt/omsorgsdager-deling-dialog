@@ -4,19 +4,27 @@ import ErrorGuide from '@navikt/sif-common-core/lib/components/error-guide/Error
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Lenke from 'nav-frontend-lenker';
 import { Ingress } from 'nav-frontend-typografi';
+import { Link } from 'react-router-dom';
 
 interface ErrorWithFrontpageUrlProps {
     soknadFrontpageUrl?: string;
+}
+
+export interface LastAvailableStepInfo {
+    route: string;
+    title: string;
 }
 
 const SoknadErrorMessage = ({
     titleKey,
     contentKey,
     soknadFrontpageUrl,
+    children,
 }: {
     titleKey: string;
     contentKey: string;
     soknadFrontpageUrl?: string;
+    children?: React.ReactNode;
 }) => {
     const intl = useIntl();
     return (
@@ -30,6 +38,7 @@ const SoknadErrorMessage = ({
                         <FormattedMessage id="common.soknadErrorMessages.gotoSoknadFrontpage" />
                     </Lenke>
                 )}
+                {children}
             </Ingress>
         </ErrorGuide>
     );
@@ -50,13 +59,30 @@ const GeneralSoknadError = ({ soknadFrontpageUrl }: ErrorWithFrontpageUrlProps) 
     />
 );
 
-const MissingSoknadDataError = ({ soknadFrontpageUrl }: ErrorWithFrontpageUrlProps) => (
-    <SoknadErrorMessage
-        titleKey="common.soknadErrorMessages.missingSoknadData.title"
-        contentKey="common.soknadErrorMessages.missingSoknadData.content"
-        soknadFrontpageUrl={soknadFrontpageUrl}
-    />
-);
+const MissingSoknadDataError = ({
+    soknadFrontpageUrl,
+    lastAvailableStep,
+}: ErrorWithFrontpageUrlProps & {
+    lastAvailableStep?: { route: string; title: string };
+}) =>
+    lastAvailableStep === undefined ? (
+        <SoknadErrorMessage
+            titleKey="common.soknadErrorMessages.missingSoknadData.title"
+            contentKey="common.soknadErrorMessages.missingSoknadData.content"
+            soknadFrontpageUrl={soknadFrontpageUrl}
+        />
+    ) : (
+        <SoknadErrorMessage
+            titleKey="common.soknadErrorMessages.unavailableSoknadStep.title"
+            contentKey="common.soknadErrorMessages.unavailableSoknadStep.content">
+            <Link to={lastAvailableStep.route}>
+                <FormattedMessage
+                    id="common.soknadErrorMessages.unavailableSoknadStep.linkText"
+                    values={{ steg: lastAvailableStep.title }}
+                />
+            </Link>
+        </SoknadErrorMessage>
+    );
 
 const MissingApiDataError = ({ soknadFrontpageUrl }: ErrorWithFrontpageUrlProps) => (
     <SoknadErrorMessage
