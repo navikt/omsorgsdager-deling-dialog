@@ -8,8 +8,8 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents } from '@navikt/sif-common-formik/lib';
+import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import Lenke from 'nav-frontend-lenker';
-import { QuestionVisibilityContext } from '../../../common/question-visibility/QuestionVisibilityContext';
 import getLenker from '../../lenker';
 import {
     getIntroFormAvslag,

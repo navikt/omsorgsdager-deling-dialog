@@ -1,9 +1,9 @@
 import React from 'react';
-import FormQuestion, { FormQuestionProps } from '../../../common/form-question/FormQuestion';
-import { IntroFormField } from './introFormConfig';
-import QuestionVisibilityBlock from '../../../common/question-visibility/QuestionVisibilityBlock';
 import { useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import FormQuestion, { FormQuestionProps } from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
+import QuestionVisibilityBlock from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityBlock';
+import { IntroFormField } from './introFormConfig';
 
 type Props = FormQuestionProps<IntroFormField>;
 

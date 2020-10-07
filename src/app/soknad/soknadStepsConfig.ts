@@ -1,5 +1,5 @@
-import { SoknadApplicationType } from '../../common/soknad-step/soknadStepTypes';
-import soknadStepUtils from '../../common/soknad-step/soknadStepUtils';
+import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
+import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 
 export enum StepID {
     'DINE_BARN' = 'dine-barn',

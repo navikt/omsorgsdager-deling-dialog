@@ -15,7 +15,7 @@ import { useFormikContext } from 'formik';
 import AlertStripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
-import FormQuestion from '../../../common/form-question/FormQuestion';
+import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import getLenker from '../../lenker';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { aldersBegrensingOver } from '../../utils/aldersUtils';
