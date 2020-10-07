@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import Lenke from 'nav-frontend-lenker';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import Kvittering from '../../../common/kvittering/Kvittering';
+import Kvittering from '@navikt/sif-common-core/lib/components/kvittering/Kvittering';
 import getLenker from '../../lenker';
 
 const KvitteringPage = () => {
