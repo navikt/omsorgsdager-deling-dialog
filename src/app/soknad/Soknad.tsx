@@ -12,6 +12,7 @@ import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
+import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 import {
     navigateTo,
     navigateToErrorPage,
@@ -25,16 +26,16 @@ import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from 
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { soknadStepsConfig, StepID } from './soknadStepsConfig';
-import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
+import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
 
 interface Props {
     søker: Person;
     barn: Barn[];
-    mellomlagring: SoknadTemporaryStorageData;
+    soknadTempStorage: SoknadTempStorageData;
     route?: string;
 }
 
-const Soknad = ({ søker, barn, mellomlagring }: Props) => {
+const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const history = useHistory();
     const [initializing, setInitializing] = useState(true);
 
@@ -115,18 +116,18 @@ const Soknad = ({ søker, barn, mellomlagring }: Props) => {
     };
 
     useEffect(() => {
-        if (isStorageDataValid(mellomlagring, { søker, barn })) {
-            setInitialFormData(mellomlagring.formData);
-            setSoknadId(mellomlagring.metadata.soknadId);
+        if (isStorageDataValid(tempStorage, { søker, barn })) {
+            setInitialFormData(tempStorage.formData);
+            setSoknadId(tempStorage.metadata.soknadId);
             const currentRoute = history.location.pathname;
             const lastStepRoute = soknadStepUtils.getStepRoute(
-                mellomlagring.metadata.lastStepID,
+                tempStorage.metadata.lastStepID,
                 SoknadApplicationType.MELDING
             );
             if (currentRoute !== lastStepRoute) {
                 setTimeout(() => {
                     navigateTo(
-                        soknadStepUtils.getStepRoute(mellomlagring.metadata.lastStepID, SoknadApplicationType.MELDING),
+                        soknadStepUtils.getStepRoute(tempStorage.metadata.lastStepID, SoknadApplicationType.MELDING),
                         history
                     );
                     setInitializing(false);
@@ -137,7 +138,7 @@ const Soknad = ({ søker, barn, mellomlagring }: Props) => {
         } else {
             resetSoknad(history.location.pathname !== AppRoutes.SOKNAD);
         }
-    }, [history, mellomlagring, søker, barn]);
+    }, [history, tempStorage, søker, barn]);
 
     return (
         <LoadWrapper

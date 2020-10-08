@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import soknadTempStorage, { SoknadTemporaryStorageData } from '../soknad/SoknadTempStorage';
+import soknadTempStorage from '../soknad/soknadTempStorage';
+import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 
 function useTemporaryStorage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [storageData, setStorageData] = useState<SoknadTemporaryStorageData | undefined>();
+    const [storageData, setStorageData] = useState<SoknadTempStorageData | undefined>();
 
     async function fetchStorage() {
         setIsLoading(true);

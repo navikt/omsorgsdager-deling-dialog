@@ -4,17 +4,8 @@ import * as hash from 'object-hash';
 import { ApiEndpoint, defaultAxiosConfig } from '../api/api';
 import { Person } from '../types/Person';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
+import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 import { StepID } from './soknadStepsConfig';
-
-export interface SoknadTemporaryStorageData {
-    metadata: {
-        soknadId: string;
-        lastStepID: StepID;
-        version: string;
-        userHash: string;
-    };
-    formData: SoknadFormData;
-}
 
 export const STORAGE_VERSION = '1.0';
 
@@ -23,7 +14,7 @@ interface UserHashInfo {
     barn: Barn[];
 }
 
-interface SoknadTemporaryStorage extends Omit<PersistenceInterface<SoknadTemporaryStorageData>, 'persist'> {
+interface SoknadTemporaryStorage extends Omit<PersistenceInterface<SoknadTempStorageData>, 'persist'> {
     persist: (
         soknadId: string,
         formData: Partial<SoknadFormData>,
@@ -32,15 +23,15 @@ interface SoknadTemporaryStorage extends Omit<PersistenceInterface<SoknadTempora
     ) => Promise<AxiosResponse>;
 }
 
-const persistSetup = persistence<SoknadTemporaryStorageData>({
+const persistSetup = persistence<SoknadTempStorageData>({
     url: ApiEndpoint.mellomlagring,
     requestConfig: { ...defaultAxiosConfig },
 });
 
 export const isStorageDataValid = (
-    data: SoknadTemporaryStorageData,
+    data: SoknadTempStorageData,
     userHashInfo: UserHashInfo
-): SoknadTemporaryStorageData | undefined => {
+): SoknadTempStorageData | undefined => {
     if (
         data?.metadata?.version === STORAGE_VERSION &&
         data?.metadata.lastStepID !== undefined &&
