@@ -26,7 +26,7 @@ import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from 
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { soknadStepsConfig, StepID } from './soknadStepsConfig';
-import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
+import soknadTempStorage, { isStorageDataValid } from './_soknadTempStorage';
 
 interface Props {
     søker: Person;
