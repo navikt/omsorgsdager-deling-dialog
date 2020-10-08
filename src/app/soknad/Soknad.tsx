@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
-import { ulid } from 'ulid';
 import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
+import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
@@ -21,12 +21,11 @@ import {
     relocateToSoknad,
 } from '../utils/navigationUtils';
 import { initialSoknadFormData } from './initialSoknadValues';
-import { initialSendSoknadState, SendSoknadStatus, SoknadContext } from './SoknadContext';
+import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
-import { soknadStepsConfig } from './soknadStepsConfig';
+import { soknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid, SoknadTemporaryStorageData } from './SoknadTempStorage';
-import { StepID } from './soknadStepsConfig';
 
 interface Props {
     søker: Person;
@@ -165,7 +164,7 @@ const Soknad = ({ søker, barn, mellomlagring }: Props) => {
                                 });
                             };
                             return (
-                                <SoknadContext.Provider
+                                <SoknadContextProvider
                                     value={{
                                         soknadId,
                                         soknadStepsConfig,
@@ -181,7 +180,7 @@ const Soknad = ({ søker, barn, mellomlagring }: Props) => {
                                         },
                                     }}>
                                     <SoknadRoutes soknadId={soknadId} søker={søker} barn={barn} />
-                                </SoknadContext.Provider>
+                                </SoknadContextProvider>
                             );
                         }}
                     />

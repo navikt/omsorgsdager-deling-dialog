@@ -1,35 +1,28 @@
 import { createContext, useContext } from 'react';
-import { initial, RemoteData } from '@devexperts/remote-data-ts';
+import { initial } from '@devexperts/remote-data-ts';
+import {
+    SendSoknadStatusInterface,
+    SoknadContextInterface,
+} from '@navikt/sif-common-soknad/lib/soknad-context/SoknadContext';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { StepID } from './soknadStepsConfig';
-import { SoknadStepsConfig } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 
-export interface SendSoknadStatus {
-    failures: number;
-    status: RemoteData<Error, SoknadApiData>;
-}
+export type SendSoknadStatus = SendSoknadStatusInterface<SoknadApiData>;
+export type SoknadContext = SoknadContextInterface<StepID, SoknadApiData>;
 
-export const initialSendSoknadState: SendSoknadStatus = {
-    failures: 0,
-    status: initial,
-};
-export interface SoknadContext {
-    soknadId: string | undefined;
-    soknadStepsConfig: SoknadStepsConfig<StepID>;
-    sendSoknadStatus: SendSoknadStatus;
-    startSoknad: () => void;
-    gotoNextStepFromStep: (stepId: StepID) => void;
-    sendSoknad: (apiValues: SoknadApiData) => void;
-    resetSoknad: () => void;
-    continueSoknadLater?: (stepId: StepID) => void;
-}
-
-export const SoknadContext = createContext<SoknadContext | undefined>(undefined);
+const soknadContext = createContext<SoknadContextInterface<StepID, SoknadApiData> | undefined>(undefined);
+export const SoknadContextProvider = soknadContext.Provider;
+export const SoknadContextConsumer = soknadContext.Consumer;
 
 export const useSoknadContext = () => {
-    const context = useContext(SoknadContext);
+    const context = useContext(soknadContext);
     if (context === undefined) {
         throw new Error('useSoknadContext needs to be called within a SoknadContext');
     }
     return context;
+};
+
+export const initialSendSoknadState: SendSoknadStatus = {
+    failures: 0,
+    status: initial,
 };
