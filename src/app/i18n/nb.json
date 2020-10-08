@@ -90,9 +90,7 @@
     "samtykke.harIkkeGodkjentVilkår": "Du må godkjenne vilkårene",
     "samtykke.harForståttLabel": "For å gå videre må du bekrefte at du har lest og forstått {plikterLink}.",
     "samtykke.harForståttLabel.lenketekst": "dine plikter",
-    "fieldvalidation.samtykkeErPåkrevd": "Du må bekrefte at du har lest og forstått dine plikter",
     "fieldvalidation.mottakersFnrErSøkersFnr": "Du har tastet inn ditt eget fødselsnummer",
-    "fieldvalidation.bekrefterOpplysningerPåkrevd": "Du må bekrefte opplysningene",
 
     "step.din_situasjon.veileder.intro.1": "For å ha rett til å overføre omsorgsdager må både du og den du skal overføre omsorgsdager til bo og/eller jobbe i Norge.",
     "step.din_situasjon.veileder.intro.2": "Medlemskap i folketrygden er nøkkelen til rettigheter fra NAV. Hvis du bor eller jobber i Norge er du vanligvis medlem. Du kan lese mer om medlemskap på ",

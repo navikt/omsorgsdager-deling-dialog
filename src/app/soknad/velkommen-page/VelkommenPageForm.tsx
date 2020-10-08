@@ -5,13 +5,13 @@ import InfoDialog from '@navikt/sif-common-core/lib/components/dialogs/info-dial
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { validateSamtykke } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import SoknadFormComponents from '../../soknad/SoknadFormComponents';
 import { SoknadFormField } from '../../types/SoknadFormData';
-import { validateSamtykke } from '../../validation/fieldValidation';
-import BehandlingAvPersonopplysningerContent from './personopplysninger/Personopplysninger';
 import DinePlikterContent from './dine-plikter/DinePlikter';
+import BehandlingAvPersonopplysningerContent from './personopplysninger/Personopplysninger';
 
 interface DialogState {
     dinePlikterModalOpen?: boolean;
