@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import soknadTempStorage from '../soknad/_soknadTempStorage';
+import soknadTempStorage from '../soknad/soknadTempStorage';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 
 function useTemporaryStorage() {
