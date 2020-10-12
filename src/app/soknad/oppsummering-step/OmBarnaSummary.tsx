@@ -17,8 +17,18 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
     const harAleneomsorgFor: ApiBarn[] = apiValues.barn.filter((b) => b.aleneOmOmsorgen);
     const harUtvidetRettFor: ApiBarn[] = apiValues.barn.filter((b) => b.utvidetRett);
     return (
-        <SummarySection header={intlHelper(intl, 'step.oppsummering.om-barna.header')}>
-            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg')}>
+        <SummarySection
+            header={
+                harAleneomsorgFor.length === 1
+                    ? intlHelper(intl, 'step.oppsummering.om-barna.header.ettBarn')
+                    : intlHelper(intl, 'step.oppsummering.om-barna.header.flereBarn')
+            }>
+            <SummaryBlock
+                header={
+                    harAleneomsorgFor.length === 1
+                        ? intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.ettBarn')
+                        : intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.flereBarn')
+                }>
                 <JaNeiSvar harSvartJa={apiValues?.harAleneomsorg} />
             </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg')}>

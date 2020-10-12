@@ -13,7 +13,12 @@ interface Props {
 const DineBarnSummary = ({ apiValues: { barn } }: Props) => {
     const intl = useIntl();
     return (
-        <SummarySection header={intlHelper(intl, 'step.oppsummering.dine-barn.header')}>
+        <SummarySection
+            header={
+                barn.length === 1
+                    ? intlHelper(intl, 'step.oppsummering.dine-barn.header.ettBarn')
+                    : intlHelper(intl, 'step.oppsummering.dine-barn.header.flereBarn')
+            }>
             <Box margin="l">
                 <BarnSummaryList barn={barn} />
             </Box>
