@@ -65,6 +65,17 @@ const OmBarnaStep = ({ barn }: Props) => {
             andreBarn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
         return harUtvidetRett === YesOrNo.NO && kunBarnOver12iBarn && kunBarnOver12iAndreBarn;
     };
+    const leggTilBarnTilharAleneomsorgFor = () => {
+        if (checkboxes[0].value && values.harAleneomsorgFor.length === 0) {
+            values.harAleneomsorgFor.push(checkboxes[0].value.toString());
+        }
+    };
+    const leggTilBarnTilharUtvidetRettFor = () => {
+        if (checkboxes[0].value && values.harUtvidetRettFor.length === 0) {
+            values.harUtvidetRettFor.push(checkboxes[0].value.toString());
+        }
+    };
+
     const antallBarn = barn.length + andreBarn.length;
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
     const stepAndPageTitle = intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn });
@@ -85,7 +96,11 @@ const OmBarnaStep = ({ barn }: Props) => {
             <FormBlock>
                 <FormQuestion
                     name={SoknadFormField.harAleneomsorg}
-                    legend={intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg')}
+                    legend={
+                        checkboxes.length === 1
+                            ? intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.ettBarn')
+                            : intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.flereBarn')
+                    }
                     validate={validateYesOrNoIsAnswered}
                     showStop={harAleneomsorg === YesOrNo.NO}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
@@ -93,14 +108,18 @@ const OmBarnaStep = ({ barn }: Props) => {
             </FormBlock>
             {harAleneomsorg === YesOrNo.YES && (
                 <>
-                    <FormBlock>
-                        <SoknadFormComponents.CheckboxPanelGroup
-                            legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
-                            name={SoknadFormField.harAleneomsorgFor}
-                            checkboxes={checkboxes}
-                            validate={validateRequiredList}
-                        />
-                    </FormBlock>
+                    {checkboxes.length > 1 && (
+                        <FormBlock>
+                            <SoknadFormComponents.CheckboxPanelGroup
+                                legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
+                                name={SoknadFormField.harAleneomsorgFor}
+                                checkboxes={checkboxes}
+                                validate={validateRequiredList}
+                            />
+                        </FormBlock>
+                    )}
+
+                    {checkboxes.length === 1 && leggTilBarnTilharAleneomsorgFor()}
 
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
@@ -114,7 +133,7 @@ const OmBarnaStep = ({ barn }: Props) => {
                         />
                     </FormBlock>
 
-                    {harUtvidetRett === YesOrNo.YES && (
+                    {harUtvidetRett === YesOrNo.YES && checkboxes.length > 1 && (
                         <FormBlock>
                             <SoknadFormComponents.CheckboxPanelGroup
                                 legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
@@ -124,6 +143,9 @@ const OmBarnaStep = ({ barn }: Props) => {
                             />
                         </FormBlock>
                     )}
+
+                    {harUtvidetRett === YesOrNo.YES && checkboxes.length === 1 && leggTilBarnTilharUtvidetRettFor()}
+
                     {alleBarnOver12ogIngenUtvidetRett() && (
                         <Box margin="l">
                             <AlertStripe type={'info'}>{intlHelper(intl, 'step.om-barna.info.barnOver12')}</AlertStripe>

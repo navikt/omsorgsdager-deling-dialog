@@ -34,12 +34,7 @@ const IntroPage = () => {
                         <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
                         <li>{intlHelper(intl, 'introForm.info.ikkeFylt70')}</li>
                     </ul>
-                    <p>
-                        {`${intlHelper(intl, 'introForm.info.3')} `}
-                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                            {intlHelper(intl, 'introForm.info.3.lenkeStopOrdningen')}
-                        </Lenke>
-                    </p>
+                    <p>{`${intlHelper(intl, 'introForm.info.3')} `}</p>
                     <p>{intlHelper(intl, 'introForm.info.4')}</p>
                 </InformationPoster>
             </Box>

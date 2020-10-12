@@ -79,7 +79,9 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 stopMessage={
                                     <>
                                         {intlHelper(intl, 'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage')}{' '}
-                                        <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
+                                        <Lenke
+                                            href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager}
+                                            target="_blank">
                                             {intlHelper(
                                                 intl,
                                                 'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage.lenke'

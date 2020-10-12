@@ -11,29 +11,29 @@ const DinePlikterContent: React.FunctionComponent = () => {
             <Systemtittel>
                 <FormattedMessage id="modal.dinePlikter.tittel" />
             </Systemtittel>
-            <ul>
-                <li>
-                    <Normaltekst>
+            <Normaltekst>
+                <ul>
+                    <li>
                         <FormattedMessage id="modal.dinePlikter.part1" />
-                    </Normaltekst>
-                    <ul>
-                        <li>
-                            <FormattedMessage id="modal.dinePlikter.part1a" />
-                        </li>
-                        <li>
-                            <FormattedMessage id="modal.dinePlikter.part1b" />
-                        </li>
-                    </ul>
-                </li>
-                <li style={{ marginTop: '0.5rem' }}>
-                    <span>
-                        <FormattedMessage id="modal.dinePlikter.part2a" />{' '}
-                        <Lenke href={getLenker(intl.locale).rettOgPlikt} target="_blank">
-                            <FormattedMessage id="modal.dinePlikter.part2b" />
-                        </Lenke>
-                    </span>
-                </li>
-            </ul>
+                        <ul>
+                            <li>
+                                <FormattedMessage id="modal.dinePlikter.part1a" />
+                            </li>
+                            <li>
+                                <FormattedMessage id="modal.dinePlikter.part1b" />
+                            </li>
+                        </ul>
+                    </li>
+                    <li style={{ marginTop: '0.5rem' }}>
+                        <span>
+                            <FormattedMessage id="modal.dinePlikter.part2a" />{' '}
+                            <Lenke href={getLenker(intl.locale).rettOgPlikt} target="_blank">
+                                <FormattedMessage id="modal.dinePlikter.part2b" />
+                            </Lenke>
+                        </span>
+                    </li>
+                </ul>
+            </Normaltekst>
         </>
     );
 };
