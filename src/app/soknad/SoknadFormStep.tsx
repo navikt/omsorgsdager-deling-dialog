@@ -19,6 +19,8 @@ interface OwnProps {
     showButtonSpinner?: boolean;
     includeValidationSummary?: boolean;
     buttonDisabled?: boolean;
+    stepTitle?: string;
+    pageTitle?: string;
     children: React.ReactNode;
 }
 
@@ -32,6 +34,8 @@ const SoknadFormStep = ({
     showButtonSpinner,
     showSubmitButton = true,
     includeValidationSummary = true,
+    stepTitle,
+    pageTitle,
     buttonDisabled,
 }: Props) => {
     const intl = useIntl();
@@ -42,8 +46,8 @@ const SoknadFormStep = ({
     return (
         <Step
             bannerTitle={intlHelper(intl, 'application.title')}
-            stepTitle={texts.stepTitle}
-            pageTitle={texts.pageTitle}
+            stepTitle={stepTitle || texts.stepTitle}
+            pageTitle={pageTitle || texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}
             steps={soknadStepUtils.getStepIndicatorStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}

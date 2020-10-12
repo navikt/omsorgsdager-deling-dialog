@@ -49,6 +49,7 @@
 
     "step.om-barna.pageTitle": "Om barna dine",
     "step.om-barna.stepTitle": "Om barna dine",
+    "step.om-barna.stepTitle.plural": "Om {antallBarn, plural, one {barnet ditt} other {barna dine}}",
     "step.om-barna.info.1": "Når det gjelder omsorgsdager, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg. Det vil si at barnet har folkeregistrert adresse hos deg.",
     "step.om-barna.info.2": "Hvis du og den andre forelderen har en avtale om delt bosted bor barnet fast hos dere begge, og ingen av dere blir regnet som alene om omsorgen.",
     "step.om-barna.info.3": "Hvis du er alene om omsorgen nå, men blir sammen med den andre forelderen, må du melde fra om det til NAV.",
