@@ -19,13 +19,13 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
     return (
         <SummarySection
             header={
-                harAleneomsorgFor.length === 1
+                apiValues.barn.length === 1
                     ? intlHelper(intl, 'step.oppsummering.om-barna.header.ettBarn')
                     : intlHelper(intl, 'step.oppsummering.om-barna.header.flereBarn')
             }>
             <SummaryBlock
                 header={
-                    harAleneomsorgFor.length === 1
+                    apiValues.barn.length === 1
                         ? intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.ettBarn')
                         : intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.flereBarn')
                 }>
