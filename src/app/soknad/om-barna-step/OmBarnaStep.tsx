@@ -76,9 +76,15 @@ const OmBarnaStep = ({ barn }: Props) => {
         }
     };
 
+    const antallBarn = barn.length + andreBarn.length;
     const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
+    const stepAndPageTitle = intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn });
     return (
-        <SoknadFormStep id={StepID.OM_BARNA} showSubmitButton={kanFortsette} onStepCleanup={cleanupOmBarnaStep}>
+        <SoknadFormStep
+            id={StepID.OM_BARNA}
+            showSubmitButton={kanFortsette}
+            onStepCleanup={cleanupOmBarnaStep}
+            stepTitle={stepAndPageTitle}>
             <CounsellorPanel>
                 {intlHelper(intl, 'step.om-barna.info.1')}
                 <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
