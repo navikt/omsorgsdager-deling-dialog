@@ -62,14 +62,11 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
 
     return (
         <Switch>
-            <Route path={AppRoutes.SOKNAD} exact={true}>
-                <VelkommenPage />
-            </Route>
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
                 <LoadWrapper
                     isLoading={isPending(sendSoknadStatus.status) || isInitial(sendSoknadStatus.status)}
                     contentRenderer={() => {
-                        if (isSuccess(sendSoknadStatus.status) && <KvitteringPage />) {
+                        if (isSuccess(sendSoknadStatus.status)) {
                             return <KvitteringPage />;
                         }
                         if (isFailure(sendSoknadStatus.status)) {
@@ -78,6 +75,9 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                         return <div>Det oppstod en feil</div>;
                     }}
                 />
+            </Route>
+            <Route path={AppRoutes.SOKNAD} exact={true}>
+                <VelkommenPage />
             </Route>
             {soknadId === undefined && <Redirect key="redirectToWelcome" to={AppRoutes.SOKNAD} />}
             {soknadId &&
