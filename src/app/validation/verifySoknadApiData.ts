@@ -8,7 +8,7 @@ export const verifySoknadApiData = (data?: SoknadApiData | any): boolean => {
     const harAleneomsorgForBarn =
         data.barn.filter((b: ApiBarn) => b.aleneOmOmsorgen === true && (b.aktørId || b.identitetsnummer)).length > 0;
 
-    return !(
+    return (
         data.id !== undefined &&
         data.harBekreftetOpplysninger &&
         data.harForståttRettigheterOgPlikter &&
