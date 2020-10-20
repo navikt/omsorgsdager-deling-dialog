@@ -12,7 +12,7 @@ import './styles/app.less';
 
 Modal.setAppElement('#app');
 
-const APPLICATION_KEY = 'omsorgsdager-deling';
+export const APPLICATION_KEY = 'omsorgsdager-deling';
 const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
