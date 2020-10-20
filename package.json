@@ -20,6 +20,7 @@
         "start-server-local": "npm-run-all -s rm:dist build -p dev-api server-test:local",
         "start": "node ./src/build/scripts/start-dev.js",
         "test": "jest --maxWorkers=2 --config ./jest/jest.config.js",
+        "test-w": "jest --maxWorkers=2 --config ./jest/jest.config.js --watch",
         "test2": "jest --maxWorkers=2 --config ./jest/jest.config.js --collectCoverage=true"
     },
     "jest": {

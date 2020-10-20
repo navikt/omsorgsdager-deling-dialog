@@ -27,6 +27,8 @@ import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { soknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
+import { verifySoknadApiData } from '../validation/verifySoknadApiData';
+import appSentryLogger from '../utils/appSentryLogger';
 
 interface Props {
     søker: Person;
@@ -105,13 +107,19 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         }
     };
 
-    const triggerSend = (apiValues: SoknadApiData, resetForm: resetFormFunc) => {
-        setTimeout(() => {
-            setSendSoknadStatus({ ...sendSoknadStatus, status: pending });
+    const triggerSend = async (apiValues: SoknadApiData, resetForm: resetFormFunc) => {
+        const apiDataIsValid = verifySoknadApiData(apiValues);
+        if (apiDataIsValid) {
             setTimeout(() => {
-                doSendSoknad(apiValues, resetForm);
+                setSendSoknadStatus({ ...sendSoknadStatus, status: pending });
+                setTimeout(() => {
+                    doSendSoknad(apiValues, resetForm);
+                });
             });
-        });
+        } else {
+            await appSentryLogger.logError('ApiVerificationFailed');
+            navigateToErrorPage(history);
+        }
     };
 
     useEffect(() => {
