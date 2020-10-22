@@ -37,7 +37,7 @@
         "@navikt/sif-common-question-config": "^0.0.6",
         "@navikt/sif-common-sentry": "^0.0.13",
         "@navikt/sif-common-soknad": "0.0.4",
-        "@sentry/browser": "^5.26.0",
+        "@sentry/browser": "^5.27.0",
         "@testing-library/react": "^11.1.0",
         "axios": "^0.20.0",
         "busboy": "^0.3.1",
