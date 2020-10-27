@@ -1,5 +1,6 @@
+import { getLocaleForApi } from '@navikt/sif-common-core/lib/utils/localeUtils';
 import { SoknadApiData } from '../../types/SoknadApiData';
-import { SoknadFormData, Barn } from '../../types/SoknadFormData';
+import { Barn, SoknadFormData } from '../../types/SoknadFormData';
 import { mapBarnToApiData } from './mapBarnToApiData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
@@ -13,7 +14,7 @@ export const mapFormDataToApiData = (
     try {
         const apiData: SoknadApiData = {
             id: soknadId,
-            språk: locale === 'en' ? 'nn' : 'nb',
+            språk: getLocaleForApi(locale),
             harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
             harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,
             ...mapDinSituasjonToApiData(formData),
