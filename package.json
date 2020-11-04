@@ -36,7 +36,7 @@
         "@navikt/sif-common-sentry": "^0.0.13",
         "@navikt/sif-common-soknad": "1.0.2",
         "@sentry/browser": "^5.27.2",
-        "@testing-library/react": "^11.1.0",
+        "@testing-library/react": "^11.1.1",
         "axios": "^0.21.0",
         "busboy": "^0.3.1",
         "classnames": "^2.2.6",
