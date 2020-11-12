@@ -18,7 +18,7 @@ const IntroPage = () => {
     return (
         <Page
             title={intlHelper(intl, 'application.title')}
-            topContentRenderer={() => <StepBanner text={intlHelper(intl, 'application.title')} />}>
+            topContentRenderer={() => <StepBanner tag="h1" text={intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
                 <InformationPoster>
                     <p>{intlHelper(intl, 'introForm.info.1')}</p>
