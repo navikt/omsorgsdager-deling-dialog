@@ -3,15 +3,19 @@
     "modal.personopplysninger.tittel": "Slik behandler NAV personopplysningene dine",
     "modal.personopplysninger.intro.1": "Vi innhenter og mottar opplysninger om deg når vi skal behandle saken din. Det er nødvendig for at du skal få riktig tjeneste.",
     "modal.personopplysninger.opplysninger.tittel": "Hvilke opplysninger innhenter vi?",
-    "modal.personopplysninger.opplysninger.part1": "Opplysningene vi innhenter kommer enten fra deg eller fra offentlige registre. Det dreier seg om:",
+    "modal.personopplysninger.opplysninger.part1": "Opplysningene vi innhenter kommer enten fra deg eller fra offentlige registre:",
     "modal.personopplysninger.opplysninger.1": "hvilke barn du er registrert som forelder til",
-    "modal.personopplysninger.opplysninger.2": "arbeidssituasjon",
-    "modal.personopplysninger.opplysninger.4": "tilknytningen din til Norge",
-    "modal.personopplysninger.opplysninger.5": "trygdeordninger du kan ha rett til i andre land",
-    "modal.personopplysninger.opplysninger.part2": "Vi kan også sende opplysninger om deg til trygdemyndigheter i andre land.",
+    "modal.personopplysninger.opplysninger.2": "at du er alene om omsorgen for barn og hvilke barn det er",
+    "modal.personopplysninger.opplysninger.3": "hvem du vil overføre dager til",
+    "modal.personopplysninger.opplysninger.4": "arbeidssituasjonen din",
+    "modal.personopplysninger.opplysninger.5": "tilknytningen din til Norge",
+    "modal.personopplysninger.opplysninger.6": "trygdeordninger du kan ha rett til i andre land. Vi kan også sende opplysninger om deg til trygdemyndigheter i andre land.",
+    "modal.personopplysninger.opplysninger.part2": "Vi lagrer opplysningene du gir om at du er alene om omsorgen for barn. Dette gjør vi slik at vi kan utbetale for riktig antall dager hvis det kommer",
+    "modal.personopplysninger.opplysninger.7": "et refusjonskrav fra arbeidsgiveren din, eller",
+    "modal.personopplysninger.opplysninger.8": "en søknad om utbetaling fra deg",
+
     "modal.personopplysninger.svar.tittel": "Svar fra NAV",
-    "modal.personopplysninger.svar.part1": "Du får et svar fra NAV når saken din er behandlet. Svaret inneholder",
-    "modal.personopplysninger.svar.1": "begrunnelse for beslutningen og reglene som er brukt",
-    "modal.personopplysninger.personvern.part1a": "Vil du vite mer om hvordan NAV behandler personopplysninger? Se",
-    "modal.personopplysninger.personvern.part1b": "nav.no/personvern"
+    "modal.personopplysninger.svar.part1a": "Du får et svar fra NAV når saken din er behandlet. Svaret inneholder begrunnelse for beslutningen og reglene som er brukt",
+    "modal.personopplysninger.svar.part1b": "Vil du vite mer om hvordan NAV behandler personopplysninger? Se",
+    "modal.personopplysninger.svar.part1c": "nav.no/personvern"
 }
