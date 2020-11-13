@@ -23,28 +23,30 @@ const BehandlingAvPersonopplysningerContent: React.FunctionComponent = () => {
                     <ul>
                         <li>{getText('opplysninger.1')}</li>
                         <li>{getText('opplysninger.2')}</li>
+                        <li>{getText('opplysninger.3')}</li>
                         <li>{getText('opplysninger.4')}</li>
                         <li>{getText('opplysninger.5')}</li>
+                        <li>{getText('opplysninger.6')}</li>
                     </ul>
                     {getText('opplysninger.part2')}
+
+                    <ul>
+                        <li>{getText('opplysninger.7')}</li>
+                        <li>{getText('opplysninger.8')}</li>
+                    </ul>
                 </Normaltekst>
             </Box>
 
             <Box margin="xl">
                 <Ingress>{getText('svar.tittel')}</Ingress>
-                <Normaltekst>
-                    {getText('svar.part1')}
-                    <ul>
-                        <li>{getText('svar.1')}</li>
-                    </ul>
-                </Normaltekst>
+                <Normaltekst>{getText('svar.part1a')}</Normaltekst>
             </Box>
 
             <Box margin="xl">
                 <Normaltekst>
-                    {getText('personvern.part1a')}{' '}
+                    {getText('svar.part1b')}{' '}
                     <Lenke href={getLenker(intl.locale).personvern} target="_blank">
-                        {getText('personvern.part1b')}
+                        {getText('svar.part1c')}
                     </Lenke>
                     .
                 </Normaltekst>
