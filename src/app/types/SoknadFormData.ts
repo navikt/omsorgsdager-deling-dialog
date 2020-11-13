@@ -22,7 +22,6 @@ export enum SoknadFormField {
     harAleneomsorgFor = 'harAleneomsorgFor',
     harUtvidetRett = 'harUtvidetRett',
     harUtvidetRettFor = 'harUtvidetRettFor',
-    borINorge = 'borINorge',
     arbeiderINorge = 'arbeiderINorge',
     arbeidssituasjon = 'arbeidssituasjon',
     harBruktOmsorgsdagerEtter1Juli = 'harBruktOmsorgsdagerEtter1Juli',
@@ -52,7 +51,6 @@ export interface SoknadFormData {
     [SoknadFormField.harAleneomsorgFor]: Array<string>;
     [SoknadFormField.harUtvidetRett]: YesOrNo;
     [SoknadFormField.harUtvidetRettFor]: Array<string>;
-    [SoknadFormField.borINorge]: YesOrNo;
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
@@ -79,7 +77,6 @@ export type OmBarnaFormData = Pick<
 export type DinSituasjonFormData = Pick<
     SoknadFormData,
     | SoknadFormField.arbeiderINorge
-    | SoknadFormField.borINorge
     | SoknadFormField.arbeidssituasjon
     | SoknadFormField.harBruktOmsorgsdagerEtter1Juli
     | SoknadFormField.antallDagerBruktEtter1Juli

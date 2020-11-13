@@ -7,7 +7,7 @@ describe('mapFormDataToApiData', () => {
     describe('mapDinSituasjonToApiData', () => {
         const mockData: DinSituasjonFormData = {
             arbeiderINorge: YesOrNo.YES,
-            borINorge: YesOrNo.YES,
+
             arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             harBruktOmsorgsdagerEtter1Juli: YesOrNo.YES,
             antallDagerBruktEtter1Juli: 5,
@@ -15,7 +15,7 @@ describe('mapFormDataToApiData', () => {
         it('maps standard formData correctly', () => {
             const expectedResult: DinSituasjonApiData = {
                 arbeiderINorge: true,
-                borINorge: true,
+
                 antallDagerBruktEtter1Juli: 5,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
@@ -25,7 +25,6 @@ describe('mapFormDataToApiData', () => {
         it(`maps does not include ${SoknadFormField.antallDagerBruktEtter1Juli} if ${SoknadFormField.harBruktOmsorgsdagerEtter1Juli} === false`, () => {
             const expectedResult: DinSituasjonApiData = {
                 arbeiderINorge: true,
-                borINorge: true,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
             const result = mapDinSituasjonToApiData({ ...mockData, harBruktOmsorgsdagerEtter1Juli: YesOrNo.NO });

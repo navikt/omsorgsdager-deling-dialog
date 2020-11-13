@@ -40,15 +40,11 @@ const omBarnaIsComplete = ({
 
 const dinSituasjonIsComplete = ({
     arbeiderINorge,
-    borINorge,
     arbeidssituasjon,
     harBruktOmsorgsdagerEtter1Juli,
     antallDagerBruktEtter1Juli,
 }: Partial<DinSituasjonFormData>): boolean => {
     if (arbeiderINorge !== YesOrNo.YES) {
-        return false;
-    }
-    if (borINorge === YesOrNo.UNANSWERED) {
         return false;
     }
     if (arbeidssituasjon?.length === 0) {

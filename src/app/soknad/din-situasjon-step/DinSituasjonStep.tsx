@@ -57,13 +57,7 @@ const DinSituasjonStep = () => {
                     </Lenke>
                 </p>
             </CounsellorPanel>
-            <FormBlock>
-                <SoknadFormComponents.YesOrNoQuestion
-                    name={SoknadFormField.borINorge}
-                    legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
-                    validate={validateYesOrNoIsAnswered}
-                />
-            </FormBlock>
+
             <FormQuestion
                 name={SoknadFormField.arbeiderINorge}
                 legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}

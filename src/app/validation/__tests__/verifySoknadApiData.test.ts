@@ -6,7 +6,6 @@ const mockSoknad = {
     harBekreftetOpplysninger: true,
     harForståttRettigheterOgPlikter: true,
     arbeiderINorge: true,
-    borINorge: false,
     arbeidssituasjon: ['selvstendigNæringsdrivende'],
     antallDagerSomSkalOverføres: '3',
     mottakerType: 'samboer',

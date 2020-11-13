@@ -19,7 +19,6 @@ export interface SoknadApiData {
     barn: ApiBarn[];
     harAleneomsorg: boolean;
     harUtvidetRett: boolean;
-    borINorge: boolean;
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
     antallDagerBruktEtter1Juli?: number;
