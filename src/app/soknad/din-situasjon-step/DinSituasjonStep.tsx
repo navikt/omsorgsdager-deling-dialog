@@ -67,11 +67,6 @@ const DinSituasjonStep = () => {
 
             {kanFortsette === true && (
                 <>
-                    <FormQuestion
-                        name={SoknadFormField.arbeiderINorge}
-                        legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                        validate={validateYesOrNoIsAnswered}
-                    />
                     <FormBlock>
                         <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeidssituasjon.spm')}
@@ -96,6 +91,11 @@ const DinSituasjonStep = () => {
                             validate={validateRequiredList}
                         />
                     </FormBlock>
+                    <FormQuestion
+                        name={SoknadFormField.arbeiderINorge}
+                        legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
+                        validate={validateYesOrNoIsAnswered}
+                    />
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
