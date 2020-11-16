@@ -6,6 +6,7 @@ import { DinSituasjonApiData, mapDinSituasjonToApiData } from '../mapDinSituasjo
 describe('mapFormDataToApiData', () => {
     describe('mapDinSituasjonToApiData', () => {
         const mockData: DinSituasjonFormData = {
+            erYrkesaktiv: YesOrNo.YES,
             arbeiderINorge: YesOrNo.YES,
 
             arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],

@@ -32,8 +32,8 @@ const DinSituasjonStep = () => {
     const { harBruktOmsorgsdagerEtter1Juli } = values;
     const stepId = StepID.DIN_SITUASJON;
 
-    const { arbeiderINorge } = values;
-    const kanFortsette = arbeiderINorge === YesOrNo.YES;
+    const { erYrkesaktiv } = values;
+    const kanFortsette = erYrkesaktiv === YesOrNo.YES;
 
     const arbeiderINorgeStopMessage = (
         <>
@@ -57,16 +57,21 @@ const DinSituasjonStep = () => {
                     </Lenke>
                 </p>
             </CounsellorPanel>
-
             <FormQuestion
-                name={SoknadFormField.arbeiderINorge}
-                legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
+                name={SoknadFormField.erYrkesaktiv}
+                legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
                 validate={validateYesOrNoIsAnswered}
-                showStop={arbeiderINorge === YesOrNo.NO}
+                showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
+
             {kanFortsette === true && (
                 <>
+                    <FormQuestion
+                        name={SoknadFormField.arbeiderINorge}
+                        legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
+                        validate={validateYesOrNoIsAnswered}
+                    />
                     <FormBlock>
                         <SoknadFormComponents.CheckboxPanelGroup
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeidssituasjon.spm')}

@@ -94,8 +94,9 @@
     "samtykke.harForståttLabel.lenketekst": "dine plikter",
     "fieldvalidation.mottakersFnrErSøkersFnr": "Du har tastet inn ditt eget fødselsnummer",
 
-    "step.din_situasjon.veileder.intro.1": "For å ha rett til å overføre omsorgsdager må du være yrkesaktiv og jobbe i Norge eller for en norsk arbeidsgiver. For at den du overfører til skal ha rett til å bruke omsorgsdager må dette også gjelde for dem.",
-    "step.din_situasjon.veileder.intro.2": "Medlemskap i folketrygden er nøkkelen til rettigheter hos NAV. Hvis du jobber i Norge er du vanligvis medlem. Du kan lese mer om medlemskap på ",
+    "step.din_situasjon.veileder.intro.1": "For å ha rett til å overføre omsorgsdager må du være yrkesaktiv og være medlem i folketrygden. Den du overfører til må også være yrkesaktiv og medlem i folketrygden for å kunne bruke omsorgsdagene.",
+    "step.din_situasjon.veileder.intro.2": "Hvis man jobber i Norge er man vanligvis medlem. Du kan lese mer om medlemskap på ",
+    "step.din_situasjon.form.yrkesaktiv.spm": "Er du yrkesaktiv",
     "step.din_situasjon.form.arbeiderINorge.spm": "Jobber du i Norge eller for norsk arbeidsgiver?",
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og overføre disse til en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
