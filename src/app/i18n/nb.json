@@ -96,8 +96,8 @@
 
     "step.din_situasjon.veileder.intro.1": "For å ha rett til å overføre omsorgsdager må du være yrkesaktiv og være medlem i folketrygden. Den du overfører til må også være yrkesaktiv og medlem i folketrygden for å kunne bruke omsorgsdagene.",
     "step.din_situasjon.veileder.intro.2": "Hvis man jobber i Norge er man vanligvis medlem. Du kan lese mer om medlemskap på ",
-    "step.din_situasjon.form.yrkesaktiv.spm": "Er du yrkesaktiv",
-    "step.din_situasjon.form.arbeiderINorge.spm": "Jobber du i Norge eller for norsk arbeidsgiver?",
+    "step.din_situasjon.form.yrkesaktiv.spm": "Er du yrkesaktiv?",
+    "step.din_situasjon.form.arbeiderINorge.spm": "Jobber du i Norge?",
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og overføre disse til en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
     "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
@@ -131,7 +131,7 @@
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Barn du har fått ekstra omsorgsdager for",
 
     "step.oppsummering.dinSituasjon.header": "Din situasjon",
-    "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge eller for norsk arbeidsgiver?",
+    "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
     "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
     "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
