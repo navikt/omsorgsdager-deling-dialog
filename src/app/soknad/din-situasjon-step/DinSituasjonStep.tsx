@@ -5,6 +5,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
+    validateRequiredField,
     validateRequiredList,
     validateRequiredNumber,
     validateYesOrNoIsAnswered,
@@ -60,7 +61,7 @@ const DinSituasjonStep = () => {
             <FormQuestion
                 name={SoknadFormField.erYrkesaktiv}
                 legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
-                validate={validateYesOrNoIsAnswered}
+                validate={validateRequiredField}
                 showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
@@ -91,11 +92,14 @@ const DinSituasjonStep = () => {
                             validate={validateRequiredList}
                         />
                     </FormBlock>
-                    <FormQuestion
-                        name={SoknadFormField.arbeiderINorge}
-                        legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                        validate={validateYesOrNoIsAnswered}
-                    />
+                    <FormBlock>
+                        <SoknadFormComponents.YesOrNoQuestion
+                            name={SoknadFormField.arbeiderINorge}
+                            legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
+                            validate={validateYesOrNoIsAnswered}
+                        />
+                    </FormBlock>
+
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
