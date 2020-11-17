@@ -20,23 +20,25 @@ const IntroPage = () => {
             title={intlHelper(intl, 'application.title')}
             topContentRenderer={() => <StepBanner tag="h1" text={intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
-                <InformationPoster>
-                    <p>{intlHelper(intl, 'introForm.info.1')}</p>
-                    <ul>
-                        <li>{intlHelper(intl, 'introForm.info.1.list.ektefelle')}</li>
-                        <li>{intlHelper(intl, 'introForm.info.1.list.samboer')}</li>
-                    </ul>
-                    <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                        {intlHelper(intl, 'introForm.info.1.list.lenke.andreForelderen')}
-                    </Lenke>
-                    <p>{intlHelper(intl, 'introForm.info.2')}</p>
-                    <ul>
-                        <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
-                        <li>{intlHelper(intl, 'introForm.info.ikkeFylt70')}</li>
-                    </ul>
-                    <p>{`${intlHelper(intl, 'introForm.info.3')} `}</p>
-                    <p>{intlHelper(intl, 'introForm.info.4')}</p>
-                </InformationPoster>
+                <section aria-label="Introduksjon til søknadsskjemaet">
+                    <InformationPoster>
+                        <p>{intlHelper(intl, 'introForm.info.1')}</p>
+                        <ul>
+                            <li>{intlHelper(intl, 'introForm.info.1.list.ektefelle')}</li>
+                            <li>{intlHelper(intl, 'introForm.info.1.list.samboer')}</li>
+                        </ul>
+                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
+                            {intlHelper(intl, 'introForm.info.1.list.lenke.andreForelderen')}
+                        </Lenke>
+                        <p>{intlHelper(intl, 'introForm.info.2')}</p>
+                        <ul>
+                            <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
+                            <li>{intlHelper(intl, 'introForm.info.ikkeFylt70')}</li>
+                        </ul>
+                        <p>{`${intlHelper(intl, 'introForm.info.3')} `}</p>
+                        <p>{intlHelper(intl, 'introForm.info.4')}</p>
+                    </InformationPoster>
+                </section>
             </Box>
             <FormBlock>
                 <IntroForm
