@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -10,6 +10,7 @@ import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 
 interface OwnProps {
     id: StepID;
@@ -21,6 +22,7 @@ interface OwnProps {
     buttonDisabled?: boolean;
     stepTitle?: string;
     pageTitle?: string;
+    showNotAllQuestionsAnsweredMessage?: boolean;
     children: React.ReactNode;
 }
 
@@ -36,6 +38,7 @@ const SoknadFormStep = ({
     includeValidationSummary = true,
     stepTitle,
     pageTitle,
+    showNotAllQuestionsAnsweredMessage,
     buttonDisabled,
 }: Props) => {
     const intl = useIntl();
@@ -46,7 +49,7 @@ const SoknadFormStep = ({
     return (
         <Step
             bannerTitle={intlHelper(intl, 'application.title')}
-            cancelOrContinueLaterAriaLabel={intlHelper(intl, 'application.cancelOrContinueLater.label')}
+            cancelOrContinueLaterAriaLabel={intlHelper(intl, 'page.form.ubesvarteSpørsmålInfo')}
             stepTitle={stepTitle || texts.stepTitle}
             pageTitle={pageTitle || texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}
@@ -57,6 +60,15 @@ const SoknadFormStep = ({
             <SoknadFormComponents.Form
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
+                noButtonsContentRenderer={
+                    showNotAllQuestionsAnsweredMessage
+                        ? () => (
+                              <UnansweredQuestionsInfo>
+                                  <FormattedMessage id="page.form.ubesvarteSpørsmålInfo" />
+                              </UnansweredQuestionsInfo>
+                          )
+                        : undefined
+                }
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
                 onValidSubmit={onSendSoknad ? onSendSoknad : () => gotoNextStepFromStep(id)}
