@@ -44,7 +44,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                 const alleSpørsmålBesvart = visibility.areAllQuestionsAnswered();
                 const kanFortsette = alleSpørsmålBesvart && avslag === undefined;
                 return (
-                    <section aria-label="Se om du kan bruke det digitale søknadsskjemaet:">
+                    <section aria-label="Se om du kan bruke det dette skjemaet:">
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}

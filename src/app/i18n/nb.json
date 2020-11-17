@@ -8,11 +8,11 @@
     "page.error.pageTitle": "Noe gikk galt ...",
     "page.form.ubesvarteSpørsmålInfo": "For å komme videre, må du svare på alle spørsmålene ovenfor",
 
-    "page.ikkeMyndig.sidetittel": "Søknad om overføring av omsorgsdager - ikke myndig",
+    "page.ikkeMyndig.sidetittel": "Melding om overføring av omsorgsdager - ikke myndig",
     "page.ikkeMyndig.banner.tittel": "Hei!",
-    "page.ikkeMyndig.banner.tekst": "Fordi du er under 18 år, må en av foreldrene dine eller en foresatt skrive under på søknaden sammen med deg. Du må derfor fylle ut søknaden på papir og sende den i posten.",
+    "page.ikkeMyndig.banner.tekst": "Fordi du er under 18 år, må en av foreldrene dine eller en foresatt skrive under på meldingen sammen med deg. Du må derfor fylle ut skjemaet på papir og sende den i posten.",
     "page.ikkeMyndig.banner.lastNed": "Melding om deling av omsorgsdager",
-    "page.ikkeMyndig.tittel": "Søknad om overføring av omsorgsdager",
+    "page.ikkeMyndig.tittel": "Melding om overføring av omsorgsdager",
 
     "arbeidssituasjon.arbeidstaker": "Arbeidstaker",
     "arbeidssituasjon.selvstendigNæringsdrivende": "Selvstendig næringsdrivende",
@@ -157,5 +157,17 @@
     "kvittering.info.2": "Vi kontakter deg hvis vi trenger flere opplysninger fra deg.",
     "kvittering.info.3a": "Når vi har behandlet meldingen din får både du og den du overfører omsorgsdager til et svar fra oss i posten, og på deres egne sider på",
     "kvittering.info.3b": "Ditt NAV",
-    "kvittering.info.3c": "."
+    "kvittering.info.3c": ".",
+
+    "avbrytSøknadDialog.avbrytSøknadLabel": "Ja, avbryt melding",
+    "avbrytSøknadDialog.fortsettSøknadLabel": "Nei",
+    "avbrytSøknadDialog.intro": "Det du har fylt ut i meldingen blir slettet, og du kommer tilbake til velkomstsiden.",
+    "avbrytSøknadDialog.spørsmål": "Ønsker du å slette meldingen?",
+    "avbrytSøknadDialog.tittel": "Avbryt og slett melding",
+
+    "fortsettSøknadSenereDialog.avbrytSøknadLabel": "Ja, fortsett senere",
+    "fortsettSøknadSenereDialog.fortsettSøknadLabel": "Nei",
+    "fortsettSøknadSenereDialog.intro": "Vi lagrer meldingen din for deg i 24 timer.",
+    "fortsettSøknadSenereDialog.spørsmål": "Vil du avslutte nå og fortsette senere?",
+    "fortsettSøknadSenereDialog.tittel": "Avslutt og fortsett senere"
 }
