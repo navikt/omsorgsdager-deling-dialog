@@ -16,6 +16,9 @@ const DinSituasjonSummary = ({ apiValues }: Props) => {
     const intl = useIntl();
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.dinSituasjon.header')}>
+            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.erYkesaktiv')}>
+                <JaNeiSvar harSvartJa={apiValues.erYrkesaktiv} />
+            </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.arbeidssituasjon')}>
                 <SummaryList
                     items={apiValues.arbeidssituasjon}

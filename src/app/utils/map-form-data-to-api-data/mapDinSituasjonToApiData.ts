@@ -4,11 +4,12 @@ import { DinSituasjonFormData } from '../../types/SoknadFormData';
 
 export type DinSituasjonApiData = Pick<
     SoknadApiData,
-    'arbeiderINorge' | 'arbeidssituasjon' | 'antallDagerBruktEtter1Juli'
+    'erYrkesaktiv' | 'arbeiderINorge' | 'arbeidssituasjon' | 'antallDagerBruktEtter1Juli'
 >;
 
 export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSituasjonApiData => {
     return {
+        erYrkesaktiv: formData.erYrkesaktiv === YesOrNo.YES,
         arbeiderINorge: formData.arbeiderINorge === YesOrNo.YES,
         arbeidssituasjon: formData.arbeidssituasjon,
         antallDagerBruktEtter1Juli:
