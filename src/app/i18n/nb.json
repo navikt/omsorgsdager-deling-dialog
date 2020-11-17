@@ -1,5 +1,6 @@
 {
     "application.title": "Overføring av omsorgsdager til ny ektefelle eller samboer",
+    "application.cancelOrContinueLaterLabel": "Avbryt eller fortsett senere",
 
     "application.loadError.title": "Noe gikk galt ...",
     "application.loadError.message": "Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.",

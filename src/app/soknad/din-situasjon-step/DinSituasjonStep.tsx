@@ -18,6 +18,7 @@ import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -48,7 +49,11 @@ const DinSituasjonStep = () => {
     );
 
     return (
-        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupDinSituasjonStep}>
+        <SoknadFormStep
+            id={stepId}
+            showSubmitButton={kanFortsette}
+            onStepCleanup={cleanupDinSituasjonStep}
+            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(erYrkesaktiv) === false}>
             <CounsellorPanel>
                 <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
                 <p>

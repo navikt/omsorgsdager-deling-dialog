@@ -22,6 +22,7 @@ import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 
 interface Props {
     barn: Barn[];
@@ -84,6 +85,7 @@ const OmBarnaStep = ({ barn }: Props) => {
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
             onStepCleanup={cleanupOmBarnaStep}
+            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(harAleneomsorg) === false}
             stepTitle={stepAndPageTitle}>
             <CounsellorPanel>
                 {intlHelper(intl, 'step.om-barna.info.1')}
