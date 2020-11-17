@@ -9,7 +9,7 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.harAleneomsorgFor]: [],
     [SoknadFormField.harUtvidetRett]: YesOrNo.UNANSWERED,
     [SoknadFormField.harUtvidetRettFor]: [],
-    [SoknadFormField.borINorge]: YesOrNo.UNANSWERED,
+    [SoknadFormField.erYrkesaktiv]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeidssituasjon]: [],
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,

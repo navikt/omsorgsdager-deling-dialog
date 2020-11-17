@@ -12,9 +12,8 @@ export const verifySoknadApiData = (data?: SoknadApiData | any): boolean => {
         data.id !== undefined &&
         data.harBekreftetOpplysninger &&
         data.harForståttRettigheterOgPlikter &&
-        data.arbeiderINorge &&
-        data.borINorge !== undefined &&
         data.harAleneomsorg &&
+        data.erYrkesaktiv &&
         data.arbeidssituasjon.length > 0 &&
         harAleneomsorgForBarn &&
         data.antallDagerSomSkalOverføres > 0 &&
