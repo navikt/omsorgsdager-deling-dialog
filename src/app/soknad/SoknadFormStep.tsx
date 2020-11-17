@@ -45,13 +45,15 @@ const SoknadFormStep = ({
     const { soknadStepsConfig, resetSoknad, gotoNextStepFromStep, continueSoknadLater } = useSoknadContext();
     const stepConfig = soknadStepsConfig[id];
     const texts = soknadStepUtils.getStepTexts(intl, stepConfig);
+    const applicationTitle = intlHelper(intl, 'application.title');
 
     return (
         <Step
-            bannerTitle={intlHelper(intl, 'application.title')}
+            bannerTitle={applicationTitle}
             cancelOrContinueLaterAriaLabel={intlHelper(intl, 'application.cancelOrContinueLaterLabel')}
             stepTitle={stepTitle || texts.stepTitle}
             pageTitle={pageTitle || texts.pageTitle}
+            pageAriaLabel={applicationTitle}
             backLinkHref={stepConfig.backLinkHref}
             steps={soknadStepUtils.getStepIndicatorStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}
