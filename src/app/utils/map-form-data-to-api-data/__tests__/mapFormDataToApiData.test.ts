@@ -15,6 +15,7 @@ describe('mapFormDataToApiData', () => {
         };
         it('maps standard formData correctly', () => {
             const expectedResult: DinSituasjonApiData = {
+                erYrkesaktiv: true,
                 arbeiderINorge: true,
 
                 antallDagerBruktEtter1Juli: 5,
@@ -25,6 +26,7 @@ describe('mapFormDataToApiData', () => {
         });
         it(`maps does not include ${SoknadFormField.antallDagerBruktEtter1Juli} if ${SoknadFormField.harBruktOmsorgsdagerEtter1Juli} === false`, () => {
             const expectedResult: DinSituasjonApiData = {
+                erYrkesaktiv: true,
                 arbeiderINorge: true,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
