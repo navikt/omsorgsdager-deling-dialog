@@ -6,16 +6,18 @@ import { DinSituasjonApiData, mapDinSituasjonToApiData } from '../mapDinSituasjo
 describe('mapFormDataToApiData', () => {
     describe('mapDinSituasjonToApiData', () => {
         const mockData: DinSituasjonFormData = {
+            erYrkesaktiv: YesOrNo.YES,
             arbeiderINorge: YesOrNo.YES,
-            borINorge: YesOrNo.YES,
+
             arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             harBruktOmsorgsdagerEtter1Juli: YesOrNo.YES,
             antallDagerBruktEtter1Juli: 5,
         };
         it('maps standard formData correctly', () => {
             const expectedResult: DinSituasjonApiData = {
+                erYrkesaktiv: true,
                 arbeiderINorge: true,
-                borINorge: true,
+
                 antallDagerBruktEtter1Juli: 5,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
@@ -24,8 +26,8 @@ describe('mapFormDataToApiData', () => {
         });
         it(`maps does not include ${SoknadFormField.antallDagerBruktEtter1Juli} if ${SoknadFormField.harBruktOmsorgsdagerEtter1Juli} === false`, () => {
             const expectedResult: DinSituasjonApiData = {
+                erYrkesaktiv: true,
                 arbeiderINorge: true,
-                borINorge: true,
                 arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             };
             const result = mapDinSituasjonToApiData({ ...mockData, harBruktOmsorgsdagerEtter1Juli: YesOrNo.NO });

@@ -5,6 +5,7 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
+    validateRequiredField,
     validateRequiredList,
     validateRequiredNumber,
     validateYesOrNoIsAnswered,
@@ -32,8 +33,8 @@ const DinSituasjonStep = () => {
     const { harBruktOmsorgsdagerEtter1Juli } = values;
     const stepId = StepID.DIN_SITUASJON;
 
-    const { arbeiderINorge } = values;
-    const kanFortsette = arbeiderINorge === YesOrNo.YES;
+    const { erYrkesaktiv } = values;
+    const kanFortsette = erYrkesaktiv === YesOrNo.YES;
 
     const arbeiderINorgeStopMessage = (
         <>
@@ -57,20 +58,14 @@ const DinSituasjonStep = () => {
                     </Lenke>
                 </p>
             </CounsellorPanel>
-            <FormBlock>
-                <SoknadFormComponents.YesOrNoQuestion
-                    name={SoknadFormField.borINorge}
-                    legend={intlHelper(intl, 'step.din_situasjon.form.borINorge.spm')}
-                    validate={validateYesOrNoIsAnswered}
-                />
-            </FormBlock>
             <FormQuestion
-                name={SoknadFormField.arbeiderINorge}
-                legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                validate={validateYesOrNoIsAnswered}
-                showStop={arbeiderINorge === YesOrNo.NO}
+                name={SoknadFormField.erYrkesaktiv}
+                legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
+                validate={validateRequiredField}
+                showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
+
             {kanFortsette === true && (
                 <>
                     <FormBlock>
@@ -97,6 +92,14 @@ const DinSituasjonStep = () => {
                             validate={validateRequiredList}
                         />
                     </FormBlock>
+                    <FormBlock>
+                        <SoknadFormComponents.YesOrNoQuestion
+                            name={SoknadFormField.arbeiderINorge}
+                            legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
+                            validate={validateYesOrNoIsAnswered}
+                        />
+                    </FormBlock>
+
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
