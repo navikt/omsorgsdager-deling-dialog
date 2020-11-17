@@ -20,6 +20,7 @@ const KvitteringPage = () => {
                         <span key="pkt3">
                             {intlHelper(intl, 'kvittering.info.3a')}{' '}
                             <Lenke href={getLenker().dittNAV}>{intlHelper(intl, 'kvittering.info.3b')}</Lenke>
+                            {intlHelper(intl, 'kvittering.info.3c')}
                         </span>,
                     ],
                 }}></Kvittering>
