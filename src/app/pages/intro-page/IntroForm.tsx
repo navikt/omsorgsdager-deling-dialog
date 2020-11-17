@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -53,7 +53,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
-                                              Du må svare på alle spørsmål i skjemaet over for å kunne fortsette
+                                              <FormattedMessage id="page.form.ubesvarteSpørsmålInfo" />
                                           </UnansweredQuestionsInfo>
                                       )
                             }

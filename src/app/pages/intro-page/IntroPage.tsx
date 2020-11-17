@@ -20,7 +20,7 @@ const IntroPage = () => {
             title={intlHelper(intl, 'application.title')}
             topContentRenderer={() => <StepBanner tag="h1" text={intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
-                <section aria-label="Introduksjon til søknadsskjemaet">
+                <section aria-label="Introduksjon">
                     <InformationPoster>
                         <p>{intlHelper(intl, 'introForm.info.1')}</p>
                         <ul>

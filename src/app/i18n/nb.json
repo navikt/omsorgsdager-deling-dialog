@@ -5,6 +5,7 @@
     "application.loadError.message": "Beklager, her har det dessverre skjedd en feil. Dersom feilen fortsetter, prøv igjen litt senere.",
 
     "page.error.pageTitle": "Noe gikk galt ...",
+    "page.form.ubesvarteSpørsmålInfo": "For å komme videre, må du svare på alle spørsmålene ovenfor",
 
     "page.ikkeMyndig.sidetittel": "Søknad om overføring av omsorgsdager - ikke myndig",
     "page.ikkeMyndig.banner.tittel": "Hei!",
