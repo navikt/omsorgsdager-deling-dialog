@@ -49,7 +49,7 @@ const SoknadFormStep = ({
     return (
         <Step
             bannerTitle={intlHelper(intl, 'application.title')}
-            cancelOrContinueLaterAriaLabel={intlHelper(intl, 'page.form.ubesvarteSpørsmålInfo')}
+            cancelOrContinueLaterAriaLabel={intlHelper(intl, 'application.cancelOrContinueLaterLabel')}
             stepTitle={stepTitle || texts.stepTitle}
             pageTitle={pageTitle || texts.pageTitle}
             backLinkHref={stepConfig.backLinkHref}

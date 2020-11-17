@@ -55,9 +55,13 @@ const MottakerStep = ({ søker }: Props) => {
         (overføreTilSamboer === YesOrNo.YES && overføreTilEktefelle === YesOrNo.NO);
 
     const kanIkkeFortsette = overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer === YesOrNo.NO;
+    const showMissingAnswers = kanFortsette === false && kanIkkeFortsette === false;
 
     return (
-        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette}>
+        <SoknadFormStep
+            id={stepId}
+            showSubmitButton={kanFortsette}
+            showNotAllQuestionsAnsweredMessage={showMissingAnswers}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro.1" />
 
