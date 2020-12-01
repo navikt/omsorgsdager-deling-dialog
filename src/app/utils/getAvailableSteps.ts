@@ -65,21 +65,9 @@ const dinSituasjonIsComplete = ({
 };
 
 const mottakerIsComplete = (
-    {
-        overføreTilEktefelle,
-        overføreTilSamboer,
-        fnrMottaker,
-        navnMottaker = '',
-        antallDagerSomSkalOverføres,
-    }: Partial<MottakerFormData>,
+    { fnrMottaker, navnMottaker = '', antallDagerSomSkalOverføres }: Partial<MottakerFormData>,
     søker: Person
 ): boolean => {
-    if (overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer !== YesOrNo.YES) {
-        return false;
-    }
-    if (overføreTilSamboer === YesOrNo.NO && overføreTilEktefelle !== YesOrNo.YES) {
-        return false;
-    }
     const fnrValid = validateFødselsnummer(fnrMottaker || '');
     const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
     if (fnrValid !== undefined || fnrDifferent !== undefined) {

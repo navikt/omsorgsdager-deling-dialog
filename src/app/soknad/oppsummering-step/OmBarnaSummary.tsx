@@ -4,12 +4,11 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import JaNeiSvar from '@navikt/sif-common-soknad/lib/soknad-summary/JaNeiSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
-import { ApiBarn } from '../../types/SoknadApiData';
-import { BarnApiData } from '../../utils/map-form-data-to-api-data/mapBarnToApiData';
+import { ApiBarn, BarnStepApiData } from '../../types/SoknadApiData';
 import BarnSummaryList from './BarnSummaryList';
 
 interface Props {
-    apiValues: BarnApiData;
+    apiValues: BarnStepApiData;
 }
 
 const OmBarnaSummary = ({ apiValues }: Props) => {

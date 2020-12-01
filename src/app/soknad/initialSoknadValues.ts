@@ -15,4 +15,5 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
+    [SoknadFormField.samværsavtale]: [],
 };

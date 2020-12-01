@@ -3,11 +3,16 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import FødselsnummerSvar from '@navikt/sif-common-soknad/lib/soknad-summary/FødselsnummerSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
-import { MottakerApiData } from '../../utils/map-form-data-to-api-data/mapMottakerToApiData';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
+import {
+    SoknadApiData,
+    isSøknadFordeling,
+    isSøknadOverføring,
+    isSøknadKoronaoverføring,
+} from '../../types/SoknadApiData';
 
 interface Props {
-    apiValues: MottakerApiData;
+    apiValues: SoknadApiData;
 }
 
 const MottakerSummary = ({ apiValues }: Props) => {
@@ -15,12 +20,18 @@ const MottakerSummary = ({ apiValues }: Props) => {
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.mottaker.header')}>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.mottaker.type')}>
-                {apiValues.mottakerNavn} (<FormattedMessage id={`mottaker.${apiValues.mottakerType}`} />)<br />
+                {apiValues.mottakerNavn}
+                {(isSøknadFordeling(apiValues) || isSøknadOverføring(apiValues)) && (
+                    <FormattedMessage id={`mottaker.${apiValues.mottakerType}`} />
+                )}
+                <br />
                 <FormattedMessage id="Fødselsnummer" />: <FødselsnummerSvar fødselsnummer={apiValues.mottakerFnr} />
             </SummaryBlock>
-            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.antallDagerSomSkalOverføres')}>
-                <FormattedMessage id={`dager`} values={{ dager: apiValues.antallDagerSomSkalOverføres }} />
-            </SummaryBlock>
+            {(isSøknadOverføring(apiValues) || isSøknadKoronaoverføring(apiValues)) && (
+                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.antallDagerSomSkalOverføres')}>
+                    <FormattedMessage id={`dager`} values={{ dager: apiValues.antallDagerSomSkalOverføres }} />
+                </SummaryBlock>
+            )}
         </SummarySection>
     );
 };

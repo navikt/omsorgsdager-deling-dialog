@@ -7,30 +7,30 @@ export interface ApiBarn {
     aktørId?: string;
     fødselsdato: ApiStringDate;
     navn: string;
-    aleneOmOmsorgen: boolean;
+    aleneOmOmsorgen?: boolean;
     utvidetRett: boolean;
 }
-
-export type ApiBarnKorona = Omit<ApiBarn, 'aleneOmOmsorgen'>;
+export interface BarnStepApiData {
+    harAleneomsorg: boolean;
+    harUtvidetRett: boolean;
+    barn: ApiBarn[];
+}
 
 /** Ektefelle/samboer */
-interface SoknadApiDataOverføring {
+interface SøknadApiDataOverføring {
     mottakerType: Mottaker;
     antallDagerSomSkalOverføres: number;
-    barn: ApiBarn[];
 }
 /** Samværsforelder */
-interface SoknadApiDataFordeling {
+interface SøknadApiDataFordeling {
     mottakerType: Mottaker;
-    barn: ApiBarn[];
     samværsavtale: string[];
 }
-interface SoknadApiDataKorona {
+interface SøknadApiDataKorona {
     antallDagerSomSkalOverføres: number;
-    barn: ApiBarnKorona[];
 }
 
-export interface SoknadApiData {
+export interface SoknadApiDataBase {
     id: string;
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
@@ -43,7 +43,27 @@ export interface SoknadApiData {
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
     antallDagerBruktEtter1Juli?: number;
-    overforing?: SoknadApiDataOverføring;
-    fordeling?: SoknadApiDataFordeling;
-    korona?: SoknadApiDataKorona;
+    barn: ApiBarn[];
 }
+
+export interface SøknadKoronaoverføring extends SoknadApiDataBase {
+    korona: SøknadApiDataKorona;
+}
+export interface SøknadOverføring extends SoknadApiDataBase {
+    overføring: SøknadApiDataOverføring;
+}
+export interface SøknadFordeling extends SoknadApiDataBase {
+    fordeling: SøknadApiDataFordeling;
+}
+
+export type SoknadApiData = SøknadKoronaoverføring | SøknadFordeling | SøknadOverføring;
+
+export const isSøknadKoronaoverføring = (søknad: any): søknad is SøknadApiDataKorona => {
+    return søknad.korona !== undefined;
+};
+export const isSøknadFordeling = (søknad: any): søknad is SøknadApiDataFordeling => {
+    return søknad.fordeling !== undefined;
+};
+export const isSøknadOverføring = (søknad: any): søknad is SøknadApiDataOverføring => {
+    return søknad.overføring !== undefined;
+};

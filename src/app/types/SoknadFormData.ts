@@ -17,7 +17,7 @@ export enum Mottaker {
 export enum SoknadFormField {
     harForståttRettigheterOgPlikter = 'harForståttRettigheterOgPlikter',
     harBekreftetOpplysninger = 'harBekreftetOpplysninger',
-    midlertidigPgaKorona = 'midlertidigPgaKorona',
+    gjelderMidlertidigPgaKorona = 'gjelderMidlertidigPgaKorona',
     midlertidigTilGyldigMottaker = 'midlertidigTilGyldigMottaker', // Skal overføre til annen forelder, ektefelle eller samboer
     mottakerType = 'mottakerType',
     fnrMottaker = 'fnrMottaker',
@@ -34,6 +34,8 @@ export enum SoknadFormField {
     arbeidssituasjon = 'arbeidssituasjon',
     harBruktOmsorgsdagerEtter1Juli = 'harBruktOmsorgsdagerEtter1Juli',
     antallDagerBruktEtter1Juli = 'antallDagerBruktEtter1Juli',
+
+    samværsavtale = 'samværsavtale',
 }
 
 export interface Barn {
@@ -47,9 +49,9 @@ export interface Barn {
 export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
-    [SoknadFormField.midlertidigPgaKorona]: YesOrNo;
+    [SoknadFormField.gjelderMidlertidigPgaKorona]: YesOrNo;
     [SoknadFormField.midlertidigTilGyldigMottaker]: YesOrNo;
-    [SoknadFormField.mottakerType]: Mottaker;
+    [SoknadFormField.mottakerType]?: Mottaker;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
     [SoknadFormField.antallDagerSomSkalOverføres]?: number;
@@ -65,6 +67,8 @@ export interface SoknadFormData {
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
     [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
+
+    [SoknadFormField.samværsavtale]: Array<string>;
 }
 
 export type DineBarnFormData = Pick<SoknadFormData, SoknadFormField.andreBarn>;
@@ -88,5 +92,9 @@ export type DinSituasjonFormData = Pick<
 
 export type MottakerFormData = Pick<
     SoknadFormData,
-    SoknadFormField.fnrMottaker | SoknadFormField.navnMottaker | SoknadFormField.antallDagerSomSkalOverføres
+    | SoknadFormField.mottakerType
+    | SoknadFormField.fnrMottaker
+    | SoknadFormField.navnMottaker
+    | SoknadFormField.antallDagerSomSkalOverføres
+    | SoknadFormField.gjelderMidlertidigPgaKorona
 >;

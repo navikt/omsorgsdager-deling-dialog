@@ -107,8 +107,6 @@
     "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
 
     "step.mottaker.veileder.intro.1": "Den du skal overføre omsorgsdager til må være yrkesaktiv, altså være èn eller flere av punktene under:",
-    "step.mottaker.form.overføreTilEktefelle.spm": "Skal du overføre dager til en ny ektefelle?",
-    "step.mottaker.form.overføreTilSamboer.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
     "step.mottaker.form.stopMessage.html": "I dette skjemaet kan du <strong>kun</strong> overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd med i minst 12 måneder.",
     "step.mottaker.form.stopMessage.lenke": "Hvis du heller vil dele omsorgsdager med den andre forelderen, kan du gjøre det her",
     "step.mottaker.form.fnr.spm": "Hva er fødselsnummeret til den du skal overføre omsorgsdager til?",
