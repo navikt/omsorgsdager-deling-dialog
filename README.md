@@ -1,4 +1,4 @@
-# Deling av omsorgsdager
+# Deling av omsorgsdager. Inneholder overføring, fordeling og koronadager.
 
 ## Komme i gang
 
