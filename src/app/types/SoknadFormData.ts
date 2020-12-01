@@ -11,12 +11,19 @@ export enum Arbeidssituasjon {
 export enum Mottaker {
     'ektefelle' = 'ektefelle',
     'samboer' = 'samboer',
-    'annen' = 'annen',
+    'samværsforelder' = 'samværsforelder',
 }
 
 export enum SoknadFormField {
     harForståttRettigheterOgPlikter = 'harForståttRettigheterOgPlikter',
     harBekreftetOpplysninger = 'harBekreftetOpplysninger',
+    midlertidigPgaKorona = 'midlertidigPgaKorona',
+    midlertidigTilGyldigMottaker = 'midlertidigTilGyldigMottaker', // Skal overføre til annen forelder, ektefelle eller samboer
+    mottakerType = 'mottakerType',
+    fnrMottaker = 'fnrMottaker',
+    navnMottaker = 'navnMottaker',
+    antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
+
     andreBarn = 'andreBarn',
     harAleneomsorg = 'harAleneomsorg',
     harAleneomsorgFor = 'harAleneomsorgFor',
@@ -27,13 +34,6 @@ export enum SoknadFormField {
     arbeidssituasjon = 'arbeidssituasjon',
     harBruktOmsorgsdagerEtter1Juli = 'harBruktOmsorgsdagerEtter1Juli',
     antallDagerBruktEtter1Juli = 'antallDagerBruktEtter1Juli',
-    harDeltDagerMedAndreTidligere = 'harDeltDagerMedAndreTidligere',
-    antallDagerHarDeltMedAndre = 'antallDagerHarDeltMedAndre',
-    overføreTilEktefelle = 'overføreTilEktefelle',
-    overføreTilSamboer = 'overføreTilSamboer',
-    fnrMottaker = 'fnrMottaker',
-    navnMottaker = 'navnMottaker',
-    antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
 }
 
 export interface Barn {
@@ -47,23 +47,24 @@ export interface Barn {
 export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
+    [SoknadFormField.midlertidigPgaKorona]: YesOrNo;
+    [SoknadFormField.midlertidigTilGyldigMottaker]: YesOrNo;
+    [SoknadFormField.mottakerType]: Mottaker;
+    [SoknadFormField.fnrMottaker]: string;
+    [SoknadFormField.navnMottaker]: string;
+    [SoknadFormField.antallDagerSomSkalOverføres]?: number;
+
     [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
     [SoknadFormField.harAleneomsorgFor]: Array<string>;
     [SoknadFormField.harUtvidetRett]: YesOrNo;
     [SoknadFormField.harUtvidetRettFor]: Array<string>;
+
     [SoknadFormField.erYrkesaktiv]: YesOrNo;
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
     [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
-    [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo;
-    [SoknadFormField.antallDagerHarDeltMedAndre]: number;
-    [SoknadFormField.overføreTilEktefelle]: YesOrNo;
-    [SoknadFormField.overføreTilSamboer]: YesOrNo;
-    [SoknadFormField.fnrMottaker]: string;
-    [SoknadFormField.navnMottaker]: string;
-    [SoknadFormField.antallDagerSomSkalOverføres]: number;
 }
 
 export type DineBarnFormData = Pick<SoknadFormData, SoknadFormField.andreBarn>;
@@ -87,9 +88,5 @@ export type DinSituasjonFormData = Pick<
 
 export type MottakerFormData = Pick<
     SoknadFormData,
-    | SoknadFormField.overføreTilEktefelle
-    | SoknadFormField.overføreTilSamboer
-    | SoknadFormField.fnrMottaker
-    | SoknadFormField.navnMottaker
-    | SoknadFormField.antallDagerSomSkalOverføres
+    SoknadFormField.fnrMottaker | SoknadFormField.navnMottaker | SoknadFormField.antallDagerSomSkalOverføres
 >;

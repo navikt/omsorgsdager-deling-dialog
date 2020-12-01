@@ -13,9 +13,6 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeidssituasjon]: [],
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
-    [SoknadFormField.harDeltDagerMedAndreTidligere]: YesOrNo.UNANSWERED,
-    [SoknadFormField.overføreTilEktefelle]: YesOrNo.UNANSWERED,
-    [SoknadFormField.overføreTilSamboer]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
 };

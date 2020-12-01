@@ -11,20 +11,39 @@ export interface ApiBarn {
     utvidetRett: boolean;
 }
 
+export type ApiBarnKorona = Omit<ApiBarn, 'aleneOmOmsorgen'>;
+
+/** Ektefelle/samboer */
+interface SoknadApiDataOverføring {
+    mottakerType: Mottaker;
+    antallDagerSomSkalOverføres: number;
+    barn: ApiBarn[];
+}
+/** Samværsforelder */
+interface SoknadApiDataFordeling {
+    mottakerType: Mottaker;
+    barn: ApiBarn[];
+    samværsavtale: string[];
+}
+interface SoknadApiDataKorona {
+    antallDagerSomSkalOverføres: number;
+    barn: ApiBarnKorona[];
+}
+
 export interface SoknadApiData {
     id: string;
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
     harBekreftetOpplysninger: boolean;
-    barn: ApiBarn[];
+    mottakerFnr: string;
+    mottakerNavn: string;
     harAleneomsorg: boolean;
     harUtvidetRett: boolean;
     erYrkesaktiv: boolean;
     arbeiderINorge: boolean;
     arbeidssituasjon: Arbeidssituasjon[];
     antallDagerBruktEtter1Juli?: number;
-    mottakerType: Mottaker;
-    mottakerFnr: string;
-    mottakerNavn: string;
-    antallDagerSomSkalOverføres: number;
+    overforing?: SoknadApiDataOverføring;
+    fordeling?: SoknadApiDataFordeling;
+    korona?: SoknadApiDataKorona;
 }
