@@ -6,6 +6,7 @@ export enum StepID {
     'DINE_BARN' = 'dine-barn',
     'OM_BARNA' = 'om-barna',
     'DIN_SITUASJON' = 'din-situasjon',
+    'SAMVÆRSAVTALE' = 'samværsavtale',
     'OPPSUMMERING' = 'oppsummering',
 }
 
@@ -14,6 +15,7 @@ const SoknadSteps: StepID[] = [
     StepID.DINE_BARN,
     StepID.OM_BARNA,
     StepID.DIN_SITUASJON,
+    StepID.SAMVÆRSAVTALE,
     StepID.OPPSUMMERING,
 ];
 

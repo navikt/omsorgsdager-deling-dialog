@@ -2,6 +2,7 @@ const os = require('os');
 const fs = require('fs');
 const express = require('express');
 const server = express();
+const Busboy = require('busboy');
 
 server.use(express.json());
 server.use((req, res, next) => {
@@ -113,6 +114,17 @@ const startExpressServer = () => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
+    });
+
+    server.post('/vedlegg', (req, res) => {
+        res.set('Access-Control-Expose-Headers', 'Location');
+        res.set('Location', 'nav.no');
+        const busboy = new Busboy({ headers: req.headers });
+        busboy.on('finish', () => {
+            res.writeHead(200, { Location: '/vedlegg' });
+            res.end();
+        });
+        req.pipe(busboy);
     });
 
     server.get('/barn', (req, res) => {

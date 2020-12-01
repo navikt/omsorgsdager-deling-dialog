@@ -1,5 +1,6 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
+import { Attachment } from '@navikt/sif-common-core/lib/types/Attachment';
 
 export enum Arbeidssituasjon {
     'arbeidstaker' = 'arbeidstaker',
@@ -68,7 +69,7 @@ export interface SoknadFormData {
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
     [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
 
-    [SoknadFormField.samværsavtale]: Array<string>;
+    [SoknadFormField.samværsavtale]: Attachment[];
 }
 
 export type DineBarnFormData = Pick<SoknadFormData, SoknadFormField.andreBarn>;

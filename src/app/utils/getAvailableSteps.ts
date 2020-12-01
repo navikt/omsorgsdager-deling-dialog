@@ -7,6 +7,7 @@ import {
     Barn,
     DineBarnFormData,
     DinSituasjonFormData,
+    Mottaker,
     MottakerFormData,
     OmBarnaFormData,
     SoknadFormData,
@@ -106,6 +107,14 @@ export const getAvailableSteps = (values: Partial<SoknadFormData>, søker: Perso
     if (omBarnaIsComplete(gjelderKoronaverføring, values)) {
         steps.push(StepID.DIN_SITUASJON);
     }
+    if (
+        dinSituasjonIsComplete(values) &&
+        gjelderKoronaverføring === false &&
+        values.mottakerType === Mottaker.samværsforelder
+    ) {
+        steps.push(StepID.SAMVÆRSAVTALE);
+    }
+
     if (dinSituasjonIsComplete(values)) {
         steps.push(StepID.OPPSUMMERING);
     }

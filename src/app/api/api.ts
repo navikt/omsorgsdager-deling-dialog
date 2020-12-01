@@ -6,6 +6,12 @@ export const defaultAxiosConfig = {
     withCredentials: true,
 };
 
+const multipartConfig = { headers: { 'Content-Type': 'multipart/form-data' }, ...defaultAxiosConfig };
+
+const sendMultipartPostRequest = (url: string, formData: FormData) => {
+    return axios.post(url, formData, multipartConfig);
+};
+
 axios.defaults.baseURL = getEnvironmentVariable('API_URL');
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use((config) => {
@@ -29,6 +35,7 @@ export enum ApiEndpoint {
     'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
     'sendSoknad' = 'melding/dele-dager',
+    'samværsavtale' = 'vedlegg',
 }
 
 const api = {
@@ -36,8 +43,15 @@ const api = {
         const url = `${endpoint}${paramString ? `?${paramString}` : ''}`;
         return axios.get<ResponseType>(url, config || defaultAxiosConfig);
     },
-    post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) =>
-        axios.post<ResponseType>(endpoint, data, defaultAxiosConfig),
+    post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) => {
+        axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
+    },
+    uploadFile: (endpoint: ApiEndpoint, file: File) => {
+        const formData = new FormData();
+        formData.append('vedlegg', file);
+        return sendMultipartPostRequest(endpoint, formData);
+    },
+    deleteFile: (url: string) => axios.delete(url, defaultAxiosConfig),
 };
 
 export default api;

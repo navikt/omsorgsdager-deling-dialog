@@ -23,6 +23,7 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './soknadStepsConfig';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import SamværsavtaleStep from './samværsavtale-step/SamværsavtaleStep';
 
 interface Props {
     soknadId?: string;
@@ -46,6 +47,8 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                 return <OmBarnaStep barn={barn} />;
             case StepID.DIN_SITUASJON:
                 return <DinSituasjonStep />;
+            case StepID.SAMVÆRSAVTALE:
+                return <SamværsavtaleStep />;
             case StepID.OPPSUMMERING:
                 const apiValues = mapFormDataToApiData({
                     soknadId: id,

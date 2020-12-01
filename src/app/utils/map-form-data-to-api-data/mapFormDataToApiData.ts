@@ -55,12 +55,18 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
     if (mottakerType === undefined) {
         return undefined;
     }
+    const samværsavtaleVedleggUrl: string[] = [];
+    samværsavtale.forEach((s) => {
+        if (s.url) {
+            samværsavtaleVedleggUrl.push(s.url);
+        }
+    });
     return {
         ...getCommonApiData(values),
         type: Søknadstype.fordeling,
         fordeling: {
             mottakerType: mottakerType,
-            samværsavtale: samværsavtale,
+            samværsavtale: samværsavtaleVedleggUrl,
         },
     };
 };

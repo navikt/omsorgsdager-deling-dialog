@@ -82,6 +82,10 @@
     "step.oppsummering.stepTitle": "Oppsummering",
     "step.oppsummering.nextButtonLabel": "Send inn melding",
 
+    "step.samværsavtale.pageTitle": "Samværsavtale",
+    "step.samværsavtale.stepTitle": "Samværsavtale",
+    "step.samværsavtale.nextButtonLabel": "Fortsett",
+
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Fortsett senere",
     "steg.footer.cancelOrContinueLater.label": "Avbryt eller fortsett senere",
@@ -158,6 +162,9 @@
 
     "step.oppsummering.sendMelding.feilmelding.førsteGang": "Det oppstod en feil under innsending. Vennligst prøv på nytt.",
     "step.oppsummering.sendMelding.feilmelding.andreGang": "Det oppstod fortsatt en feil under innsending. Vennligst vent litt og prøv på nytt.",
+
+    "step.oppsummering.samværsavtale.header": "Samværsavtale",
+    "steg.oppsummering.samværsavtale.ikkelastetopp": "Ikke lastet opp, må ettersendes",
 
     "kvittering.tittel": "Melding om overføring av omsorgsdager er mottatt",
     "kvittering.info.tittel": "Hva skjer videre nå?",
