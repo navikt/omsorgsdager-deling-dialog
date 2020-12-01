@@ -1,5 +1,7 @@
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
+import { Mottaker, SoknadFormData } from '../types/SoknadFormData';
 
 export enum StepID {
     'MOTTAKER' = 'mottaker',
@@ -10,13 +12,18 @@ export enum StepID {
     'OPPSUMMERING' = 'oppsummering',
 }
 
-const SoknadSteps: StepID[] = [
-    StepID.MOTTAKER,
-    StepID.DINE_BARN,
-    StepID.OM_BARNA,
-    StepID.DIN_SITUASJON,
-    StepID.SAMVÆRSAVTALE,
-    StepID.OPPSUMMERING,
-];
+const getSoknadSteps = (values: SoknadFormData): StepID[] => {
+    const inkluderSamværsforelder =
+        values.gjelderMidlertidigPgaKorona === YesOrNo.NO && values.mottakerType === Mottaker.samværsforelder;
+    return [
+        StepID.MOTTAKER,
+        StepID.DINE_BARN,
+        StepID.OM_BARNA,
+        StepID.DIN_SITUASJON,
+        ...(inkluderSamværsforelder ? [StepID.SAMVÆRSAVTALE] : []),
+        StepID.OPPSUMMERING,
+    ];
+};
 
-export const soknadStepsConfig = soknadStepUtils.getStepsConfig(SoknadSteps, SoknadApplicationType.MELDING);
+export const getSoknadStepsConfig = (values: SoknadFormData) =>
+    soknadStepUtils.getStepsConfig(getSoknadSteps(values), SoknadApplicationType.MELDING);
