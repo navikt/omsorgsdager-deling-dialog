@@ -30,9 +30,11 @@ const OmBarnaSummary = ({ apiValues }: Props) => {
                 }>
                 <JaNeiSvar harSvartJa={apiValues?.harAleneomsorg} />
             </SummaryBlock>
-            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg')}>
-                <BarnSummaryList barn={harAleneomsorgFor} />
-            </SummaryBlock>
+            {harAleneomsorgFor.length > 0 && (
+                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg')}>
+                    <BarnSummaryList barn={harAleneomsorgFor} />
+                </SummaryBlock>
+            )}
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.om-barna.harNoenUtvidetRett')}>
                 <JaNeiSvar harSvartJa={apiValues?.harUtvidetRett} />
             </SummaryBlock>

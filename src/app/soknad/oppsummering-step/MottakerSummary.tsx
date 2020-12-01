@@ -17,19 +17,37 @@ interface Props {
 
 const MottakerSummary = ({ apiValues }: Props) => {
     const intl = useIntl();
+
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.mottaker.header')}>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.mottaker.type')}>
+                <FormattedMessage id="step.oppsummering.mottaker.navn" />
                 {apiValues.mottakerNavn}
-                {(isSøknadFordeling(apiValues) || isSøknadOverføring(apiValues)) && (
-                    <FormattedMessage id={`mottaker.${apiValues.mottakerType}`} />
+                {isSøknadOverføring(apiValues) && (
+                    <>
+                        {' '}
+                        (<FormattedMessage id={`mottaker.${apiValues.overføring.mottakerType}`} />)
+                    </>
+                )}
+                {isSøknadFordeling(apiValues) && (
+                    <>
+                        {' '}
+                        (<FormattedMessage id={`mottaker.${apiValues.fordeling.mottakerType}`} />)
+                    </>
                 )}
                 <br />
                 <FormattedMessage id="Fødselsnummer" />: <FødselsnummerSvar fødselsnummer={apiValues.mottakerFnr} />
             </SummaryBlock>
             {(isSøknadOverføring(apiValues) || isSøknadKoronaoverføring(apiValues)) && (
                 <SummaryBlock header={intlHelper(intl, 'step.oppsummering.antallDagerSomSkalOverføres')}>
-                    <FormattedMessage id={`dager`} values={{ dager: apiValues.antallDagerSomSkalOverføres }} />
+                    <FormattedMessage
+                        id={`dager`}
+                        values={{
+                            dager: isSøknadOverføring(apiValues)
+                                ? apiValues.overføring.antallDagerSomSkalOverføres
+                                : apiValues.korona.antallDagerSomSkalOverføres,
+                        }}
+                    />
                 </SummaryBlock>
             )}
         </SummarySection>

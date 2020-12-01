@@ -1,6 +1,7 @@
 import { ApiStringDate } from '@navikt/sif-common-core/lib/types/ApiStringDate';
 import { Locale } from '@navikt/sif-common-core/lib/types/Locale';
 import { Arbeidssituasjon, Mottaker } from './SoknadFormData';
+import { Søknadstype } from './Soknadstype';
 
 export interface ApiBarn {
     identitetsnummer?: string;
@@ -30,7 +31,7 @@ interface SøknadApiDataKorona {
     antallDagerSomSkalOverføres: number;
 }
 
-export interface SoknadApiDataBase {
+export interface SoknadApiDataFelles {
     id: string;
     språk: Locale;
     harForståttRettigheterOgPlikter: boolean;
@@ -46,24 +47,26 @@ export interface SoknadApiDataBase {
     barn: ApiBarn[];
 }
 
-export interface SøknadKoronaoverføring extends SoknadApiDataBase {
+export interface SøknadKoronaoverføringApiData extends SoknadApiDataFelles {
+    type: Søknadstype.korona;
     korona: SøknadApiDataKorona;
 }
-export interface SøknadOverføring extends SoknadApiDataBase {
+export const isSøknadKoronaoverføring = (søknad: any): søknad is SøknadKoronaoverføringApiData => {
+    return søknad.type === Søknadstype.korona;
+};
+export interface SøknadOverføringApiData extends SoknadApiDataFelles {
+    type: Søknadstype.overføring;
     overføring: SøknadApiDataOverføring;
 }
-export interface SøknadFordeling extends SoknadApiDataBase {
+export const isSøknadOverføring = (søknad: any): søknad is SøknadOverføringApiData => {
+    return søknad.type === Søknadstype.overføring;
+};
+export interface SøknadFordelingApiData extends SoknadApiDataFelles {
+    type: Søknadstype.fordeling;
     fordeling: SøknadApiDataFordeling;
 }
+export const isSøknadFordeling = (søknad: any): søknad is SøknadFordelingApiData => {
+    return søknad.type === Søknadstype.fordeling;
+};
 
-export type SoknadApiData = SøknadKoronaoverføring | SøknadFordeling | SøknadOverføring;
-
-export const isSøknadKoronaoverføring = (søknad: any): søknad is SøknadApiDataKorona => {
-    return søknad.korona !== undefined;
-};
-export const isSøknadFordeling = (søknad: any): søknad is SøknadApiDataFordeling => {
-    return søknad.fordeling !== undefined;
-};
-export const isSøknadOverføring = (søknad: any): søknad is SøknadApiDataOverføring => {
-    return søknad.overføring !== undefined;
-};
+export type SoknadApiData = SøknadKoronaoverføringApiData | SøknadFordelingApiData | SøknadOverføringApiData;

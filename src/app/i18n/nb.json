@@ -136,7 +136,7 @@
     "step.oppsummering.om-barna.født": "Født",
     "step.oppsummering.om-barna.harAleneomsorg.flereBarn": "Er du alene om omsorgen for barn?",
     "step.oppsummering.om-barna.harAleneomsorg.ettBarn": "Er du alene om omsorgen for barnet ditt?",
-    "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle eller samboer du har bodd med i minst 12 måneder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
+    "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle, samboer du har bodd med i minst 12 måneder, eller samværsforelder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
     "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Barn du er alene om omsorgen for",
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har du fått ekstra omsorgsdager for barn som har en kronisk sykdom eller en funksjonshemning?",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Barn du har fått ekstra omsorgsdager for",
@@ -150,7 +150,7 @@
 
     "step.oppsummering.mottaker.header": "Om den du skal overføre omsorgsdager til",
     "step.oppsummering.mottaker.type": "Hvem skal du overføre dager til?",
-    "step.oppsummering.mottaker.navn": "Navn",
+    "step.oppsummering.mottaker.navn": "Navn: ",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
     "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du overføre?",
 

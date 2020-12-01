@@ -1,13 +1,13 @@
 import { getLocaleForApi } from '@navikt/sif-common-core/lib/utils/localeUtils';
 import {
     SoknadApiData,
-    SoknadApiDataBase,
-    SøknadFordeling,
-    SøknadKoronaoverføring,
-    SøknadOverføring,
+    SoknadApiDataFelles,
+    SøknadFordelingApiData,
+    SøknadKoronaoverføringApiData,
+    SøknadOverføringApiData,
 } from '../../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../../types/SoknadFormData';
-import { getSoknadstype, Soknadstype } from '../../types/Soknadstype';
+import { getSøknadstype, Søknadstype } from '../../types/Soknadstype';
 import { mapBarnStepToApiData } from './mapBarnStepToApiData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
@@ -24,7 +24,7 @@ const getCommonApiData = ({
     locale = 'nb',
     formData,
     registrerteBarn,
-}: MapFormDataToApiDataValues): SoknadApiDataBase => ({
+}: MapFormDataToApiDataValues): Omit<SoknadApiDataFelles, 'type'> => ({
     id: soknadId,
     språk: getLocaleForApi(locale),
     harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
@@ -34,26 +34,30 @@ const getCommonApiData = ({
     ...mapBarnStepToApiData(formData, registrerteBarn),
 });
 
-export const getSøknadKoronaoverføring = (values: MapFormDataToApiDataValues): SøknadKoronaoverføring | undefined => {
+export const getSøknadKoronaoverføring = (
+    values: MapFormDataToApiDataValues
+): SøknadKoronaoverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres } = values.formData;
     if (antallDagerSomSkalOverføres === undefined) {
         return undefined;
     }
     return {
         ...getCommonApiData(values),
+        type: Søknadstype.korona,
         korona: {
             antallDagerSomSkalOverføres,
         },
     };
 };
 
-export const getSøknadFordeling = (values: MapFormDataToApiDataValues): SøknadFordeling | undefined => {
+export const getSøknadFordeling = (values: MapFormDataToApiDataValues): SøknadFordelingApiData | undefined => {
     const { mottakerType, samværsavtale } = values.formData;
     if (mottakerType === undefined) {
         return undefined;
     }
     return {
         ...getCommonApiData(values),
+        type: Søknadstype.fordeling,
         fordeling: {
             mottakerType: mottakerType,
             samværsavtale: samværsavtale,
@@ -61,13 +65,14 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
     };
 };
 
-export const getSøknadOverføring = (values: MapFormDataToApiDataValues): SøknadOverføring | undefined => {
+export const getSøknadOverføring = (values: MapFormDataToApiDataValues): SøknadOverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres, mottakerType } = values.formData;
     if (antallDagerSomSkalOverføres === undefined || mottakerType === undefined) {
         return undefined;
     }
     return {
         ...getCommonApiData(values),
+        type: Søknadstype.overføring,
         overføring: {
             antallDagerSomSkalOverføres,
             mottakerType: mottakerType,
@@ -76,17 +81,17 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
 };
 
 export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): SoknadApiData | undefined => {
-    const søknadstype = getSoknadstype(values.formData);
+    const søknadstype = getSøknadstype(values.formData);
     if (søknadstype === undefined) {
         return undefined;
     }
     try {
         switch (søknadstype) {
-            case Soknadstype.korona:
+            case Søknadstype.korona:
                 return getSøknadKoronaoverføring(values);
-            case Soknadstype.fordeling:
+            case Søknadstype.fordeling:
                 return getSøknadFordeling(values);
-            case Soknadstype.overføring:
+            case Søknadstype.overføring:
                 return getSøknadOverføring(values);
         }
     } catch (error) {
