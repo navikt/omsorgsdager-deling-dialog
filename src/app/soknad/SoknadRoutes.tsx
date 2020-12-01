@@ -38,14 +38,14 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
 
     const renderSoknadStep = (id: string, barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
         switch (stepID) {
+            case StepID.MOTTAKER:
+                return <MottakerStep søker={søker} />;
             case StepID.DINE_BARN:
                 return <DineBarnStep barn={barn} />;
             case StepID.OM_BARNA:
                 return <OmBarnaStep barn={barn} />;
             case StepID.DIN_SITUASJON:
                 return <DinSituasjonStep />;
-            case StepID.MOTTAKER:
-                return <MottakerStep søker={søker} />;
             case StepID.OPPSUMMERING:
                 const apiValues = mapFormDataToApiData({
                     soknadId: id,

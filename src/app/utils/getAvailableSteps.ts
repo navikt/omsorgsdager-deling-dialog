@@ -89,7 +89,10 @@ const mottakerIsComplete = (
 
 export const getAvailableSteps = (values: Partial<SoknadFormData>, søker: Person, barn: Barn[]): StepID[] => {
     const steps: StepID[] = [];
-    steps.push(StepID.DINE_BARN);
+    steps.push(StepID.MOTTAKER);
+    if (mottakerIsComplete(values, søker)) {
+        steps.push(StepID.DINE_BARN);
+    }
     if (dineBarnIsComplete(values, barn)) {
         steps.push(StepID.OM_BARNA);
     }
@@ -97,9 +100,6 @@ export const getAvailableSteps = (values: Partial<SoknadFormData>, søker: Perso
         steps.push(StepID.DIN_SITUASJON);
     }
     if (dinSituasjonIsComplete(values)) {
-        steps.push(StepID.MOTTAKER);
-    }
-    if (mottakerIsComplete(values, søker)) {
         steps.push(StepID.OPPSUMMERING);
     }
     return steps;

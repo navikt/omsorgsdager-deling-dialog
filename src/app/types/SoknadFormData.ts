@@ -18,7 +18,7 @@ export enum SoknadFormField {
     harForståttRettigheterOgPlikter = 'harForståttRettigheterOgPlikter',
     harBekreftetOpplysninger = 'harBekreftetOpplysninger',
     gjelderMidlertidigPgaKorona = 'gjelderMidlertidigPgaKorona',
-    midlertidigTilGyldigMottaker = 'midlertidigTilGyldigMottaker', // Skal overføre til annen forelder, ektefelle eller samboer
+    skalDeleMedAndreForelderSamboerEktefelle = 'skalDeleMedAndreForelderSamboerEktefelle',
     mottakerType = 'mottakerType',
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
@@ -50,7 +50,7 @@ export interface SoknadFormData {
     [SoknadFormField.harForståttRettigheterOgPlikter]: boolean;
     [SoknadFormField.harBekreftetOpplysninger]: boolean;
     [SoknadFormField.gjelderMidlertidigPgaKorona]: YesOrNo;
-    [SoknadFormField.midlertidigTilGyldigMottaker]: YesOrNo;
+    [SoknadFormField.skalDeleMedAndreForelderSamboerEktefelle]: YesOrNo;
     [SoknadFormField.mottakerType]?: Mottaker;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
