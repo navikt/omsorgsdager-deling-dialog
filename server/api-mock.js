@@ -161,6 +161,33 @@ const startExpressServer = () => {
         }, 2500);
     });
 
+    // Vanlig deling av dager
+    server.post('/melding/dele', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - dele med ektefelle/samboer', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Fordeling med samværsforelder
+    server.post('/melding/fordele', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - fordeling samvær', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Koronaoverføring
+    server.post('/melding/overfore', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - koronaoverføring', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
     server.post('/melding/dele-dager-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);

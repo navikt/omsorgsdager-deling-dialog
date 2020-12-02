@@ -54,7 +54,7 @@ export const verifySoknadApiData = (apiData?: SoknadApiData): boolean => {
     }
 
     switch (apiData.type) {
-        case Søknadstype.korona:
+        case Søknadstype.koronaoverføring:
             return verifySøknadKoronaoverføring(apiData);
         case Søknadstype.overføring:
             return harAleneomsorgForBarn(apiData) && verifySøknadOverføring(apiData);

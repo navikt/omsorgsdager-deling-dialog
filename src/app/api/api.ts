@@ -1,6 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
-import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 
 export const defaultAxiosConfig = {
     withCredentials: true,
@@ -29,14 +30,6 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-export enum ApiEndpoint {
-    'soker' = 'sokerMelding',
-    'barn' = 'barn',
-    'mellomlagring' = 'mellomlagring',
-    'sendSoknad' = 'melding/dele-dager',
-    'samværsavtale' = 'vedlegg',
-}
 
 const api = {
     get: <ResponseType>(endpoint: ApiEndpoint, paramString?: string, config?: AxiosRequestConfig) => {
