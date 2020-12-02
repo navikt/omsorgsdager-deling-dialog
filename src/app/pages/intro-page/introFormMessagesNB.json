@@ -11,14 +11,26 @@
     "introForm.form.mottakerErEktefelleEllerSamboer.stopMessage": "Her kan du kun overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd med i minst 12 måneder.",
     "introForm.form.mottakerErEktefelleEllerSamboer.stopMessage.lenke": "Hvis du heller vil dele omsorgsdager med den andre forelderen, kan du gjøre det her.",
     "introForm.mottakersArbeidssituasjonErOk.spm": "Er den du skal overføre omsorgsdager til arbeidstaker, selvstendig næringsdrivende eller frilanser?",
-    "introForm.info.1": "Her kan du som er alene om omsorgen for barn overføre omsorgsdager til",
-    "introForm.info.1.list.ektefelle": "ny ektefelle, eller",
-    "introForm.info.1.list.samboer": "en samboer du har bodd med i minst 12 måneder",
-    "introForm.info.1.list.lenke.andreForelderen": "Hvis du vil dele omsorgsdager med den andre forelderen, kan du gjøre det her ",
-    "introForm.info.2": "Du og den du overfører omsorgsdager til må",
-    "introForm.info.væreyrkesaktiv": "være yrkesaktiv (arbeidstaker, selvstendig næringsdrivende eller frilanser)",
-    "introForm.info.væreyrkesaktiv.stopMessage": "Den du skal overføre omsorgsdager til må være yrkesaktiv for å kunne bruke omsorgsdager. Yrkesaktiv betyr å være arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse.",
-    "introForm.info.ikkeFylt70": "ikke ha fylt 70 år",
-    "introForm.info.3": "Når du overfører omsorgsdager er det en fast ordning så lenge du har rett til omsorgsdager, eller frem til du eventuelt vil stoppe det.",
-    "introForm.info.4": "Du kan overføre opptil 10 omsorgsdager for hvert år. Hvis du ønsker å overføre 10 dager, men for eksempel har brukt 2 av disse selv i år, blir det overført 8 dager i år og 10 dager fra neste år."
+
+    "introForm.info.1": "Her kan du dele omsorgsdager med en annen person. Det er tre situasjoner som gjør at du kan dele omsorgsdager med en annen omsorgsperson:",
+    "introForm.info.2": " - Den andre forelderen eller din nye samboer/ektefelle har behov for å få dager fordi den skal være hjemme med barn fordi bhg/skolen har stengt pga. koronasituasjonen. Dette er en midlertidig deling som varer til 30 juni 2021 og dagene kan kun brukes i perioder bhg/skolen har stengt.",
+    "introForm.info.3": "- Din nye ektefelle eller samboer som du har bodd med i minst 12 mnd har ikke egen rett på omsorgsdager og du vil dele dager fordi ny skal være hjemme med barn fordi barnet er sykt, barnepasser er syk eller skolen/bhg er stengt. Dette er en varig deling så lenge det er rett til å bruke omsorgsdager for barnet/barna.",
+    "introForm.info.4": "- Samværsforelder har behov for å være hjemme med barn fordi barnet er sykt, barnepasser er syk eller skolen/bhg er stengt. Dette er en varig deling så lenge det er rett til å bruke omsorgsdager for barnet/barna.",
+    "introForm.info.5": "I alle situasjoner må både du og den som skal få dager være yrkesaktiv.",
+
+    "introForm.form.korona.spm": "Skal du midlertidig dele med en annen omsorgsperson fordi den personen skal bruke dager når bhg/skolen har stengt pga. koronaviruset?",
+    "introForm.form.korona.hvaBetyr": "introForm.korona.hvaBetyr",
+
+    "introForm.form.mottakerArbeidsSituasjon.spm": "Er den du skal overføre omsorgsdager til arbeidstaker, selvstendig næringsdrivende eller frilanser?",
+    "introForm.form.mottakerArbeidsSituasjon.stopMelding": "introForm.korona.mottakerArbeidsSituasjon.stopMelding",
+
+    "introForm.form.mottakerErEktefelleEllerSamboer.spm": "Skal du varig dele med ny ektefelle eller ny samboer du har bodd med i minst 12 måneder?",
+
+    "introForm.form.samværsforelder.spm": "Skal du varig dele med samværsforelder?",
+
+    "introForm.form.samværsforelder.stopMelding": "det er ikke mulig å dele med andre personer enn de du allerede har fått spørsmål om",
+
+    "introForm.form.aleneMedOmsorgen.spm": "Er du alene med omsorge?",
+    "introForm.form.arbeidsSituasjon.spm": "Er du arbeidstaker, selvstendig næringsdrivende eller frilanser?",
+    "introForm.form.arbeidsSituasjon.stopMelding": "introForm.korona.arbeidsSituasjon.stopMelding"
 }
