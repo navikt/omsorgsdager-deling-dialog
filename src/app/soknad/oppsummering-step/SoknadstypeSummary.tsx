@@ -26,7 +26,7 @@ const SøknadstypeSummary = ({ apiValues }: Props) => {
                     />
                 )}
                 {isSøknadFordeling(apiValues) && (
-                    <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}.${apiValues.fordeling}`} />
+                    <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}`} />
                 )}
                 {isSøknadKoronaoverføring(apiValues) && (
                     <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}.${apiValues.korona}`} />

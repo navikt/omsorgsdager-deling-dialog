@@ -1,23 +1,25 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
-import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import SoknadFormStep from '../SoknadFormStep';
-import { StepID } from '../soknadStepsConfig';
-import { useFormikContext } from 'formik';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import FileUploadErrors from '@navikt/sif-common-core/lib/components/file-upload-errors/FileUploadErrors';
+import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import {
     getTotalSizeOfAttachments,
     MAX_TOTAL_ATTACHMENT_SIZE_BYTES,
 } from '@navikt/sif-common-core/lib/utils/attachmentUtils';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
-import FormikFileUploader from '../../components/formik-file-uploader/FormikFileUploader';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import FileUploadErrors from '@navikt/sif-common-core/lib/components/file-upload-errors/FileUploadErrors';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { useFormikContext } from 'formik';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
+import FormikFileUploader from '../../components/formik-file-uploader/FormikFileUploader';
 import UploadedDocumentsList from '../../components/uploaded-documents-list/UploadedDocumentsList';
-import { validateDocuments } from '../../validation/fieldValidation';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { relocateToLoginPage } from '../../utils/navigationUtils';
+import { validateDocuments } from '../../validation/fieldValidation';
+import SoknadFormStep from '../SoknadFormStep';
+import { StepID } from '../soknadStepsConfig';
+import getLenker from '../../lenker';
 
 const SamværsavtaleStep = () => {
     const intl = useIntl();
@@ -52,7 +54,14 @@ const SamværsavtaleStep = () => {
             {totalSize > MAX_TOTAL_ATTACHMENT_SIZE_BYTES && (
                 <Box margin={'l'}>
                     <AlertStripeAdvarsel>
-                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse'} />
+                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.1'} />
+                        <Lenke
+                            target={'_blank'}
+                            rel={'noopener noreferrer'}
+                            href={getLenker(intl.locale).ettersendelse}>
+                            <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.2'} />
+                        </Lenke>
+                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.3'} />
                     </AlertStripeAdvarsel>
                 </Box>
             )}
