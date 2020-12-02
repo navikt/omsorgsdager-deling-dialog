@@ -41,7 +41,7 @@ spec:
         - name: DEKORATOR_URL
           value: https://www.nav.no/dekoratoren/?simple=true
         - name: API_URL
-          value: https://omsorgsdageroverforingsoknad-api-q.nav.no
+          value: https://omsorgsdager-melding-api.dev.nav.no
         - name: PUBLIC_PATH
           value: /familie/sykdom-i-familien/soknad/dele-omsorgsdager
         - name: LOGIN_URL
