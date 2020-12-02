@@ -127,6 +127,10 @@ const startExpressServer = () => {
         req.pipe(busboy);
     });
 
+    server.delete('/vedlegg', (req, res) => {
+        res.sendStatus(200);
+    });
+
     server.get('/barn', (req, res) => {
         setTimeout(() => {
             res.send(barnMock);
