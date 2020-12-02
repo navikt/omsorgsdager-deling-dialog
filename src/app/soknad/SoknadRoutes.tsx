@@ -3,12 +3,12 @@ import { useIntl } from 'react-intl';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { isFailure, isInitial, isPending, isSuccess } from '@devexperts/remote-data-ts';
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
-import { useFormikContext } from 'formik';
 import ErrorPage from '@navikt/sif-common-soknad/lib/soknad-common-pages/ErrorPage';
 import SoknadErrorMessages, {
     LastAvailableStepInfo,
 } from '@navikt/sif-common-soknad/lib/soknad-error-messages/SoknadErrorMessages';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
+import { useFormikContext } from 'formik';
 import AppRoutes from '../config/routeConfig';
 import KvitteringPage from '../pages/kvittering-page/KvitteringPage';
 import { Person } from '../types/Person';
@@ -23,6 +23,7 @@ import OppsummeringStep from './oppsummering-step/OppsummeringStep';
 import { useSoknadContext } from './SoknadContext';
 import { StepID } from './soknadStepsConfig';
 import VelkommenPage from './velkommen-page/VelkommenPage';
+import SamværsavtaleStep from './samværsavtale-step/SamværsavtaleStep';
 
 interface Props {
     soknadId?: string;
@@ -38,16 +39,23 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
 
     const renderSoknadStep = (id: string, barn: Barn[], søker: Person, stepID: StepID): React.ReactNode => {
         switch (stepID) {
+            case StepID.MOTTAKER:
+                return <MottakerStep søker={søker} />;
             case StepID.DINE_BARN:
                 return <DineBarnStep barn={barn} />;
             case StepID.OM_BARNA:
                 return <OmBarnaStep barn={barn} />;
             case StepID.DIN_SITUASJON:
                 return <DinSituasjonStep />;
-            case StepID.MOTTAKER:
-                return <MottakerStep søker={søker} />;
+            case StepID.SAMVÆRSAVTALE:
+                return <SamværsavtaleStep />;
             case StepID.OPPSUMMERING:
-                const apiValues = mapFormDataToApiData(id, intl.locale, values, barn);
+                const apiValues = mapFormDataToApiData({
+                    soknadId: id,
+                    locale: intl.locale,
+                    formData: values,
+                    registrerteBarn: barn,
+                });
                 return <OppsummeringStep apiValues={apiValues} søker={søker} barn={barn} />;
         }
     };

@@ -7,6 +7,7 @@ import {
     Barn,
     DineBarnFormData,
     DinSituasjonFormData,
+    Mottaker,
     MottakerFormData,
     OmBarnaFormData,
     SoknadFormData,
@@ -17,13 +18,14 @@ const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn
     return barn.length > 0 || (andreBarn || []).length > 0;
 };
 
-const omBarnaIsComplete = ({
-    harAleneomsorg,
-    harUtvidetRett,
-    harAleneomsorgFor,
-    harUtvidetRettFor,
-}: Partial<OmBarnaFormData>): boolean => {
-    if (harAleneomsorg !== YesOrNo.YES) {
+const omBarnaIsComplete = (
+    gjelderKoronaverføring: boolean,
+    { harAleneomsorg, harUtvidetRett, harAleneomsorgFor, harUtvidetRettFor }: Partial<OmBarnaFormData>
+): boolean => {
+    if (
+        (gjelderKoronaverføring && harAleneomsorg === YesOrNo.UNANSWERED) ||
+        (gjelderKoronaverføring === false && harAleneomsorg !== YesOrNo.YES)
+    ) {
         return false;
     }
     if (harAleneomsorg === YesOrNo.YES && harAleneomsorgFor?.length === 0) {
@@ -66,33 +68,26 @@ const dinSituasjonIsComplete = ({
 
 const mottakerIsComplete = (
     {
-        overføreTilEktefelle,
-        overføreTilSamboer,
         fnrMottaker,
         navnMottaker = '',
         antallDagerSomSkalOverføres,
+        gjelderMidlertidigPgaKorona,
     }: Partial<MottakerFormData>,
     søker: Person
 ): boolean => {
-    if (overføreTilEktefelle === YesOrNo.NO && overføreTilSamboer !== YesOrNo.YES) {
-        return false;
-    }
-    if (overføreTilSamboer === YesOrNo.NO && overføreTilEktefelle !== YesOrNo.YES) {
-        return false;
-    }
     const fnrValid = validateFødselsnummer(fnrMottaker || '');
     const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
+    const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
     if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }
     if ((navnMottaker || '')?.length < 1) {
         return false;
     }
-
     if (
         antallDagerSomSkalOverføres === undefined ||
         antallDagerSomSkalOverføres < ANTALL_DAGER_RANGE.min ||
-        antallDagerSomSkalOverføres > ANTALL_DAGER_RANGE.max
+        (gjelderKoronaverføring === false && antallDagerSomSkalOverføres > ANTALL_DAGER_RANGE.max)
     ) {
         return false;
     }
@@ -101,17 +96,26 @@ const mottakerIsComplete = (
 
 export const getAvailableSteps = (values: Partial<SoknadFormData>, søker: Person, barn: Barn[]): StepID[] => {
     const steps: StepID[] = [];
-    steps.push(StepID.DINE_BARN);
+    steps.push(StepID.MOTTAKER);
+    const gjelderKoronaverføring = values.gjelderMidlertidigPgaKorona === YesOrNo.YES;
+    if (mottakerIsComplete(values, søker)) {
+        steps.push(StepID.DINE_BARN);
+    }
     if (dineBarnIsComplete(values, barn)) {
         steps.push(StepID.OM_BARNA);
     }
-    if (omBarnaIsComplete(values)) {
+    if (omBarnaIsComplete(gjelderKoronaverføring, values)) {
         steps.push(StepID.DIN_SITUASJON);
     }
-    if (dinSituasjonIsComplete(values)) {
-        steps.push(StepID.MOTTAKER);
+    if (
+        dinSituasjonIsComplete(values) &&
+        gjelderKoronaverføring === false &&
+        values.mottakerType === Mottaker.samværsforelder
+    ) {
+        steps.push(StepID.SAMVÆRSAVTALE);
     }
-    if (mottakerIsComplete(values, søker)) {
+
+    if (dinSituasjonIsComplete(values)) {
         steps.push(StepID.OPPSUMMERING);
     }
     return steps;

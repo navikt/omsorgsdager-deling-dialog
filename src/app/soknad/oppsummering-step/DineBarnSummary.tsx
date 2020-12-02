@@ -3,11 +3,11 @@ import { useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
-import { BarnApiData } from '../../utils/map-form-data-to-api-data/mapBarnToApiData';
+import { BarnStepApiData } from '../../types/SoknadApiData';
 import BarnSummaryList from './BarnSummaryList';
 
 interface Props {
-    apiValues: BarnApiData;
+    apiValues: BarnStepApiData;
 }
 
 const DineBarnSummary = ({ apiValues: { barn } }: Props) => {

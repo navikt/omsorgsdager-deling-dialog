@@ -12,6 +12,7 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
 import { Barn, SoknadFormField } from '../../types/SoknadFormData';
+import { Søknadstype } from '../../types/Soknadstype';
 import { useSoknadContext } from '../SoknadContext';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
@@ -20,6 +21,7 @@ import DineBarnSummary from './DineBarnSummary';
 import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
+import SamværsavtaleSummary from './SamværsavtaleSummary';
 import SøkerSummary from './SøkerSummary';
 
 type Props = {
@@ -53,6 +55,9 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                                 <OmBarnaSummary apiValues={apiValues} />
                                 <DinSituasjonSummary apiValues={apiValues} />
                                 <MottakerSummary apiValues={apiValues} />
+                                {apiValues.type === Søknadstype.fordeling && (
+                                    <SamværsavtaleSummary apiValues={apiValues} />
+                                )}
                             </ResponsivePanel>
                         </Box>
 

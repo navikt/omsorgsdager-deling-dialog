@@ -25,7 +25,7 @@ import { initialSoknadFormData } from './initialSoknadValues';
 import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
-import { soknadStepsConfig, StepID } from './soknadStepsConfig';
+import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
 import { verifySoknadApiData } from '../validation/verifySoknadApiData';
 import appSentryLogger from '../utils/appSentryLogger';
@@ -72,9 +72,10 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         await resetSoknad();
         const sId = ulid();
         setSoknadId(sId);
-        await soknadTempStorage.persist(sId, initialFormData, StepID.DINE_BARN, { søker, barn });
+        const firstStep = StepID.MOTTAKER;
+        await soknadTempStorage.persist(sId, initialFormData, firstStep, { søker, barn });
         setTimeout(() => {
-            navigateTo(soknadStepUtils.getStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+            navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
         });
     };
 
@@ -159,6 +160,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                         initialValues={initialFormData}
                         onSubmit={() => null}
                         renderForm={({ values, resetForm }) => {
+                            const soknadStepsConfig = getSoknadStepsConfig(values);
                             const navigateToNextStepFromStep = (stepID: StepID) => {
                                 const stepToPersist = soknadStepsConfig[stepID].nextStep;
                                 if (stepToPersist && soknadId) {

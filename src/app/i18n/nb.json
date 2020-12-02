@@ -24,6 +24,7 @@
 
     "mottaker.ektefelle": "ektefelle",
     "mottaker.samboer": "samboer",
+    "mottaker.samværsforelder": "samværsforelder",
 
     "Fødselsnummer": "Fødselsnummer",
 
@@ -81,6 +82,10 @@
     "step.oppsummering.stepTitle": "Oppsummering",
     "step.oppsummering.nextButtonLabel": "Send inn melding",
 
+    "step.samværsavtale.pageTitle": "Samværsavtale",
+    "step.samværsavtale.stepTitle": "Samværsavtale",
+    "step.samværsavtale.nextButtonLabel": "Fortsett",
+
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Fortsett senere",
     "steg.footer.cancelOrContinueLater.label": "Avbryt eller fortsett senere",
@@ -107,13 +112,20 @@
     "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
 
     "step.mottaker.veileder.intro.1": "Den du skal overføre omsorgsdager til må være yrkesaktiv, altså være èn eller flere av punktene under:",
-    "step.mottaker.form.overføreTilEktefelle.spm": "Skal du overføre dager til en ny ektefelle?",
-    "step.mottaker.form.overføreTilSamboer.spm": "Skal du overføre dager til en samboer du har bodd med i minst 12 måneder?",
     "step.mottaker.form.stopMessage.html": "I dette skjemaet kan du <strong>kun</strong> overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd med i minst 12 måneder.",
     "step.mottaker.form.stopMessage.lenke": "Hvis du heller vil dele omsorgsdager med den andre forelderen, kan du gjøre det her",
+    "step.mottaker.form.gjelderMidlertidigPgaKorona.spm": "Skal du midlertidig dele med en annen omsorgsperson fordi den personen skal bruke dager når bhg/skolen har stengt pga. koronaviruset?",
+    "step.mottaker.form.skalDeleMedAndreForelderSamboerEktefelle.spm": "Skal du dele omsorgsdager med den andre forelderen eller ny samboer/ektefelle?",
     "step.mottaker.form.fnr.spm": "Hva er fødselsnummeret til den du skal overføre omsorgsdager til?",
     "step.mottaker.form.navn.spm": "Hva er navnet til den du skal overføre omsorgsdager til? (Skriv inn hele navnet)",
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange omsorgsdager vil du overføre? Du kan maksimalt overføre 10 dager.",
+    "step.mottaker.form.antallDagerSomSkalOverføres.korona.spm": "Hvor mange dager ønsker du å overføre?",
+    "step.mottaker.form.stopMessage.korona.html": "Stoppmelding - korona",
+    "step.mottaker.form.mottakerType.spm": "Hvor mange omsorgsdager vil du overføre? Du kan maksimalt overføre 10 dager.",
+    "step.mottaker.form.mottakerType.korona.spm": "Hvem skal du dele omsorgsdager med?",
+    "step.mottaker.form.mottakerType.ektefelle": "Ny ektefelle",
+    "step.mottaker.form.mottakerType.samboer": "Ny samboer du har bodd med i minst 12 måneder",
+    "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med barn",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om overføring av omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
     "step.oppsummering.søker.header": "Om deg",
@@ -128,7 +140,7 @@
     "step.oppsummering.om-barna.født": "Født",
     "step.oppsummering.om-barna.harAleneomsorg.flereBarn": "Er du alene om omsorgen for barn?",
     "step.oppsummering.om-barna.harAleneomsorg.ettBarn": "Er du alene om omsorgen for barnet ditt?",
-    "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle eller samboer du har bodd med i minst 12 måneder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
+    "step.oppsummering.om-barna.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle, samboer du har bodd med i minst 12 måneder, eller samværsforelder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
     "step.oppsummering.om-barna.hvilkeAvBarnaAleneomsorg": "Barn du er alene om omsorgen for",
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har du fått ekstra omsorgsdager for barn som har en kronisk sykdom eller en funksjonshemning?",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Barn du har fått ekstra omsorgsdager for",
@@ -142,7 +154,7 @@
 
     "step.oppsummering.mottaker.header": "Om den du skal overføre omsorgsdager til",
     "step.oppsummering.mottaker.type": "Hvem skal du overføre dager til?",
-    "step.oppsummering.mottaker.navn": "Navn",
+    "step.oppsummering.mottaker.navn": "Navn: ",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
     "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du overføre?",
 
@@ -150,6 +162,9 @@
 
     "step.oppsummering.sendMelding.feilmelding.førsteGang": "Det oppstod en feil under innsending. Vennligst prøv på nytt.",
     "step.oppsummering.sendMelding.feilmelding.andreGang": "Det oppstod fortsatt en feil under innsending. Vennligst vent litt og prøv på nytt.",
+
+    "step.oppsummering.samværsavtale.header": "Samværsavtale",
+    "steg.oppsummering.samværsavtale.ikkelastetopp": "Ikke lastet opp, må ettersendes",
 
     "kvittering.tittel": "Melding om overføring av omsorgsdager er mottatt",
     "kvittering.info.tittel": "Hva skjer videre nå?",
