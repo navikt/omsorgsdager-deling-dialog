@@ -20,23 +20,6 @@ const MottakerSummary = ({ apiValues }: Props) => {
 
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.mottaker.header')}>
-            <SummaryBlock header={intlHelper(intl, 'step.oppsummering.mottaker.søknadstype.header')}>
-                {isSøknadOverføring(apiValues) && (
-                    <FormattedMessage
-                        id={`step.oppsummering.mottaker.søknadstype.${apiValues.type}.${apiValues.overføring.mottakerType}`}
-                    />
-                )}
-                {isSøknadFordeling(apiValues) && (
-                    <FormattedMessage
-                        id={`step.oppsummering.mottaker.søknadstype.${apiValues.type}.${apiValues.fordeling}`}
-                    />
-                )}
-                {isSøknadKoronaoverføring(apiValues) && (
-                    <FormattedMessage
-                        id={`step.oppsummering.mottaker.søknadstype.${apiValues.type}.${apiValues.korona}`}
-                    />
-                )}
-            </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.mottaker.type')}>
                 <FormattedMessage id="step.oppsummering.mottaker.navn" />
                 {apiValues.mottakerNavn}
