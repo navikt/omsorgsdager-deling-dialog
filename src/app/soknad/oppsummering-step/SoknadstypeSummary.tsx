@@ -29,7 +29,7 @@ const SøknadstypeSummary = ({ apiValues }: Props) => {
                     <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}`} />
                 )}
                 {isSøknadKoronaoverføring(apiValues) && (
-                    <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}.${apiValues.korona}`} />
+                    <FormattedMessage id={`step.oppsummering.søknadstype.${apiValues.type}`} />
                 )}
             </Box>
         </SummarySection>
