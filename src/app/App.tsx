@@ -16,7 +16,7 @@ export const APPLICATION_KEY = 'omsorgsdager-deling';
 const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
-// trigger build
+
 render(
     <SoknadApplication
         appName="Overføring av omsorgsdager til ny ektefelle eller samboer"
