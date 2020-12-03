@@ -48,11 +48,11 @@ export interface SoknadApiDataFelles {
 }
 
 export interface SøknadKoronaoverføringApiData extends SoknadApiDataFelles {
-    type: Søknadstype.korona;
+    type: Søknadstype.koronaoverføring;
     korona: SøknadApiDataKorona;
 }
 export const isSøknadKoronaoverføring = (søknad: any): søknad is SøknadKoronaoverføringApiData => {
-    return søknad.type === Søknadstype.korona;
+    return søknad.type === Søknadstype.koronaoverføring;
 };
 export interface SøknadOverføringApiData extends SoknadApiDataFelles {
     type: Søknadstype.overføring;

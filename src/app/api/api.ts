@@ -1,6 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
-import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 
 export const defaultAxiosConfig = {
     withCredentials: true,
@@ -30,21 +31,13 @@ axios.interceptors.response.use(
     }
 );
 
-export enum ApiEndpoint {
-    'soker' = 'sokerMelding',
-    'barn' = 'barn',
-    'mellomlagring' = 'mellomlagring',
-    'sendSoknad' = 'melding/dele-dager',
-    'samværsavtale' = 'vedlegg',
-}
-
 const api = {
     get: <ResponseType>(endpoint: ApiEndpoint, paramString?: string, config?: AxiosRequestConfig) => {
         const url = `${endpoint}${paramString ? `?${paramString}` : ''}`;
         return axios.get<ResponseType>(url, config || defaultAxiosConfig);
     },
     post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) => {
-        axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
+        return axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
     },
     uploadFile: (endpoint: ApiEndpoint, file: File) => {
         const formData = new FormData();

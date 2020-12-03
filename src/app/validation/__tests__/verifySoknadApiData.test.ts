@@ -56,7 +56,7 @@ const fordelingSøknad: SøknadFordelingApiData = {
 };
 const koronaSøknad: SøknadKoronaoverføringApiData = {
     ...søknadFellesInfo,
-    type: Søknadstype.korona,
+    type: Søknadstype.koronaoverføring,
     korona: {
         antallDagerSomSkalOverføres: 1,
     },

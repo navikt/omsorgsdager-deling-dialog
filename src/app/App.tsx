@@ -19,7 +19,7 @@ const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
 render(
     <SoknadApplication
-        appName="Overføring av omsorgsdager til ny ektefelle eller samboer"
+        appName="Overføring av omsorgsdager"
         intlMessages={applicationIntlMessages}
         sentryKey={APPLICATION_KEY}
         appStatus={{

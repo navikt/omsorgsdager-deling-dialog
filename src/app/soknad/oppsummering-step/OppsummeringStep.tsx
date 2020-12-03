@@ -23,6 +23,8 @@ import MottakerSummary from './MottakerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
 import SamværsavtaleSummary from './SamværsavtaleSummary';
 import SøkerSummary from './SøkerSummary';
+import SøknadstypeSummary from './SoknadstypeSummary';
+import { verifySoknadApiData } from '../../validation/verifySoknadApiData';
 
 type Props = {
     søker: Person;
@@ -34,23 +36,31 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
     const intl = useIntl();
     const { sendSoknadStatus, sendSoknad } = useSoknadContext();
 
+    const apiDataIsValid = verifySoknadApiData(apiValues);
+
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
             includeValidationSummary={false}
             showButtonSpinner={isPending(sendSoknadStatus.status)}
-            buttonDisabled={isPending(sendSoknadStatus.status)}
+            buttonDisabled={isPending(sendSoknadStatus.status) || apiDataIsValid === false}
             onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     <FormattedMessage id="step.oppsummering.info" />
                 </Guide>
+                {apiDataIsValid === false && (
+                    <AlertStripeFeil>
+                        <strong>Midlertidig dev melding</strong>: Det oppstod en feil under validering av apiData
+                    </AlertStripeFeil>
+                )}
                 {apiValues === undefined && <div>Api verdier mangler</div>}
                 {apiValues !== undefined && (
                     <>
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
                                 <SøkerSummary søker={søker} />
+                                <SøknadstypeSummary apiValues={apiValues} />
                                 <DineBarnSummary apiValues={apiValues} />
                                 <OmBarnaSummary apiValues={apiValues} />
                                 <DinSituasjonSummary apiValues={apiValues} />

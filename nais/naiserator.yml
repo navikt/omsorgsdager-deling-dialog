@@ -2,7 +2,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
     name: dele-omsorgsdager
-    namespace: default
+    namespace: dusseldorf
     labels:
         team: dusseldorf
 spec:
@@ -25,9 +25,15 @@ spec:
         requests:
             cpu: 50m
             memory: 128Mi
+    accessPolicy:
+        outbound:
+            external:
+            - host: www.nav.no
+            - host: sanity.io
     ingresses:
-        - https://www-q0.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager
-        - https://dele-omsorgsdager.nais.oera-q.local
+      {{#each ingresses as |url|}}
+       - {{url}}
+          {{/each}}
     replicas:
         min: 1
         max: 1
@@ -38,17 +44,7 @@ spec:
     vault:
         enabled: false
     env:
-        - name: DEKORATOR_URL
-          value: https://www.nav.no/dekoratoren/?simple=true
-        - name: API_URL
-          value: https://omsorgsdager-melding-api.dev.nav.no
-        - name: PUBLIC_PATH
-          value: /familie/sykdom-i-familien/soknad/dele-omsorgsdager
-        - name: LOGIN_URL
-          value: https://loginservice-q.nav.no/login?redirect=https://www-q0.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager/melding
-        - name: APPSTATUS_PROJECT_ID
-          value: "ryujtq87"
-        - name: APPSTATUS_DATASET
-          value: "staging"
-
-
+  {{#each env}}
+     - name: {{@key}}
+       value: "{{this}}"
+    {{/each}}

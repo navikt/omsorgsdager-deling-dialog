@@ -1,0 +1,17 @@
+{
+    "app": "dele-omsorgsdager",
+    "cluster": "dev-gcp",
+    "namespace": "dusseldorf",
+    "team": "dusseldorf",
+    "minReplicas": "1",
+    "maxReplicas": "1",
+    "ingresses": ["https://dele-omsorgsdager.dev.nav.no"],
+    "env": {
+        "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true",
+        "API_URL": "https://omsorgsdager-melding-api.dev.nav.no",
+        "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/dele-omsorgsdager",
+        "LOGIN_URL": "https://loginservice.dev.nav.no/login?redirect=https://dele-omsorgsdager.dev.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager/melding",
+        "APPSTATUS_PROJECT_ID": "ryujtq87",
+        "APPSTATUS_DATASET": "staging"
+    }
+}

@@ -1,7 +1,8 @@
 import { failure, RemoteData, success } from '@devexperts/remote-data-ts';
 import { AxiosError } from 'axios';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
-import api, { ApiEndpoint } from './api';
+import api from './api';
 
 type SoknadTempStorageRemoteData = RemoteData<AxiosError<any>, SoknadTempStorageData>;
 

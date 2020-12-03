@@ -5,10 +5,10 @@ import FødselsnummerSvar from '@navikt/sif-common-soknad/lib/soknad-summary/Fø
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
 import {
-    SoknadApiData,
     isSøknadFordeling,
-    isSøknadOverføring,
     isSøknadKoronaoverføring,
+    isSøknadOverføring,
+    SoknadApiData,
 } from '../../types/SoknadApiData';
 
 interface Props {

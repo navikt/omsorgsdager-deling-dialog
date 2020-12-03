@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Attachment, PersistedFile } from '@navikt/sif-common-core/lib/types/Attachment';
+import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import {
     attachmentShouldBeProcessed,
     attachmentShouldBeUploaded,
@@ -11,10 +12,10 @@ import {
 } from '@navikt/sif-common-core/lib/utils/attachmentUtils';
 import { FormikValidateFunction } from '@navikt/sif-common-formik/lib';
 import { ArrayHelpers, useFormikContext } from 'formik';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import api, { ApiEndpoint } from '../../api/api';
-import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import api from '../../api/api';
 import SoknadFormComponents from '../../soknad/SoknadFormComponents';
+import { ApiEndpoint } from '../../types/ApiEndpoint';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
