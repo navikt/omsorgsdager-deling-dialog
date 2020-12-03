@@ -37,7 +37,7 @@ const api = {
         return axios.get<ResponseType>(url, config || defaultAxiosConfig);
     },
     post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) => {
-        axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
+        return axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
     },
     uploadFile: (endpoint: ApiEndpoint, file: File) => {
         const formData = new FormData();

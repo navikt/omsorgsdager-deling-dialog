@@ -167,7 +167,7 @@ const startExpressServer = () => {
     });
 
     // Vanlig deling av dager
-    server.post('/melding/dele', (req, res) => {
+    server.post('/melding/overforing', (req, res) => {
         const body = req.body;
         console.log('[POST] - dele med ektefelle/samboer', body);
         setTimeout(() => {
@@ -176,7 +176,7 @@ const startExpressServer = () => {
     });
 
     // Fordeling med samværsforelder
-    server.post('/melding/fordele', (req, res) => {
+    server.post('/melding/fordeling', (req, res) => {
         const body = req.body;
         console.log('[POST] - fordeling samvær', body);
         setTimeout(() => {
@@ -185,7 +185,7 @@ const startExpressServer = () => {
     });
 
     // Koronaoverføring
-    server.post('/melding/overfore', (req, res) => {
+    server.post('/melding/koronaoverforing', (req, res) => {
         const body = req.body;
         console.log('[POST] - koronaoverføring', body);
         setTimeout(() => {
