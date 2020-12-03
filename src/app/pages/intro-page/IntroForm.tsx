@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
@@ -8,18 +7,10 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
-import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
-import {
-    getIntroFormAvslag,
-    IntroFormAvslag,
-    IntroFormData,
-    IntroFormField,
-    introFormInitialValues,
-    IntroFormQuestions,
-} from './introFormConfig';
-import IntroFormQuestion from './IntroFormQuestion';
+import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 
 interface Props {
     onValidSubmit: () => void;
@@ -29,6 +20,95 @@ const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData
 
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
+
+    const getCommonQuestions = (values: IntroFormData, addAleneomssorgQuestion?: boolean) => {
+        return (
+            <>
+                {addAleneomssorgQuestion && (
+                    <FormQuestion
+                        legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
+                        name={IntroFormField.harAleneomsorg}
+                        validate={validateYesOrNoIsAnswered}
+                    />
+                )}
+
+                <FormQuestion
+                    legend={intlHelper(intl, `introForm.form.${IntroFormField.erArbeidstakerSnEllerFrilanser}.spm`)}
+                    name={IntroFormField.erArbeidstakerSnEllerFrilanser}
+                    validate={validateYesOrNoIsAnswered}
+                    showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
+                    stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
+                />
+                <FormQuestion
+                    legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
+                    name={IntroFormField.mottakersArbeidssituasjonErOk}
+                    validate={validateRequiredList}
+                    showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
+                    stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
+                />
+            </>
+        );
+    };
+
+    const getQuestions = (values: IntroFormData) => {
+        switch (values.korona) {
+            case YesOrNo.YES:
+                return getCommonQuestions(values);
+            case YesOrNo.NO:
+                return (
+                    <>
+                        <FormQuestion
+                            legend={intlHelper(
+                                intl,
+                                `introForm.form.${IntroFormField.mottakerErEktefelleEllerSamboer}.spm`
+                            )}
+                            name={IntroFormField.mottakerErEktefelleEllerSamboer}
+                            validate={validateYesOrNoIsAnswered}
+                        />
+                        {values.mottakerErEktefelleEllerSamboer === YesOrNo.YES && getCommonQuestions(values, true)}
+                        {values.mottakerErEktefelleEllerSamboer === YesOrNo.NO && (
+                            <>
+                                <FormQuestion
+                                    legend={intlHelper(
+                                        intl,
+                                        `introForm.form.${IntroFormField.mottakerSamværsforelder}.spm`
+                                    )}
+                                    name={IntroFormField.mottakerSamværsforelder}
+                                    validate={validateYesOrNoIsAnswered}
+                                    showStop={values.mottakerSamværsforelder === YesOrNo.NO}
+                                    stopMessage={intlHelper(intl, 'introForm.form.mottakerSamværsforelder.stopMessage')}
+                                />
+                                {values.mottakerSamværsforelder === YesOrNo.YES && getCommonQuestions(values, true)}
+                            </>
+                        )}
+                    </>
+                );
+            default:
+                return null;
+        }
+    };
+
+    const kanFortsetteFn = (values: IntroFormData): boolean => {
+        const arbeidsSituasjonErOkHosBegge =
+            values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES &&
+            values.mottakersArbeidssituasjonErOk === YesOrNo.YES;
+
+        const kanFortsetteKorona = values.korona === YesOrNo.YES && arbeidsSituasjonErOkHosBegge;
+
+        const kanFortsetteVanlig =
+            values.korona === YesOrNo.NO &&
+            values.mottakerErEktefelleEllerSamboer === YesOrNo.YES &&
+            arbeidsSituasjonErOkHosBegge;
+
+        const kanFortsetteSamværsforelder =
+            values.korona === YesOrNo.NO &&
+            values.mottakerErEktefelleEllerSamboer === YesOrNo.NO &&
+            values.mottakerSamværsforelder === YesOrNo.YES &&
+            arbeidsSituasjonErOkHosBegge;
+
+        return kanFortsetteKorona || kanFortsetteVanlig || kanFortsetteSamværsforelder;
+    };
+
     return (
         <IntroFormComponents.FormikWrapper
             initialValues={introFormInitialValues}
@@ -36,20 +116,14 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                 onValidSubmit();
             }}
             renderForm={({ values }) => {
-                const avslag = getIntroFormAvslag(values);
-                const visibility = IntroFormQuestions.getVisbility({
-                    ...values,
-                    avslag,
-                });
-                const alleSpørsmålBesvart = visibility.areAllQuestionsAnswered();
-                const kanFortsette = alleSpørsmålBesvart && avslag === undefined;
+                const kanFortsette = kanFortsetteFn(values);
                 return (
                     <section aria-label="Se om du kan bruke det dette skjemaet:">
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}
                             noButtonsContentRenderer={
-                                alleSpørsmålBesvart
+                                kanFortsette
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
@@ -59,65 +133,17 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                             }
                             fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             submitButtonLabel={intlHelper(intl, 'introForm.start')}>
-                            <QuestionVisibilityContext.Provider value={{ visibility }}>
-                                <IntroFormQuestion
-                                    name={IntroFormField.erArbeidstakerSnEllerFrilanser}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.erIkkeArbeidstakerSnEllerFrilanser}
-                                    stopMessage={
-                                        <>
-                                            {intlHelper(
-                                                intl,
-                                                'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage'
-                                            )}
-                                        </>
-                                    }
-                                />
-                                <IntroFormQuestion
-                                    name={IntroFormField.harAleneomsorg}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.harIkkeAleneomsorg}
-                                    stopMessage={<>{intlHelper(intl, 'introForm.form.harAleneomsorg.stopMessage')}</>}
-                                    description={
-                                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
-                                            {intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.1')}
-                                            <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.2')}</p>
-                                            <Lenke
-                                                href={getLenker(intl.locale).merOmFastBostedOgSamvær}
-                                                target="_blank">
-                                                {intlHelper(intl, 'introForm.form.harAleneomsorg.hvaBetyr.lenke')}
-                                            </Lenke>
-                                        </ExpandableInfo>
-                                    }
-                                />
-                                <IntroFormQuestion
-                                    name={IntroFormField.mottakerErIkkeEktefelleEllerSamboer}
-                                    validate={validateYesOrNoIsAnswered}
-                                    showStop={avslag === IntroFormAvslag.mottakerErIkkeEktefelleEllerSamboer}
-                                    stopMessage={
-                                        <>
-                                            {intlHelper(
-                                                intl,
-                                                'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage'
-                                            )}{' '}
-                                            <Lenke
-                                                href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager}
-                                                target="_blank">
-                                                {intlHelper(
-                                                    intl,
-                                                    'introForm.form.mottakerErEktefelleEllerSamboer.stopMessage.lenke'
-                                                )}
-                                            </Lenke>
-                                        </>
-                                    }
-                                />
-                                <IntroFormQuestion
-                                    name={IntroFormField.mottakersArbeidssituasjonErOk}
-                                    validate={validateRequiredList}
-                                    showStop={avslag === IntroFormAvslag.mottakersArbeidssituasjonErIkkeOk}
-                                    stopMessage={intlHelper(intl, 'introForm.info.væreyrkesaktiv.stopMessage')}
-                                />
-                            </QuestionVisibilityContext.Provider>
+                            <FormQuestion
+                                legend={intlHelper(intl, `introForm.form.${IntroFormField.korona}.spm`)}
+                                name={IntroFormField.korona}
+                                validate={validateYesOrNoIsAnswered}
+                                description={
+                                    <ExpandableInfo title={intlHelper(intl, 'introForm.form.hvaBetyr')}>
+                                        {intlHelper(intl, 'introForm.form.korona.hvaBetyr"')}
+                                    </ExpandableInfo>
+                                }
+                            />
+                            {getQuestions(values)}
                         </IntroFormComponents.Form>
                     </section>
                 );

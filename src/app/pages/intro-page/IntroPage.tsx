@@ -7,8 +7,6 @@ import InformationPoster from '@navikt/sif-common-core/lib/components/informatio
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import Lenke from 'nav-frontend-lenker';
-import getLenker from '../../lenker';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
 
@@ -22,21 +20,11 @@ const IntroPage = () => {
             <Box margin="xxxl">
                 <section aria-label="Introduksjon">
                     <InformationPoster>
-                        <p>{intlHelper(intl, 'introForm.info.1')}</p>
-                        <ul>
-                            <li>{intlHelper(intl, 'introForm.info.1.list.ektefelle')}</li>
-                            <li>{intlHelper(intl, 'introForm.info.1.list.samboer')}</li>
-                        </ul>
-                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                            {intlHelper(intl, 'introForm.info.1.list.lenke.andreForelderen')}
-                        </Lenke>
+                        {intlHelper(intl, 'introForm.info.1')}
                         <p>{intlHelper(intl, 'introForm.info.2')}</p>
-                        <ul>
-                            <li>{intlHelper(intl, 'introForm.info.væreyrkesaktiv')}</li>
-                            <li>{intlHelper(intl, 'introForm.info.ikkeFylt70')}</li>
-                        </ul>
-                        <p>{`${intlHelper(intl, 'introForm.info.3')} `}</p>
+                        <p>{intlHelper(intl, 'introForm.info.3')}</p>
                         <p>{intlHelper(intl, 'introForm.info.4')}</p>
+                        <p>{intlHelper(intl, 'introForm.info.5')}</p>
                     </InformationPoster>
                 </section>
             </Box>
