@@ -23,6 +23,7 @@ import MottakerSummary from './MottakerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
 import SamværsavtaleSummary from './SamværsavtaleSummary';
 import SøkerSummary from './SøkerSummary';
+import SøknadstypeSummary from './SoknadstypeSummary';
 
 type Props = {
     søker: Person;
@@ -51,6 +52,7 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
                                 <SøkerSummary søker={søker} />
+                                <SøknadstypeSummary apiValues={apiValues} />
                                 <DineBarnSummary apiValues={apiValues} />
                                 <OmBarnaSummary apiValues={apiValues} />
                                 <DinSituasjonSummary apiValues={apiValues} />

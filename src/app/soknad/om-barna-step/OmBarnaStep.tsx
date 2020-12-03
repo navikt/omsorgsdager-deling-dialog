@@ -29,12 +29,30 @@ interface Props {
     barn: Barn[];
 }
 
-const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
-    const cleanedValues = { ...values };
-    if (values.harUtvidetRett === YesOrNo.NO) {
-        cleanedValues.harUtvidetRettFor = [];
+// const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
+//     const cleanedValues = { ...values };
+//     if (values.harUtvidetRett === YesOrNo.NO) {
+//         cleanedValues.harUtvidetRettFor = [];
+//     }
+//     return cleanedValues;
+// };
+
+const cleanupOmBarnaStep = (values: SoknadFormData, barn: Barn[], andreBarn: AnnetBarn[]): SoknadFormData => {
+    if (barn.length + andreBarn.length > 1) {
+        return {
+            ...values,
+            harAleneomsorgFor: values.harAleneomsorg === YesOrNo.YES ? values.harAleneomsorgFor : [],
+            harUtvidetRettFor: values.harUtvidetRett === YesOrNo.YES ? values.harUtvidetRettFor : [],
+        };
     }
-    return cleanedValues;
+    const barnId = barn.length === 1 ? barn[0].aktørId : andreBarn[0].fnr;
+    const harAleneomsorg = values.harAleneomsorg === YesOrNo.YES;
+    const harUtvidetRett = values.harUtvidetRett === YesOrNo.YES;
+    return {
+        ...values,
+        harAleneomsorgFor: harAleneomsorg ? [barnId] : [],
+        harUtvidetRettFor: harUtvidetRett ? [barnId] : [],
+    };
 };
 
 const getBarnOptions = (barn: Barn[] = [], andreBarn: AnnetBarn[] = [], intl: IntlShape): CheckboksPanelProps[] => {
@@ -82,7 +100,7 @@ const OmBarnaStep = ({ barn }: Props) => {
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupOmBarnaStep}
+            onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
             showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(harAleneomsorg) === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn })}>
             <CounsellorPanel>

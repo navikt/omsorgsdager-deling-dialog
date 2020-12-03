@@ -72,8 +72,8 @@ const søkerMockIkkeMyndig = {
 
 const barnMock2 = {
     barn: [
-        { fødselsdato: '2003-01-01', fornavn: 'Filip', mellomnavn: 'Barne', etternavn: 'Carpenter', aktørId: '1' },
-        { fødselsdato: '2004-01-02', fornavn: 'Jason', etternavn: 'Mcmanus', aktørId: '2' },
+        { fødselsdato: '1990-01-02', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
+        { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
     ],
 };
 
@@ -161,6 +161,33 @@ const startExpressServer = () => {
     server.post('/melding/dele-dager', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Vanlig deling av dager
+    server.post('/melding/dele', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - dele med ektefelle/samboer', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Fordeling med samværsforelder
+    server.post('/melding/fordele', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - fordeling samvær', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Koronaoverføring
+    server.post('/melding/overfore', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - koronaoverføring', body);
         setTimeout(() => {
             res.sendStatus(200);
         }, 2500);

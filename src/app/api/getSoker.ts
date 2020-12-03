@@ -1,7 +1,8 @@
 import { failure, RemoteData, success } from '@devexperts/remote-data-ts';
 import { AxiosError } from 'axios';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 import { Person } from '../types/Person';
-import api, { ApiEndpoint } from './api';
+import api from './api';
 
 export type SokerRemoteData = RemoteData<AxiosError, Person>;
 

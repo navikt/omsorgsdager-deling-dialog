@@ -1,5 +1,5 @@
 {
-    "application.title": "Overføring av omsorgsdager til ny ektefelle eller samboer",
+    "application.title": "Overføring av omsorgsdager",
     "application.cancelOrContinueLaterLabel": "Avbryt eller fortsett senere",
 
     "application.loadError.title": "Noe gikk galt ...",
@@ -85,7 +85,12 @@
     "step.samværsavtale.pageTitle": "Samværsavtale",
     "step.samværsavtale.stepTitle": "Samværsavtale",
     "step.samværsavtale.nextButtonLabel": "Fortsett",
-
+    "step.samværsavtale.info.title": "Om samværsavtalen",
+    "step.samværsavtale.info": "Mer om samværsavtalen",
+    "step.samværsavtale.vedlegg": "Mer om samværsavtalen",
+    "step.samværsavtale.vedlegg.totalstørrelse.1": "Du har totalt lastet opp mer enn grensen på 24 Mb. Det betyr at du må fjerne noe av det du har lastet opp. Hvis det betyr at du ikke får plass til alt du ønsker å sende nå, kan du ",
+    "step.samværsavtale.vedlegg.totalstørrelse.2": "ettersende flere dokumenter",
+    "step.samværsavtale.vedlegg.totalstørrelse.3": ".",
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Fortsett senere",
     "steg.footer.cancelOrContinueLater.label": "Avbryt eller fortsett senere",
@@ -157,6 +162,12 @@
     "step.oppsummering.mottaker.navn": "Navn: ",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
     "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du overføre?",
+
+    "step.oppsummering.søknadstype.header": "Meldingen gjelder",
+    "step.oppsummering.søknadstype.overføring.ektefelle": "Overføring av dager til ny ektefelle",
+    "step.oppsummering.søknadstype.overføring.samboer": "Overføring av dager til samboer en har bodd sammmen med i minst 12 år",
+    "step.oppsummering.søknadstype.fordeling": "Fordeling av dager til annen forelder som har samvær med barn",
+    "step.oppsummering.søknadstype.koronaoverføring": "Midlertidig deling av dager med en annen omsorgsperson fordi den personen skal bruke dager når bhg/skolen har stengt pga. koronaviruset",
 
     "step.oppsummering.bekrefterOpplysninger": "Jeg bekrefter at opplysningene jeg har gitt er riktige, og at jeg ikke har holdt tilbake opplysninger som har betydning for min rett til omsorgsdager.",
 

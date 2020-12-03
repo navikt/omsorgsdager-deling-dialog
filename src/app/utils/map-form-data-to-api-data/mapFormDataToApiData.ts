@@ -43,7 +43,7 @@ export const getSøknadKoronaoverføring = (
     }
     return {
         ...getCommonApiData(values),
-        type: Søknadstype.korona,
+        type: Søknadstype.koronaoverføring,
         korona: {
             antallDagerSomSkalOverføres,
         },
@@ -93,7 +93,7 @@ export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): Soknad
     }
     try {
         switch (søknadstype) {
-            case Søknadstype.korona:
+            case Søknadstype.koronaoverføring:
                 return getSøknadKoronaoverføring(values);
             case Søknadstype.fordeling:
                 return getSøknadFordeling(values);
