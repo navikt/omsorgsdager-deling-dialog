@@ -97,20 +97,20 @@ const startExpressServer = () => {
         }, 2000);
     });
 
-    server.get('/sokerMelding', (req, res) => {
+    server.get('/soker', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
         }, 200);
     });
-    server.get('/sokerMelding-ikke-myndig', (req, res) => {
+    server.get('/soker-ikke-myndig', (req, res) => {
         setTimeout(() => {
             res.send(søkerMockIkkeMyndig);
         }, 200);
     });
-    server.get('/sokerMelding-not-logged-in', (req, res) => {
+    server.get('/soker-not-logged-in', (req, res) => {
         res.sendStatus(401);
     });
-    server.get('/sokerMelding-err', (req, res) => {
+    server.get('/soker-err', (req, res) => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
