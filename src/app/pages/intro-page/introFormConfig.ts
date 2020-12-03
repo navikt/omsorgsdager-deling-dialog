@@ -26,12 +26,3 @@ export const introFormInitialValues: Partial<IntroFormData> = {
     [IntroFormField.korona]: YesOrNo.UNANSWERED,
     [IntroFormField.mottakerSamværsforelder]: YesOrNo.UNANSWERED,
 };
-
-export enum IntroFormAvslag {
-    erIkkeArbeidstakerSnEllerFrilanser = 'erIkkeArbeidstakerSnEllerFrilanser',
-    harIkkeAleneomsorg = 'harIkkeAleneomsorg',
-    mottakerErIkkeEktefelleEllerSamboer = 'mottakerErIkkeEktefelleEllerSamboer',
-    mottakersArbeidssituasjonErIkkeOk = 'mottakersArbeidssituasjonErIkkeOk',
-    ikkeKorona = 'korona',
-    mottakerErIkkeSamværsforelder = 'mottakerSamværsforelder',
-}

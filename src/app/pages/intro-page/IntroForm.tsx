@@ -8,9 +8,9 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
-import IntroFormQuestion from './IntroFormQuestion';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 
 interface Props {
     onValidSubmit: () => void;
@@ -21,20 +21,26 @@ const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
 
-    const getFellesSpm = (values: IntroFormData, aleneomsSpm?: boolean) => {
+    const getCommonQuestions = (values: IntroFormData, addAleneomssorgQuestion?: boolean) => {
         return (
             <>
-                {aleneomsSpm && (
-                    <IntroFormQuestion name={IntroFormField.harAleneomsorg} validate={validateYesOrNoIsAnswered} />
+                {addAleneomssorgQuestion && (
+                    <FormQuestion
+                        legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
+                        name={IntroFormField.harAleneomsorg}
+                        validate={validateYesOrNoIsAnswered}
+                    />
                 )}
 
-                <IntroFormQuestion
+                <FormQuestion
+                    legend={intlHelper(intl, `introForm.form.${IntroFormField.erArbeidstakerSnEllerFrilanser}.spm`)}
                     name={IntroFormField.erArbeidstakerSnEllerFrilanser}
                     validate={validateYesOrNoIsAnswered}
                     showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
                     stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
                 />
-                <IntroFormQuestion
+                <FormQuestion
+                    legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
                     name={IntroFormField.mottakersArbeidssituasjonErOk}
                     validate={validateRequiredList}
                     showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
@@ -44,27 +50,35 @@ const IntroForm = ({ onValidSubmit }: Props) => {
         );
     };
 
-    const getSpm = (values: IntroFormData) => {
+    const getQuestions = (values: IntroFormData) => {
         switch (values.korona) {
             case YesOrNo.YES:
-                return getFellesSpm(values);
+                return getCommonQuestions(values);
             case YesOrNo.NO:
                 return (
                     <>
-                        <IntroFormQuestion
+                        <FormQuestion
+                            legend={intlHelper(
+                                intl,
+                                `introForm.form.${IntroFormField.mottakerErEktefelleEllerSamboer}.spm`
+                            )}
                             name={IntroFormField.mottakerErEktefelleEllerSamboer}
                             validate={validateYesOrNoIsAnswered}
                         />
-                        {values.mottakerErEktefelleEllerSamboer === YesOrNo.YES && getFellesSpm(values, true)}
+                        {values.mottakerErEktefelleEllerSamboer === YesOrNo.YES && getCommonQuestions(values, true)}
                         {values.mottakerErEktefelleEllerSamboer === YesOrNo.NO && (
                             <>
-                                <IntroFormQuestion
+                                <FormQuestion
+                                    legend={intlHelper(
+                                        intl,
+                                        `introForm.form.${IntroFormField.mottakerSamværsforelder}.spm`
+                                    )}
                                     name={IntroFormField.mottakerSamværsforelder}
                                     validate={validateYesOrNoIsAnswered}
                                     showStop={values.mottakerSamværsforelder === YesOrNo.NO}
                                     stopMessage={intlHelper(intl, 'introForm.form.mottakerSamværsforelder.stopMessage')}
                                 />
-                                {values.mottakerSamværsforelder === YesOrNo.YES && getFellesSpm(values, true)}
+                                {values.mottakerSamværsforelder === YesOrNo.YES && getCommonQuestions(values, true)}
                             </>
                         )}
                     </>
@@ -119,7 +133,8 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                             }
                             fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             submitButtonLabel={intlHelper(intl, 'introForm.start')}>
-                            <IntroFormQuestion
+                            <FormQuestion
+                                legend={intlHelper(intl, `introForm.form.${IntroFormField.korona}.spm`)}
                                 name={IntroFormField.korona}
                                 validate={validateYesOrNoIsAnswered}
                                 description={
@@ -128,7 +143,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                     </ExpandableInfo>
                                 }
                             />
-                            {getSpm(values)}
+                            {getQuestions(values)}
                         </IntroFormComponents.Form>
                     </section>
                 );
