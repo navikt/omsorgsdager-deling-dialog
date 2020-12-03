@@ -3,10 +3,13 @@ import { apiStringDateToDate } from '@navikt/sif-common-core/lib/utils/dateUtils
 import { ApiBarn, BarnStepApiData } from '../../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../../types/SoknadFormData';
 import { mapAnnetBarnToApiBarn, mapBarnToApiBarn } from './mapUtils';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(isSameOrBefore);
 
 const sortBarnByFødseldsdato = (barn1: ApiBarn, barn2: ApiBarn) => {
-    if (moment(apiStringDateToDate(barn1.fødselsdato)).isSameOrBefore(apiStringDateToDate(barn2.fødselsdato))) {
+    if (dayjs(apiStringDateToDate(barn1.fødselsdato)).isSameOrBefore(apiStringDateToDate(barn2.fødselsdato))) {
         return -1;
     }
     return 1;
