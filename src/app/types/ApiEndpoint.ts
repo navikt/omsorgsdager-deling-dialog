@@ -1,5 +1,5 @@
 export enum ApiEndpoint {
-    'soker' = 'sokerMelding',
+    'soker' = 'soker',
     'barn' = 'barn',
     'mellomlagring' = 'mellomlagring',
     'sendMeldingOverføring' = 'melding/overforing',
