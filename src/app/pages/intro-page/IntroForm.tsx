@@ -74,7 +74,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
         }
     };
 
-    const kanFortsette = (values: IntroFormData): boolean => {
+    const kanFortsetteFn = (values: IntroFormData): boolean => {
         const arbeidsSituasjonErOkHosBegge =
             values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES &&
             values.mottakersArbeidssituasjonErOk === YesOrNo.YES;
@@ -102,13 +102,14 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                 onValidSubmit();
             }}
             renderForm={({ values }) => {
+                const kanFortsette = kanFortsetteFn(values);
                 return (
                     <section aria-label="Se om du kan bruke det dette skjemaet:">
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
-                            includeButtons={kanFortsette(values)}
+                            includeButtons={kanFortsette}
                             noButtonsContentRenderer={
-                                kanFortsette(values)
+                                kanFortsette
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
