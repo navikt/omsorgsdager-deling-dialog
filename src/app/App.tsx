@@ -17,6 +17,8 @@ const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
+// Trigger deploy to gcp
+
 render(
     <SoknadApplication
         appName="Overføring av omsorgsdager"
