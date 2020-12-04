@@ -129,7 +129,7 @@
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange omsorgsdager vil du overføre? Du kan maksimalt overføre 10 dager.",
     "step.mottaker.form.antallDagerSomSkalOverføres.korona.spm": "Hvor mange dager ønsker du å overføre?",
     "step.mottaker.form.stopMessage.korona.html": "Stoppmelding - korona",
-    "step.mottaker.form.mottakerType.spm": "Hvor mange omsorgsdager vil du overføre? Du kan maksimalt overføre 10 dager.",
+    "step.mottaker.form.mottakerType.spm": "Den jeg ønsker  å dele omsorgsdager med er: ",
     "step.mottaker.form.mottakerType.korona.spm": "Hvem skal du dele omsorgsdager med?",
     "step.mottaker.form.mottakerType.ektefelle": "Ny ektefelle",
     "step.mottaker.form.mottakerType.samboer": "Ny samboer du har bodd med i minst 12 måneder",
