@@ -21,6 +21,7 @@ import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 100 };
@@ -141,14 +142,14 @@ const MottakerStep = ({ søker }: Props) => {
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupMottakerStep}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro.1" />
-                <p>
+                <Box margin="m">
                     <FormattedMessage id="step.mottaker.veileder.intro.2" />
                     <ul>
                         <li>{intlHelper(intl, 'arbeidstaker')}</li>
                         <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
                         <li>{intlHelper(intl, 'frilanser')}</li>
                     </ul>
-                </p>
+                </Box>
             </CounsellorPanel>
             <FormBlock>
                 <SoknadFormComponents.YesOrNoQuestion
@@ -184,12 +185,14 @@ const MottakerStep = ({ søker }: Props) => {
 
             {gjelderMidlertidigPgaKorona === YesOrNo.NO && getMottakerTypeSpm()}
 
-            {(skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES ||
+            {((gjelderMidlertidigPgaKorona === YesOrNo.YES &&
+                skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES) ||
                 (gjelderMidlertidigPgaKorona === YesOrNo.NO && mottakerType)) && (
                 <>
                     {getMottakersPersOpplysningerSpm()}
 
-                    {gjelderMidlertidigPgaKorona && mottakerType !== Mottaker.samværsforelder && getAntallDagerSpm()}
+                    {(gjelderMidlertidigPgaKorona === YesOrNo.YES || mottakerType !== Mottaker.samværsforelder) &&
+                        getAntallDagerSpm()}
                 </>
             )}
             {gjelderMidlertidigPgaKorona === YesOrNo.NO && !mottakerType && (
