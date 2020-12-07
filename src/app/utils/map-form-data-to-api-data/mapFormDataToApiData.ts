@@ -2,11 +2,12 @@ import { getLocaleForApi } from '@navikt/sif-common-core/lib/utils/localeUtils';
 import {
     SoknadApiData,
     SoknadApiDataFelles,
+    StengingsperiodeAPI,
     SøknadFordelingApiData,
     SøknadKoronaoverføringApiData,
     SøknadOverføringApiData,
 } from '../../types/SoknadApiData';
-import { Barn, SoknadFormData } from '../../types/SoknadFormData';
+import { Barn, SoknadFormData, Stengingsperiode } from '../../types/SoknadFormData';
 import { getSøknadstype, Søknadstype } from '../../types/Soknadstype';
 import { mapBarnStepToApiData } from './mapBarnStepToApiData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
@@ -18,6 +19,14 @@ interface MapFormDataToApiDataValues {
     formData: SoknadFormData;
     registrerteBarn: Barn[];
 }
+
+export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): StengingsperiodeAPI => {
+    if (stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020) {
+        return { fom: '2020-03-13', tom: '2020-06-30' };
+    } else {
+        return { fom: '2020-08-10', tom: 'ikke satt' };
+    }
+};
 
 const getCommonApiData = ({
     soknadId,
@@ -37,8 +46,11 @@ const getCommonApiData = ({
 export const getSøknadKoronaoverføring = (
     values: MapFormDataToApiDataValues
 ): SøknadKoronaoverføringApiData | undefined => {
-    const { antallDagerSomSkalOverføres } = values.formData;
+    const { antallDagerSomSkalOverføres, stengingsperiode } = values.formData;
     if (antallDagerSomSkalOverføres === undefined) {
+        return undefined;
+    }
+    if (stengingsperiode === undefined) {
         return undefined;
     }
     return {
@@ -46,6 +58,7 @@ export const getSøknadKoronaoverføring = (
         type: Søknadstype.koronaoverføring,
         korona: {
             antallDagerSomSkalOverføres,
+            stengingsperiode: getStegningsPeriode(stengingsperiode),
         },
     };
 };

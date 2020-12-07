@@ -139,7 +139,7 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                                 validate={validateYesOrNoIsAnswered}
                                 description={
                                     <ExpandableInfo title={intlHelper(intl, 'introForm.form.hvaBetyr')}>
-                                        {intlHelper(intl, 'introForm.form.korona.hvaBetyr"')}
+                                        {intlHelper(intl, 'introForm.form.korona.hvaBetyr')}
                                     </ExpandableInfo>
                                 }
                             />
