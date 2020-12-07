@@ -59,6 +59,7 @@ const koronaSøknad: SøknadKoronaoverføringApiData = {
     type: Søknadstype.koronaoverføring,
     korona: {
         antallDagerSomSkalOverføres: 1,
+        stengingsperiode: { fom: '2020-03-13', tom: '2020-06-30' },
     },
 };
 

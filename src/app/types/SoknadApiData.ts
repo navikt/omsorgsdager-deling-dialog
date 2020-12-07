@@ -16,6 +16,10 @@ export interface BarnStepApiData {
     harUtvidetRett: boolean;
     barn: ApiBarn[];
 }
+export interface StengingsperiodeAPI {
+    fom: string;
+    tom: string;
+}
 
 /** Ektefelle/samboer */
 interface SøknadApiDataOverføring {
@@ -29,6 +33,7 @@ interface SøknadApiDataFordeling {
 }
 interface SøknadApiDataKorona {
     antallDagerSomSkalOverføres: number;
+    stengingsperiode: StengingsperiodeAPI;
 }
 
 export interface SoknadApiDataFelles {

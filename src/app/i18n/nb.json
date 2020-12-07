@@ -135,6 +135,14 @@
     "step.mottaker.form.mottakerType.samboer": "Ny samboer du har bodd med i minst 12 måneder",
     "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med barn",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Legge til informasjon her om at kun kan deles til de som er listet over",
+    "step.mottaker.form.stengingsperiode.spm": "Innenfor hviken periode med stengt skole/barnehage gjelder overføringen for?",
+    "step.mottaker.form.stengingsperiode.fra13marsTil30Juni2020": "13. mars til 30.juni 2020",
+    "step.mottaker.form.stengingsperiode.fraOgMed10August2020EllerSenere": "Fra og med 10.august 2020 eller senere",
+    "step.mottaker.form.stengingsperiode.annen": "Annen periode",
+
+    "step.mottaker.form.stengingsperiode.annen.stopMelding.1": "Her kan du kun overføre dager til en annen omsorgsperson hvis dagene skal brukes i en periode barnehagen/skolen har vært eller er stengt på grunn av koronaviruset.",
+    "step.mottaker.form.stengingsperiode.annen.stopMelding.2.a": "Hvis du er alene om omsorgen kan du ",
+    "step.mottaker.form.stengingsperiode.annen.stopMelding.2.b": "dele omsorgsdager med den andre forelderen eller ny samboer, ektefelle eller partner",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om overføring av omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
     "step.oppsummering.søker.header": "Om deg",
