@@ -283,8 +283,6 @@ const MottakerStep = ({ søker }: Props) => {
                     </AlertStripeInfo>
                 </FormBlock>
             )}
-
-            {console.log(values)}
         </SoknadFormStep>
     );
 };
