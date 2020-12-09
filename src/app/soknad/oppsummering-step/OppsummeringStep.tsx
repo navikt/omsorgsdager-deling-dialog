@@ -13,6 +13,7 @@ import { Person } from '../../types/Person';
 import { SoknadApiData } from '../../types/SoknadApiData';
 import { Barn, SoknadFormField } from '../../types/SoknadFormData';
 import { Søknadstype } from '../../types/Soknadstype';
+import { verifySoknadApiData } from '../../validation/verifySoknadApiData';
 import { useSoknadContext } from '../SoknadContext';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
@@ -22,9 +23,8 @@ import DinSituasjonSummary from './DinSituasjonSummary';
 import MottakerSummary from './MottakerSummary';
 import OmBarnaSummary from './OmBarnaSummary';
 import SamværsavtaleSummary from './SamværsavtaleSummary';
-import SøkerSummary from './SøkerSummary';
 import SøknadstypeSummary from './SoknadstypeSummary';
-import { verifySoknadApiData } from '../../validation/verifySoknadApiData';
+import SøkerSummary from './SøkerSummary';
 
 type Props = {
     søker: Person;
@@ -36,7 +36,7 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
     const intl = useIntl();
     const { sendSoknadStatus, sendSoknad } = useSoknadContext();
 
-    const apiDataIsValid = verifySoknadApiData(apiValues);
+    const apiDataIsValid = apiValues !== undefined && verifySoknadApiData(apiValues);
 
     return (
         <SoknadFormStep
@@ -49,12 +49,20 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     <FormattedMessage id="step.oppsummering.info" />
                 </Guide>
-                {apiDataIsValid === false && (
+                {apiValues === undefined && (
+                    <Box margin="xl">
+                        <AlertStripeFeil>
+                            Det virker til at det er en feil i informasjonen som du har tastet inn. Vennligst gå tilbake
+                            til de tidligere stegene og se hva som er feil.
+                        </AlertStripeFeil>
+                    </Box>
+                )}
+                {apiValues !== undefined && apiDataIsValid === false && (
                     <AlertStripeFeil>
-                        <strong>Midlertidig dev melding</strong>: Det oppstod en feil under validering av apiData
+                        Dataene som skal sendes inn inneholder noen feil. Vennligst gå tilbake til de tidligere stegene
+                        og se hva som er feil.
                     </AlertStripeFeil>
                 )}
-                {apiValues === undefined && <div>Api verdier mangler</div>}
                 {apiValues !== undefined && (
                     <>
                         <Box margin="xxl">

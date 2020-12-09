@@ -8,7 +8,7 @@ import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 import { StepID } from './soknadStepsConfig';
 
-export const STORAGE_VERSION = '2.0';
+export const STORAGE_VERSION = '2.1';
 
 interface UserHashInfo {
     søker: Person;
