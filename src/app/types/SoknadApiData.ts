@@ -17,8 +17,8 @@ export interface BarnStepApiData {
     barn: ApiBarn[];
 }
 export interface StengingsperiodeAPI {
-    fom: string;
-    tom: string;
+    fraOgMed: string;
+    tilOgMed: string;
 }
 
 /** Ektefelle/samboer */
