@@ -36,39 +36,59 @@ interface SøknadApiDataKorona {
     stengingsperiode: StengingsperiodeAPI;
 }
 
+export enum SoknadApiDataField {
+    'id' = 'id',
+    'type' = 'type',
+    'språk' = 'språk',
+    'harForståttRettigheterOgPlikter' = 'harForståttRettigheterOgPlikter',
+    'harBekreftetOpplysninger' = 'harBekreftetOpplysninger',
+    'mottakerFnr' = 'mottakerFnr',
+    'mottakerNavn' = 'mottakerNavn',
+    'harAleneomsorg' = 'harAleneomsorg',
+    'harUtvidetRett' = 'harUtvidetRett',
+    'erYrkesaktiv' = 'erYrkesaktiv',
+    'arbeiderINorge' = 'arbeiderINorge',
+    'arbeidssituasjon' = 'arbeidssituasjon',
+    'antallDagerBruktEtter1Juli' = 'antallDagerBruktEtter1Juli',
+    'barn' = 'barn',
+    'korona' = 'korona',
+    'fordeling' = 'fordeling',
+    'overføring' = 'overføring',
+}
 export interface SoknadApiDataFelles {
-    id: string;
-    språk: Locale;
-    harForståttRettigheterOgPlikter: boolean;
-    harBekreftetOpplysninger: boolean;
-    mottakerFnr: string;
-    mottakerNavn: string;
-    harAleneomsorg: boolean;
-    harUtvidetRett: boolean;
-    erYrkesaktiv: boolean;
-    arbeiderINorge: boolean;
-    arbeidssituasjon: Arbeidssituasjon[];
-    antallDagerBruktEtter1Juli?: number;
-    barn: ApiBarn[];
+    [SoknadApiDataField.id]: string;
+    [SoknadApiDataField.type]: Søknadstype;
+    [SoknadApiDataField.språk]: Locale;
+    [SoknadApiDataField.harForståttRettigheterOgPlikter]: boolean;
+    [SoknadApiDataField.harBekreftetOpplysninger]: boolean;
+    [SoknadApiDataField.mottakerFnr]: string;
+    [SoknadApiDataField.mottakerNavn]: string;
+    [SoknadApiDataField.harAleneomsorg]: boolean;
+    [SoknadApiDataField.harUtvidetRett]: boolean;
+    [SoknadApiDataField.erYrkesaktiv]: boolean;
+    [SoknadApiDataField.arbeiderINorge]: boolean;
+    [SoknadApiDataField.arbeidssituasjon]: Arbeidssituasjon[];
+    [SoknadApiDataField.antallDagerBruktEtter1Juli]?: number;
+    [SoknadApiDataField.barn]: ApiBarn[];
 }
 
 export interface SøknadKoronaoverføringApiData extends SoknadApiDataFelles {
-    type: Søknadstype.koronaoverføring;
-    korona: SøknadApiDataKorona;
+    [SoknadApiDataField.type]: Søknadstype.koronaoverføring;
+    [SoknadApiDataField.korona]: SøknadApiDataKorona;
 }
 export const isSøknadKoronaoverføring = (søknad: any): søknad is SøknadKoronaoverføringApiData => {
     return søknad.type === Søknadstype.koronaoverføring;
 };
 export interface SøknadOverføringApiData extends SoknadApiDataFelles {
-    type: Søknadstype.overføring;
-    overføring: SøknadApiDataOverføring;
+    [SoknadApiDataField.type]: Søknadstype.overføring;
+    [SoknadApiDataField.overføring]: SøknadApiDataOverføring;
 }
 export const isSøknadOverføring = (søknad: any): søknad is SøknadOverføringApiData => {
     return søknad.type === Søknadstype.overføring;
 };
 export interface SøknadFordelingApiData extends SoknadApiDataFelles {
-    type: Søknadstype.fordeling;
-    fordeling: SøknadApiDataFordeling;
+    [SoknadApiDataField.type]: Søknadstype.fordeling;
+    [SoknadApiDataField.fordeling]: SøknadApiDataFordeling;
 }
 export const isSøknadFordeling = (søknad: any): søknad is SøknadFordelingApiData => {
     return søknad.type === Søknadstype.fordeling;
