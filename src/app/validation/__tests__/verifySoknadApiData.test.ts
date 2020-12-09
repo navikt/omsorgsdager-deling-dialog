@@ -10,6 +10,7 @@ import { verifySoknadApiData } from '../verifySoknadApiData';
 
 const søknadFellesInfo: SoknadApiDataFelles = {
     id: '01EN0G1TQF4N58300JZ6V0NN22',
+    type: Søknadstype.fordeling,
     språk: 'nb',
     harBekreftetOpplysninger: true,
     harForståttRettigheterOgPlikter: true,

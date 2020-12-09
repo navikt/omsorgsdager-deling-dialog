@@ -1,64 +1,101 @@
-import { hasValue } from '@navikt/sif-common-core/lib/validation/hasValue';
 import {
     ApiBarn,
+    isSøknadFordeling,
+    isSøknadKoronaoverføring,
+    isSøknadOverføring,
     SoknadApiData,
+    SoknadApiDataFelles,
+    SoknadApiDataFieldCommon,
+    SoknadApiDataFieldFordeling,
+    SoknadApiDataFieldKorona,
+    SoknadApiDataFieldOverføring,
     SøknadFordelingApiData,
     SøknadKoronaoverføringApiData,
     SøknadOverføringApiData,
-    SoknadApiDataFelles,
 } from '../types/SoknadApiData';
 import { Søknadstype } from '../types/Soknadstype';
 
 const harAleneomsorgForBarn = (apiData: SoknadApiData) =>
     apiData.barn.filter((b: ApiBarn) => b.aleneOmOmsorgen === true && (b.aktørId || b.identitetsnummer)).length > 0;
 
-const verifySøknadBase = (apiData: SoknadApiDataFelles): boolean => {
-    return (
-        apiData.id !== undefined &&
-        apiData.harForståttRettigheterOgPlikter &&
-        apiData.erYrkesaktiv &&
-        apiData.arbeidssituasjon.length > 0 &&
-        hasValue(apiData.mottakerFnr) &&
-        hasValue(apiData.mottakerNavn)
-    );
+type ApiDataVerification<ApiData> = (values: ApiData) => boolean;
+
+interface SoknadApiVerification<ApiData> {
+    [key: string]: ApiDataVerification<ApiData>;
+}
+
+export const SoknadApiFellesVerification: SoknadApiVerification<
+    SoknadApiDataFelles | SøknadFordelingApiData | SøknadOverføringApiData | SøknadKoronaoverføringApiData
+> = {
+    [SoknadApiDataFieldCommon.id]: ({ id }) => id !== undefined,
+    [SoknadApiDataFieldCommon.type]: ({ type }) => type !== undefined,
+    [SoknadApiDataFieldCommon.harForståttRettigheterOgPlikter]: ({ harForståttRettigheterOgPlikter }) =>
+        harForståttRettigheterOgPlikter === true,
+    [SoknadApiDataFieldCommon.mottakerFnr]: ({ mottakerFnr }) => mottakerFnr !== undefined,
+    [SoknadApiDataFieldCommon.mottakerNavn]: ({ mottakerNavn }) => mottakerNavn !== undefined,
+    [SoknadApiDataFieldCommon.harAleneomsorg]: ({ harAleneomsorg }) => harAleneomsorg !== undefined,
+    [SoknadApiDataFieldCommon.harUtvidetRett]: ({ harUtvidetRett }) => harUtvidetRett !== undefined,
+    [SoknadApiDataFieldCommon.erYrkesaktiv]: ({ erYrkesaktiv }) => erYrkesaktiv !== undefined,
+    [SoknadApiDataFieldCommon.arbeiderINorge]: ({ arbeiderINorge }) => arbeiderINorge !== undefined,
+    [SoknadApiDataFieldCommon.arbeidssituasjon]: ({ arbeidssituasjon }) => arbeidssituasjon !== undefined,
+    [SoknadApiDataFieldCommon.antallDagerBruktEtter1Juli]: ({ antallDagerBruktEtter1Juli }) =>
+        antallDagerBruktEtter1Juli === undefined || antallDagerBruktEtter1Juli >= 0,
+    [SoknadApiDataFieldCommon.barn]: ({ barn }) => barn !== undefined && barn.length > 0,
+    [SoknadApiDataFieldKorona.korona]: (apiValues) => {
+        if (isSøknadKoronaoverføring(apiValues)) {
+            const { korona } = apiValues;
+            return korona !== undefined && korona.antallDagerSomSkalOverføres > 0;
+        }
+        return true;
+    },
+    [SoknadApiDataFieldFordeling.fordeling]: (apiValues) => {
+        if (isSøknadFordeling(apiValues)) {
+            const { fordeling } = apiValues;
+            return fordeling !== undefined && harAleneomsorgForBarn(apiValues) && fordeling.mottakerType !== undefined;
+        }
+        return true;
+    },
+    [SoknadApiDataFieldOverføring.overføring]: (apiValues) => {
+        if (isSøknadOverføring(apiValues)) {
+            const { overføring } = apiValues;
+            return (
+                overføring !== undefined &&
+                harAleneomsorgForBarn(apiValues) &&
+                overføring.antallDagerSomSkalOverføres !== undefined &&
+                overføring.antallDagerSomSkalOverføres >= 0 &&
+                overføring.mottakerType !== undefined
+            );
+
+            return overføring !== undefined && overføring.mottakerType !== undefined;
+        }
+        return true;
+    },
 };
 
-const verifySøknadKoronaoverføring = ({
-    korona: { antallDagerSomSkalOverføres },
-}: SøknadKoronaoverføringApiData): boolean => {
-    return antallDagerSomSkalOverføres !== undefined && antallDagerSomSkalOverføres >= 0;
-};
-
-const verifySøknadFordeling = ({ harAleneomsorg, fordeling: { mottakerType } }: SøknadFordelingApiData): boolean => {
-    return harAleneomsorg && mottakerType !== undefined;
-};
-
-const verifySøknadOverføring = ({
-    harAleneomsorg,
-    overføring: { antallDagerSomSkalOverføres, mottakerType },
-}: SøknadOverføringApiData): boolean => {
-    return (
-        harAleneomsorg &&
-        antallDagerSomSkalOverføres !== undefined &&
-        antallDagerSomSkalOverføres >= 0 &&
-        mottakerType !== undefined
-    );
+const runVerification = (keys: string[], values: SoknadApiDataFelles): SoknadApiDataFieldCommon[] => {
+    const errors: SoknadApiDataFieldCommon[] = [];
+    keys.forEach((key: SoknadApiDataFieldCommon) => {
+        const func = SoknadApiFellesVerification[key];
+        if (func && func(values) === false) {
+            errors.push(key);
+        }
+    });
+    return errors;
 };
 
 export const verifySoknadApiData = (apiData?: SoknadApiData): boolean => {
     if (!apiData || !apiData.type) {
         return false;
     }
-    if (verifySøknadBase(apiData) === false) {
+    if (runVerification(Object.keys(SoknadApiDataFieldCommon), apiData).length > 0) {
         return false;
     }
-
     switch (apiData.type) {
         case Søknadstype.koronaoverføring:
-            return verifySøknadKoronaoverføring(apiData);
+            return runVerification(Object.keys(SoknadApiDataFieldKorona), apiData).length === 0;
         case Søknadstype.overføring:
-            return harAleneomsorgForBarn(apiData) && verifySøknadOverføring(apiData);
+            return runVerification(Object.keys(SoknadApiDataFieldOverføring), apiData).length === 0;
         case Søknadstype.fordeling:
-            return harAleneomsorgForBarn(apiData) && verifySøknadFordeling(apiData);
+            return runVerification(Object.keys(SoknadApiDataFieldFordeling), apiData).length === 0;
     }
 };
