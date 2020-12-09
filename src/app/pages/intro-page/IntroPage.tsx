@@ -9,6 +9,7 @@ import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepB
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 
 const IntroPage = () => {
     const intl = useIntl();
@@ -22,9 +23,36 @@ const IntroPage = () => {
                     <InformationPoster>
                         {intlHelper(intl, 'introForm.info.1')}
                         <p>{intlHelper(intl, 'introForm.info.2')}</p>
-                        <p>{intlHelper(intl, 'introForm.info.3')}</p>
+                        <ul>
+                            <li>
+                                <ExpandableInfo
+                                    title={intlHelper(intl, 'introForm.info.2.nedtrek.tittel')}
+                                    filledBackground={false}>
+                                    {intlHelper(intl, 'introForm.info.2.nedtrek')}
+                                </ExpandableInfo>
+                            </li>
+                            <li>
+                                <ExpandableInfo
+                                    title={intlHelper(intl, 'introForm.info.3.nedterk.tittel')}
+                                    filledBackground={false}>
+                                    {intlHelper(intl, 'introForm.info.3.nedterk')}
+                                </ExpandableInfo>
+                            </li>
+                        </ul>
+
                         <p>{intlHelper(intl, 'introForm.info.4')}</p>
-                        <p>{intlHelper(intl, 'introForm.info.5')}</p>
+                        <ul>
+                            <li>{intlHelper(intl, 'introForm.info.4.1')}</li>
+                            <li>{intlHelper(intl, 'introForm.info.4.2')}</li>
+                            <p>{intlHelper(intl, 'introForm.info.5')}</p>
+                            <li>
+                                <ExpandableInfo
+                                    title={intlHelper(intl, 'introForm.info.5.nedtrek.1.tittel')}
+                                    filledBackground={false}>
+                                    {intlHelper(intl, 'introForm.info.5.nedtrek.1')}
+                                </ExpandableInfo>
+                            </li>
+                        </ul>
                     </InformationPoster>
                 </section>
             </Box>
