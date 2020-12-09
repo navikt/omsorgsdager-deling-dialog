@@ -42,7 +42,16 @@ describe('mottakerStepFormConfig', () => {
             navnMottaker: 'abc',
             antallDagerSomSkalOverføres: 2,
         };
-        it(`All questions included if answered correctly`, () => {
+        it(`All questions included if answered correctly and mottakerType === ${Mottaker.ektefelle}`, () => {
+            const vis = MottakerFormQuestions.getVisbility(delePayload);
+            expect(vis.getIncludedQuestions().length).toBe(5);
+            expect(vis.isIncluded(SoknadFormField.gjelderMidlertidigPgaKorona)).toBeTruthy();
+            expect(vis.isIncluded(SoknadFormField.mottakerType)).toBeTruthy();
+            expect(vis.isIncluded(SoknadFormField.fnrMottaker)).toBeTruthy();
+            expect(vis.isIncluded(SoknadFormField.navnMottaker)).toBeTruthy();
+            expect(vis.isIncluded(SoknadFormField.antallDagerSomSkalOverføres)).toBeTruthy();
+        });
+        it(`All questions included if answered correctly and mottakerType === ${Mottaker.samboer}`, () => {
             const vis = MottakerFormQuestions.getVisbility(delePayload);
             expect(vis.getIncludedQuestions().length).toBe(5);
             expect(vis.isIncluded(SoknadFormField.gjelderMidlertidigPgaKorona)).toBeTruthy();

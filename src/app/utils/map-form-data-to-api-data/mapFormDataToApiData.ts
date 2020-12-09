@@ -102,7 +102,6 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
 export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): SoknadApiData | undefined => {
     const søknadstype = getSøknadstype(values.formData);
     if (søknadstype === undefined) {
-        console.error('søknadstype is undefined in formData');
         return undefined;
     }
     try {
