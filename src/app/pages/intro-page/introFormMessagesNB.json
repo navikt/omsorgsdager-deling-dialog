@@ -1,29 +1,35 @@
 {
     "introForm.start": "Start melding om overføring",
 
-    "introForm.info.1": "Her kan du dele omsorgsdager med en annen person. Det er tre situasjoner som gjør at du kan dele omsorgsdager med en annen omsorgsperson:",
-    "introForm.info.2": " - Den andre forelderen eller din nye samboer/ektefelle har behov for å få dager fordi den skal være hjemme med barn fordi bhg/skolen har stengt pga. koronasituasjonen. Dette er en midlertidig deling som varer til 30 juni 2021 og dagene kan kun brukes i perioder bhg/skolen har stengt.",
-    "introForm.info.3": "- Din nye ektefelle eller samboer som du har bodd med i minst 12 mnd har ikke egen rett på omsorgsdager og du vil dele dager fordi ny skal være hjemme med barn fordi barnet er sykt, barnepasser er syk eller skolen/bhg er stengt. Dette er en varig deling så lenge det er rett til å bruke omsorgsdager for barnet/barna.",
-    "introForm.info.4": "- Samværsforelder har behov for å være hjemme med barn fordi barnet er sykt, barnepasser er syk eller skolen/bhg er stengt. Dette er en varig deling så lenge det er rett til å bruke omsorgsdager for barnet/barna.",
-    "introForm.info.5": "I alle situasjoner må både du og den som skal få dager være yrkesaktiv.",
+    "introForm.info.1": "Dette skjemaet bruker du når du skal sende melding om at du vil dele omsorgsdager med en annen omsorgsperson. Både du og den du skal dele omsorgsdager med må være yrkesaktive. Det betyr at dere må være enten arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse.",
+    "introForm.info.2": "Du kan dele omsorgsdager",
+    "introForm.info.2.nedtrek": "Du kan dele omsorgsdager",
+    "introForm.info.3": "Du kan dele omsorgsdager med den andre forelderen som du ikke bor sammen med, men som har samvær med felles barn. Omsorgsdagene blir fordelt ut fra hva dere har avtalt om samvær. Denne delingen varer så lenge det er rett til å bruke omsorgsdager.",
+    "introForm.info.4": "med en ny samboer du har bodd med i minst 12 måneder, eller med ny ektefelle",
+    "introForm.info.4.nedtrek.1": "Du kan dele opp til 10 omsorgsdager med ",
+    "introForm.info.4.nedtrek.2": "en samboer du har bodd med i minst 12 måneder, og som du ikke har felles barn med eller",
+    "introForm.info.4.nedtrek.3": "med nåværende ektefelle, som du ikke har felles barn med.",
+    "introForm.info.4.nedtrek.4": "Denne delingen varer så lenge det er rett til å bruke omsorgsdager.",
+    "introForm.info.4.nedtrek.5": "når barnehage/skole/SFO er stengt på grunn av koronaviruset",
+    "introForm.info.4.nedtrek.5.nedtrek": "I dette tilfellet kan du dele de omsorgsdagene du har tilgjengelig med den andre forelderen, nåværende ektefelle eller en samboer du har bodd med i minst 12 måneder. Denne delingen varer frem til 31. desember 2020.",
 
-    "introForm.form.korona.spm": "Skal du midlertidig dele med en annen omsorgsperson fordi den personen skal bruke dager når bhg/skolen har stengt pga. koronaviruset?",
+    "introForm.form.korona.spm": "Skal du dele omsorgsdager i forbindelse med at barnehage/skole/SFO er stengt på grunn av koronaviruset?",
     "introForm.form.korona.hvaBetyr": "introForm.korona.hvaBetyr",
     "introForm.form.hvaBetyr": "Hva betyr dette?",
 
     "introForm.form.harAleneomsorg.spm": "Er du alene om omsorgen for barn?",
 
-    "introForm.form.mottakersArbeidssituasjonErOk.spm": "Er den du skal overføre omsorgsdager til arbeidstaker, selvstendig næringsdrivende eller frilanser?",
-    "introForm.form.mottakersArbeidssituasjonErOk.stopMessage": "introForm.korona.mottakerArbeidsSituasjon.stopMelding",
+    "introForm.form.mottakersArbeidssituasjonErOk.spm": "Er den du skal dele omsorgsdager med arbeidstaker, selvstendig næringsdrivende eller frilanser?",
+    "introForm.form.mottakersArbeidssituasjonErOk.stopMessage": "Personen du skal dele omsorgsdager med må være yrkesaktiv for å ha rett til å bruke dem. Det betyr at personen må være enten arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse. Hvis personen ikke er yrkesaktiv, kan du ikke gå videre.",
 
-    "introForm.form.mottakerErEktefelleEllerSamboer.spm": "Skal du varig dele med ny ektefelle eller ny samboer du har bodd med i minst 12 måneder?",
+    "introForm.form.mottakerErEktefelleEllerSamboer.spm": "Skal du dele omsorgsdager med en samboer du har bodd med i minst 12 måneder, eller ny ektefelle?",
     "introForm.form.mottakerErEktefelleEllerSamboer.stopMessage": "Her kan du kun overføre omsorgsdager til en ny ektefelle, eller en samboer du har bodd med i minst 12 måneder.",
     "introForm.form.mottakerErEktefelleEllerSamboer.stopMessage.lenke": "Hvis du heller vil dele omsorgsdager med den andre forelderen, kan du gjøre det her.",
 
-    "introForm.form.mottakerSamværsforelder.spm": "Skal du varig dele med samværsforelder?",
-    "introForm.form.mottakerSamværsforelder.stopMessage": "det er ikke mulig å dele med andre personer enn de du allerede har fått spørsmål om",
+    "introForm.form.mottakerSamværsforelder.spm": "Skal du dele omsorgsdager med den andre forelderen som har samvær med felles barn?",
+    "introForm.form.mottakerSamværsforelder.stopMessage": "Du må velge én av situasjonene over for å kunne gå videre. Hvis ingen av situasjonene gjelder for deg, kan du ikke dele omsorgsdager.",
 
     "introForm.form.aleneMedOmsorgen.spm": "Er du alene med omsorge?",
     "introForm.form.erArbeidstakerSnEllerFrilanser.spm": "Er du arbeidstaker, selvstendig næringsdrivende eller frilanser?",
-    "introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage": "introForm.korona.arbeidsSituasjon.stopMelding"
+    "introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage": "For å kunne dele omsorgsdager må du være yrkesaktiv. Det betyr at du må være enten arbeidstaker, selvstendig næringsdrivender, frilanser eller en kombinasjon av disse. Hvis du ikke er yrkesaktiv, kan du ikke gå videre."
 }
