@@ -24,7 +24,7 @@ export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): Stengin
     if (stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020) {
         return { fraOgMed: '2020-03-13', tilOgMed: '2020-06-30' };
     } else {
-        return { fraOgMed: '2020-08-10', tilOgMed: 'ikke satt' };
+        return { fraOgMed: '2020-08-10', tilOgMed: '2020-12-31' };
     }
 };
 
