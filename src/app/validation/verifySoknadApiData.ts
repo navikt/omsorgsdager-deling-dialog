@@ -79,8 +79,10 @@ const runVerification = (keys: string[], values: SoknadApiDataFelles): SoknadApi
 };
 
 export const verifySoknadApiData = (apiData?: SoknadApiData): boolean => {
-    if (!apiData || !apiData.type) {
+    if (!apiData) {
         return false;
     }
-    return runVerification(Object.keys(SoknadApiDataField), apiData).length === 0;
+    const errors = runVerification(Object.keys(SoknadApiDataField), apiData);
+
+    return errors.length === 0;
 };
