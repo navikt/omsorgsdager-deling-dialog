@@ -13,13 +13,16 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { useFormikContext } from 'formik';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { AlertStripeInfo, AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Person } from '../../types/Person';
-import { Mottaker, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { Mottaker, Stengingsperiode, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
+import Lenke from 'nav-frontend-lenker';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 100 };
@@ -44,6 +47,7 @@ type Props = {
 
 const cleanupMottakerStep = (formData: SoknadFormData): SoknadFormData => {
     const gjelderKorona = formData.gjelderMidlertidigPgaKorona === YesOrNo.YES;
+
     return {
         ...formData,
         ...(gjelderKorona
@@ -52,6 +56,7 @@ const cleanupMottakerStep = (formData: SoknadFormData): SoknadFormData => {
               }
             : {
                   skalDeleMedAndreForelderSamboerEktefelle: YesOrNo.UNANSWERED,
+                  stengingsperiode: undefined,
               }),
     };
 };
@@ -61,57 +66,181 @@ const MottakerStep = ({ søker }: Props) => {
     const stepId = StepID.MOTTAKER;
     const { values } = useFormikContext<SoknadFormData>();
 
-    const { gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle } = values;
+    const {
+        gjelderMidlertidigPgaKorona,
+        skalDeleMedAndreForelderSamboerEktefelle,
+        mottakerType,
+        stengingsperiode,
+    } = values;
 
     const kanFortsette =
-        (gjelderMidlertidigPgaKorona === YesOrNo.YES && skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES) ||
+        (gjelderMidlertidigPgaKorona === YesOrNo.YES &&
+            skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES &&
+            stengingsperiode !== Stengingsperiode.annen) ||
         gjelderMidlertidigPgaKorona === YesOrNo.NO;
 
+    const getMottakerTypeSpm = () => {
+        return (
+            <>
+                <FormBlock>
+                    <SoknadFormComponents.RadioPanelGroup
+                        name={SoknadFormField.mottakerType}
+                        legend={intlHelper(intl, 'step.mottaker.form.mottakerType.spm')}
+                        validate={validateYesOrNoIsAnswered}
+                        radios={[
+                            {
+                                label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.ektefelle}`),
+                                value: Mottaker.ektefelle,
+                            },
+                            {
+                                label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samboer}`),
+                                value: Mottaker.samboer,
+                            },
+                            {
+                                label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samværsforelder}`),
+                                value: Mottaker.samværsforelder,
+                            },
+                        ]}
+                    />
+                </FormBlock>
+            </>
+        );
+    };
+
+    const getMottakersPersOpplysningerSpm = () => {
+        return (
+            <>
+                <FormBlock>
+                    <SoknadFormComponents.Input
+                        name={SoknadFormField.fnrMottaker}
+                        label={intlHelper(intl, 'step.mottaker.form.fnr.spm')}
+                        validate={validateAll([
+                            validateFødselsnummer,
+                            validateFødselsnummerIsDifferentThan(søker.fødselsnummer),
+                        ])}
+                        inputMode="numeric"
+                        maxLength={11}
+                        minLength={11}
+                        style={{ maxWidth: '11rem' }}
+                    />
+                </FormBlock>
+                <FormBlock>
+                    <SoknadFormComponents.Input
+                        name={SoknadFormField.navnMottaker}
+                        label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
+                        validate={validateRequiredField}
+                    />
+                </FormBlock>
+            </>
+        );
+    };
+    const getStengingsperiode = () => {
+        return (
+            <>
+                <FormBlock>
+                    <SoknadFormComponents.RadioPanelGroup
+                        name={SoknadFormField.stengingsperiode}
+                        legend={intlHelper(intl, 'step.mottaker.form.stengingsperiode.spm')}
+                        validate={validateYesOrNoIsAnswered}
+                        radios={[
+                            {
+                                label: intlHelper(
+                                    intl,
+                                    `step.mottaker.form.stengingsperiode.${Stengingsperiode.fra13marsTil30Juni2020}`
+                                ),
+                                value: Stengingsperiode.fra13marsTil30Juni2020,
+                            },
+                            {
+                                label: intlHelper(
+                                    intl,
+                                    `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed10August2020EllerSenere}`
+                                ),
+                                value: Stengingsperiode.fraOgMed10August2020EllerSenere,
+                            },
+                            {
+                                label: intlHelper(
+                                    intl,
+                                    `step.mottaker.form.stengingsperiode.${Stengingsperiode.annen}`
+                                ),
+                                value: Stengingsperiode.annen,
+                            },
+                        ]}
+                    />
+                </FormBlock>
+                {values.stengingsperiode && values.stengingsperiode === Stengingsperiode.annen && (
+                    <FormBlock>
+                        <AlertStripeAdvarsel>
+                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.1" />
+                            <br />
+                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.a" />{' '}
+                            <Lenke
+                                href="https://www.nav.no/familie/sykdom-i-familien/nb/omsorgspenger#Slik-kan-du-dele-omsorgsdagene-dine"
+                                target="_blank">
+                                <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.b" />
+                            </Lenke>
+                            .
+                        </AlertStripeAdvarsel>
+                    </FormBlock>
+                )}
+            </>
+        );
+    };
+    const getAntallDagerSpm = () => {
+        return (
+            <FormBlock>
+                <SoknadFormComponents.Select
+                    name={SoknadFormField.antallDagerSomSkalOverføres}
+                    label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
+                    validate={validateAll([validateRequiredNumber(ANTALL_DAGER_RANGE)])}
+                    bredde="s">
+                    {getAntallDagerOptions(intl)}
+                </SoknadFormComponents.Select>
+            </FormBlock>
+        );
+    };
+    const getAntallDagerSpmKorona = () => {
+        return (
+            <>
+                <FormBlock>
+                    <SoknadFormComponents.Input
+                        name={SoknadFormField.antallDagerSomSkalOverføres}
+                        label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.korona.spm')}
+                        validate={validateAll([validateRequiredNumber(ANTALL_DAGER_KORONA_RANGE)])}
+                        inputMode="numeric"
+                        bredde="XS"
+                        min={ANTALL_DAGER_KORONA_RANGE.min}
+                        max={ANTALL_DAGER_KORONA_RANGE.max}
+                    />
+                </FormBlock>
+            </>
+        );
+    };
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupMottakerStep}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro.1" />
-                <ul>
-                    <li>{intlHelper(intl, 'arbeidstaker')}</li>
-                    <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
-                    <li>{intlHelper(intl, 'frilanser')}</li>
-                </ul>
+                <Box margin="m">
+                    <FormattedMessage id="step.mottaker.veileder.intro.2" />
+                    <ul>
+                        <li>{intlHelper(intl, 'arbeidstaker')}</li>
+                        <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
+                        <li>{intlHelper(intl, 'frilanser')}</li>
+                    </ul>
+                </Box>
             </CounsellorPanel>
             <FormBlock>
                 <SoknadFormComponents.YesOrNoQuestion
                     name={SoknadFormField.gjelderMidlertidigPgaKorona}
                     legend={intlHelper(intl, 'step.mottaker.form.gjelderMidlertidigPgaKorona.spm')}
                     validate={validateYesOrNoIsAnswered}
+                    description={
+                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                            {intlHelper(intl, 'step.mottaker.form.gjelderMidlertidigPgaKorona.hvaBetyr.svar')}
+                        </ExpandableInfo>
+                    }
                 />
             </FormBlock>
-            {gjelderMidlertidigPgaKorona === YesOrNo.NO && (
-                <>
-                    <FormBlock>
-                        <SoknadFormComponents.RadioPanelGroup
-                            name={SoknadFormField.mottakerType}
-                            legend={intlHelper(intl, 'step.mottaker.form.mottakerType.spm')}
-                            validate={validateYesOrNoIsAnswered}
-                            radios={[
-                                {
-                                    label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.ektefelle}`),
-                                    value: Mottaker.ektefelle,
-                                },
-                                {
-                                    label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samboer}`),
-                                    value: Mottaker.samboer,
-                                },
-                                {
-                                    label: intlHelper(
-                                        intl,
-                                        `step.mottaker.form.mottakerType.${Mottaker.samværsforelder}`
-                                    ),
-                                    value: Mottaker.samværsforelder,
-                                },
-                            ]}
-                        />
-                    </FormBlock>
-                </>
-            )}
+
             {gjelderMidlertidigPgaKorona === YesOrNo.YES && (
                 <>
                     <FormBlock>
@@ -121,80 +250,39 @@ const MottakerStep = ({ søker }: Props) => {
                             validate={validateYesOrNoIsAnswered}
                         />
                     </FormBlock>
-                    {gjelderMidlertidigPgaKorona === YesOrNo.YES &&
-                        skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.NO && (
-                            <FormBlock>
-                                <AlertStripeAdvarsel>
-                                    <FormattedHtmlMessage id="step.mottaker.form.stopMessage.korona.html" />
-                                </AlertStripeAdvarsel>
-                            </FormBlock>
-                        )}
+                    {skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.NO && (
+                        <FormBlock>
+                            <AlertStripeAdvarsel>
+                                <FormattedHtmlMessage id="step.mottaker.form.stopMessage.korona.html" />
+                            </AlertStripeAdvarsel>
+                        </FormBlock>
+                    )}
                 </>
             )}
-            {(skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES ||
-                gjelderMidlertidigPgaKorona === YesOrNo.NO) && (
+
+            {gjelderMidlertidigPgaKorona === YesOrNo.NO && getMottakerTypeSpm()}
+
+            {((gjelderMidlertidigPgaKorona === YesOrNo.YES &&
+                skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES) ||
+                (gjelderMidlertidigPgaKorona === YesOrNo.NO && mottakerType)) && (
                 <>
-                    <FormBlock>
-                        <SoknadFormComponents.Input
-                            name={SoknadFormField.fnrMottaker}
-                            label={intlHelper(intl, 'step.mottaker.form.fnr.spm')}
-                            validate={validateAll([
-                                validateFødselsnummer,
-                                validateFødselsnummerIsDifferentThan(søker.fødselsnummer),
-                            ])}
-                            inputMode="numeric"
-                            maxLength={11}
-                            minLength={11}
-                            style={{ maxWidth: '11rem' }}
-                        />
-                    </FormBlock>
-                    <FormBlock>
-                        <SoknadFormComponents.Input
-                            name={SoknadFormField.navnMottaker}
-                            label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
-                            validate={validateRequiredField}
-                        />
-                    </FormBlock>
-                    {gjelderMidlertidigPgaKorona === YesOrNo.YES && (
-                        <FormBlock>
-                            <SoknadFormComponents.Input
-                                name={SoknadFormField.antallDagerSomSkalOverføres}
-                                label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.korona.spm')}
-                                validate={validateAll([validateRequiredNumber(ANTALL_DAGER_KORONA_RANGE)])}
-                                inputMode="numeric"
-                                bredde="XS"
-                                min={ANTALL_DAGER_KORONA_RANGE.min}
-                                max={ANTALL_DAGER_KORONA_RANGE.max}
-                            />
-                        </FormBlock>
-                    )}
-                    {gjelderMidlertidigPgaKorona === YesOrNo.NO && (
-                        <FormBlock>
-                            <SoknadFormComponents.Select
-                                name={SoknadFormField.antallDagerSomSkalOverføres}
-                                label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                                validate={validateAll([validateRequiredNumber(ANTALL_DAGER_RANGE)])}
-                                bredde="s">
-                                {getAntallDagerOptions(intl)}
-                            </SoknadFormComponents.Select>
-                        </FormBlock>
-                    )}
+                    {getMottakersPersOpplysningerSpm()}
+
+                    {gjelderMidlertidigPgaKorona === YesOrNo.NO &&
+                        mottakerType !== Mottaker.samværsforelder &&
+                        getAntallDagerSpm()}
+                    {gjelderMidlertidigPgaKorona === YesOrNo.YES && getStengingsperiode()}
+                    {gjelderMidlertidigPgaKorona === YesOrNo.YES && getAntallDagerSpmKorona()}
                 </>
             )}
 
-            {/* {gjelderMidlertidigPgaKorona === YesOrNo.NO && (
-
-            )} */}
-            {/* <FormBlock>
-                <AlertStripeAdvarsel>
-                    <FormattedHtmlMessage id="step.mottaker.form.stopMessage.html" />
-                    <p>
-                        <Lenke href={getLenker(intl.locale).meldingOmDelingAvOmsorgsdager} target="_blank">
-                            <FormattedMessage id="step.mottaker.form.stopMessage.lenke" />
-                        </Lenke>
-                    </p>
-                </AlertStripeAdvarsel>
-            </FormBlock> */}
+            {gjelderMidlertidigPgaKorona === YesOrNo.NO && !mottakerType && (
+                <FormBlock>
+                    <AlertStripeInfo>
+                        <FormattedHtmlMessage id="step.mottaker.form.mottakerType.ingenValgt.infoVarsel" />
+                    </AlertStripeInfo>
+                </FormBlock>
+            )}
         </SoknadFormStep>
     );
 };
