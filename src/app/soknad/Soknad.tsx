@@ -9,10 +9,12 @@ import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
+import { useAmplitudeInstance } from '../sif-amplitude/amplitude';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
+import appSentryLogger from '../utils/appSentryLogger';
 import {
     navigateTo,
     navigateToErrorPage,
@@ -21,14 +23,13 @@ import {
     relocateToNavFrontpage,
     relocateToSoknad,
 } from '../utils/navigationUtils';
+import { verifySoknadApiData } from '../validation/verifySoknadApiData';
 import { initialSoknadFormData } from './initialSoknadValues';
 import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
-import { verifySoknadApiData } from '../validation/verifySoknadApiData';
-import appSentryLogger from '../utils/appSentryLogger';
 
 interface Props {
     søker: Person;
@@ -46,6 +47,8 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [initialFormData, setInitialFormData] = useState<Partial<SoknadFormData>>({ ...initialSoknadFormData });
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
+
+    const { logSoknadSent } = useAmplitudeInstance();
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -91,6 +94,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         try {
             await sendSoknad(apiValues);
             await soknadTempStorage.purge();
+            await logSoknadSent(apiValues.type);
             setSendSoknadStatus({ failures: 0, status: success(apiValues) });
             navigateToKvitteringPage(history);
             setSoknadId(undefined);

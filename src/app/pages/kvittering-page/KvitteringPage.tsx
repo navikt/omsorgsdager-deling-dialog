@@ -5,12 +5,11 @@ import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Kvittering from '@navikt/sif-common-core/lib/components/kvittering/Kvittering';
 import getLenker from '../../lenker';
-import AppRoutes from '../../config/routeConfig';
 import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const KvitteringPage = () => {
     const intl = useIntl();
-    useLogSidevisning(AppRoutes.SOKNAD_SENT);
+    useLogSidevisning('søknad-sendt');
     return (
         <Page title={intlHelper(intl, 'application.title')}>
             <Kvittering
