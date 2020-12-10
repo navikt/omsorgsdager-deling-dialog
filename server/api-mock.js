@@ -215,11 +215,10 @@ const startExpressServer = () => {
     });
 
     server.post('/mellomlagring', (req, res) => {
-        res.sendStatus(401);
-        // const body = req.body;
-        // const jsBody = isJSON(body) ? JSON.parse(body) : body;
-        // writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify(jsBody, null, 2));
-        // res.sendStatus(200);
+        const body = req.body;
+        const jsBody = isJSON(body) ? JSON.parse(body) : body;
+        writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify(jsBody, null, 2));
+        res.sendStatus(200);
     });
 
     server.delete('/mellomlagring', (req, res) => {
