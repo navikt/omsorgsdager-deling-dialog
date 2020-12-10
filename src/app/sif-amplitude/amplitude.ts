@@ -20,6 +20,8 @@ export enum ApplikasjonHendelse {
     'fortsettSenere' = 'fortsettSenere',
 }
 
+const SKJEMANAVN = 'Melding om deling av dager';
+
 interface InnsynUserProperties {
     antallSaker: number;
 }
@@ -65,7 +67,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadSent(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadSendt, {
-            skjemanavn: 'Melding om deling av dager',
+            skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
         });
@@ -73,14 +75,14 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadFailed(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadFeilet, {
-            skjemanavn: 'Melding om deling av dager',
+            skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
         });
     }
 
     async function logHendelse(hendelse: ApplikasjonHendelse, details?: any) {
-        logEvent(AmplitudeEvents.søknadSendt, {
+        logEvent(AmplitudeEvents.applikasjonHendelse, {
             hendelse,
             details,
         });
