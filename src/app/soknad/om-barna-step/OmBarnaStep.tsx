@@ -1,41 +1,30 @@
 import React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
-import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 import {
     validateRequiredList,
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
-import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
+import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
-import AlertStripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
 import getLenker from '../../lenker';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormComponents from '../SoknadFormComponents';
+import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import { getOmBarnaFormStop, OmBarnaFormQuestions, OmBarnaFormStop } from './omBarnaStepFormConfig';
 
 interface Props {
     barn: Barn[];
 }
-
-// const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
-//     const cleanedValues = { ...values };
-//     if (values.harUtvidetRett === YesOrNo.NO) {
-//         cleanedValues.harUtvidetRettFor = [];
-//     }
-//     return cleanedValues;
-// };
 
 const cleanupOmBarnaStep = (values: SoknadFormData, barn: Barn[], andreBarn: AnnetBarn[]): SoknadFormData => {
     if (barn.length + andreBarn.length > 1) {
@@ -75,33 +64,21 @@ const OmBarnaStep = ({ barn }: Props) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
 
-    const { gjelderMidlertidigPgaKorona, harAleneomsorg, harUtvidetRett, andreBarn } = values;
-    const erKoronasøknad = gjelderMidlertidigPgaKorona === YesOrNo.YES;
+    const { andreBarn } = values;
     const barnOptions = getBarnOptions(barn, andreBarn, intl);
     const antallBarn = barnOptions.length;
 
-    const alleBarnOver12ogIngenUtvidetRett = (): boolean => {
-        const kunBarnOver12iBarn = barn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
-        const kunBarnOver12iAndreBarn =
-            andreBarn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
-        return harUtvidetRett === YesOrNo.NO && kunBarnOver12iBarn && kunBarnOver12iAndreBarn;
-    };
-
-    const kanFortsette = erKoronasøknad
-        ? yesOrNoIsAnswered(harAleneomsorg) && yesOrNoIsAnswered(harUtvidetRett)
-        : yesOrNoIsAnswered(harAleneomsorg) &&
-          harUtvidetRett === YesOrNo.YES &&
-          harAleneomsorg === YesOrNo.YES &&
-          !alleBarnOver12ogIngenUtvidetRett();
-
-    const stopPgaIkkeAleneomsorgForOverføringOgFordeling = erKoronasøknad === false && harAleneomsorg === YesOrNo.NO;
+    const omBarnaStop = getOmBarnaFormStop(values, barn);
+    const visibility = OmBarnaFormQuestions.getVisbility({ ...values, antallBarn, omBarnaStop });
+    const allQuestionsIsAnswered = visibility.areAllQuestionsAnswered();
+    const kanFortsette = allQuestionsIsAnswered && omBarnaStop === undefined;
 
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
             onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
-            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(harAleneomsorg) === false}
+            showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn })}>
             <CounsellorPanel>
                 {intlHelper(intl, 'step.om-barna.info.1')}
@@ -111,8 +88,8 @@ const OmBarnaStep = ({ barn }: Props) => {
                     {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
                 </Lenke>
             </CounsellorPanel>
-            <FormBlock>
-                <FormQuestion
+            <QuestionVisibilityContext.Provider value={{ visibility }}>
+                <SoknadFormQuestion
                     name={SoknadFormField.harAleneomsorg}
                     legend={
                         antallBarn === 1
@@ -120,52 +97,37 @@ const OmBarnaStep = ({ barn }: Props) => {
                             : intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.flereBarn')
                     }
                     validate={validateYesOrNoIsAnswered}
-                    showStop={stopPgaIkkeAleneomsorgForOverføringOgFordeling}
+                    showStop={omBarnaStop === OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
                 />
-            </FormBlock>
-            {harAleneomsorg === YesOrNo.YES && antallBarn > 1 && (
-                <FormBlock>
+                <SoknadFormQuestion name={SoknadFormField.harAleneomsorgFor}>
                     <SoknadFormComponents.CheckboxPanelGroup
                         legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
                         name={SoknadFormField.harAleneomsorgFor}
                         checkboxes={barnOptions}
                         validate={validateRequiredList}
                     />
-                </FormBlock>
-            )}
-            {yesOrNoIsAnswered(harAleneomsorg) && !stopPgaIkkeAleneomsorgForOverføringOgFordeling && (
-                <>
-                    <FormBlock>
-                        <SoknadFormComponents.YesOrNoQuestion
-                            name={SoknadFormField.harUtvidetRett}
-                            legend={
-                                antallBarn === 1
-                                    ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
-                                    : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
-                            }
-                            validate={validateYesOrNoIsAnswered}
-                        />
-                    </FormBlock>
-                    {harUtvidetRett === YesOrNo.YES && antallBarn > 1 && (
-                        <FormBlock>
-                            <SoknadFormComponents.CheckboxPanelGroup
-                                legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
-                                name={SoknadFormField.harUtvidetRettFor}
-                                checkboxes={barnOptions}
-                                validate={validateRequiredList}
-                            />
-                        </FormBlock>
-                    )}
-                    {alleBarnOver12ogIngenUtvidetRett() && (
-                        <Box margin="l">
-                            <AlertStripe type={'advarsel'}>
-                                {intlHelper(intl, 'step.om-barna.info.barnOver12')}
-                            </AlertStripe>
-                        </Box>
-                    )}
-                </>
-            )}
+                </SoknadFormQuestion>
+                <SoknadFormQuestion
+                    name={SoknadFormField.harUtvidetRett}
+                    legend={
+                        antallBarn === 1
+                            ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
+                            : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
+                    }
+                    validate={validateYesOrNoIsAnswered}
+                    showStop={omBarnaStop === OmBarnaFormStop.alleBarnErOver12ogIngenUtvidetRett}
+                    stopMessage={intlHelper(intl, 'step.om-barna.info.barnOver12')}
+                />
+                <SoknadFormQuestion name={SoknadFormField.harUtvidetRettFor}>
+                    <SoknadFormComponents.CheckboxPanelGroup
+                        legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
+                        name={SoknadFormField.harUtvidetRettFor}
+                        checkboxes={barnOptions}
+                        validate={validateRequiredList}
+                    />
+                </SoknadFormQuestion>
+            </QuestionVisibilityContext.Provider>
         </SoknadFormStep>
     );
 };

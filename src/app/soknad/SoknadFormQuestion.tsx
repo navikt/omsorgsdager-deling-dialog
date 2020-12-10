@@ -1,11 +1,11 @@
 import React from 'react';
 import FormQuestion, { FormQuestionProps } from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import QuestionVisibilityBlock from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityBlock';
-import { SoknadFormField } from '../../types/SoknadFormData';
+import { SoknadFormField } from '../types/SoknadFormData';
 
 type Props = FormQuestionProps<SoknadFormField>;
 
-const MottakerFormQuestion = (props: Props) => {
+const SoknadFormQuestion = (props: Props) => {
     return (
         <QuestionVisibilityBlock fieldName={props.name}>
             <FormQuestion {...props} />
@@ -13,4 +13,4 @@ const MottakerFormQuestion = (props: Props) => {
     );
 };
 
-export default MottakerFormQuestion;
+export default SoknadFormQuestion;
