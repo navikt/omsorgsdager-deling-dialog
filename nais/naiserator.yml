@@ -30,8 +30,6 @@ spec:
             external:
             - host: www.nav.no
             - host: sanity.io
-            rules:
-            - application: omsorgsdager-melding-api
     ingresses:
       {{#each ingresses as |url|}}
        - {{url}}
