@@ -8,7 +8,8 @@ import { APPLICATION_KEY } from '../App';
 export enum AmplitudeEvents {
     'sidevisning' = 'sidevisning',
     'applikasjonStartet' = 'applikasjon-startet',
-    'skjemaFullført' = 'skjema fullført',
+    'søknadSendt' = 'skjema fullført',
+    'søknadFeilet' = 'skjemainnsending feilet',
 }
 
 interface InnsynUserProperties {
@@ -55,12 +56,20 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
     }
 
     async function logSoknadSent(type: Søknadstype) {
-        logEvent(AmplitudeEvents.skjemaFullført, {
+        logEvent(AmplitudeEvents.søknadSendt, {
             skjemanavn: 'Melding om deling av dager',
             skjemaId: APPLICATION_KEY,
             type,
         });
     }
 
-    return { logEvent, logSidevisning, setUserProperties, logSoknadSent };
+    async function logSoknadFailed(type: Søknadstype) {
+        logEvent(AmplitudeEvents.søknadSendt, {
+            skjemanavn: 'Melding om deling av dager',
+            skjemaId: APPLICATION_KEY,
+            type,
+        });
+    }
+
+    return { logEvent, logSidevisning, setUserProperties, logSoknadSent, logSoknadFailed };
 });

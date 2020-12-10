@@ -48,7 +48,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
 
-    const { logSoknadSent } = useAmplitudeInstance();
+    const { logSoknadSent, logSoknadFailed } = useAmplitudeInstance();
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -103,6 +103,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             if (isUserLoggedOut(error)) {
                 relocateToLoginPage();
             } else {
+                await logSoknadFailed(apiValues.type);
                 if (sendSoknadStatus.failures >= 2) {
                     navigateToErrorPage(history);
                 } else {
