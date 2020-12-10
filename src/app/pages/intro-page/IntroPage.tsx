@@ -10,10 +10,12 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const IntroPage = () => {
     const intl = useIntl();
     const history = useHistory();
+    useLogSidevisning('intro');
     return (
         <Page
             title={intlHelper(intl, 'application.title')}

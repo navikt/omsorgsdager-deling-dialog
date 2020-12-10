@@ -9,6 +9,7 @@ import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
 import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
 import './styles/app.less';
+import { AmplitudeProvider } from './sif-amplitude/amplitude';
 
 Modal.setAppElement('#app');
 
@@ -20,24 +21,26 @@ const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 // Trigger deploy to gcp
 
 render(
-    <SoknadApplication
-        appName="Overføring av omsorgsdager"
-        intlMessages={applicationIntlMessages}
-        sentryKey={APPLICATION_KEY}
-        appStatus={{
-            applicationKey: APPLICATION_KEY,
-            sanityConfig: {
-                projectId: getEnvironmentVariable('APPSTATUS_PROJECT_ID'),
-                dataset: getEnvironmentVariable('APPSTATUS_DATASET'),
-            },
-        }}
-        publicPath={publicPath}>
-        <SoknadApplicationCommonRoutes
-            contentRoutes={[
-                <Route path="/" key="intro" exact={true} component={IntroPage} />,
-                <Route path="/melding" key="soknad" component={SoknadRemoteDataFetcher} />,
-            ]}
-        />
-    </SoknadApplication>,
+    <AmplitudeProvider>
+        <SoknadApplication
+            appName="Overføring av omsorgsdager"
+            intlMessages={applicationIntlMessages}
+            sentryKey={APPLICATION_KEY}
+            appStatus={{
+                applicationKey: APPLICATION_KEY,
+                sanityConfig: {
+                    projectId: getEnvironmentVariable('APPSTATUS_PROJECT_ID'),
+                    dataset: getEnvironmentVariable('APPSTATUS_DATASET'),
+                },
+            }}
+            publicPath={publicPath}>
+            <SoknadApplicationCommonRoutes
+                contentRoutes={[
+                    <Route path="/" key="intro" exact={true} component={IntroPage} />,
+                    <Route path="/melding" key="soknad" component={SoknadRemoteDataFetcher} />,
+                ]}
+            />
+        </SoknadApplication>
+    </AmplitudeProvider>,
     root
 );

@@ -8,9 +8,11 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import getLenker from '../../lenker';
 import Lenke from 'nav-frontend-lenker';
 import './ikkeMyndigPage.less';
+import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const IkkeMyndigPage = () => {
     const intl = useIntl();
+    useLogSidevisning('ikkeMyndig');
     return (
         <Page
             className="ikkeMyndigPage"

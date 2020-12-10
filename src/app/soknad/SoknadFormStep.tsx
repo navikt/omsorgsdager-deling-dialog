@@ -11,6 +11,7 @@ import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import useLogSidevisning from '../sif-amplitude/hooks/useLogSidevisning';
 
 interface OwnProps {
     id: StepID;
@@ -46,6 +47,8 @@ const SoknadFormStep = ({
     const stepConfig = soknadStepsConfig[id];
     const texts = soknadStepUtils.getStepTexts(intl, stepConfig);
     const applicationTitle = intlHelper(intl, 'application.title');
+
+    useLogSidevisning(id);
 
     return (
         <Step

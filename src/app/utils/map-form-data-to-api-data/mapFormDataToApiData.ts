@@ -119,10 +119,13 @@ export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): Soknad
         switch (søknadstype) {
             case Søknadstype.koronaoverføring:
                 apiValues = getSøknadKoronaoverføring(values);
+                break;
             case Søknadstype.fordeling:
                 apiValues = getSøknadFordeling(values);
+                break;
             case Søknadstype.overføring:
                 apiValues = getSøknadOverføring(values);
+                break;
         }
     } catch (error) {
         logErrorToSentry(error);
