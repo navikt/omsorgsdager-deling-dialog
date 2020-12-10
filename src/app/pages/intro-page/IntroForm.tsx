@@ -39,13 +39,15 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                     showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
                     stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
                 />
-                <FormQuestion
-                    legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
-                    name={IntroFormField.mottakersArbeidssituasjonErOk}
-                    validate={validateRequiredList}
-                    showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
-                    stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
-                />
+                {values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES && (
+                    <FormQuestion
+                        legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
+                        name={IntroFormField.mottakersArbeidssituasjonErOk}
+                        validate={validateRequiredList}
+                        showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
+                        stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
+                    />
+                )}
             </>
         );
     };
