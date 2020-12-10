@@ -70,14 +70,14 @@ const søkerMockIkkeMyndig = {
     myndig: false,
 };
 
-const barnMock2 = {
+const barnMock = {
     barn: [
         { fødselsdato: '1990-01-02', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
         { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
     ],
 };
 
-const barnMock = {
+const barnMock2 = {
     barn: [
         {
             fødselsdato: '2008-03-01',

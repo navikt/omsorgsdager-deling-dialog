@@ -23,7 +23,7 @@ import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldVal
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import MottakerFormQuestion from './MottakerFormQuestion';
+import SoknadFormQuestion from '../SoknadFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
@@ -125,7 +125,7 @@ const MottakerStep = ({ søker }: Props) => {
             </CounsellorPanel>
 
             <QuestionVisibilityContext.Provider value={{ visibility }}>
-                <MottakerFormQuestion
+                <SoknadFormQuestion
                     name={SoknadFormField.gjelderMidlertidigPgaKorona}
                     legend={intlHelper(intl, 'step.mottaker.form.gjelderMidlertidigPgaKorona.spm')}
                     validate={validateYesOrNoIsAnswered}
@@ -136,7 +136,7 @@ const MottakerStep = ({ søker }: Props) => {
                     }
                 />
 
-                <MottakerFormQuestion
+                <SoknadFormQuestion
                     name={SoknadFormField.skalDeleMedAndreForelderSamboerEktefelle}
                     legend={intlHelper(intl, 'step.mottaker.form.skalDeleMedAndreForelderSamboerEktefelle.spm')}
                     validate={validateYesOrNoIsAnswered}
@@ -144,7 +144,7 @@ const MottakerStep = ({ søker }: Props) => {
                     stopMessage={<FormattedHtmlMessage id="step.mottaker.form.stopMessage.korona.html" />}
                 />
 
-                <MottakerFormQuestion name={SoknadFormField.mottakerType}>
+                <SoknadFormQuestion name={SoknadFormField.mottakerType}>
                     <SoknadFormComponents.RadioPanelGroup
                         name={SoknadFormField.mottakerType}
                         legend={intlHelper(intl, 'step.mottaker.form.mottakerType.spm')}
@@ -160,9 +160,9 @@ const MottakerStep = ({ søker }: Props) => {
                             </ExpandableInfo>
                         }
                     />
-                </MottakerFormQuestion>
+                </SoknadFormQuestion>
 
-                <MottakerFormQuestion name={SoknadFormField.fnrMottaker}>
+                <SoknadFormQuestion name={SoknadFormField.fnrMottaker}>
                     <SoknadFormComponents.Input
                         name={SoknadFormField.fnrMottaker}
                         label={intlHelper(intl, 'step.mottaker.form.fnr.spm')}
@@ -175,17 +175,17 @@ const MottakerStep = ({ søker }: Props) => {
                         minLength={11}
                         style={{ maxWidth: '11rem' }}
                     />
-                </MottakerFormQuestion>
+                </SoknadFormQuestion>
 
-                <MottakerFormQuestion name={SoknadFormField.navnMottaker}>
+                <SoknadFormQuestion name={SoknadFormField.navnMottaker}>
                     <SoknadFormComponents.Input
                         name={SoknadFormField.navnMottaker}
                         label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
                         validate={validateRequiredField}
                     />
-                </MottakerFormQuestion>
+                </SoknadFormQuestion>
 
-                <MottakerFormQuestion
+                <SoknadFormQuestion
                     name={SoknadFormField.stengingsperiode}
                     showStop={stopp === MottakerFormStopp.koronaAnnenStengingsperiode}
                     stopMessage={
@@ -207,9 +207,9 @@ const MottakerStep = ({ søker }: Props) => {
                         validate={validateYesOrNoIsAnswered}
                         radios={getStengningsperiodeRadios(intl)}
                     />
-                </MottakerFormQuestion>
+                </SoknadFormQuestion>
 
-                <MottakerFormQuestion name={SoknadFormField.antallDagerSomSkalOverføres}>
+                <SoknadFormQuestion name={SoknadFormField.antallDagerSomSkalOverføres}>
                     {gjelderMidlertidigPgaKorona === YesOrNo.NO && (
                         <SoknadFormComponents.Select
                             name={SoknadFormField.antallDagerSomSkalOverføres}
@@ -230,7 +230,7 @@ const MottakerStep = ({ søker }: Props) => {
                             max={ANTALL_DAGER_KORONA_RANGE.max}
                         />
                     )}
-                </MottakerFormQuestion>
+                </SoknadFormQuestion>
             </QuestionVisibilityContext.Provider>
         </SoknadFormStep>
     );
