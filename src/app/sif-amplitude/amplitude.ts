@@ -10,6 +10,14 @@ export enum AmplitudeEvents {
     'applikasjonStartet' = 'applikasjon-startet',
     'søknadSendt' = 'skjema fullført',
     'søknadFeilet' = 'skjemainnsending feilet',
+    'applikasjonInfo' = 'applikasjon-info',
+    'applikasjonHendelse' = 'applikasjon-hendelse',
+}
+
+export enum ApplikasjonHendelse {
+    'brukerSendesTilLoggInn' = 'brukerSendesTilLoggInn',
+    'avbryt' = 'avbryt',
+    'fortsettSenere' = 'fortsettSenere',
 }
 
 interface InnsynUserProperties {
@@ -64,12 +72,19 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
     }
 
     async function logSoknadFailed(type: Søknadstype) {
-        logEvent(AmplitudeEvents.søknadSendt, {
+        logEvent(AmplitudeEvents.søknadFeilet, {
             skjemanavn: 'Melding om deling av dager',
             skjemaId: APPLICATION_KEY,
             type,
         });
     }
 
-    return { logEvent, logSidevisning, setUserProperties, logSoknadSent, logSoknadFailed };
+    async function logHendelse(hendelse: ApplikasjonHendelse, details?: any) {
+        logEvent(AmplitudeEvents.søknadSendt, {
+            hendelse,
+            details,
+        });
+    }
+
+    return { logEvent, logSidevisning, setUserProperties, logSoknadSent, logSoknadFailed, logHendelse };
 });

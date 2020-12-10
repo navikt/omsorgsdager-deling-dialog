@@ -9,7 +9,7 @@ import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
-import { useAmplitudeInstance } from '../sif-amplitude/amplitude';
+import { ApplikasjonHendelse, useAmplitudeInstance } from '../sif-amplitude/amplitude';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
@@ -48,7 +48,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
 
-    const { logSoknadSent, logSoknadFailed } = useAmplitudeInstance();
+    const { logSoknadSent, logSoknadFailed, logHendelse } = useAmplitudeInstance();
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -67,6 +67,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     };
 
     const abortSoknad = async () => {
+        logHendelse(ApplikasjonHendelse.avbryt);
         await soknadTempStorage.purge();
         relocateToSoknad();
     };
@@ -86,6 +87,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData) => {
+        logHendelse(ApplikasjonHendelse.fortsettSenere);
         await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
         relocateToNavFrontpage();
     };
@@ -101,6 +103,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             resetFormikForm();
         } catch (error) {
             if (isUserLoggedOut(error)) {
+                logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'Er logget ut ved innsending av søknad');
                 relocateToLoginPage();
             } else {
                 await logSoknadFailed(apiValues.type);

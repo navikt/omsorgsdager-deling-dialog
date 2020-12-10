@@ -13,7 +13,7 @@ import { AmplitudeProvider } from './sif-amplitude/amplitude';
 
 Modal.setAppElement('#app');
 
-export const APPLICATION_KEY = 'omsorgsdager-deling';
+export const APPLICATION_KEY = 'dele-omsorgsdager';
 const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
