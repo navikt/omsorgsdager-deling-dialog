@@ -2,10 +2,13 @@ import { useEffect, useRef } from 'react';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import amplitude, { AmplitudeClient } from 'amplitude-js';
 import constate from 'constate';
+import { Søknadstype } from '../types/Soknadstype';
+import { APPLICATION_KEY } from '../App';
 
 export enum AmplitudeEvents {
     'sidevisning' = 'sidevisning',
     'applikasjonStartet' = 'applikasjon-startet',
+    'skjemaFullført' = 'skjema fullført',
 }
 
 interface InnsynUserProperties {
@@ -30,6 +33,9 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
     }, [isActive]);
 
     function logEvent(eventName: string, eventProperties?: any) {
+        if (getEnvironmentVariable('APP_VERSION') === 'dev') {
+            console.log({ eventName, eventProperties });
+        }
         if (instance.current) {
             instance.current.logEvent(eventName, eventProperties);
         }
@@ -48,5 +54,13 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
         });
     }
 
-    return { logEvent, logSidevisning, setUserProperties: setUserProperties };
+    async function logSoknadSent(type: Søknadstype) {
+        logEvent(AmplitudeEvents.skjemaFullført, {
+            skjemanavn: 'Melding om deling av dager',
+            skjemaId: APPLICATION_KEY,
+            type,
+        });
+    }
+
+    return { logEvent, logSidevisning, setUserProperties, logSoknadSent };
 });
