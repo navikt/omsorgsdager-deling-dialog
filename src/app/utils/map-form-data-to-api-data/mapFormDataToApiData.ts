@@ -30,6 +30,10 @@ export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): Stengin
     }
 };
 
+const logErrorToSentry = (details: string) => {
+    appSentryLogger.logError('mapFormDataToApiData failed', details);
+};
+
 const getCommonApiData = ({
     soknadId,
     locale = 'nb',
@@ -50,17 +54,11 @@ export const getSøknadKoronaoverføring = (
 ): SøknadKoronaoverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres, stengingsperiode } = values.formData;
     if (antallDagerSomSkalOverføres === undefined) {
-        appSentryLogger.logError(
-            'mapFormDataToApiData failed',
-            'getSøknadKoronaoverføring: antallDagerSomSkalOverføres === undefined'
-        );
+        logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføres === undefined');
         return undefined;
     }
     if (stengingsperiode === undefined) {
-        appSentryLogger.logError(
-            'mapFormDataToApiData failed',
-            'getSøknadKoronaoverføring: stengingsperiode === undefined'
-        );
+        logErrorToSentry('getSøknadKoronaoverføring: stengingsperiode === undefined');
         return undefined;
     }
     return {
@@ -76,7 +74,7 @@ export const getSøknadKoronaoverføring = (
 export const getSøknadFordeling = (values: MapFormDataToApiDataValues): SøknadFordelingApiData | undefined => {
     const { mottakerType, samværsavtale } = values.formData;
     if (mottakerType === undefined) {
-        appSentryLogger.logError('mapFormDataToApiData failed', 'getSøknadFordeling: mottakerType === undefined');
+        logErrorToSentry('getSøknadFordeling: mottakerType === undefined');
         return undefined;
     }
     const samværsavtaleVedleggUrl: string[] = [];
@@ -98,10 +96,7 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
 export const getSøknadOverføring = (values: MapFormDataToApiDataValues): SøknadOverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres, mottakerType } = values.formData;
     if (antallDagerSomSkalOverføres === undefined || mottakerType === undefined) {
-        appSentryLogger.logError(
-            'mapFormDataToApiData failed',
-            `getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføres, mottakerType })}`
-        );
+        logErrorToSentry(`getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføres, mottakerType })}`);
         return undefined;
     }
     return {
@@ -117,7 +112,7 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
 export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): SoknadApiData | undefined => {
     const søknadstype = getSøknadstype(values.formData);
     if (søknadstype === undefined) {
-        appSentryLogger.logError('mapFormDataToApiData failed', 'søknadstype is undefined');
+        logErrorToSentry('søknadstype is undefined');
     }
     let apiValues: SoknadApiData | undefined;
     try {
@@ -130,10 +125,10 @@ export const mapFormDataToApiData = (values: MapFormDataToApiDataValues): Soknad
                 apiValues = getSøknadOverføring(values);
         }
     } catch (error) {
-        appSentryLogger.logError('mapFormDataToApiData failed', error);
+        logErrorToSentry(error);
     }
     if (apiValues === undefined && getEnvironmentVariable('APP_VERSION') === 'dev') {
-        appSentryLogger.logError('mapFormDataToApiData failed', JSON.stringify(values.formData));
+        logErrorToSentry(JSON.stringify(values.formData));
     }
     return apiValues;
 };
