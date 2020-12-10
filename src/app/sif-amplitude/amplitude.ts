@@ -67,6 +67,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadSent(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadSendt, {
+            app: APPLICATION_KEY,
             skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
@@ -75,6 +76,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadFailed(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadFeilet, {
+            app: APPLICATION_KEY,
             skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
@@ -83,6 +85,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logHendelse(hendelse: ApplikasjonHendelse, details?: any) {
         logEvent(AmplitudeEvents.applikasjonHendelse, {
+            app: APPLICATION_KEY,
             hendelse,
             details,
         });

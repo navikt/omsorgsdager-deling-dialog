@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
-import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
+import { SoknadApplicationType, StepConfig } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
@@ -103,7 +103,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             resetFormikForm();
         } catch (error) {
             if (isUserLoggedOut(error)) {
-                logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'Er logget ut ved innsending av søknad');
+                logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'Ved innsending av søknad');
                 relocateToLoginPage();
             } else {
                 await logSoknadFailed(apiValues.type);
@@ -132,6 +132,25 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             await appSentryLogger.logError('ApiVerificationFailed');
             navigateToErrorPage(history);
         }
+    };
+
+    const persistAndNavigate = async (values: SoknadFormData, step: StepConfig<StepID>, nextStep?: StepID) => {
+        if (nextStep && soknadId) {
+            try {
+                await soknadTempStorage.persist(soknadId, values, nextStep, { søker, barn });
+            } catch (error) {
+                if (isUserLoggedOut(error)) {
+                    logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'ved mellomlagring').then(() => {
+                        relocateToLoginPage();
+                    });
+                }
+            }
+        }
+        setTimeout(() => {
+            if (step.nextStepRoute) {
+                navigateTo(step.nextStepRoute, history);
+            }
+        });
     };
 
     useEffect(() => {
@@ -172,19 +191,6 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                         onSubmit={() => null}
                         renderForm={({ values, resetForm }) => {
                             const soknadStepsConfig = getSoknadStepsConfig(values);
-                            const navigateToNextStepFromStep = (stepID: StepID) => {
-                                const stepToPersist = soknadStepsConfig[stepID].nextStep;
-                                if (stepToPersist && soknadId) {
-                                    soknadTempStorage.persist(soknadId, values, stepToPersist, { søker, barn });
-                                }
-                                const step = soknadStepsConfig[stepID];
-                                setTimeout(() => {
-                                    if (step.nextStepRoute) {
-                                        navigateTo(step.nextStepRoute, history);
-                                    }
-                                });
-                            };
-
                             return (
                                 <SoknadContextProvider
                                     value={{
@@ -197,8 +203,12 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                                             : undefined,
                                         startSoknad,
                                         sendSoknad: (values) => triggerSend(values, resetForm),
-                                        gotoNextStepFromStep: (stepID: StepID) => {
-                                            navigateToNextStepFromStep(stepID);
+                                        gotoNextStepFromStep: (stepId: StepID) => {
+                                            persistAndNavigate(
+                                                values,
+                                                soknadStepsConfig[stepId],
+                                                soknadStepsConfig[stepId].nextStep
+                                            );
                                         },
                                     }}>
                                     <SoknadRoutes soknadId={soknadId} søker={søker} barn={barn} />
