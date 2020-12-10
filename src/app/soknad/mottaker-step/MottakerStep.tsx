@@ -27,7 +27,7 @@ import MottakerFormQuestion from './MottakerFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
-export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 100 };
+export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
 
 const getAntallDagerOptions = (intl: IntlShape): React.ReactNode => {
     const options = [<option key={'none'}></option>];
