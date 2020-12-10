@@ -52,8 +52,8 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                 {apiValues === undefined && (
                     <Box margin="xl">
                         <AlertStripeFeil>
-                            Det virker til at det er en feil i informasjonen som du har tastet inn. Vennligst gå tilbake
-                            til de tidligere stegene og se hva som er feil.
+                            Det har oppstått en feil under oppsummering av informasjonen du har fylt ut. Vennligst gå
+                            tilbake til tidligere steg og se om det mangler noe informasjon.
                         </AlertStripeFeil>
                     </Box>
                 )}
