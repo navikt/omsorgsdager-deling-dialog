@@ -190,7 +190,7 @@ const MottakerStep = ({ søker }: Props) => {
                         style={{ maxWidth: '11rem' }}
                     />
                 </SoknadFormQuestion>
-                {console.log(getStengningsperiodeRadios(intl))}
+
                 <SoknadFormQuestion name={SoknadFormField.navnMottaker}>
                     <SoknadFormComponents.Input
                         name={SoknadFormField.navnMottaker}
