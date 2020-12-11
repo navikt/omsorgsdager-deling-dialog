@@ -25,8 +25,10 @@ interface MapFormDataToApiDataValues {
 export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): StengingsperiodeAPI => {
     if (stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020) {
         return { fraOgMed: '2020-03-13', tilOgMed: '2020-06-30' };
-    } else {
+    } else if (Stengingsperiode.fraOgMed10August2020til31Desember2020) {
         return { fraOgMed: '2020-08-10', tilOgMed: '2020-12-31' };
+    } else {
+        return { fraOgMed: '2021-01-01', tilOgMed: '2021-12-31' };
     }
 };
 

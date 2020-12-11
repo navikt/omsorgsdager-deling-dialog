@@ -17,7 +17,8 @@ export enum Mottaker {
 
 export enum Stengingsperiode {
     'fra13marsTil30Juni2020' = 'fra13marsTil30Juni2020',
-    'fraOgMed10August2020EllerSenere' = 'fraOgMed10August2020EllerSenere',
+    'fraOgMed10August2020til31Desember2020' = 'fraOgMed10August2020til31Desember2020',
+    'fraOgMed1januar2021til31Desember2021' = 'fraOgMed1januar2021til31Desember2021',
     'annen' = 'annen',
 }
 
