@@ -36,13 +36,13 @@
 
     "nav.no": "nav.no",
 
-    "step.dine-barn.pageTitle": "Barna dine",
-    "step.dine-barn.stepTitle": "Barna dine",
+    "step.dine-barn.pageTitle": "Om barn",
+    "step.dine-barn.stepTitle": "Om barn",
     "step.dine-barn.født": "Født",
     "step.dine-barn.listHeader.registrerteBarn": "Registrerte barn",
     "step.dine-barn.nextButtonLabel": "Fortsett",
-    "step.dine-barn.info.title": "Nå skal du legge inn opplysninger om dine egne barn, som bor fast hos deg.",
-    "step.dine-barn.info": "Det er kun barn under 18 år som vises automatisk her. Hvis du har et barn som er fylt 18 år, og som du har fått ekstra omsorgsdager for på grunn av at barnet har kronisk sykdom eller funksjonshemning, kan du selv legge til dette barnet.",
+    "step.dine-barn.info.title": "Her ser du barn som er registrert på deg.",
+    "step.dine-barn.info": "Det er kun barn under 18 år som vises her. Hvis du har barn som har fylt 18 år i år, og som du har fått ekstra omsorgsdager for, kan du selv legge til dette barnet.",
     "step.dine-barn.info.ingenbarn.1": "Vi fant ingen barn registrert på deg. Har du  barn som ikke er registrert her, kan du selv legge inn disse. Dette kan være fosterbarn, eller om du har barn som er fylt 18 år og som har ekstra omsorgsdager på grunn av kronisk sykdom eller funksjonshemning.",
     "step.dine-barn.info.ingenbarn.2": "Du må legge til minst ett barn for å kunne gå videre.",
     "step.dine-barn.info.spm.andreBarn": "Har du andre barn?",
