@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { isFailure, isPending } from '@devexperts/remote-data-ts';
-import AriaText from '@navikt/sif-common-core/lib/components/aria/AriaText';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import Guide from '@navikt/sif-common-core/lib/components/guide/Guide';
