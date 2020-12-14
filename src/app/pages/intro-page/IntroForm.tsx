@@ -90,10 +90,13 @@ const IntroForm = ({ onValidSubmit }: Props) => {
         }
     };
 
-    const kanFortsetteFn = (values: IntroFormData): boolean => {
+    const kanFortsetteFn = (values: IntroFormData): { kanFortsette: boolean; erStoppet: boolean } => {
         const arbeidsSituasjonErOkHosBegge =
             values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES &&
             values.mottakersArbeidssituasjonErOk === YesOrNo.YES;
+
+        const stoppPgaArbeidssituasjon =
+            values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO || values.mottakersArbeidssituasjonErOk === YesOrNo.NO;
 
         const kanFortsetteKorona = values.korona === YesOrNo.YES && arbeidsSituasjonErOkHosBegge;
 
@@ -108,7 +111,13 @@ const IntroForm = ({ onValidSubmit }: Props) => {
             values.mottakerSamværsforelder === YesOrNo.YES &&
             arbeidsSituasjonErOkHosBegge;
 
-        return kanFortsetteKorona || kanFortsetteVanlig || kanFortsetteSamværsforelder;
+        const stoppIngenValgtSituasjon =
+            values.mottakerSamværsforelder === YesOrNo.NO && values.mottakerErEktefelleEllerSamboer === YesOrNo.NO;
+
+        return {
+            kanFortsette: kanFortsetteKorona || kanFortsetteVanlig || kanFortsetteSamværsforelder,
+            erStoppet: stoppPgaArbeidssituasjon || stoppIngenValgtSituasjon,
+        };
     };
 
     return (
@@ -118,14 +127,16 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                 onValidSubmit();
             }}
             renderForm={({ values }) => {
-                const kanFortsette = kanFortsetteFn(values);
+                const { kanFortsette, erStoppet } = kanFortsetteFn(values);
+                console.log(erStoppet);
+
                 return (
                     <section aria-label="Se om du kan bruke det dette skjemaet:">
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}
                             noButtonsContentRenderer={
-                                kanFortsette
+                                kanFortsette || erStoppet
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
