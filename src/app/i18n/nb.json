@@ -138,7 +138,8 @@
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Legge til informasjon her om at kun kan deles til de som er listet opp",
     "step.mottaker.form.stengingsperiode.spm": "Innenfor hviken periode med stengt skole/barnehage gjelder overføringen for?",
     "step.mottaker.form.stengingsperiode.fra13marsTil30Juni2020": "13. mars til 30.juni 2020",
-    "step.mottaker.form.stengingsperiode.fraOgMed10August2020EllerSenere": "Fra og med 10.august 2020 til 31. desember 2020",
+    "step.mottaker.form.stengingsperiode.fraOgMed10August2020til31Desember2020": "Fra og med 10.august 2020 til 31. desember 2020",
+    "step.mottaker.form.stengingsperiode.fraOgMed1januar2021til31Desember2021": "1. januar 2021 til 31. desember 2021",
     "step.mottaker.form.stengingsperiode.annen": "Annen periode",
 
     "step.mottaker.form.stengingsperiode.annen.stopMelding.1": "Her kan du kun overføre dager til en annen omsorgsperson hvis dagene skal brukes i en periode barnehagen/skolen har vært eller er stengt på grunn av koronaviruset.",

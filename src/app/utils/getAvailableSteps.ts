@@ -83,7 +83,8 @@ const mottakerIsComplete = (
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
     const riktigStengingsperiode =
         stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020 ||
-        stengingsperiode === Stengingsperiode.fraOgMed10August2020EllerSenere;
+        stengingsperiode === Stengingsperiode.fraOgMed10August2020til31Desember2020 ||
+        stengingsperiode === Stengingsperiode.fraOgMed1januar2021til31Desember2021;
     if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }

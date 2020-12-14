@@ -25,6 +25,7 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
+import * as dayjs from 'dayjs';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -81,7 +82,7 @@ const getMottakertypeRadios = (intl: IntlShape): RadioPanelProps[] => {
 };
 
 const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
-    return [
+    const stengningsperiodeRadios = [
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.fra13marsTil30Juni2020}`),
             value: Stengingsperiode.fra13marsTil30Juni2020,
@@ -89,15 +90,28 @@ const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
         {
             label: intlHelper(
                 intl,
-                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed10August2020EllerSenere}`
+                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed10August2020til31Desember2020}`
             ),
-            value: Stengingsperiode.fraOgMed10August2020EllerSenere,
+            value: Stengingsperiode.fraOgMed10August2020til31Desember2020,
+        },
+        {
+            label: intlHelper(
+                intl,
+                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed1januar2021til31Desember2021}`
+            ),
+            value: Stengingsperiode.fraOgMed1januar2021til31Desember2021,
         },
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.annen}`),
             value: Stengingsperiode.annen,
         },
     ];
+
+    return dayjs().isBefore(dayjs('2021-01-01'))
+        ? stengningsperiodeRadios.filter(
+              (radioBtn) => radioBtn.value !== Stengingsperiode.fraOgMed1januar2021til31Desember2021
+          )
+        : stengningsperiodeRadios;
 };
 
 const MottakerStep = ({ søker }: Props) => {
