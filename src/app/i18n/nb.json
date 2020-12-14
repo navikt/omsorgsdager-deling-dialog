@@ -161,8 +161,8 @@
     "samtykke.harForståttLabel.lenketekst": "dine plikter",
     "fieldvalidation.mottakersFnrErSøkersFnr": "Du har tastet inn ditt eget fødselsnummer",
 
-    "step.din_situasjon.veileder.intro.1": "For å ha rett til å overføre omsorgsdager må du være yrkesaktiv og være medlem i folketrygden. Den du overfører til må også være yrkesaktiv og medlem i folketrygden for å kunne bruke omsorgsdagene.",
-    "step.din_situasjon.veileder.intro.2": "Hvis man jobber i Norge er man vanligvis medlem. Du kan lese mer om medlemskap på ",
+    "step.din_situasjon.veileder.intro.1": "Både du og den du skal dele omsorgsdager med må være yrkesaktive. Det betyr at dere må være enten arbeidstaker, selvstendig næringsdrivende, frilanser eller en kombinasjon av disse.",
+    "step.din_situasjon.veileder.intro.2": "I tillegg må begge være medlem i folketrygden. Hvis man jobber i Norge er man vanligvis medlem. Du kan lese mer om medlemskap i folketrygden på ",
     "step.din_situasjon.form.yrkesaktiv.spm": "Er du yrkesaktiv?",
     "step.din_situasjon.form.arbeiderINorge.spm": "Jobber du i Norge?",
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og overføre disse til en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
@@ -192,7 +192,7 @@
     "step.oppsummering.om-barna.harNoenUtvidetRett": "Har du fått ekstra omsorgsdager for barn som har en kronisk sykdom eller en funksjonshemning?",
     "step.oppsummering.om-barna.hvilkeAvBarnaUtvRett": "Barn du har fått ekstra omsorgsdager for",
 
-    "step.oppsummering.dinSituasjon.header": "Din situasjon",
+    "step.oppsummering.dinSituasjon.header": "Din arbeidssituasjon",
     "step.oppsummering.dinSituasjon.erYkesaktiv": "Er du yrkesaktiv?",
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
