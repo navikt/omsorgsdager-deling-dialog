@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
@@ -67,16 +66,16 @@ const cleanupMottakerStep = (formData: SoknadFormData): SoknadFormData => {
 const getMottakertypeRadios = (intl: IntlShape): RadioPanelProps[] => {
     return [
         {
+            label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samværsforelder}`),
+            value: Mottaker.samværsforelder,
+        },
+        {
             label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.ektefelle}`),
             value: Mottaker.ektefelle,
         },
         {
             label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samboer}`),
             value: Mottaker.samboer,
-        },
-        {
-            label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samværsforelder}`),
-            value: Mottaker.samværsforelder,
         },
     ];
 };
@@ -131,15 +130,36 @@ const MottakerStep = ({ søker }: Props) => {
             onStepCleanup={cleanupMottakerStep}
             showNotAllQuestionsAnsweredMessage={visibility.areAllQuestionsAnswered() === false}>
             <CounsellorPanel>
-                <FormattedMessage id="step.mottaker.veileder.intro.1" />
-                <Box margin="m">
-                    <FormattedMessage id="step.mottaker.veileder.intro.2" />
-                    <ul>
-                        <li>{intlHelper(intl, 'arbeidstaker')}</li>
-                        <li>{intlHelper(intl, 'selvstendigNæringsdrivende')}</li>
-                        <li>{intlHelper(intl, 'frilanser')}</li>
-                    </ul>
-                </Box>
+                {intlHelper(intl, 'step.mottaker.veileder.1')}
+                <p>{intlHelper(intl, 'step.mottaker.veileder.2')}</p>
+                <ul>
+                    <li>
+                        <ExpandableInfo
+                            title={intlHelper(intl, 'step.mottaker.veileder.2.nedtrek.tittel')}
+                            filledBackground={false}>
+                            {intlHelper(intl, 'step.mottaker.veileder.2.nedtrek')}
+                        </ExpandableInfo>
+                    </li>
+                    <li>
+                        <ExpandableInfo
+                            title={intlHelper(intl, 'step.mottaker.veileder.3.nedterk.tittel')}
+                            filledBackground={false}>
+                            <p>{intlHelper(intl, 'step.mottaker.veileder.4')}</p>
+                            <ul>
+                                <li>{intlHelper(intl, 'step.mottaker.veileder.4.1')}</li>
+                                <li>{intlHelper(intl, 'step.mottaker.veileder.4.2')}</li>
+                            </ul>
+                            <p>{intlHelper(intl, 'step.mottaker.veileder.5')}</p>
+                        </ExpandableInfo>
+                    </li>
+                    <li>
+                        <ExpandableInfo
+                            title={intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.tittel')}
+                            filledBackground={false}>
+                            {intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')}
+                        </ExpandableInfo>
+                    </li>
+                </ul>
             </CounsellorPanel>
 
             <QuestionVisibilityContext.Provider value={{ visibility }}>
@@ -224,6 +244,11 @@ const MottakerStep = ({ søker }: Props) => {
                         legend={intlHelper(intl, 'step.mottaker.form.stengingsperiode.spm')}
                         validate={validateYesOrNoIsAnswered}
                         radios={getStengningsperiodeRadios(intl)}
+                        description={
+                            <ExpandableInfo title={intlHelper(intl, 'step.mottaker.form.stengingsperiode.hvorforSpør')}>
+                                {intlHelper(intl, 'step.mottaker.form.stengingsperiode.hvorforSpør.svar')}
+                            </ExpandableInfo>
+                        }
                     />
                 </SoknadFormQuestion>
 
@@ -233,7 +258,19 @@ const MottakerStep = ({ søker }: Props) => {
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
                             validate={validateAll([validateRequiredNumber(ANTALL_DAGER_RANGE)])}
-                            bredde="s">
+                            bredde="s"
+                            description={
+                                <ExpandableInfo
+                                    title={intlHelper(
+                                        intl,
+                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel'
+                                    )}>
+                                    {intlHelper(
+                                        intl,
+                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.nåværendeSamboerEllerEktefelle'
+                                    )}
+                                </ExpandableInfo>
+                            }>
                             {getAntallDagerOptions(intl)}
                         </SoknadFormComponents.Select>
                     )}
@@ -246,6 +283,18 @@ const MottakerStep = ({ søker }: Props) => {
                             bredde="XS"
                             min={ANTALL_DAGER_KORONA_RANGE.min}
                             max={ANTALL_DAGER_KORONA_RANGE.max}
+                            description={
+                                <ExpandableInfo
+                                    title={intlHelper(
+                                        intl,
+                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel'
+                                    )}>
+                                    {intlHelper(
+                                        intl,
+                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
+                                    )}
+                                </ExpandableInfo>
+                            }
                         />
                     )}
                 </SoknadFormQuestion>
