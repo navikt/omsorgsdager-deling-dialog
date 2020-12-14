@@ -21,7 +21,7 @@ export const getOmBarnaFormStop = (
     { gjelderMidlertidigPgaKorona, harAleneomsorg, andreBarn, harUtvidetRett }: SoknadFormData,
     barn: Barn[]
 ): OmBarnaFormStop | undefined => {
-    if (gjelderMidlertidigPgaKorona === YesOrNo.YES && harAleneomsorg === YesOrNo.NO) {
+    if (gjelderMidlertidigPgaKorona === YesOrNo.NO && harAleneomsorg === YesOrNo.NO) {
         return OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling;
     }
     if (harUtvidetRett === YesOrNo.NO && erAlleBarnOver12(barn, andreBarn)) {
