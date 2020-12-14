@@ -20,6 +20,7 @@ import { validateDocuments } from '../../validation/fieldValidation';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import getLenker from '../../lenker';
+import PictureScanningGuide from '@navikt/sif-common-core/lib/components/picture-scanning-guide/PictureScanningGuide';
 
 const SamværsavtaleStep = () => {
     const intl = useIntl();
@@ -31,11 +32,10 @@ const SamværsavtaleStep = () => {
 
     return (
         <SoknadFormStep id={StepID.SAMVÆRSAVTALE} buttonDisabled={hasPendingUploads || sizeOver24Mb}>
-            <CounsellorPanel>
-                <p>{intlHelper(intl, 'step.samværsavtale.info.title')}</p>
-                {intlHelper(intl, 'step.samværsavtale.info')}
-            </CounsellorPanel>
-
+            <CounsellorPanel>{intlHelper(intl, 'step.samværsavtale.info.title')}</CounsellorPanel>
+            <Box margin={'l'}>
+                <PictureScanningGuide />
+            </Box>
             {totalSize <= MAX_TOTAL_ATTACHMENT_SIZE_BYTES && (
                 <FormBlock>
                     <FormikFileUploader
