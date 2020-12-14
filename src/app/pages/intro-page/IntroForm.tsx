@@ -128,8 +128,6 @@ const IntroForm = ({ onValidSubmit }: Props) => {
             }}
             renderForm={({ values }) => {
                 const { kanFortsette, erStoppet } = kanFortsetteFn(values);
-                console.log(erStoppet);
-
                 return (
                     <section aria-label="Se om du kan bruke det dette skjemaet:">
                         <IntroFormComponents.Form
