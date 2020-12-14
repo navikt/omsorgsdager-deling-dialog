@@ -12,15 +12,14 @@ import {
 import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
-import Lenke from 'nav-frontend-lenker';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
-import getLenker from '../../lenker';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getOmBarnaFormStop, OmBarnaFormQuestions, OmBarnaFormStop } from './omBarnaStepFormConfig';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 
 interface Props {
     barn: Barn[];
@@ -79,14 +78,26 @@ const OmBarnaStep = ({ barn }: Props) => {
             showSubmitButton={kanFortsette}
             onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
             showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
-            stepTitle={intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn })}>
+            stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
             <CounsellorPanel>
                 {intlHelper(intl, 'step.om-barna.info.1')}
-                <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
-                <p>{intlHelper(intl, 'step.om-barna.info.3')}</p>
-                <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
-                    {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
-                </Lenke>
+                <p>
+                    <b>{intlHelper(intl, 'step.om-barna.info.2')}</b>
+                </p>
+                <ul>
+                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.1')}</li>
+                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.2')}</li>
+                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.3')}</li>
+                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.4')}</li>
+                </ul>
+                <p>
+                    <b>{intlHelper(intl, 'step.om-barna.info.3')}</b>
+                </p>
+                <ul>
+                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.1')}</li>
+                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.2')}</li>
+                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.3')}</li>
+                </ul>
             </CounsellorPanel>
             <QuestionVisibilityContext.Provider value={{ visibility }}>
                 <SoknadFormQuestion
@@ -118,6 +129,11 @@ const OmBarnaStep = ({ barn }: Props) => {
                     validate={validateYesOrNoIsAnswered}
                     showStop={omBarnaStop === OmBarnaFormStop.alleBarnErOver12ogIngenUtvidetRett}
                     stopMessage={intlHelper(intl, 'step.om-barna.info.barnOver12')}
+                    description={
+                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                            {intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.hvaBetyr.svar')}
+                        </ExpandableInfo>
+                    }
                 />
                 <SoknadFormQuestion name={SoknadFormField.harUtvidetRettFor}>
                     <SoknadFormComponents.CheckboxPanelGroup
