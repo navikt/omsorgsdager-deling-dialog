@@ -146,7 +146,11 @@
     "step.mottaker.form.stengingsperiode.annen.stopMelding.2.b": "dele omsorgsdager med den andre forelderen eller ny samboer, ektefelle eller partner",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om overføring av omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
+    "step.oppsummering.innholdHeader": "Innhold",
     "step.oppsummering.søker.header": "Om deg",
+
+    "oppsummering.advarsel.ingenApiValues": "Det har oppstått en feil under oppsummering av informasjonen du har fylt ut. Vennligst gå tilbake til tidligere steg og se om det mangler noe informasjon.",
+    "oppsummering.advarsel.invalidApiValues": "Informasjonen som skal sendes inn inneholder noen feil. Vennligst gå tilbake til tidligere steg og se hva som er feil.",
 
     "step.oppsummering.dine-barn.header.flereBarn": "Barna dine",
     "step.oppsummering.dine-barn.header.ettBarn": "Ditt barn",

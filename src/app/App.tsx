@@ -7,9 +7,9 @@ import SoknadApplicationCommonRoutes from '@navikt/sif-common-soknad/lib/soknad-
 import Modal from 'nav-frontend-modal';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
+import { AmplitudeProvider } from './sif-amplitude/amplitude';
 import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
 import './styles/app.less';
-import { AmplitudeProvider } from './sif-amplitude/amplitude';
 
 Modal.setAppElement('#app');
 
@@ -17,8 +17,6 @@ export const APPLICATION_KEY = 'dele-omsorgsdager';
 const root = document.getElementById('app');
 
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
-
-// Trigger deploy to gcp
 
 render(
     <AmplitudeProvider>
