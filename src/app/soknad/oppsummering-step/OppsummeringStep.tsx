@@ -66,9 +66,6 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                     <>
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
-                                <AriaText>
-                                    <FormattedMessage tagName="h2" id="step.oppsummering.innholdHeader" />
-                                </AriaText>
                                 <SøkerSummary søker={søker} />
                                 <SøknadstypeSummary apiValues={apiValues} />
                                 <DineBarnSummary apiValues={apiValues} />
