@@ -38,14 +38,13 @@ const IntroPage = () => {
                                     title={intlHelper(intl, 'introForm.info.3.nedterk.tittel')}
                                     filledBackground={false}>
                                     <p>{intlHelper(intl, 'introForm.info.4')}</p>
-                                    <li>{intlHelper(intl, 'introForm.info.4.1')}</li>
-                                    <li>{intlHelper(intl, 'introForm.info.4.2')}</li>
+                                    <ul>
+                                        <li>{intlHelper(intl, 'introForm.info.4.1')}</li>
+                                        <li>{intlHelper(intl, 'introForm.info.4.2')}</li>
+                                    </ul>
                                     <p>{intlHelper(intl, 'introForm.info.5')}</p>
                                 </ExpandableInfo>
                             </li>
-                        </ul>
-
-                        <ul>
                             <li>
                                 <ExpandableInfo
                                     title={intlHelper(intl, 'introForm.info.5.nedtrek.1.tittel')}
