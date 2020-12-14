@@ -25,6 +25,7 @@ import { StepID } from '../soknadStepsConfig';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
 import * as dayjs from 'dayjs';
+import { Feature, isFeatureEnabled } from '../../utils/featureToggleUtils';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -106,11 +107,11 @@ const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
         },
     ];
 
-    return dayjs().isBefore(dayjs('2021-01-01'))
-        ? stengningsperiodeRadios.filter(
+    return dayjs().isAfter(dayjs('2020-12-31 23:59:59')) || isFeatureEnabled(Feature.KORONA_2021_PERIODE_ENABLED)
+        ? stengningsperiodeRadios
+        : stengningsperiodeRadios.filter(
               (radioBtn) => radioBtn.value !== Stengingsperiode.fraOgMed1januar2021til31Desember2021
-          )
-        : stengningsperiodeRadios;
+          );
 };
 
 const MottakerStep = ({ søker }: Props) => {
