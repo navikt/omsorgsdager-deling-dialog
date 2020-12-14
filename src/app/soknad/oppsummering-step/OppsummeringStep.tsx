@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { isFailure, isPending } from '@devexperts/remote-data-ts';
+import AriaText from '@navikt/sif-common-core/lib/components/aria/AriaText';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import Guide from '@navikt/sif-common-core/lib/components/guide/Guide';
@@ -52,21 +53,22 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                 {apiValues === undefined && (
                     <Box margin="xl">
                         <AlertStripeFeil>
-                            Det har oppstått en feil under oppsummering av informasjonen du har fylt ut. Vennligst gå
-                            tilbake til tidligere steg og se om det mangler noe informasjon.
+                            <FormattedMessage id="oppsummering.advarsel.ingenApiValues" />
                         </AlertStripeFeil>
                     </Box>
                 )}
                 {apiValues !== undefined && apiDataIsValid === false && (
                     <AlertStripeFeil>
-                        Dataene som skal sendes inn inneholder noen feil. Vennligst gå tilbake til de tidligere stegene
-                        og se hva som er feil.
+                        <FormattedMessage id="oppsummering.advarsel.invalidApiValues" />
                     </AlertStripeFeil>
                 )}
                 {apiValues !== undefined && (
                     <>
                         <Box margin="xxl">
                             <ResponsivePanel border={true}>
+                                <AriaText>
+                                    <FormattedMessage tagName="h2" id="step.oppsummering.innholdHeader" />
+                                </AriaText>
                                 <SøkerSummary søker={søker} />
                                 <SøknadstypeSummary apiValues={apiValues} />
                                 <DineBarnSummary apiValues={apiValues} />

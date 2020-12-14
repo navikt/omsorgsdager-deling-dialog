@@ -111,7 +111,11 @@ const MottakerStep = ({ søker }: Props) => {
     const { gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle } = values;
 
     return (
-        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupMottakerStep}>
+        <SoknadFormStep
+            id={stepId}
+            showSubmitButton={kanFortsette}
+            onStepCleanup={cleanupMottakerStep}
+            showNotAllQuestionsAnsweredMessage={visibility.areAllQuestionsAnswered() === false}>
             <CounsellorPanel>
                 <FormattedMessage id="step.mottaker.veileder.intro.1" />
                 <Box margin="m">
