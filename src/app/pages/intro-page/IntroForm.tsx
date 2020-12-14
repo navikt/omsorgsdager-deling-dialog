@@ -11,6 +11,8 @@ import { IntroFormData, IntroFormField, introFormInitialValues } from './introFo
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
+import getLenker from '../../lenker';
+import Lenke from 'nav-frontend-lenker';
 
 interface Props {
     onValidSubmit: () => void;
@@ -29,6 +31,18 @@ const IntroForm = ({ onValidSubmit }: Props) => {
                         legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
                         name={IntroFormField.harAleneomsorg}
                         validate={validateYesOrNoIsAnswered}
+                        description={
+                            <ExpandableInfo
+                                title={intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.titel')}>
+                                {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.1')}
+                                <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.2')}</p>
+                                <p>
+                                    <Lenke href={getLenker().merOmFastBostedOgSamvær}>
+                                        {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.link')}
+                                    </Lenke>
+                                </p>
+                            </ExpandableInfo>
+                        }
                     />
                 )}
 
