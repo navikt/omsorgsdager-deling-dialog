@@ -1,5 +1,5 @@
 {
-    "application.title": "Overføring av omsorgsdager",
+    "application.title": "Melding om å dele omsorgsdager",
     "application.cancelOrContinueLaterLabel": "Avbryt eller fortsett senere",
 
     "application.loadError.title": "Noe gikk galt ...",
@@ -8,11 +8,11 @@
     "page.error.pageTitle": "Noe gikk galt ...",
     "page.form.ubesvarteSpørsmålInfo": "For å komme videre, må du svare på alle spørsmålene ovenfor",
 
-    "page.ikkeMyndig.sidetittel": "Melding om overføring av omsorgsdager - ikke myndig",
+    "page.ikkeMyndig.sidetittel": "Melding om å dele omsorgsdager - ikke myndig",
     "page.ikkeMyndig.banner.tittel": "Hei!",
     "page.ikkeMyndig.banner.tekst": "Fordi du er under 18 år, må en av foreldrene dine eller en foresatt skrive under på meldingen sammen med deg. Du må derfor fylle ut skjemaet på papir og sende det i posten.",
     "page.ikkeMyndig.banner.lastNed": "Melding om deling av omsorgsdager",
-    "page.ikkeMyndig.tittel": "Melding om overføring av omsorgsdager",
+    "page.ikkeMyndig.tittel": "Melding om å dele omsorgsdager",
 
     "arbeidssituasjon.arbeidstaker": "Arbeidstaker",
     "arbeidssituasjon.selvstendigNæringsdrivende": "Selvstendig næringsdrivende",
@@ -96,8 +96,8 @@
     "steg.footer.cancelOrContinueLater.label": "Avbryt eller fortsett senere",
 
     "step.velkommen.banner.tittel": "Hei!",
-    "step.velkommen.banner.tekst": "Jeg vil hjelpe deg med å fylle ut skjemaet, slik at du kan overføre omsorgsdager.",
-    "step.velkommen.tittel": "Overføring av omsorgsdager",
+    "step.velkommen.banner.tekst": "Jeg vil hjelpe deg med å fylle ut meldingen, slik at du kan dele omsorgsdager.",
+    "step.velkommen.tittel": "Melding om å dele omsorgsdager",
     "step.velkommen.personopplysninger.lenketekst": "Les om hvordan NAV behandler personopplysningene dine",
     "step.velkommen.button.start": "Fortsett",
 
