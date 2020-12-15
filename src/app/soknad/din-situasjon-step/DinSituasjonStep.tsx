@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -13,6 +12,7 @@ import {
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import { useFormikContext } from 'formik';
 import Lenke from 'nav-frontend-lenker';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import getLenker from '../../lenker';
 import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import SoknadFormComponents from '../SoknadFormComponents';
@@ -56,15 +56,17 @@ const DinSituasjonStep = () => {
             showSubmitButton={kanFortsette}
             onStepCleanup={cleanupDinSituasjonStep}
             showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(erYrkesaktiv) === false}>
-            <CounsellorPanel>
-                <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
+            <StepIntroduction>
+                <p>
+                    <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
+                </p>
                 <p>
                     <FormattedMessage id="step.din_situasjon.veileder.intro.2" />
                     <Lenke href={getLenker(intl.locale).medlemskapIFolketrygden} target="_blank">
                         {intlHelper(intl, 'nav.no')}
                     </Lenke>
                 </p>
-            </CounsellorPanel>
+            </StepIntroduction>
             <FormQuestion
                 name={SoknadFormField.erYrkesaktiv}
                 legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}

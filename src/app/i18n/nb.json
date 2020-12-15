@@ -34,6 +34,8 @@
 
     "lesMerOmFastBostedOgSamvær": "Les mer om fast bosted og samvær",
 
+    "stepIntroduction.ariaTitle": "Informasjon om steget",
+
     "nav.no": "nav.no",
 
     "step.dine-barn.pageTitle": "Om barn",
@@ -203,6 +205,8 @@
     "step.oppsummering.mottaker.navn": "Navn: ",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
     "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du dele?",
+    "step.oppsummering.korona.periode.tittel": "Hvilken periode gjelder delingen av omsorgsdager for?",
+    "step.oppsummering.korona.periode.verdi": "Fra og med {fraDato}, til og med {tilDato}",
 
     "step.oppsummering.søknadstype.header": "Meldingen gjelder",
     "step.oppsummering.søknadstype.overføring.ektefelle": "Dele omsorgsdager med nåværende ektefelle",
