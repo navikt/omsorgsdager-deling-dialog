@@ -90,13 +90,13 @@
     "step.mottaker.veileder.2.nedtrek.tittel": "med den andre forelderen ",
     "step.mottaker.veileder.2.nedtrek": "Du kan dele omsorgsdager med den andre forelderen som du ikke bor sammen med, men som har samvær med felles barn. Omsorgsdagene blir fordelt ut fra hva dere har avtalt om samvær. Delingen gjelder fra og med datoen du sender meldingen, og til så lenge det er rett til å bruke omsorgsdager.",
     "step.mottaker.veileder.3.nedterk.tittel": "med en samboer du har bodd med i minst 12 måneder, eller med nåværende ektefelle",
-    "step.mottaker.veileder.3.nedterk": "I dette tilfellet kan du dele de omsorgsdagene du har tilgjengelig med den andre forelderen, ny ektefelle, eller ny samboer. Denne delingen varer frem til 31. desember 2020.",
     "step.mottaker.veileder.4": "Du kan dele opp til 10 omsorgsdager med ",
     "step.mottaker.veileder.4.1": "en samboer du har bodd med i minst 12 måneder, og som du ikke har felles barn med eller",
     "step.mottaker.veileder.4.2": "med nåværende ektefelle, som du ikke har felles barn med.",
     "step.mottaker.veileder.5": "Delingen gjelder fra og med datoen du sender meldingen, og til så lenge det er rett til å bruke omsorgsdager.",
     "step.mottaker.veileder.5.nedtrek.1.tittel": "når barnehage/skole/SFO er stengt på grunn av koronaviruset",
     "step.mottaker.veileder.5.nedtrek.1": "I dette tilfellet kan du dele omsorgsdager med den andre forelderen, nåværende ektefelle eller en samboer du har bodd med i minst 12 måneder. Du kan dele opptil det antall dager du har tilgjengelig i perioden du velger.",
+    "step.mottaker.veileder.5.nedtrek.1.2021": "I dette tilfellet kan du dele omsorgsdager med den andre forelderen, nåværende ektefelle eller en samboer du har bodd med i minst 12 måneder. Du kan dele opptil det antall dager du har tilgjengelig. Delingen gjelder fra og med datoen du sender meldingen, og til og med 31.12.2021.",
 
     "step.mottaker.stepTitle": "Om den du skal dele omsorgsdager med",
 
@@ -111,6 +111,7 @@
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel": "Hvor mange dager kan jeg dele?",
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.nåværendeSamboerEllerEktefelle": "Du kan dele opptil 10 omsorgsdager.",
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona": "Du kan dele opptil hvor mange omsorgsdager du har tilgjengelig i perioden du har valgt.",
+    "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021": "Du kan dele opptil det antall dager du har tilgjengelig.",
     "step.mottaker.form.stopMessage.korona.html": "Du kan kun dele omsorgsdager med enten den andre forelderen, eller nåværende samboer/ektefelle. Hvis du ikke skal dele dager med noen av disse, kan du ikke gå videre.",
     "step.mottaker.form.mottakerType.spm": "Hvem skal du dele omsorgsdager med?",
     "step.mottaker.form.mottakerType.korona.spm": "Hvem skal du dele omsorgsdager med?",
@@ -166,7 +167,10 @@
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og kunne dele disse med en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
     "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm": "Har du brukt omsorgsdager i 2021?",
+    "step.din_situasjon.form.harBruktOmsorgsdager1Juli2020til31des2020": "Har du selv brukt omsorgsdager i perioden 1. juli 2020 til 31. desember 2020?",
     "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
+    "step.din_situasjon.form.antallDagerBruktEtter1Januar.spm": "Hvor mange omsorgsdager har du brukt?",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om å dele omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
     "step.oppsummering.søker.header": "Om deg",

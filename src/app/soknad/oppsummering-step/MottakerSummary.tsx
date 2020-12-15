@@ -11,6 +11,7 @@ import {
     isSøknadOverføring,
     SoknadApiData,
 } from '../../types/SoknadApiData';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 interface Props {
     apiValues: SoknadApiData;
@@ -51,7 +52,7 @@ const MottakerSummary = ({ apiValues }: Props) => {
                             }}
                         />
                     </SummaryBlock>
-                    {isSøknadKoronaoverføring(apiValues) && (
+                    {isDateBefore2021() && isSøknadKoronaoverføring(apiValues) && (
                         <SummaryBlock header={intlHelper(intl, 'step.oppsummering.korona.periode.tittel')}>
                             <FormattedMessage
                                 id="step.oppsummering.korona.periode.verdi"

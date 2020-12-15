@@ -14,6 +14,7 @@ import {
     Stengingsperiode,
 } from '../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
+import { isDateAfter2020 } from './dateUtils';
 
 const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn[]): boolean => {
     return barn.length > 0 || (andreBarn || []).length > 0;
@@ -82,9 +83,9 @@ const mottakerIsComplete = (
     const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
     const riktigStengingsperiode =
+        isDateAfter2020() ||
         stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020 ||
-        stengingsperiode === Stengingsperiode.fraOgMed10August2020til31Desember2020 ||
-        stengingsperiode === Stengingsperiode.fraOgMed1januar2021til31Desember2021;
+        stengingsperiode === Stengingsperiode.fraOgMed10August2020til31Desember2020;
     if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }

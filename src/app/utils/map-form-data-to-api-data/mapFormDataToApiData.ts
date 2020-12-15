@@ -11,6 +11,7 @@ import {
 import { Barn, SoknadFormData, Stengingsperiode } from '../../types/SoknadFormData';
 import { getSøknadstype, Søknadstype } from '../../types/Soknadstype';
 import appSentryLogger from '../appSentryLogger';
+import { isDateBefore2021 } from '../dateUtils';
 import { mapBarnStepToApiData } from './mapBarnStepToApiData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
@@ -25,10 +26,8 @@ interface MapFormDataToApiDataValues {
 export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): StengingsperiodeAPI => {
     if (stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020) {
         return { fraOgMed: '2020-03-13', tilOgMed: '2020-06-30' };
-    } else if (stengingsperiode === Stengingsperiode.fraOgMed10August2020til31Desember2020) {
-        return { fraOgMed: '2020-08-10', tilOgMed: '2020-12-31' };
     } else {
-        return { fraOgMed: '2021-01-01', tilOgMed: '2021-12-31' };
+        return { fraOgMed: '2020-08-10', tilOgMed: '2020-12-31' };
     }
 };
 
@@ -59,7 +58,7 @@ export const getSøknadKoronaoverføring = (
         logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføres === undefined');
         return undefined;
     }
-    if (stengingsperiode === undefined) {
+    if (isDateBefore2021() && stengingsperiode === undefined) {
         logErrorToSentry('getSøknadKoronaoverføring: stengingsperiode === undefined');
         return undefined;
     }
@@ -68,7 +67,10 @@ export const getSøknadKoronaoverføring = (
         type: Søknadstype.koronaoverføring,
         korona: {
             antallDagerSomSkalOverføres,
-            stengingsperiode: getStegningsPeriode(stengingsperiode),
+            stengingsperiode:
+                stengingsperiode && isDateBefore2021()
+                    ? getStegningsPeriode(stengingsperiode)
+                    : { fraOgMed: '2021-01-01', tilOgMed: '2021-12-31' },
         },
     };
 };

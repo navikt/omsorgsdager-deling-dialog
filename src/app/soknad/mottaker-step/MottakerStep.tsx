@@ -12,19 +12,18 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
-import * as dayjs from 'dayjs';
 import { useFormikContext } from 'formik';
 import { RadioPanelProps } from 'nav-frontend-skjema';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Person } from '../../types/Person';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
-import { Feature, isFeatureEnabled } from '../../utils/featureToggleUtils';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -81,7 +80,7 @@ const getMottakertypeRadios = (intl: IntlShape): RadioPanelProps[] => {
 };
 
 const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
-    const stengningsperiodeRadios = [
+    return [
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.fra13marsTil30Juni2020}`),
             value: Stengingsperiode.fra13marsTil30Juni2020,
@@ -93,24 +92,12 @@ const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
             ),
             value: Stengingsperiode.fraOgMed10August2020til31Desember2020,
         },
-        {
-            label: intlHelper(
-                intl,
-                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed1januar2021til31Desember2021}`
-            ),
-            value: Stengingsperiode.fraOgMed1januar2021til31Desember2021,
-        },
+
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.annen}`),
             value: Stengingsperiode.annen,
         },
     ];
-
-    return dayjs().isAfter(dayjs('2020-12-31 23:59:59')) || isFeatureEnabled(Feature.KORONA_2021_PERIODE_ENABLED)
-        ? stengningsperiodeRadios
-        : stengningsperiodeRadios.filter(
-              (radioBtn) => radioBtn.value !== Stengingsperiode.fraOgMed1januar2021til31Desember2021
-          );
 };
 
 const MottakerStep = ({ søker }: Props) => {
@@ -156,7 +143,9 @@ const MottakerStep = ({ søker }: Props) => {
                         <ExpandableInfo
                             title={intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.tittel')}
                             filledBackground={false}>
-                            {intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')}
+                            {isDateBefore2021()
+                                ? intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')
+                                : intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.2021')}
                         </ExpandableInfo>
                     </li>
                 </ul>
@@ -276,10 +265,15 @@ const MottakerStep = ({ søker }: Props) => {
                                         intl,
                                         'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel'
                                     )}>
-                                    {intlHelper(
-                                        intl,
-                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
-                                    )}
+                                    {isDateBefore2021()
+                                        ? intlHelper(
+                                              intl,
+                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
+                                          )
+                                        : intlHelper(
+                                              intl,
+                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021'
+                                          )}
                                 </ExpandableInfo>
                             }
                         />
