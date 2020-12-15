@@ -19,6 +19,7 @@
     "introForm.form.hvaBetyr": "Hva betyr dette?",
 
     "introForm.form.harAleneomsorg.spm": "Er du alene om omsorgen for barn?",
+    "introForm.form.harAleneomsorg.stopMessage": "For å overføre omsorgsdager til en ny ektefelle, samboer du har bodd med i minst 12 måneder, eller samværsforelder, må du være alene om omsorgen for barnet du skal overføre omsorgsdager for.",
     "introForm.form.harAleneomsorg.spm.nedtrekk.titel": "Hva betyr det å være alene om omsorgen?",
     "introForm.form.harAleneomsorg.spm.nedtrekk.1": "Når det gjelder omsorgsdager, er du regnet som alene om omsorgen hvis du ikke bor sammen med den andre forelderen, og barnet bor fast bare hos deg.",
     "introForm.form.harAleneomsorg.spm.nedtrekk.2": "Hvis du og den andre forelderen har en avtale om delt bosted, hvor barnet bor fast hos dere begge, vil ingen av dere bli regnet som alene om omsorgen.",
