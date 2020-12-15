@@ -80,24 +80,29 @@ const OmBarnaStep = ({ barn }: Props) => {
             showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
             <StepIntroduction>
-                <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
-                <p>
-                    <b>{intlHelper(intl, 'step.om-barna.info.2')}</b>
-                </p>
-                <ul>
-                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.1')}</li>
-                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.2')}</li>
-                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.3')}</li>
-                    <li>{intlHelper(intl, 'step.om-barna.info.2.list.4')}</li>
-                </ul>
-                <p>
-                    <b>{intlHelper(intl, 'step.om-barna.info.3')}</b>
-                </p>
-                <ul>
-                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.1')}</li>
-                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.2')}</li>
-                    <li>{intlHelper(intl, 'step.om-barna.info.3.list.3')}</li>
-                </ul>
+                {values.gjelderMidlertidigPgaKorona === YesOrNo.NO && (
+                    <>
+                        <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
+                        <p>
+                            <b>{intlHelper(intl, 'step.om-barna.info.2')}</b>
+                        </p>
+                        <ul>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.1')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.2')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.3')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.4')}</li>
+                        </ul>
+                        <p>
+                            <b>{intlHelper(intl, 'step.om-barna.info.3')}</b>
+                        </p>
+                        <ul>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.1')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.2')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.3')}</li>
+                        </ul>
+                    </>
+                )}
+                {values.gjelderMidlertidigPgaKorona === YesOrNo.YES && intlHelper(intl, 'step.om-barna.info.korona')}
             </StepIntroduction>
             <QuestionVisibilityContext.Provider value={{ visibility }}>
                 <SoknadFormQuestion
