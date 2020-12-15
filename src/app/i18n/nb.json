@@ -199,6 +199,8 @@
     "step.oppsummering.mottaker.navn": "Navn: ",
     "step.oppsummering.mottaker.fnr": "Fødselsnummer",
     "step.oppsummering.antallDagerSomSkalOverføres": "Hvor mange omsorgsdager vil du dele?",
+    "step.oppsummering.korona.periode.tittel": "Hvilken periode gjelder delingen av omsorgsdager for?",
+    "step.oppsummering.korona.periode.verdi": "Fra og med {fraDato}, til og med {tilDato}",
 
     "step.oppsummering.søknadstype.header": "Meldingen gjelder",
     "step.oppsummering.søknadstype.overføring.ektefelle": "Dele omsorgsdager med nåværende ektefelle",
