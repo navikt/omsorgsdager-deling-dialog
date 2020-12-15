@@ -98,7 +98,6 @@ export type DinSituasjonFormData = Pick<
     | SoknadFormField.arbeidssituasjon
     | SoknadFormField.harBruktOmsorgsdagerEtter1Juli
     | SoknadFormField.antallDagerBruktEtter1Juli
-    | SoknadFormField.stengingsperiode
 >;
 
 export type MottakerFormData = Pick<
