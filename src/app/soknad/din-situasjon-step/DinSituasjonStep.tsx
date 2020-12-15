@@ -14,11 +14,18 @@ import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuesti
 import { useFormikContext } from 'formik';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
-import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import {
+    Arbeidssituasjon,
+    DinSituasjonFormData,
+    SoknadFormData,
+    SoknadFormField,
+    Stengingsperiode,
+} from '../../types/SoknadFormData';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
+import dayjs from 'dayjs';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -31,7 +38,8 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
 const DinSituasjonStep = () => {
     const intl = useIntl();
     const { values } = useFormikContext<DinSituasjonFormData>();
-    const { harBruktOmsorgsdagerEtter1Juli } = values;
+
+    const { harBruktOmsorgsdagerEtter1Juli, stengingsperiode } = values;
     const stepId = StepID.DIN_SITUASJON;
 
     const { erYrkesaktiv } = values;
@@ -108,15 +116,44 @@ const DinSituasjonStep = () => {
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
-                            legend={intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm')}
+                            legend={
+                                stengingsperiode
+                                    ? stengingsperiode === Stengingsperiode.fraOgMed1januar2021til31Desember2021
+                                        ? intlHelper(
+                                              intl,
+                                              'step.din_situasjon.form.harBruktOmsorgsdagerEtter1Jan2021.spm'
+                                          )
+                                        : dayjs().isAfter(dayjs('2020-12-14 23:59:59'))
+                                        ? intlHelper(
+                                              intl,
+                                              'step.din_situasjon.form.harBruktOmsorgsdager1Juli2020til31des2020'
+                                          )
+                                        : intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm')
+                                    : intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm')
+                            }
                             validate={validateYesOrNoIsAnswered}
                         />
                     </FormBlock>
+
                     {harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES && (
                         <FormBlock>
                             <SoknadFormComponents.Input
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
-                                label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Juli.spm')}
+                                label={
+                                    stengingsperiode
+                                        ? stengingsperiode === Stengingsperiode.fraOgMed1januar2021til31Desember2021
+                                            ? intlHelper(
+                                                  intl,
+                                                  'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm'
+                                              )
+                                            : dayjs().isAfter(dayjs('2020-12-14 23:59:59'))
+                                            ? intlHelper(
+                                                  intl,
+                                                  'step.din_situasjon.form.antallDagerBruktEtter1JuliSpmi2021.spm'
+                                              )
+                                            : intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Juli.spm')
+                                        : intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Juli.spm')
+                                }
                                 validate={validateRequiredNumber({ min: 1 })}
                                 inputMode="numeric"
                                 style={{ maxWidth: '4rem' }}

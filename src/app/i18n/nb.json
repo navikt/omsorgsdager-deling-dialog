@@ -167,7 +167,11 @@
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og overføre disse til en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
     "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Jan2021.spm": "Har du brukt omsorgsdager etter 1. januar 2021?",
+    "step.din_situasjon.form.harBruktOmsorgsdager1Juli2020til31des2020": "Har du selv brukt omsorgsdager i perioden 1. juli 2020 til 31. desember 2020?",
     "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
+    "step.din_situasjon.form.antallDagerBruktEtter1Januar.spm": "Hvor mange omsorgsdager har du brukt etter 1. januar 2021?",
+    "step.din_situasjon.form.antallDagerBruktEtter1JuliSpmi2021.spm": "Hvor mange omsorgsdager har du brukt etter 1. januar 2021?",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om å dele omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
     "step.oppsummering.søker.header": "Om deg",
