@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
@@ -13,18 +12,19 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
+import * as dayjs from 'dayjs';
 import { useFormikContext } from 'formik';
 import { RadioPanelProps } from 'nav-frontend-skjema';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Person } from '../../types/Person';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
+import { Feature, isFeatureEnabled } from '../../utils/featureToggleUtils';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
+import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import SoknadFormQuestion from '../SoknadFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
-import * as dayjs from 'dayjs';
-import { Feature, isFeatureEnabled } from '../../utils/featureToggleUtils';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -129,8 +129,8 @@ const MottakerStep = ({ søker }: Props) => {
             showSubmitButton={kanFortsette}
             onStepCleanup={cleanupMottakerStep}
             showNotAllQuestionsAnsweredMessage={visibility.areAllQuestionsAnswered() === false}>
-            <CounsellorPanel>
-                {intlHelper(intl, 'step.mottaker.veileder.1')}
+            <StepIntroduction>
+                <p>{intlHelper(intl, 'step.mottaker.veileder.1')}</p>
                 <p>{intlHelper(intl, 'step.mottaker.veileder.2')}</p>
                 <ul>
                     <li>
@@ -160,8 +160,7 @@ const MottakerStep = ({ søker }: Props) => {
                         </ExpandableInfo>
                     </li>
                 </ul>
-            </CounsellorPanel>
-
+            </StepIntroduction>
             <QuestionVisibilityContext.Provider value={{ visibility }}>
                 <SoknadFormQuestion
                     name={SoknadFormField.gjelderMidlertidigPgaKorona}
