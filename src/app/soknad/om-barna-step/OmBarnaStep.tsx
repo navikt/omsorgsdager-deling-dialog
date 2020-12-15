@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -13,13 +13,13 @@ import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getOmBarnaFormStop, OmBarnaFormQuestions, OmBarnaFormStop } from './omBarnaStepFormConfig';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 
 interface Props {
     barn: Barn[];
@@ -79,8 +79,8 @@ const OmBarnaStep = ({ barn }: Props) => {
             onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
             showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
-            <CounsellorPanel>
-                {intlHelper(intl, 'step.om-barna.info.1')}
+            <StepIntroduction>
+                <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
                 <p>
                     <b>{intlHelper(intl, 'step.om-barna.info.2')}</b>
                 </p>
@@ -98,7 +98,7 @@ const OmBarnaStep = ({ barn }: Props) => {
                     <li>{intlHelper(intl, 'step.om-barna.info.3.list.2')}</li>
                     <li>{intlHelper(intl, 'step.om-barna.info.3.list.3')}</li>
                 </ul>
-            </CounsellorPanel>
+            </StepIntroduction>
             <QuestionVisibilityContext.Provider value={{ visibility }}>
                 <SoknadFormQuestion
                     name={SoknadFormField.harAleneomsorg}
