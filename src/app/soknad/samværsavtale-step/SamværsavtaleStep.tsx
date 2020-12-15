@@ -54,14 +54,14 @@ const SamværsavtaleStep = () => {
             {totalSize > MAX_TOTAL_ATTACHMENT_SIZE_BYTES && (
                 <Box margin={'l'}>
                     <AlertStripeAdvarsel>
-                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.1'} />
+                        <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.1'} />
                         <Lenke
                             target={'_blank'}
                             rel={'noopener noreferrer'}
                             href={getLenker(intl.locale).ettersendelse}>
-                            <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.2'} />
+                            <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.2'} />
                         </Lenke>
-                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.3'} />
+                        <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.3'} />
                     </AlertStripeAdvarsel>
                 </Box>
             )}

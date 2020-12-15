@@ -14,7 +14,6 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
-import Lenke from 'nav-frontend-lenker';
 import { RadioPanelProps } from 'nav-frontend-skjema';
 import { Person } from '../../types/Person';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
@@ -227,19 +226,7 @@ const MottakerStep = ({ søker }: Props) => {
                 <SoknadFormQuestion
                     name={SoknadFormField.stengingsperiode}
                     showStop={stopp === MottakerFormStopp.koronaAnnenStengingsperiode}
-                    stopMessage={
-                        <>
-                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.1" />
-                            <br />
-                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.a" />{' '}
-                            <Lenke
-                                href="https://www.nav.no/familie/sykdom-i-familien/nb/omsorgspenger#Slik-kan-du-dele-omsorgsdagene-dine"
-                                target="_blank">
-                                <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.b" />
-                            </Lenke>
-                            .
-                        </>
-                    }>
+                    stopMessage={<FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding" />}>
                     <SoknadFormComponents.RadioPanelGroup
                         name={SoknadFormField.stengingsperiode}
                         legend={intlHelper(intl, 'step.mottaker.form.stengingsperiode.spm')}
@@ -278,7 +265,7 @@ const MottakerStep = ({ søker }: Props) => {
                     {gjelderMidlertidigPgaKorona === YesOrNo.YES && (
                         <SoknadFormComponents.Input
                             name={SoknadFormField.antallDagerSomSkalOverføres}
-                            label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.korona.spm')}
+                            label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
                             validate={validateAll([validateRequiredNumber(ANTALL_DAGER_KORONA_RANGE)])}
                             inputMode="numeric"
                             bredde="XS"
