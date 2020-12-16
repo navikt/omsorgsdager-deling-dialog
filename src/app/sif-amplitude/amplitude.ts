@@ -45,7 +45,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     function logEvent(eventName: string, eventProperties?: any) {
         if (getEnvironmentVariable('APP_VERSION') === 'dev') {
-            console.log({ eventName, eventProperties });
+            console.log({ eventName, eventProperties: { ...eventProperties, applikasjon: APPLICATION_KEY } });
         }
         if (instance.current) {
             instance.current.logEvent(eventName, eventProperties);
@@ -60,7 +60,6 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSidevisning(pageKey: string) {
         logEvent(AmplitudeEvents.sidevisning, {
-            app: APPLICATION_KEY,
             pageKey,
             team: 'sykdom-i-familien',
         });
@@ -68,7 +67,6 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadSent(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadSendt, {
-            app: APPLICATION_KEY,
             skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
@@ -77,7 +75,6 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSoknadFailed(type: Søknadstype) {
         logEvent(AmplitudeEvents.søknadFeilet, {
-            app: APPLICATION_KEY,
             skjemanavn: SKJEMANAVN,
             skjemaId: APPLICATION_KEY,
             type,
@@ -86,7 +83,6 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logHendelse(hendelse: ApplikasjonHendelse, details?: any) {
         logEvent(AmplitudeEvents.applikasjonHendelse, {
-            app: APPLICATION_KEY,
             hendelse,
             details,
         });
