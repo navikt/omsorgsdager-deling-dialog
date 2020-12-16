@@ -118,7 +118,7 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - uses: nais/deploy/actions/deploy@v1
-            env:
-                APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-                CLUSTER: prod-sbs
-                RESOURCE: nais/prod-sbs.yml
+              env:
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: prod-sbs
+                  RESOURCE: nais/prod-sbs.yml
