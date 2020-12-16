@@ -199,7 +199,9 @@
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
     "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021": "Har du brukt omsorgsdager i 2021?",
     "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
+    "step.oppsummering.dinSituasjon.antallDagerBrukt2021": "Hvor mange omsorgsdager har du brukt?",
 
     "step.oppsummering.mottaker.header": "Om den du skal dele omsorgsdager med",
     "step.oppsummering.mottaker.type": "Hvem skal du dele dager med?",

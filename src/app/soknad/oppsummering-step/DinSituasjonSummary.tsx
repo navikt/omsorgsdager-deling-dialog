@@ -7,6 +7,7 @@ import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-b
 import TallSvar from '@navikt/sif-common-soknad/lib/soknad-summary/TallSvar';
 import { DinSituasjonApiData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 interface Props {
     apiValues: DinSituasjonApiData;
@@ -29,13 +30,22 @@ const DinSituasjonSummary = ({ apiValues }: Props) => {
                 <JaNeiSvar harSvartJa={apiValues.arbeiderINorge} />
             </SummaryBlock>
             {apiValues.antallDagerBruktEtter1Juli && (
-                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli')}>
+                <SummaryBlock
+                    header={
+                        isDateBefore2021()
+                            ? intlHelper(intl, 'step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli')
+                            : intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')
+                    }>
                     <TallSvar verdi={apiValues.antallDagerBruktEtter1Juli} />
                 </SummaryBlock>
             )}
             {apiValues.antallDagerBruktEtter1Juli === undefined && (
                 <SummaryBlock
-                    header={intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli')}>
+                    header={
+                        isDateBefore2021()
+                            ? intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli')
+                            : intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')
+                    }>
                     <JaNeiSvar harSvartJa={false} />
                 </SummaryBlock>
             )}
