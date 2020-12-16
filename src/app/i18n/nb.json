@@ -145,6 +145,7 @@
     "step.samværsavtale.vedlegg.totalstørrelse.1": "Du har totalt lastet opp mer enn grensen på 24 Mb. Det betyr at du må fjerne noe av det du har lastet opp. Hvis det betyr at du ikke får plass til alt du ønsker å sende nå, kan du ",
     "step.samværsavtale.vedlegg.totalstørrelse.2": "ettersende flere dokumenter",
     "step.samværsavtale.vedlegg.totalstørrelse.3": ".",
+    "fileUploadErrors.part1": "Det har dessverre skjedd en feil under opplasting av følgende vedlegg:",
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Fortsett senere",
     "steg.footer.cancelOrContinueLater.label": "Avbryt eller fortsett senere",
@@ -199,7 +200,9 @@
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
     "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
+    "step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021": "Har du brukt omsorgsdager i 2021?",
     "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
+    "step.oppsummering.dinSituasjon.antallDagerBrukt2021": "Hvor mange omsorgsdager har du brukt?",
 
     "step.oppsummering.mottaker.header": "Om den du skal dele omsorgsdager med",
     "step.oppsummering.mottaker.type": "Hvem skal du dele dager med?",
