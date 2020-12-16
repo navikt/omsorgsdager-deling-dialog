@@ -70,9 +70,6 @@ jobs:
                 CLUSTER: prod-sbs
                 RESOURCE: nais/prod-sbs.yml
 
-
-    # GCP - new application des 2020
-
     build-code-and-push-docker-gcp:
         name: Build code and push docker image gcp
         if: startsWith(github.ref, 'refs/heads/gcp-master') || startsWith(github.ref, 'refs/heads/devgcp-') || github.event.deployment.payload.triggered # Build and push docker if branch is either master or dev-*
