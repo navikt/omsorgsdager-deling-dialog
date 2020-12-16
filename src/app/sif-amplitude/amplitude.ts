@@ -44,11 +44,12 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
     }, [isActive]);
 
     function logEvent(eventName: string, eventProperties?: any) {
+        const eventProps = { ...eventProperties, app: APPLICATION_KEY };
         if (getEnvironmentVariable('APP_VERSION') === 'dev') {
-            console.log({ eventName, eventProperties: { ...eventProperties, applikasjon: APPLICATION_KEY } });
+            console.log({ eventName, eventProperties: {} });
         }
         if (instance.current) {
-            instance.current.logEvent(eventName, eventProperties);
+            instance.current.logEvent(eventName, eventProps);
         }
     }
 
