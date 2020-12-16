@@ -60,6 +60,7 @@ export const [AmplitudeProvider, useAmplitudeInstance] = constate(() => {
 
     async function logSidevisning(pageKey: string) {
         logEvent(AmplitudeEvents.sidevisning, {
+            app: APPLICATION_KEY,
             pageKey,
             team: 'sykdom-i-familien',
         });
