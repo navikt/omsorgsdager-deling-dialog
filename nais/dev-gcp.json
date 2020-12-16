@@ -1,5 +1,5 @@
 {
-    "app": "dele-omsorgsdager",
+    "app": "deling-omsorgsdager",
     "cluster": "dev-gcp",
     "namespace": "dusseldorf",
     "team": "dusseldorf",
@@ -9,12 +9,12 @@
     "env": {
         "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true",
         "API_URL": "https://omsorgsdager-melding-api.dev.nav.no",
-        "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/dele-omsorgsdager",
+        "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager",
         "APP_VERSION": "dev",
-        "LOGIN_URL": "https://loginservice.dev.nav.no/login?redirect=https://dele-omsorgsdager.dev.nav.no/familie/sykdom-i-familien/soknad/dele-omsorgsdager/melding",
+        "LOGIN_URL": "https://loginservice.dev.nav.no/login?redirect=https://dele-omsorgsdager.dev.nav.no/familie/sykdom-i-familien/soknad/deling-omsorgsdager/melding",
         "APPSTATUS_PROJECT_ID": "ryujtq87",
         "APPSTATUS_DATASET": "staging",
         "USE_AMPLITUDE": "true",
-        "KORONA_2021_PERIODE_ENABLED": "true"
+        "KORONA_2021_PERIODE_ENABLED": "false"
     }
 }
