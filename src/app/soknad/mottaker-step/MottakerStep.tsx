@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
@@ -14,18 +13,17 @@ import {
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
-import Lenke from 'nav-frontend-lenker';
 import { RadioPanelProps } from 'nav-frontend-skjema';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Person } from '../../types/Person';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
+import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import SoknadFormQuestion from '../SoknadFormQuestion';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
-import * as dayjs from 'dayjs';
-import { Feature, isFeatureEnabled } from '../../utils/featureToggleUtils';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -82,7 +80,7 @@ const getMottakertypeRadios = (intl: IntlShape): RadioPanelProps[] => {
 };
 
 const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
-    const stengningsperiodeRadios = [
+    return [
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.fra13marsTil30Juni2020}`),
             value: Stengingsperiode.fra13marsTil30Juni2020,
@@ -94,24 +92,12 @@ const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
             ),
             value: Stengingsperiode.fraOgMed10August2020til31Desember2020,
         },
-        {
-            label: intlHelper(
-                intl,
-                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed1januar2021til31Desember2021}`
-            ),
-            value: Stengingsperiode.fraOgMed1januar2021til31Desember2021,
-        },
+
         {
             label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.annen}`),
             value: Stengingsperiode.annen,
         },
     ];
-
-    return dayjs().isAfter(dayjs('2020-12-31 23:59:59')) || isFeatureEnabled(Feature.KORONA_2021_PERIODE_ENABLED)
-        ? stengningsperiodeRadios
-        : stengningsperiodeRadios.filter(
-              (radioBtn) => radioBtn.value !== Stengingsperiode.fraOgMed1januar2021til31Desember2021
-          );
 };
 
 const MottakerStep = ({ søker }: Props) => {
@@ -130,8 +116,8 @@ const MottakerStep = ({ søker }: Props) => {
             showSubmitButton={kanFortsette}
             onStepCleanup={cleanupMottakerStep}
             showNotAllQuestionsAnsweredMessage={visibility.areAllQuestionsAnswered() === false}>
-            <CounsellorPanel>
-                {intlHelper(intl, 'step.mottaker.veileder.1')}
+            <StepIntroduction>
+                <p>{intlHelper(intl, 'step.mottaker.veileder.1')}</p>
                 <p>{intlHelper(intl, 'step.mottaker.veileder.2')}</p>
                 <ul>
                     <li>
@@ -157,12 +143,13 @@ const MottakerStep = ({ søker }: Props) => {
                         <ExpandableInfo
                             title={intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.tittel')}
                             filledBackground={false}>
-                            {intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')}
+                            {isDateBefore2021()
+                                ? intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')
+                                : intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.2021')}
                         </ExpandableInfo>
                     </li>
                 </ul>
-            </CounsellorPanel>
-
+            </StepIntroduction>
             <QuestionVisibilityContext.Provider value={{ visibility }}>
                 <SoknadFormQuestion
                     name={SoknadFormField.gjelderMidlertidigPgaKorona}
@@ -227,19 +214,7 @@ const MottakerStep = ({ søker }: Props) => {
                 <SoknadFormQuestion
                     name={SoknadFormField.stengingsperiode}
                     showStop={stopp === MottakerFormStopp.koronaAnnenStengingsperiode}
-                    stopMessage={
-                        <>
-                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.1" />
-                            <br />
-                            <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.a" />{' '}
-                            <Lenke
-                                href="https://www.nav.no/familie/sykdom-i-familien/nb/omsorgspenger#Slik-kan-du-dele-omsorgsdagene-dine"
-                                target="_blank">
-                                <FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding.2.b" />
-                            </Lenke>
-                            .
-                        </>
-                    }>
+                    stopMessage={<FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding" />}>
                     <SoknadFormComponents.RadioPanelGroup
                         name={SoknadFormField.stengingsperiode}
                         legend={intlHelper(intl, 'step.mottaker.form.stengingsperiode.spm')}
@@ -278,7 +253,7 @@ const MottakerStep = ({ søker }: Props) => {
                     {gjelderMidlertidigPgaKorona === YesOrNo.YES && (
                         <SoknadFormComponents.Input
                             name={SoknadFormField.antallDagerSomSkalOverføres}
-                            label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.korona.spm')}
+                            label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
                             validate={validateAll([validateRequiredNumber(ANTALL_DAGER_KORONA_RANGE)])}
                             inputMode="numeric"
                             bredde="XS"
@@ -290,10 +265,15 @@ const MottakerStep = ({ søker }: Props) => {
                                         intl,
                                         'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel'
                                     )}>
-                                    {intlHelper(
-                                        intl,
-                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
-                                    )}
+                                    {isDateBefore2021()
+                                        ? intlHelper(
+                                              intl,
+                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
+                                          )
+                                        : intlHelper(
+                                              intl,
+                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021'
+                                          )}
                                 </ExpandableInfo>
                             }
                         />

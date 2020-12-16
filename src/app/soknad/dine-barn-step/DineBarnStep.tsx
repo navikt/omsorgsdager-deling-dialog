@@ -2,7 +2,6 @@ import React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import ContentWithHeader from '@navikt/sif-common-core/lib/components/content-with-header/ContentWithHeader';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import ItemList from '@navikt/sif-common-core/lib/components/item-list/ItemList';
 import { dateToday, prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -10,6 +9,7 @@ import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
 import { useFormikContext } from 'formik';
 import AlertStripe from 'nav-frontend-alertstriper';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { nYearsAgo } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
@@ -43,10 +43,10 @@ const DineBarnStep = ({ barn }: Props) => {
 
     return (
         <SoknadFormStep id={StepID.DINE_BARN} showSubmitButton={kanFortsette}>
-            <CounsellorPanel>
+            <StepIntroduction>
                 <p>{intlHelper(intl, 'step.dine-barn.info.title')}</p>
-                {intlHelper(intl, 'step.dine-barn.info')}
-            </CounsellorPanel>
+                <p>{intlHelper(intl, 'step.dine-barn.info')}</p>
+            </StepIntroduction>
 
             {barn.length > 0 && (
                 <Box margin="xl">

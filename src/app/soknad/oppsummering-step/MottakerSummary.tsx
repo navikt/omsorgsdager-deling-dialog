@@ -4,12 +4,14 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import FødselsnummerSvar from '@navikt/sif-common-soknad/lib/soknad-summary/FødselsnummerSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
+import { prettifyApiDate } from '@navikt/sif-common-soknad/lib/soknad-summary/DatoSvar';
 import {
     isSøknadFordeling,
     isSøknadKoronaoverføring,
     isSøknadOverføring,
     SoknadApiData,
 } from '../../types/SoknadApiData';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 interface Props {
     apiValues: SoknadApiData;
@@ -39,16 +41,29 @@ const MottakerSummary = ({ apiValues }: Props) => {
                 <FormattedMessage id="Fødselsnummer" />: <FødselsnummerSvar fødselsnummer={apiValues.mottakerFnr} />
             </SummaryBlock>
             {(isSøknadOverføring(apiValues) || isSøknadKoronaoverføring(apiValues)) && (
-                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.antallDagerSomSkalOverføres')}>
-                    <FormattedMessage
-                        id={`dager`}
-                        values={{
-                            dager: isSøknadOverføring(apiValues)
-                                ? apiValues.overføring.antallDagerSomSkalOverføres
-                                : apiValues.korona.antallDagerSomSkalOverføres,
-                        }}
-                    />
-                </SummaryBlock>
+                <>
+                    <SummaryBlock header={intlHelper(intl, 'step.oppsummering.antallDagerSomSkalOverføres')}>
+                        <FormattedMessage
+                            id={`dager`}
+                            values={{
+                                dager: isSøknadOverføring(apiValues)
+                                    ? apiValues.overføring.antallDagerSomSkalOverføres
+                                    : apiValues.korona.antallDagerSomSkalOverføres,
+                            }}
+                        />
+                    </SummaryBlock>
+                    {isDateBefore2021() && isSøknadKoronaoverføring(apiValues) && (
+                        <SummaryBlock header={intlHelper(intl, 'step.oppsummering.korona.periode.tittel')}>
+                            <FormattedMessage
+                                id="step.oppsummering.korona.periode.verdi"
+                                values={{
+                                    fraDato: prettifyApiDate(apiValues.korona.stengingsperiode.fraOgMed),
+                                    tilDato: prettifyApiDate(apiValues.korona.stengingsperiode.tilOgMed),
+                                }}
+                            />
+                        </SummaryBlock>
+                    )}
+                </>
             )}
         </SummarySection>
     );

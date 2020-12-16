@@ -56,6 +56,7 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
                         </AlertStripeFeil>
                     </Box>
                 )}
+
                 {apiValues !== undefined && apiDataIsValid === false && (
                     <AlertStripeFeil>
                         <FormattedMessage id="oppsummering.advarsel.invalidApiValues" />

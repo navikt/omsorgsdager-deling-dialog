@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
 import FileUploadErrors from '@navikt/sif-common-core/lib/components/file-upload-errors/FileUploadErrors';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import {
@@ -21,6 +20,7 @@ import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import getLenker from '../../lenker';
 import PictureScanningGuide from '@navikt/sif-common-core/lib/components/picture-scanning-guide/PictureScanningGuide';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 
 const SamværsavtaleStep = () => {
     const intl = useIntl();
@@ -32,7 +32,7 @@ const SamværsavtaleStep = () => {
 
     return (
         <SoknadFormStep id={StepID.SAMVÆRSAVTALE} buttonDisabled={hasPendingUploads || sizeOver24Mb}>
-            <CounsellorPanel>{intlHelper(intl, 'step.samværsavtale.info.title')}</CounsellorPanel>
+            <StepIntroduction>{intlHelper(intl, 'step.samværsavtale.info.title')}</StepIntroduction>
             <Box margin={'l'}>
                 <PictureScanningGuide />
             </Box>
@@ -54,14 +54,14 @@ const SamværsavtaleStep = () => {
             {totalSize > MAX_TOTAL_ATTACHMENT_SIZE_BYTES && (
                 <Box margin={'l'}>
                     <AlertStripeAdvarsel>
-                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.1'} />
+                        <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.1'} />
                         <Lenke
                             target={'_blank'}
                             rel={'noopener noreferrer'}
                             href={getLenker(intl.locale).ettersendelse}>
-                            <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.2'} />
+                            <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.2'} />
                         </Lenke>
-                        <FormattedMessage id={'step.samværsavtale.advarsel.totalstørrelse.3'} />
+                        <FormattedMessage id={'step.samværsavtale.vedlegg.totalstørrelse.3'} />
                     </AlertStripeAdvarsel>
                 </Box>
             )}

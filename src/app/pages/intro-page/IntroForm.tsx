@@ -23,45 +23,64 @@ const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData
 const IntroForm = ({ onValidSubmit }: Props) => {
     const intl = useIntl();
 
+    const getArbeidstakerSnEllerFrilanserSpm = (values: IntroFormData) => {
+        return (
+            <FormQuestion
+                legend={intlHelper(intl, `introForm.form.${IntroFormField.erArbeidstakerSnEllerFrilanser}.spm`)}
+                name={IntroFormField.erArbeidstakerSnEllerFrilanser}
+                validate={validateYesOrNoIsAnswered}
+                showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
+                stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
+            />
+        );
+    };
+
+    const getMottakersArbeidssituasjonErOk = (values: IntroFormData) => {
+        return (
+            <FormQuestion
+                legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
+                name={IntroFormField.mottakersArbeidssituasjonErOk}
+                validate={validateRequiredList}
+                showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
+                stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
+            />
+        );
+    };
+
     const getCommonQuestions = (values: IntroFormData, addAleneomssorgQuestion?: boolean) => {
         return (
             <>
                 {addAleneomssorgQuestion && (
-                    <FormQuestion
-                        legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
-                        name={IntroFormField.harAleneomsorg}
-                        validate={validateYesOrNoIsAnswered}
-                        description={
-                            <ExpandableInfo
-                                title={intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.titel')}>
-                                {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.1')}
-                                <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.2')}</p>
-                                <p>
-                                    <Lenke href={getLenker().merOmFastBostedOgSamvær}>
-                                        {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.link')}
-                                    </Lenke>
-                                </p>
-                            </ExpandableInfo>
-                        }
-                    />
+                    <>
+                        <FormQuestion
+                            legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
+                            name={IntroFormField.harAleneomsorg}
+                            validate={validateYesOrNoIsAnswered}
+                            showStop={values.harAleneomsorg === YesOrNo.NO}
+                            stopMessage={intlHelper(intl, 'introForm.form.harAleneomsorg.stopMessage')}
+                            description={
+                                <ExpandableInfo
+                                    title={intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.titel')}>
+                                    {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.1')}
+                                    <p>{intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.2')}</p>
+                                    <p>
+                                        <Lenke href={getLenker().merOmFastBostedOgSamvær}>
+                                            {intlHelper(intl, 'introForm.form.harAleneomsorg.spm.nedtrekk.link')}
+                                        </Lenke>
+                                    </p>
+                                </ExpandableInfo>
+                            }
+                        />
+                        {values.harAleneomsorg === YesOrNo.YES && getArbeidstakerSnEllerFrilanserSpm(values)}
+                        {values.harAleneomsorg === YesOrNo.YES &&
+                            values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES &&
+                            getMottakersArbeidssituasjonErOk(values)}
+                    </>
                 )}
-
-                <FormQuestion
-                    legend={intlHelper(intl, `introForm.form.${IntroFormField.erArbeidstakerSnEllerFrilanser}.spm`)}
-                    name={IntroFormField.erArbeidstakerSnEllerFrilanser}
-                    validate={validateYesOrNoIsAnswered}
-                    showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
-                    stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
-                />
-                {values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES && (
-                    <FormQuestion
-                        legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
-                        name={IntroFormField.mottakersArbeidssituasjonErOk}
-                        validate={validateRequiredList}
-                        showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
-                        stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
-                    />
-                )}
+                {addAleneomssorgQuestion === undefined && getArbeidstakerSnEllerFrilanserSpm(values)}
+                {addAleneomssorgQuestion === undefined &&
+                    values.erArbeidstakerSnEllerFrilanser === YesOrNo.YES &&
+                    getMottakersArbeidssituasjonErOk(values)}
             </>
         );
     };
@@ -117,12 +136,14 @@ const IntroForm = ({ onValidSubmit }: Props) => {
         const kanFortsetteVanlig =
             values.korona === YesOrNo.NO &&
             values.mottakerErEktefelleEllerSamboer === YesOrNo.YES &&
+            values.harAleneomsorg === YesOrNo.YES &&
             arbeidsSituasjonErOkHosBegge;
 
         const kanFortsetteSamværsforelder =
             values.korona === YesOrNo.NO &&
             values.mottakerErEktefelleEllerSamboer === YesOrNo.NO &&
             values.mottakerSamværsforelder === YesOrNo.YES &&
+            values.harAleneomsorg === YesOrNo.YES &&
             arbeidsSituasjonErOkHosBegge;
 
         const stoppIngenValgtSituasjon =

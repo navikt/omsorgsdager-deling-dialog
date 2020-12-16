@@ -2,6 +2,7 @@ import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 import { hasValue } from '@navikt/sif-common-core/lib/validation/hasValue';
 import { QuestionConfig, Questions } from '@navikt/sif-common-question-config/lib';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
 
 export enum MottakerFormStopp {
@@ -62,7 +63,9 @@ const MottakerFormConfig: QuestionConfig<MottakerFormQuestionsPayload, SoknadFor
     [Q.stengingsperiode]: {
         isAnswered: ({ stengingsperiode }) => hasValue(stengingsperiode),
         isIncluded: ({ gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle }) =>
-            gjelderMidlertidigPgaKorona === YesOrNo.YES && skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES,
+            gjelderMidlertidigPgaKorona === YesOrNo.YES &&
+            skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES &&
+            isDateBefore2021(),
     },
 
     [Q.antallDagerSomSkalOverføres]: {

@@ -11,6 +11,7 @@ import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 
 const IntroPage = () => {
     const intl = useIntl();
@@ -49,7 +50,9 @@ const IntroPage = () => {
                                 <ExpandableInfo
                                     title={intlHelper(intl, 'introForm.info.5.nedtrek.1.tittel')}
                                     filledBackground={false}>
-                                    {intlHelper(intl, 'introForm.info.5.nedtrek.1')}
+                                    {isDateBefore2021()
+                                        ? intlHelper(intl, 'introForm.info.5.nedtrek.1')
+                                        : intlHelper(intl, 'introForm.info.5.nedtrek.1.2021')}
                                 </ExpandableInfo>
                             </li>
                         </ul>
