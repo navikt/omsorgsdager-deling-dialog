@@ -14,8 +14,8 @@ import './styles/app.less';
 Modal.setAppElement('#app');
 
 export const APPLICATION_KEY = 'deling-omsorgsdager';
-const root = document.getElementById('app');
 
+const root = document.getElementById('app');
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
 render(
