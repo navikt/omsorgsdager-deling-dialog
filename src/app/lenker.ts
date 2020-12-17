@@ -8,6 +8,7 @@ interface Lenker {
     meldingOmDelingAvOmsorgsdager: string;
     merOmFastBostedOgSamvær: string;
     medlemskapIFolketrygden: string;
+    ettersendelse: string;
 }
 
 const LenkerBokmål: Lenker = {
@@ -22,6 +23,7 @@ const LenkerBokmål: Lenker = {
     meldingOmDelingAvOmsorgsdager: `https://www.nav.no/soknader/nb/person/familie/omsorgspenger/NAV%2009-06.08/brev`,
     merOmFastBostedOgSamvær: `https://www.regjeringen.no/no/tema/familie-og-barn/innsiktsartikler/bosted-og-samvar/samvar/id749587/`,
     medlemskapIFolketrygden: `https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden`,
+    ettersendelse: 'https://www.nav.no/soknader/nb/person/familie/omsorgspenger/NAV%2009-35.01/ettersendelse',
 };
 
 const getLenker = (locale?: string): Lenker => {

@@ -1,9 +1,16 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { isForbidden, isUnauthorized } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
-import { isUnauthorized, isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 
 export const defaultAxiosConfig = {
     withCredentials: true,
+};
+
+const multipartConfig = { headers: { 'Content-Type': 'multipart/form-data' }, ...defaultAxiosConfig };
+
+const sendMultipartPostRequest = (url: string, formData: FormData) => {
+    return axios.post(url, formData, multipartConfig);
 };
 
 axios.defaults.baseURL = getEnvironmentVariable('API_URL');
@@ -24,20 +31,20 @@ axios.interceptors.response.use(
     }
 );
 
-export enum ApiEndpoint {
-    'soker' = 'sokerMelding',
-    'barn' = 'barn',
-    'mellomlagring' = 'mellomlagring',
-    'sendSoknad' = 'melding/dele-dager',
-}
-
 const api = {
     get: <ResponseType>(endpoint: ApiEndpoint, paramString?: string, config?: AxiosRequestConfig) => {
         const url = `${endpoint}${paramString ? `?${paramString}` : ''}`;
         return axios.get<ResponseType>(url, config || defaultAxiosConfig);
     },
-    post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) =>
-        axios.post<ResponseType>(endpoint, data, defaultAxiosConfig),
+    post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) => {
+        return axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
+    },
+    uploadFile: (endpoint: ApiEndpoint, file: File) => {
+        const formData = new FormData();
+        formData.append('vedlegg', file);
+        return sendMultipartPostRequest(endpoint, formData);
+    },
+    deleteFile: (url: string) => axios.delete(url, defaultAxiosConfig),
 };
 
 export default api;

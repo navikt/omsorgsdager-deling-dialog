@@ -1,15 +1,22 @@
+import {
+    SoknadApiDataFelles,
+    SøknadFordelingApiData,
+    SøknadKoronaoverføringApiData,
+    SøknadOverføringApiData,
+} from '../../types/SoknadApiData';
+import { Arbeidssituasjon, Mottaker } from '../../types/SoknadFormData';
+import { Søknadstype } from '../../types/Soknadstype';
 import { verifySoknadApiData } from '../verifySoknadApiData';
 
-const mockSoknad = {
+const søknadFellesInfo: SoknadApiDataFelles = {
     id: '01EN0G1TQF4N58300JZ6V0NN22',
+    type: Søknadstype.fordeling,
     språk: 'nb',
     harBekreftetOpplysninger: true,
     harForståttRettigheterOgPlikter: true,
     erYrkesaktiv: true,
     arbeiderINorge: true,
-    arbeidssituasjon: ['selvstendigNæringsdrivende'],
-    antallDagerSomSkalOverføres: '3',
-    mottakerType: 'samboer',
+    arbeidssituasjon: [Arbeidssituasjon.selvstendigNæringsdrivende],
     mottakerFnr: '1234567891',
     mottakerNavn: 'sddfsdf',
     harAleneomsorg: true,
@@ -32,11 +39,42 @@ const mockSoknad = {
     ],
 };
 
+const overføringSøknad: SøknadOverføringApiData = {
+    ...søknadFellesInfo,
+    type: Søknadstype.overføring,
+    overføring: {
+        antallDagerSomSkalOverføres: 1,
+        mottakerType: Mottaker.ektefelle,
+    },
+};
+const fordelingSøknad: SøknadFordelingApiData = {
+    ...søknadFellesInfo,
+    type: Søknadstype.fordeling,
+    fordeling: {
+        samværsavtale: [],
+        mottakerType: Mottaker.ektefelle,
+    },
+};
+const koronaSøknad: SøknadKoronaoverføringApiData = {
+    ...søknadFellesInfo,
+    type: Søknadstype.koronaoverføring,
+    korona: {
+        antallDagerSomSkalOverføres: 1,
+        stengingsperiode: { fraOgMed: '2020-03-13', tilOgMed: '2020-06-30' },
+    },
+};
+
 describe('verifySoknadApiData', () => {
     it('fails on undefined data', () => {
         expect(verifySoknadApiData(undefined)).toBeFalsy();
     });
-    it('accepts valid data', () => {
-        expect(verifySoknadApiData(mockSoknad)).toBeTruthy();
+    it('accepts valid koronasøknad', () => {
+        expect(verifySoknadApiData(koronaSøknad)).toBeTruthy();
+    });
+    it('accepts valid fordelingssøknad', () => {
+        expect(verifySoknadApiData(fordelingSøknad)).toBeTruthy();
+    });
+    it('accepts valid overføringssøknad', () => {
+        expect(verifySoknadApiData(overføringSøknad)).toBeTruthy();
     });
 });

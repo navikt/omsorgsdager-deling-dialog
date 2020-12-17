@@ -1,17 +1,11 @@
-import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { SoknadApiData } from '../../types/SoknadApiData';
-import { Mottaker, MottakerFormData } from '../../types/SoknadFormData';
+import { SoknadApiData, SoknadApiDataField } from '../../types/SoknadApiData';
+import { MottakerFormData } from '../../types/SoknadFormData';
 
-export type MottakerApiData = Pick<
-    SoknadApiData,
-    'mottakerType' | 'mottakerFnr' | 'mottakerNavn' | 'antallDagerSomSkalOverføres'
->;
+export type MottakerApiData = Pick<SoknadApiData, SoknadApiDataField.mottakerFnr | SoknadApiDataField.mottakerNavn>;
 
-export const mapMottakerToApiData = (formData: MottakerFormData): MottakerApiData => {
+export const mapMottakerToApiData = ({ fnrMottaker, navnMottaker }: MottakerFormData): MottakerApiData => {
     return {
-        antallDagerSomSkalOverføres: formData.antallDagerSomSkalOverføres,
-        mottakerType: formData.overføreTilEktefelle === YesOrNo.YES ? Mottaker.ektefelle : Mottaker.samboer,
-        mottakerFnr: formData.fnrMottaker,
-        mottakerNavn: formData.navnMottaker,
+        mottakerFnr: fnrMottaker,
+        mottakerNavn: navnMottaker,
     };
 };

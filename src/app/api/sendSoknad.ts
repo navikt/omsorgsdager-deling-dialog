@@ -1,4 +1,5 @@
 import { SoknadApiData } from '../types/SoknadApiData';
-import api, { ApiEndpoint } from './api';
+import { getApiEndpointForSøknadstype } from '../utils/apiUtils';
+import api from './api';
 
-export const sendSoknad = (data: SoknadApiData) => api.post(ApiEndpoint.sendSoknad, data);
+export const sendSoknad = (data: SoknadApiData) => api.post(getApiEndpointForSøknadstype(data.type), data);

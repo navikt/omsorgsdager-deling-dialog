@@ -3,16 +3,18 @@ import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
-import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
+import { SoknadApplicationType, StepConfig } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
+import { ApplikasjonHendelse, useAmplitudeInstance } from '../sif-amplitude/amplitude';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
+import appSentryLogger from '../utils/appSentryLogger';
 import {
     navigateTo,
     navigateToErrorPage,
@@ -21,14 +23,13 @@ import {
     relocateToNavFrontpage,
     relocateToSoknad,
 } from '../utils/navigationUtils';
+import { verifySoknadApiData } from '../validation/verifySoknadApiData';
 import { initialSoknadFormData } from './initialSoknadValues';
 import { initialSendSoknadState, SendSoknadStatus, SoknadContextProvider } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
-import { soknadStepsConfig, StepID } from './soknadStepsConfig';
+import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
-import { verifySoknadApiData } from '../validation/verifySoknadApiData';
-import appSentryLogger from '../utils/appSentryLogger';
 
 interface Props {
     søker: Person;
@@ -47,6 +48,8 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
 
+    const { logSoknadSent, logSoknadFailed, logHendelse } = useAmplitudeInstance();
+
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
         setInitialFormData({ ...initialSoknadFormData });
@@ -64,6 +67,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     };
 
     const abortSoknad = async () => {
+        logHendelse(ApplikasjonHendelse.avbryt);
         await soknadTempStorage.purge();
         relocateToSoknad();
     };
@@ -72,13 +76,18 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         await resetSoknad();
         const sId = ulid();
         setSoknadId(sId);
-        await soknadTempStorage.persist(sId, initialFormData, StepID.DINE_BARN, { søker, barn });
+        const firstStep = StepID.MOTTAKER;
+        await soknadTempStorage.persist(sId, { ...initialFormData, harForståttRettigheterOgPlikter: true }, firstStep, {
+            søker,
+            barn,
+        });
         setTimeout(() => {
-            navigateTo(soknadStepUtils.getStepRoute(StepID.DINE_BARN, SoknadApplicationType.MELDING), history);
+            navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
         });
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData) => {
+        logHendelse(ApplikasjonHendelse.fortsettSenere);
         await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
         relocateToNavFrontpage();
     };
@@ -87,14 +96,17 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         try {
             await sendSoknad(apiValues);
             await soknadTempStorage.purge();
+            await logSoknadSent(apiValues.type);
             setSendSoknadStatus({ failures: 0, status: success(apiValues) });
             navigateToKvitteringPage(history);
             setSoknadId(undefined);
             resetFormikForm();
         } catch (error) {
             if (isUserLoggedOut(error)) {
+                logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'Ved innsending av søknad');
                 relocateToLoginPage();
             } else {
+                await logSoknadFailed(apiValues.type);
                 if (sendSoknadStatus.failures >= 2) {
                     navigateToErrorPage(history);
                 } else {
@@ -120,6 +132,25 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             await appSentryLogger.logError('ApiVerificationFailed');
             navigateToErrorPage(history);
         }
+    };
+
+    const persistAndNavigate = async (values: SoknadFormData, step: StepConfig<StepID>, nextStep?: StepID) => {
+        if (nextStep && soknadId) {
+            try {
+                await soknadTempStorage.persist(soknadId, values, nextStep, { søker, barn });
+            } catch (error) {
+                if (isUserLoggedOut(error)) {
+                    logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'ved mellomlagring').then(() => {
+                        relocateToLoginPage();
+                    });
+                }
+            }
+        }
+        setTimeout(() => {
+            if (step.nextStepRoute) {
+                navigateTo(step.nextStepRoute, history);
+            }
+        });
     };
 
     useEffect(() => {
@@ -159,19 +190,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                         initialValues={initialFormData}
                         onSubmit={() => null}
                         renderForm={({ values, resetForm }) => {
-                            const navigateToNextStepFromStep = (stepID: StepID) => {
-                                const stepToPersist = soknadStepsConfig[stepID].nextStep;
-                                if (stepToPersist && soknadId) {
-                                    soknadTempStorage.persist(soknadId, values, stepToPersist, { søker, barn });
-                                }
-                                const step = soknadStepsConfig[stepID];
-                                setTimeout(() => {
-                                    if (step.nextStepRoute) {
-                                        navigateTo(step.nextStepRoute, history);
-                                    }
-                                });
-                            };
-
+                            const soknadStepsConfig = getSoknadStepsConfig(values);
                             return (
                                 <SoknadContextProvider
                                     value={{
@@ -184,8 +203,12 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                                             : undefined,
                                         startSoknad,
                                         sendSoknad: (values) => triggerSend(values, resetForm),
-                                        gotoNextStepFromStep: (stepID: StepID) => {
-                                            navigateToNextStepFromStep(stepID);
+                                        gotoNextStepFromStep: (stepId: StepID) => {
+                                            persistAndNavigate(
+                                                values,
+                                                soknadStepsConfig[stepId],
+                                                soknadStepsConfig[stepId].nextStep
+                                            );
                                         },
                                     }}>
                                     <SoknadRoutes soknadId={soknadId} søker={søker} barn={barn} />

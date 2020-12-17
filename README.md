@@ -9,6 +9,7 @@ For å kjøre opp app-en i dev:
 
 For å kjøre enhetstester:
 
+
 1.  `npm install && npm test`.
 
 ## Henvendelser

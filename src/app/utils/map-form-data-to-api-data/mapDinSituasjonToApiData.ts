@@ -1,10 +1,13 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { SoknadApiData } from '../../types/SoknadApiData';
+import { SoknadApiData, SoknadApiDataField } from '../../types/SoknadApiData';
 import { DinSituasjonFormData } from '../../types/SoknadFormData';
 
 export type DinSituasjonApiData = Pick<
     SoknadApiData,
-    'erYrkesaktiv' | 'arbeiderINorge' | 'arbeidssituasjon' | 'antallDagerBruktEtter1Juli'
+    | SoknadApiDataField.erYrkesaktiv
+    | SoknadApiDataField.arbeiderINorge
+    | SoknadApiDataField.arbeidssituasjon
+    | SoknadApiDataField.antallDagerBruktEtter1Juli
 >;
 
 export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSituasjonApiData => {

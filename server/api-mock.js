@@ -2,6 +2,7 @@ const os = require('os');
 const fs = require('fs');
 const express = require('express');
 const server = express();
+const Busboy = require('busboy');
 
 server.use(express.json());
 server.use((req, res, next) => {
@@ -71,15 +72,20 @@ const søkerMockIkkeMyndig = {
 
 const barnMock = {
     barn: [
-        { fødselsdato: '2003-01-01', fornavn: 'Filip', mellomnavn: 'Barne', etternavn: 'Carpenter', aktørId: '1' },
-        { fødselsdato: '2004-01-02', fornavn: 'Jason', etternavn: 'Mcmanus', aktørId: '2' },
+        { fødselsdato: '1990-01-02', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
+        { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
     ],
 };
 
 const barnMock2 = {
     barn: [
-        { fødselsdato: '1990-01-02', fornavn: 'Barn', mellomnavn: 'Barne', etternavn: 'Barnesen', aktørId: '1' },
-        { fødselsdato: '1990-01-02', fornavn: 'Mock', etternavn: 'Mocknes', aktørId: '2' },
+        {
+            fødselsdato: '2008-03-01',
+            fornavn: 'GØYAL',
+            mellomnavn: null,
+            etternavn: 'LAPP',
+            aktørId: '1097566908089',
+        },
     ],
 };
 
@@ -96,23 +102,38 @@ const startExpressServer = () => {
         }, 2000);
     });
 
-    server.get('/sokerMelding', (req, res) => {
+    server.get('/soker', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
         }, 200);
     });
-    server.get('/sokerMelding-ikke-myndig', (req, res) => {
+    server.get('/soker-ikke-myndig', (req, res) => {
         setTimeout(() => {
             res.send(søkerMockIkkeMyndig);
         }, 200);
     });
-    server.get('/sokerMelding-not-logged-in', (req, res) => {
+    server.get('/soker-not-logged-in', (req, res) => {
         res.sendStatus(401);
     });
-    server.get('/sokerMelding-err', (req, res) => {
+    server.get('/soker-err', (req, res) => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
+    });
+
+    server.post('/vedlegg', (req, res) => {
+        res.set('Access-Control-Expose-Headers', 'Location');
+        res.set('Location', 'nav.no');
+        const busboy = new Busboy({ headers: req.headers });
+        busboy.on('finish', () => {
+            res.writeHead(200, { Location: '/vedlegg' });
+            res.end();
+        });
+        req.pipe(busboy);
+    });
+
+    server.delete('/vedlegg', (req, res) => {
+        res.sendStatus(200);
     });
 
     server.get('/barn', (req, res) => {
@@ -145,6 +166,33 @@ const startExpressServer = () => {
         }, 2500);
     });
 
+    // Vanlig deling av dager
+    server.post('/melding/overforing', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - dele med ektefelle/samboer', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Fordeling med samværsforelder
+    server.post('/melding/fordeling', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - fordeling samvær', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
+    // Koronaoverføring
+    server.post('/melding/koronaoverforing', (req, res) => {
+        const body = req.body;
+        console.log('[POST] - koronaoverføring', body);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 2500);
+    });
+
     server.post('/melding/dele-dager-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
@@ -164,13 +212,6 @@ const startExpressServer = () => {
         } else {
             res.send({});
         }
-    });
-
-    server.put('/mellomlagring', (req, res) => {
-        const body = req.body;
-        const jsBody = isJSON(body) ? JSON.parse(body) : body;
-        writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify(jsBody, null, 2));
-        res.sendStatus(200);
     });
 
     server.post('/mellomlagring', (req, res) => {

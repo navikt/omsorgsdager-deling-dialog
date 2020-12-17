@@ -1,8 +1,6 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-panel/CounsellorPanel';
-import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import { IntlShape, useIntl } from 'react-intl';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
@@ -11,150 +9,146 @@ import {
     validateRequiredList,
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
+import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
+import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Lenke from 'nav-frontend-lenker';
 import { CheckboksPanelProps } from 'nav-frontend-skjema';
-import getLenker from '../../lenker';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import { aldersBegrensingOver } from '../../utils/aldersUtils';
 import SoknadFormComponents from '../SoknadFormComponents';
+import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
+import { getOmBarnaFormStop, OmBarnaFormQuestions, OmBarnaFormStop } from './omBarnaStepFormConfig';
 
 interface Props {
     barn: Barn[];
 }
 
-const cleanupOmBarnaStep = (values: SoknadFormData): SoknadFormData => {
-    const cleanedValues = { ...values };
-    if (values.harUtvidetRett === YesOrNo.NO) {
-        cleanedValues.harUtvidetRettFor = [];
+const cleanupOmBarnaStep = (values: SoknadFormData, barn: Barn[], andreBarn: AnnetBarn[]): SoknadFormData => {
+    if (barn.length + andreBarn.length > 1) {
+        return {
+            ...values,
+            harAleneomsorgFor: values.harAleneomsorg === YesOrNo.YES ? values.harAleneomsorgFor : [],
+            harUtvidetRettFor: values.harUtvidetRett === YesOrNo.YES ? values.harUtvidetRettFor : [],
+        };
     }
-    return cleanedValues;
+    const barnId = barn.length === 1 ? barn[0].aktørId : andreBarn[0].fnr;
+    const harAleneomsorg = values.harAleneomsorg === YesOrNo.YES;
+    const harUtvidetRett = values.harUtvidetRett === YesOrNo.YES;
+    return {
+        ...values,
+        harAleneomsorgFor: harAleneomsorg ? [barnId] : [],
+        harUtvidetRettFor: harUtvidetRett ? [barnId] : [],
+    };
 };
 
-const OmBarnaStep = ({ barn }: Props) => {
-    const intl = useIntl();
-    const { values } = useFormikContext<SoknadFormData>();
-    const checkboxes: CheckboksPanelProps[] = [];
-    barn.map((barnet) =>
-        checkboxes.push({
+const getBarnOptions = (barn: Barn[] = [], andreBarn: AnnetBarn[] = [], intl: IntlShape): CheckboksPanelProps[] => {
+    return [
+        ...barn.map((barnet) => ({
             label: `${intlHelper(intl, 'step.om-barna.født')} ${prettifyDate(barnet.fødselsdato)} ${formatName(
                 barnet.fornavn,
                 barnet.etternavn
             )}`,
             value: barnet.aktørId,
-        })
-    );
+        })),
+        ...andreBarn.map((barnet) => ({
+            label: `${intlHelper(intl, 'step.om-barna.født')} ${prettifyDate(barnet.fødselsdato)} ${barnet.navn}`,
+            value: barnet.fnr,
+        })),
+    ];
+};
 
-    if (values.andreBarn !== undefined) {
-        values.andreBarn.map((barnet) =>
-            checkboxes.push({
-                label: `${intlHelper(intl, 'step.om-barna.født')} ${prettifyDate(barnet.fødselsdato)} ${barnet.navn}`,
-                value: barnet.fnr,
-            })
-        );
-    }
-    const { harAleneomsorg, harUtvidetRett, andreBarn } = values;
+const OmBarnaStep = ({ barn }: Props) => {
+    const intl = useIntl();
+    const { values } = useFormikContext<SoknadFormData>();
 
-    const alleBarnOver12ogIngenUtvidetRett = (): boolean => {
-        const kunBarnOver12iBarn = barn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
-        const kunBarnOver12iAndreBarn =
-            andreBarn.filter((barnet) => aldersBegrensingOver(barnet.fødselsdato, 12)).length === 0;
-        return harUtvidetRett === YesOrNo.NO && kunBarnOver12iBarn && kunBarnOver12iAndreBarn;
-    };
-    const leggTilBarnTilharAleneomsorgFor = () => {
-        if (checkboxes[0].value && values.harAleneomsorgFor.length === 0) {
-            values.harAleneomsorgFor.push(checkboxes[0].value.toString());
-        }
-    };
-    const leggTilBarnTilharUtvidetRettFor = () => {
-        if (checkboxes[0].value && values.harUtvidetRettFor.length === 0) {
-            values.harUtvidetRettFor.push(checkboxes[0].value.toString());
-        }
-    };
+    const { andreBarn } = values;
+    const barnOptions = getBarnOptions(barn, andreBarn, intl);
+    const antallBarn = barnOptions.length;
 
-    const antallBarn = barn.length + andreBarn.length;
-    const kanFortsette = harAleneomsorg === YesOrNo.YES && !alleBarnOver12ogIngenUtvidetRett();
-    const stepAndPageTitle = intlHelper(intl, 'step.om-barna.stepTitle.plural', { antallBarn });
+    const omBarnaStop = getOmBarnaFormStop(values, barn);
+    const visibility = OmBarnaFormQuestions.getVisbility({ ...values, antallBarn, omBarnaStop });
+    const allQuestionsIsAnswered = visibility.areAllQuestionsAnswered();
+    const kanFortsette = allQuestionsIsAnswered && omBarnaStop === undefined;
+
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupOmBarnaStep}
-            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(harAleneomsorg) === false}
-            stepTitle={stepAndPageTitle}>
-            <CounsellorPanel>
-                {intlHelper(intl, 'step.om-barna.info.1')}
-                <p>{intlHelper(intl, 'step.om-barna.info.2')}</p>
-                <p>{intlHelper(intl, 'step.om-barna.info.3')}</p>
-                <Lenke href={getLenker(intl.locale).merOmFastBostedOgSamvær} target="_blank">
-                    {intlHelper(intl, 'lesMerOmFastBostedOgSamvær')}
-                </Lenke>
-            </CounsellorPanel>
-            <FormBlock>
-                <FormQuestion
+            onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
+            showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
+            stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
+            <StepIntroduction>
+                {values.gjelderMidlertidigPgaKorona === YesOrNo.NO && (
+                    <>
+                        <p>{intlHelper(intl, 'step.om-barna.info.1')}</p>
+                        <p>
+                            <b>{intlHelper(intl, 'step.om-barna.info.2')}</b>
+                        </p>
+                        <ul>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.1')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.2')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.3')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.2.list.4')}</li>
+                        </ul>
+                        <p>
+                            <b>{intlHelper(intl, 'step.om-barna.info.3')}</b>
+                        </p>
+                        <ul>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.1')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.2')}</li>
+                            <li>{intlHelper(intl, 'step.om-barna.info.3.list.3')}</li>
+                        </ul>
+                    </>
+                )}
+                {values.gjelderMidlertidigPgaKorona === YesOrNo.YES && intlHelper(intl, 'step.om-barna.info.korona')}
+            </StepIntroduction>
+            <QuestionVisibilityContext.Provider value={{ visibility }}>
+                <SoknadFormQuestion
                     name={SoknadFormField.harAleneomsorg}
                     legend={
-                        checkboxes.length === 1
+                        antallBarn === 1
                             ? intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.ettBarn')
                             : intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.flereBarn')
                     }
                     validate={validateYesOrNoIsAnswered}
-                    showStop={harAleneomsorg === YesOrNo.NO}
+                    showStop={omBarnaStop === OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
                 />
-            </FormBlock>
-            {harAleneomsorg === YesOrNo.YES && (
-                <>
-                    {checkboxes.length > 1 && (
-                        <FormBlock>
-                            <SoknadFormComponents.CheckboxPanelGroup
-                                legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
-                                name={SoknadFormField.harAleneomsorgFor}
-                                checkboxes={checkboxes}
-                                validate={validateRequiredList}
-                            />
-                        </FormBlock>
-                    )}
-
-                    {checkboxes.length === 1 && leggTilBarnTilharAleneomsorgFor()}
-
-                    <FormBlock>
-                        <SoknadFormComponents.YesOrNoQuestion
-                            name={SoknadFormField.harUtvidetRett}
-                            legend={
-                                checkboxes.length === 1
-                                    ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
-                                    : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
-                            }
-                            validate={validateYesOrNoIsAnswered}
-                        />
-                    </FormBlock>
-
-                    {harUtvidetRett === YesOrNo.YES && checkboxes.length > 1 && (
-                        <FormBlock>
-                            <SoknadFormComponents.CheckboxPanelGroup
-                                legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
-                                name={SoknadFormField.harUtvidetRettFor}
-                                checkboxes={checkboxes}
-                                validate={validateRequiredList}
-                            />
-                        </FormBlock>
-                    )}
-
-                    {harUtvidetRett === YesOrNo.YES && checkboxes.length === 1 && leggTilBarnTilharUtvidetRettFor()}
-
-                    {alleBarnOver12ogIngenUtvidetRett() && (
-                        <Box margin="l">
-                            <AlertStripe type={'info'}>{intlHelper(intl, 'step.om-barna.info.barnOver12')}</AlertStripe>
-                        </Box>
-                    )}
-                </>
-            )}
+                <SoknadFormQuestion name={SoknadFormField.harAleneomsorgFor}>
+                    <SoknadFormComponents.CheckboxPanelGroup
+                        legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
+                        name={SoknadFormField.harAleneomsorgFor}
+                        checkboxes={barnOptions}
+                        validate={validateRequiredList}
+                    />
+                </SoknadFormQuestion>
+                <SoknadFormQuestion
+                    name={SoknadFormField.harUtvidetRett}
+                    legend={
+                        antallBarn === 1
+                            ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
+                            : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
+                    }
+                    validate={validateYesOrNoIsAnswered}
+                    showStop={omBarnaStop === OmBarnaFormStop.alleBarnErOver12ogIngenUtvidetRett}
+                    stopMessage={intlHelper(intl, 'step.om-barna.info.barnOver12')}
+                    description={
+                        <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
+                            {intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.hvaBetyr.svar')}
+                        </ExpandableInfo>
+                    }
+                />
+                <SoknadFormQuestion name={SoknadFormField.harUtvidetRettFor}>
+                    <SoknadFormComponents.CheckboxPanelGroup
+                        legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
+                        name={SoknadFormField.harUtvidetRettFor}
+                        checkboxes={barnOptions}
+                        validate={validateRequiredList}
+                    />
+                </SoknadFormQuestion>
+            </QuestionVisibilityContext.Provider>
         </SoknadFormStep>
     );
 };

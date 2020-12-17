@@ -1,10 +1,10 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { dateToday } from '@navikt/sif-common-core/lib/utils/dateUtils';
 
 export const aldersBegrensingOver = (fødselsdato: Date, maxGrenseYears: number): boolean => {
-    return moment().diff(fødselsdato, 'years') <= maxGrenseYears;
+    return dayjs().diff(fødselsdato, 'year') <= maxGrenseYears;
 };
 
 export const nYearsAgo = (years: number) => {
-    return moment(dateToday).subtract(years, 'y').startOf('year').toDate();
+    return dayjs(dateToday).subtract(years, 'y').startOf('year').toDate();
 };

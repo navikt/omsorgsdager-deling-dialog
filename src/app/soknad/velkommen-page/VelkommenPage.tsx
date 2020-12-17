@@ -7,10 +7,12 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { useSoknadContext } from '../SoknadContext';
 import VelkommenPageForm from './VelkommenPageForm';
 import { Sidetittel } from 'nav-frontend-typografi';
+import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const VelkommenPage = () => {
     const intl = useIntl();
     const { startSoknad } = useSoknadContext();
+    useLogSidevisning('velkommen');
     return (
         <Page
             title={intlHelper(intl, 'application.title')}

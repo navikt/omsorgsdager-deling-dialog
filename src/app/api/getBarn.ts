@@ -1,7 +1,8 @@
 import { failure, RemoteData, success } from '@devexperts/remote-data-ts';
 import { AxiosError } from 'axios';
-import api, { ApiEndpoint } from './api';
+import api from './api';
 import { Barn } from '../types/SoknadFormData';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 
 export type BarnRemoteData = RemoteData<AxiosError, Barn[]>;
 

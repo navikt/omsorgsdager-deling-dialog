@@ -1,13 +1,14 @@
 import persistence, { PersistenceInterface } from '@navikt/sif-common-core/lib/utils/persistence/persistence';
 import { AxiosResponse } from 'axios';
 import * as hash from 'object-hash';
-import { ApiEndpoint, defaultAxiosConfig } from '../api/api';
+import { defaultAxiosConfig } from '../api/api';
+import { ApiEndpoint } from '../types/ApiEndpoint';
 import { Person } from '../types/Person';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
 import { SoknadTempStorageData } from '../types/SoknadTempStorageData';
 import { StepID } from './soknadStepsConfig';
 
-export const STORAGE_VERSION = '1.0';
+export const STORAGE_VERSION = '2.1';
 
 interface UserHashInfo {
     søker: Person;
