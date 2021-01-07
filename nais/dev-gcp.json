@@ -5,7 +5,7 @@
     "team": "dusseldorf",
     "minReplicas": "1",
     "maxReplicas": "1",
-    "ingresses": ["https://dele-omsorgsdager.dev.nav.no"],
+    "ingresses": ["https://deling-omsorgsdager.dev.nav.no"],
     "env": {
         "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true&chatbot=false",
         "API_URL": "https://omsorgsdager-melding-api.dev.nav.no",
