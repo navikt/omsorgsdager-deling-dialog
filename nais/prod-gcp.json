@@ -7,7 +7,7 @@
     "maxReplicas": "1",
     "ingresses": ["https://www.nav.no/familie/sykdom-i-familien/soknad/deling-omsorgsdager"],
     "env": {
-        "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true",
+        "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true&chatbot=false",
         "API_URL": "https://omsorgsdager-melding-api.nav.no",
         "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager",
         "APP_VERSION": "prod",
