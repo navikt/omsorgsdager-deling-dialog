@@ -107,7 +107,7 @@
         "@types/react-dom": "^16.9.10",
         "@types/react-modal": "^3.10.6",
         "@types/react-router-dom": "^5.1.7",
-        "@typescript-eslint/eslint-plugin": "^4.11.1",
+        "@typescript-eslint/eslint-plugin": "^4.13.0",
         "@typescript-eslint/parser": "^4.11.1",
         "autoprefixer": "^9.8.6",
         "awesome-typescript-loader": "^5.2.1",
