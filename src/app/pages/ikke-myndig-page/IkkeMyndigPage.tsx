@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useLogSidevisning } from '@navikt/sif-common-amplitude';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FrontPageBanner from '@navikt/sif-common-core/lib/components/front-page-banner/FrontPageBanner';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import getLenker from '../../lenker';
-import Lenke from 'nav-frontend-lenker';
 import './ikkeMyndigPage.less';
-import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const IkkeMyndigPage = () => {
     const intl = useIntl();

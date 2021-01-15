@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useLogSidevisning } from '@navikt/sif-common-amplitude';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import StepSubmitButton from '@navikt/sif-common-soknad/lib/soknad-step/step-submit-button/StepSubmitButton';
 import Step from '@navikt/sif-common-soknad/lib/soknad-step/step/Step';
@@ -10,8 +12,6 @@ import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
-import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
-import useLogSidevisning from '../sif-amplitude/hooks/useLogSidevisning';
 
 interface OwnProps {
     id: StepID;

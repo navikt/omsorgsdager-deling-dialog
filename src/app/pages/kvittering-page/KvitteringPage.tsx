@@ -1,11 +1,11 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import Lenke from 'nav-frontend-lenker';
+import { useLogSidevisning } from '@navikt/sif-common-amplitude';
+import Kvittering from '@navikt/sif-common-core/lib/components/kvittering/Kvittering';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import Kvittering from '@navikt/sif-common-core/lib/components/kvittering/Kvittering';
+import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
-import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
 
 const KvitteringPage = () => {
     const intl = useIntl();

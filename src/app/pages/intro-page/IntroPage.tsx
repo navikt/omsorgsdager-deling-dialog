@@ -1,17 +1,17 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
+import { useLogSidevisning } from '@navikt/sif-common-amplitude';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import InformationPoster from '@navikt/sif-common-core/lib/components/information-poster/InformationPoster';
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
-import useLogSidevisning from '../../sif-amplitude/hooks/useLogSidevisning';
-import { isDateBefore2021 } from '../../utils/dateUtils';
 
 const IntroPage = () => {
     const intl = useIntl();

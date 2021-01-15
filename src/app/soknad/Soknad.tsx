@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { failure, pending, success } from '@devexperts/remote-data-ts';
+import { ApplikasjonHendelse, useAmplitudeInstance } from '@navikt/sif-common-amplitude';
 import LoadWrapper from '@navikt/sif-common-core/lib/components/load-wrapper/LoadWrapper';
 import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { SoknadApplicationType, StepConfig } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
@@ -9,7 +10,6 @@ import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
-import { ApplikasjonHendelse, useAmplitudeInstance } from '../sif-amplitude/amplitude';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
@@ -30,6 +30,7 @@ import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
+import { SKJEMANAVN } from '../App';
 
 interface Props {
     søker: Person;
@@ -48,7 +49,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
 
-    const { logSoknadSent, logSoknadFailed, logHendelse } = useAmplitudeInstance();
+    const { logSoknadSent, logSoknadStartet, logSoknadFailed, logHendelse } = useAmplitudeInstance();
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -81,6 +82,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             søker,
             barn,
         });
+        await logSoknadStartet(SKJEMANAVN);
         setTimeout(() => {
             navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
         });
