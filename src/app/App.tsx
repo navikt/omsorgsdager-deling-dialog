@@ -7,19 +7,24 @@ import SoknadApplicationCommonRoutes from '@navikt/sif-common-soknad/lib/soknad-
 import Modal from 'nav-frontend-modal';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
-import { AmplitudeProvider } from './sif-amplitude/amplitude';
+import { AmplitudeProvider } from '@navikt/sif-common-amplitude';
 import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
 import './styles/app.less';
 
 Modal.setAppElement('#app');
 
 export const APPLICATION_KEY = 'deling-omsorgsdager';
+export const SKJEMANAVN = 'Deling av omsorgsdager';
 
 const root = document.getElementById('app');
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
 render(
-    <AmplitudeProvider>
+    <AmplitudeProvider
+        applicationKey={APPLICATION_KEY}
+        team="sykdom-i-familien"
+        isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}
+        logToConsoleOnly={getEnvironmentVariable('APP_VERSION') === 'dev'}>
         <SoknadApplication
             appName="Overføring av omsorgsdager"
             intlMessages={applicationIntlMessages}
