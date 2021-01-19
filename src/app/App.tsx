@@ -23,8 +23,7 @@ render(
     <AmplitudeProvider
         applicationKey={APPLICATION_KEY}
         team="sykdom-i-familien"
-        isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}
-        logToConsoleOnly={getEnvironmentVariable('APP_VERSION') === 'dev'}>
+        isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}>
         <SoknadApplication
             appName="Overføring av omsorgsdager"
             intlMessages={applicationIntlMessages}
