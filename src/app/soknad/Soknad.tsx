@@ -49,7 +49,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     const [sendSoknadStatus, setSendSoknadStatus] = useState<SendSoknadStatus>(initialSendSoknadState);
     const [soknadId, setSoknadId] = useState<string | undefined>();
 
-    const { logSoknadSent, logSoknadStartet, logSoknadFailed, logHendelse } = useAmplitudeInstance();
+    const { logSoknadSent, logSoknadStartet, logSoknadFailed, logHendelse, logUserLoggedOut } = useAmplitudeInstance();
 
     const resetSoknad = async (redirectToFrontpage = true) => {
         await soknadTempStorage.purge();
@@ -105,7 +105,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
             resetFormikForm();
         } catch (error) {
             if (isUserLoggedOut(error)) {
-                logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'Ved innsending av søknad');
+                logUserLoggedOut('Ved innsending av søknad');
                 relocateToLoginPage();
             } else {
                 await logSoknadFailed(apiValues.type);
@@ -142,9 +142,8 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
                 await soknadTempStorage.persist(soknadId, values, nextStep, { søker, barn });
             } catch (error) {
                 if (isUserLoggedOut(error)) {
-                    logHendelse(ApplikasjonHendelse.brukerSendesTilLoggInn, 'ved mellomlagring').then(() => {
-                        relocateToLoginPage();
-                    });
+                    await logUserLoggedOut('ved mellomlagring');
+                    relocateToLoginPage();
                 }
             }
         }
