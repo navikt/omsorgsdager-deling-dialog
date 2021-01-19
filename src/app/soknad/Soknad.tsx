@@ -68,8 +68,8 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     };
 
     const abortSoknad = async () => {
-        logHendelse(ApplikasjonHendelse.avbryt);
         await soknadTempStorage.purge();
+        await logHendelse(ApplikasjonHendelse.avbryt);
         relocateToSoknad();
     };
 
@@ -89,8 +89,8 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData) => {
-        logHendelse(ApplikasjonHendelse.fortsettSenere);
         await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
+        await logHendelse(ApplikasjonHendelse.fortsettSenere);
         relocateToNavFrontpage();
     };
 
