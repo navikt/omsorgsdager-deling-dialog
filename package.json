@@ -54,7 +54,7 @@
         "express": "^4.17.1",
         "flat": "^5.0.2",
         "formik": "^2.2.6",
-        "fs-extra": "^9.0.1",
+        "fs-extra": "^9.1.0",
         "helmet": "^4.4.1",
         "history": "^5.0.0",
         "http-status-codes": "^2.1.4",
