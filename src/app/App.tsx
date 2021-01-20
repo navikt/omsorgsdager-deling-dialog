@@ -20,10 +20,7 @@ const root = document.getElementById('app');
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
 
 render(
-    <AmplitudeProvider
-        applicationKey={APPLICATION_KEY}
-        team="sykdom-i-familien"
-        isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}>
+    <AmplitudeProvider applicationKey={APPLICATION_KEY} isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}>
         <SoknadApplication
             appName="Overføring av omsorgsdager"
             intlMessages={applicationIntlMessages}
