@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useFormikContext } from 'formik';
 import AttachmentListWithDeletion from '@navikt/sif-common-core/lib/components/attachment-list-with-deletion/AttachmentListWithDeletion';
 import AttachmentList from '@navikt/sif-common-core/lib/components/attachment-list/AttachmentList';
 import { Attachment } from '@navikt/sif-common-core/lib/types/Attachment';
@@ -8,15 +7,16 @@ import {
     fileExtensionIsValid,
 } from '@navikt/sif-common-core/lib/utils/attachmentUtils';
 import { removeElementFromArray } from '@navikt/sif-common-core/lib/utils/listUtils';
-import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { useFormikContext } from 'formik';
 import api from '../../api/api';
+import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 
 interface Props {
     includeDeletionFunctionality: boolean;
     wrapNoAttachmentsInBox?: boolean;
 }
 
-const UploadedDocumentsList = ({ includeDeletionFunctionality }: Props) => {
+const UploadedDocumentsList: React.FunctionComponent<Props> = ({ includeDeletionFunctionality }) => {
     const { values, setFieldValue } = useFormikContext<SoknadFormData>();
 
     const dokumenter: Attachment[] = values.samværsavtale.filter(({ file }: Attachment) =>

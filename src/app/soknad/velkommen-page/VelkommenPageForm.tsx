@@ -12,6 +12,7 @@ import SoknadFormComponents from '../../soknad/SoknadFormComponents';
 import { SoknadFormField } from '../../types/SoknadFormData';
 import DinePlikterContent from './dine-plikter/DinePlikter';
 import BehandlingAvPersonopplysningerContent from './personopplysninger/Personopplysninger';
+import { NavFrontendSkjemaFeil } from '@navikt/sif-common-core/lib/types/NavFrontendSkjemaFeil';
 
 interface DialogState {
     dinePlikterModalOpen?: boolean;
@@ -22,7 +23,7 @@ interface Props {
     onStart: () => void;
 }
 
-const VelkommenPageForm = ({ onStart }: Props) => {
+const VelkommenPageForm: React.FunctionComponent<Props> = ({ onStart }) => {
     const [dialogState, setDialogState] = useState<DialogState>({});
     const { dinePlikterModalOpen, behandlingAvPersonopplysningerModalOpen } = dialogState;
     const intl = useIntl();
@@ -31,7 +32,7 @@ const VelkommenPageForm = ({ onStart }: Props) => {
         <SoknadFormComponents.Form
             onValidSubmit={onStart}
             includeButtons={false}
-            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
+            fieldErrorRenderer={(error): NavFrontendSkjemaFeil => commonFieldErrorRenderer(intl, error)}>
             <FormBlock>
                 <SoknadFormComponents.ConfirmationCheckbox
                     label={intlHelper(intl, 'samtykke.tekst')}
@@ -41,7 +42,7 @@ const VelkommenPageForm = ({ onStart }: Props) => {
                         id="samtykke.harForståttLabel"
                         values={{
                             plikterLink: (
-                                <Lenke href="#" onClick={() => setDialogState({ dinePlikterModalOpen: true })}>
+                                <Lenke href="#" onClick={(): void => setDialogState({ dinePlikterModalOpen: true })}>
                                     {intlHelper(intl, 'samtykke.harForståttLabel.lenketekst')}
                                 </Lenke>
                             ),
@@ -53,7 +54,7 @@ const VelkommenPageForm = ({ onStart }: Props) => {
                     <FormBlock>
                         <Lenke
                             href="#"
-                            onClick={() => setDialogState({ behandlingAvPersonopplysningerModalOpen: true })}>
+                            onClick={(): void => setDialogState({ behandlingAvPersonopplysningerModalOpen: true })}>
                             <FormattedMessage id="step.velkommen.personopplysninger.lenketekst" />
                         </Lenke>
                     </FormBlock>
@@ -63,13 +64,13 @@ const VelkommenPageForm = ({ onStart }: Props) => {
             <InfoDialog
                 contentLabel={intlHelper(intl, 'modal.dinePlikter.dialog.tittel')}
                 isOpen={dinePlikterModalOpen === true}
-                onRequestClose={() => setDialogState({ dinePlikterModalOpen: false })}>
+                onRequestClose={(): void => setDialogState({ dinePlikterModalOpen: false })}>
                 <DinePlikterContent />
             </InfoDialog>
 
             <InfoDialog
                 isOpen={behandlingAvPersonopplysningerModalOpen === true}
-                onRequestClose={() => setDialogState({ behandlingAvPersonopplysningerModalOpen: false })}
+                onRequestClose={(): void => setDialogState({ behandlingAvPersonopplysningerModalOpen: false })}
                 contentLabel={intlHelper(intl, 'modal.personopplysninger.dialog.tittel')}>
                 <BehandlingAvPersonopplysningerContent />
             </InfoDialog>

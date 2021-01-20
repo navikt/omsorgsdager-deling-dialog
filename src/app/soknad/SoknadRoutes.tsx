@@ -31,7 +31,7 @@ interface Props {
     søker: Person;
 }
 
-const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
+const SoknadRoutes: React.FunctionComponent<Props> = ({ soknadId, søker, barn = [] }) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const availableSteps = getAvailableSteps(values, søker, barn);
@@ -73,7 +73,7 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
             <Route path={AppRoutes.SOKNAD_SENT} exact={true}>
                 <LoadWrapper
                     isLoading={isPending(sendSoknadStatus.status) || isInitial(sendSoknadStatus.status)}
-                    contentRenderer={() => {
+                    contentRenderer={(): React.ReactNode => {
                         if (isSuccess(sendSoknadStatus.status)) {
                             return <KvitteringPage />;
                         }
@@ -95,13 +95,13 @@ const SoknadRoutes = ({ soknadId, søker, barn = [] }: Props) => {
                             key={step}
                             path={soknadStepsConfig[step].route}
                             exact={true}
-                            render={() => renderSoknadStep(soknadId, barn, søker, step)}
+                            render={(): React.ReactNode => renderSoknadStep(soknadId, barn, søker, step)}
                         />
                     );
                 })}
             <Route path="*">
                 <ErrorPage
-                    contentRenderer={() => (
+                    contentRenderer={(): JSX.Element => (
                         <SoknadErrorMessages.MissingSoknadDataError lastAvailableStep={lastAvailableStepInfo} />
                     )}></ErrorPage>
             </Route>

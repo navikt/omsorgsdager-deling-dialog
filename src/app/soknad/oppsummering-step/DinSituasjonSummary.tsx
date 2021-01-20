@@ -4,16 +4,16 @@ import SummaryList from '@navikt/sif-common-core/lib/components/summary-list/Sum
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import JaNeiSvar from '@navikt/sif-common-soknad/lib/soknad-summary/JaNeiSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
-import TallSvar from '@navikt/sif-common-soknad/lib/soknad-summary/TallSvar';
-import { DinSituasjonApiData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
+import TallSvar from '@navikt/sif-common-soknad/lib/soknad-summary/TallSvar';
 import { isDateBefore2021 } from '../../utils/dateUtils';
+import { DinSituasjonApiData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
 
 interface Props {
     apiValues: DinSituasjonApiData;
 }
 
-const DinSituasjonSummary = ({ apiValues }: Props) => {
+const DinSituasjonSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
     const intl = useIntl();
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.dinSituasjon.header')}>
@@ -23,7 +23,7 @@ const DinSituasjonSummary = ({ apiValues }: Props) => {
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.arbeidssituasjon')}>
                 <SummaryList
                     items={apiValues.arbeidssituasjon}
-                    itemRenderer={(a) => <FormattedMessage id={`arbeidssituasjon.${a}`} />}
+                    itemRenderer={(a): JSX.Element => <FormattedMessage id={`arbeidssituasjon.${a}`} />}
                 />
             </SummaryBlock>
             <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.arbeiderINorge')}>

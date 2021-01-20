@@ -6,10 +6,9 @@ import './stepIntroduction.less';
 
 interface Props {
     ariaTitle?: string;
-    children: React.ReactNode;
 }
 
-const StepIntroduction = ({ ariaTitle, children }: Props) => {
+const StepIntroduction: React.FunctionComponent<Props> = ({ ariaTitle, children }) => {
     const intl = useIntl();
     return (
         <section className="stepIntroduction" aria-label={ariaTitle || intlHelper(intl, 'stepIntroduction.ariaTitle')}>

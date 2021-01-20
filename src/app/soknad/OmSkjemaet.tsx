@@ -10,7 +10,7 @@ interface Props {
 
 const plain = false;
 
-const OmSkjemaet = ({ showAlertstripe = false }: Props) => (
+const OmSkjemaet: React.FunctionComponent<Props> = ({ showAlertstripe = false }) => (
     <>
         {/* <Element tag="h2">Kort om skjemaet</Element> */}
         {plain && (

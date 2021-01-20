@@ -4,7 +4,7 @@ import { Feature, isFeatureEnabled } from './featureToggleUtils';
 export const dateBefore = '2021-01-01';
 export const dateAfter = '2020-12-31 23:59:59';
 
-export const isDateBefore2021 = () => {
+export const isDateBefore2021 = (): boolean => {
     if (isFeatureEnabled(Feature.KORONA_2021_PERIODE_ENABLED)) {
         return false;
     } else {
@@ -12,7 +12,7 @@ export const isDateBefore2021 = () => {
     }
 };
 
-export const isDateAfter2020 = () => {
+export const isDateAfter2020 = (): boolean => {
     if (isFeatureEnabled(Feature.KORONA_2021_PERIODE_ENABLED)) {
         return true;
     } else {

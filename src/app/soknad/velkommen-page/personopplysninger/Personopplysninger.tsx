@@ -5,7 +5,7 @@ import Lenke from 'nav-frontend-lenker';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import getLenker from '../../../lenker';
 
-const getText = (part: string) => <FormattedMessage id={`modal.personopplysninger.${part}`} />;
+const getText = (part: string): React.ReactNode => <FormattedMessage id={`modal.personopplysninger.${part}`} />;
 
 const BehandlingAvPersonopplysningerContent: React.FunctionComponent = () => {
     const intl = useIntl();

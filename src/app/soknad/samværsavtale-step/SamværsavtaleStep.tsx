@@ -22,7 +22,7 @@ import getLenker from '../../lenker';
 import PictureScanningGuide from '@navikt/sif-common-core/lib/components/picture-scanning-guide/PictureScanningGuide';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 
-const SamværsavtaleStep = () => {
+const SamværsavtaleStep: React.FunctionComponent = () => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
     const [filesThatDidntGetUploaded, setFilesThatDidntGetUploaded] = React.useState<File[]>([]);
@@ -42,10 +42,10 @@ const SamværsavtaleStep = () => {
                         name={SoknadFormField.samværsavtale}
                         label={intlHelper(intl, 'step.samværsavtale.vedlegg')}
                         onErrorUploadingAttachments={setFilesThatDidntGetUploaded}
-                        onFileInputClick={() => {
+                        onFileInputClick={(): void => {
                             setFilesThatDidntGetUploaded([]);
                         }}
-                        onUnauthorizedOrForbiddenUpload={() => relocateToLoginPage()}
+                        onUnauthorizedOrForbiddenUpload={(): void => relocateToLoginPage()}
                         validate={validateDocuments}
                     />
                 </FormBlock>

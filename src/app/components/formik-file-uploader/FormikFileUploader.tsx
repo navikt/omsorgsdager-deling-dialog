@@ -38,7 +38,7 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({
     onErrorUploadingAttachments,
     onUnauthorizedOrForbiddenUpload,
     ...otherProps
-}: Props) => {
+}) => {
     const { values } = useFormikContext<SoknadFormData>();
     async function uploadAttachment(attachment: Attachment) {
         const { file } = attachment;

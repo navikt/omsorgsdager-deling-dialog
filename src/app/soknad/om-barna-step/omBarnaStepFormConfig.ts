@@ -39,20 +39,20 @@ export type OmBarnaFormQuestionsPayload = Partial<SoknadFormData> & {
 
 const OmBarnaFormConfig: QuestionConfig<OmBarnaFormQuestionsPayload, SoknadFormField> = {
     [Q.harAleneomsorg]: {
-        isAnswered: ({ harAleneomsorg }) => yesOrNoIsAnswered(harAleneomsorg),
+        isAnswered: ({ harAleneomsorg }): boolean => yesOrNoIsAnswered(harAleneomsorg),
     },
     [Q.harAleneomsorgFor]: {
-        isAnswered: () => true, //harAleneomsorgFor !== undefined && harAleneomsorgFor.length > 0,
-        isIncluded: ({ harAleneomsorg, antallBarn }) => harAleneomsorg === YesOrNo.YES && antallBarn > 1,
+        isAnswered: (): boolean => true, //harAleneomsorgFor !== undefined && harAleneomsorgFor.length > 0,
+        isIncluded: ({ harAleneomsorg, antallBarn }): boolean => harAleneomsorg === YesOrNo.YES && antallBarn > 1,
     },
     [Q.harUtvidetRett]: {
-        isAnswered: ({ harUtvidetRett }) => yesOrNoIsAnswered(harUtvidetRett),
-        isIncluded: ({ harAleneomsorg, omBarnaStop: stop }) =>
+        isAnswered: ({ harUtvidetRett }): boolean => yesOrNoIsAnswered(harUtvidetRett),
+        isIncluded: ({ harAleneomsorg, omBarnaStop: stop }): boolean =>
             stop !== OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling && yesOrNoIsAnswered(harAleneomsorg),
     },
     [Q.harUtvidetRettFor]: {
-        isAnswered: () => true, // harUtvidetRettFor !== undefined && harUtvidetRettFor.length > 0,
-        isIncluded: ({ harUtvidetRett, antallBarn }) => harUtvidetRett === YesOrNo.YES && antallBarn > 1,
+        isAnswered: (): boolean => true, // harUtvidetRettFor !== undefined && harUtvidetRettFor.length > 0,
+        isIncluded: ({ harUtvidetRett, antallBarn }): boolean => harUtvidetRett === YesOrNo.YES && antallBarn > 1,
     },
 };
 

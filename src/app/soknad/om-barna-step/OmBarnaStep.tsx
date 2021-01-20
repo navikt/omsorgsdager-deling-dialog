@@ -59,7 +59,7 @@ const getBarnOptions = (barn: Barn[] = [], andreBarn: AnnetBarn[] = [], intl: In
     ];
 };
 
-const OmBarnaStep = ({ barn }: Props) => {
+const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
     const intl = useIntl();
     const { values } = useFormikContext<SoknadFormData>();
 
@@ -76,7 +76,7 @@ const OmBarnaStep = ({ barn }: Props) => {
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
-            onStepCleanup={(values) => cleanupOmBarnaStep(values, barn, andreBarn)}
+            onStepCleanup={(values): SoknadFormData => cleanupOmBarnaStep(values, barn, andreBarn)}
             showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
             <StepIntroduction>

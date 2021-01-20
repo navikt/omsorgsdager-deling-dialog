@@ -14,7 +14,9 @@ export enum AppFieldValidationErrors {
     'for_mange_dokumenter' = 'fieldvalidation.for_mange_dokumenter',
 }
 
-export const validateFødselsnummerIsDifferentThan = (applicantFnr: string) => (fnr: string) => {
+export const validateFødselsnummerIsDifferentThan = (applicantFnr: string) => (
+    fnr: string
+): FieldValidationResult | undefined => {
     if (hasValue(fnr) && applicantFnr === fnr.trim()) {
         return createFieldValidationError(AppFieldValidationErrors.fnr_lik_søkerFnr);
     }

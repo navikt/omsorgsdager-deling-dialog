@@ -5,7 +5,7 @@ import { SoknadFormField } from '../types/SoknadFormData';
 
 type Props = FormQuestionProps<SoknadFormField>;
 
-const SoknadFormQuestion = (props: Props) => {
+const SoknadFormQuestion: React.FunctionComponent<Props> = (props) => {
     return (
         <QuestionVisibilityBlock fieldName={props.name}>
             <FormQuestion {...props} />

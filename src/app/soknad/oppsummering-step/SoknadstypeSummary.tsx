@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
 import {
@@ -8,13 +9,12 @@ import {
     isSøknadOverføring,
     SoknadApiData,
 } from '../../types/SoknadApiData';
-import Box from '@navikt/sif-common-core/lib/components/box/Box';
 
 interface Props {
     apiValues: SoknadApiData;
 }
 
-const SøknadstypeSummary = ({ apiValues }: Props) => {
+const SøknadstypeSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
     const intl = useIntl();
 
     return (

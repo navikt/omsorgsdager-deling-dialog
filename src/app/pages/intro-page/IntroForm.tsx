@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
+import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
@@ -7,12 +9,10 @@ import {
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
-import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
-import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
-import getLenker from '../../lenker';
 import Lenke from 'nav-frontend-lenker';
+import getLenker from '../../lenker';
+import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
 
 interface Props {
     onValidSubmit: () => void;
@@ -20,7 +20,7 @@ interface Props {
 
 const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData>();
 
-const IntroForm = ({ onValidSubmit }: Props) => {
+const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
     const intl = useIntl();
 
     const getArbeidstakerSnEllerFrilanserSpm = (values: IntroFormData) => {
