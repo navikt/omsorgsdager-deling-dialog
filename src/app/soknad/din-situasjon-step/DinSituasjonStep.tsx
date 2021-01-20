@@ -29,7 +29,7 @@ const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     return cleanedValues;
 };
 
-const DinSituasjonStep = () => {
+const DinSituasjonStep: React.FunctionComponent = () => {
     const intl = useIntl();
     const { values } = useFormikContext<DinSituasjonFormData>();
 

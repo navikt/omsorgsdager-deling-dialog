@@ -13,7 +13,7 @@ import { isDateBefore2021 } from '../../utils/dateUtils';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
 
-const IntroPage = () => {
+const IntroPage: React.FunctionComponent = () => {
     const intl = useIntl();
     const history = useHistory();
     useLogSidevisning('intro');

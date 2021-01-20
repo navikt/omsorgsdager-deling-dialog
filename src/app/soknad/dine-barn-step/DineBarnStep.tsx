@@ -34,7 +34,7 @@ const barnItemLabelRenderer = (barn: Barn, intl: IntlShape): React.ReactNode => 
     );
 };
 
-const DineBarnStep = ({ barn }: Props) => {
+const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
     const intl = useIntl();
     const {
         values: { andreBarn },
@@ -52,9 +52,9 @@ const DineBarnStep = ({ barn }: Props) => {
                 <Box margin="xl">
                     <ContentWithHeader header={intlHelper(intl, 'step.dine-barn.listHeader.registrerteBarn')}>
                         <ItemList<Barn>
-                            getItemId={(registrerteBarn) => registrerteBarn.aktørId}
-                            getItemTitle={(registrerteBarn) => registrerteBarn.etternavn}
-                            labelRenderer={(barn) => barnItemLabelRenderer(barn, intl)}
+                            getItemId={(registrerteBarn): string => registrerteBarn.aktørId}
+                            getItemTitle={(registrerteBarn): string => registrerteBarn.etternavn}
+                            labelRenderer={(barn): React.ReactNode => barnItemLabelRenderer(barn, intl)}
                             items={barn}
                         />
                     </ContentWithHeader>

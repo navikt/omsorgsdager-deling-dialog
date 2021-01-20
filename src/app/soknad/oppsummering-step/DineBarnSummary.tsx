@@ -10,7 +10,7 @@ interface Props {
     apiValues: BarnStepApiData;
 }
 
-const DineBarnSummary = ({ apiValues: { barn } }: Props) => {
+const DineBarnSummary: React.FunctionComponent<Props> = ({ apiValues: { barn } }) => {
     const intl = useIntl();
     return (
         <SummarySection

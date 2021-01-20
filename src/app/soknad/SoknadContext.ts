@@ -11,10 +11,11 @@ export type SendSoknadStatus = SendSoknadStatusInterface<SoknadApiData>;
 export type SoknadContext = SoknadContextInterface<StepID, SoknadApiData>;
 
 const soknadContext = createContext<SoknadContextInterface<StepID, SoknadApiData> | undefined>(undefined);
+
 export const SoknadContextProvider = soknadContext.Provider;
 export const SoknadContextConsumer = soknadContext.Consumer;
 
-export const useSoknadContext = () => {
+export const useSoknadContext = (): SoknadContextInterface<StepID, SoknadApiData> => {
     const context = useContext(soknadContext);
     if (context === undefined) {
         throw new Error('useSoknadContext needs to be called within a SoknadContext');

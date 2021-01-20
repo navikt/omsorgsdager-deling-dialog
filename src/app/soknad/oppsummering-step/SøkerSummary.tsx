@@ -11,7 +11,7 @@ interface Props {
     søker: Person;
 }
 
-const SøkerSummary = ({ søker }: Props) => {
+const SøkerSummary: React.FunctionComponent<Props> = ({ søker }) => {
     const intl = useIntl();
     return (
         <SummarySection header={intlHelper(intl, 'step.oppsummering.søker.header')}>

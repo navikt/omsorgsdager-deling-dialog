@@ -8,7 +8,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 dayjs.extend(isSameOrBefore);
 
-const sortBarnByFødseldsdato = (barn1: ApiBarn, barn2: ApiBarn) => {
+const sortBarnByFødseldsdato = (barn1: ApiBarn, barn2: ApiBarn): 1 | -1 => {
     if (dayjs(apiStringDateToDate(barn1.fødselsdato)).isSameOrBefore(apiStringDateToDate(barn2.fødselsdato))) {
         return -1;
     }

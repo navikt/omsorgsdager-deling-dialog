@@ -11,7 +11,7 @@ interface Props {
     apiValues: BarnStepApiData;
 }
 
-const OmBarnaSummary = ({ apiValues }: Props) => {
+const OmBarnaSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
     const intl = useIntl();
     const harAleneomsorgFor: ApiBarn[] = apiValues.barn.filter((b) => b.aleneOmOmsorgen);
     const harUtvidetRettFor: ApiBarn[] = apiValues.barn.filter((b) => b.utvidetRett);

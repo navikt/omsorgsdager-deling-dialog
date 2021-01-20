@@ -1,5 +1,5 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { SoknadApplicationType } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
+import { SoknadApplicationType, SoknadStepsConfig } from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepTypes';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import { Mottaker, SoknadFormData } from '../types/SoknadFormData';
 
@@ -25,5 +25,5 @@ const getSoknadSteps = (values: SoknadFormData): StepID[] => {
     ];
 };
 
-export const getSoknadStepsConfig = (values: SoknadFormData) =>
+export const getSoknadStepsConfig = (values: SoknadFormData): SoknadStepsConfig<StepID> =>
     soknadStepUtils.getStepsConfig(getSoknadSteps(values), SoknadApplicationType.MELDING);

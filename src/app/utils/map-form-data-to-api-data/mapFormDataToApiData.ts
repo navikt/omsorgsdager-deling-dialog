@@ -31,7 +31,7 @@ export const getStegningsPeriode = (stengingsperiode: Stengingsperiode): Stengin
     }
 };
 
-const logErrorToSentry = (details: string) => {
+const logErrorToSentry = (details: string): void => {
     appSentryLogger.logError('mapFormDataToApiData failed', details);
 };
 

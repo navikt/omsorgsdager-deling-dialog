@@ -7,7 +7,7 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
 
-const KvitteringPage = () => {
+const KvitteringPage: React.FunctionComponent = () => {
     const intl = useIntl();
     useLogSidevisning('søknad-sendt');
     return (

@@ -9,14 +9,14 @@ import { Sidetittel } from 'nav-frontend-typografi';
 import { useSoknadContext } from '../SoknadContext';
 import VelkommenPageForm from './VelkommenPageForm';
 
-const VelkommenPage = () => {
+const VelkommenPage: React.FunctionComponent = () => {
     const intl = useIntl();
     const { startSoknad } = useSoknadContext();
     useLogSidevisning('velkommen');
     return (
         <Page
             title={intlHelper(intl, 'application.title')}
-            topContentRenderer={() => (
+            topContentRenderer={(): JSX.Element => (
                 <FrontPageBanner
                     bannerSize="large"
                     counsellorWithSpeechBubbleProps={{

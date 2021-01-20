@@ -12,6 +12,7 @@ import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
+import { NavFrontendSkjemaFeil } from '@navikt/sif-common-core/lib/types/NavFrontendSkjemaFeil';
 
 interface OwnProps {
     id: StepID;
@@ -29,7 +30,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const SoknadFormStep = ({
+const SoknadFormStep: React.FunctionComponent<Props> = ({
     id,
     onStepCleanup,
     onSendSoknad,
@@ -41,7 +42,7 @@ const SoknadFormStep = ({
     pageTitle,
     showNotAllQuestionsAnsweredMessage,
     buttonDisabled,
-}: Props) => {
+}) => {
     const intl = useIntl();
     const { soknadStepsConfig, resetSoknad, gotoNextStepFromStep, continueSoknadLater } = useSoknadContext();
     const stepConfig = soknadStepsConfig[id];
@@ -67,7 +68,7 @@ const SoknadFormStep = ({
                 includeValidationSummary={includeValidationSummary}
                 noButtonsContentRenderer={
                     showNotAllQuestionsAnsweredMessage
-                        ? () => (
+                        ? (): React.ReactNode => (
                               <UnansweredQuestionsInfo>
                                   <FormattedMessage id="page.form.ubesvarteSpørsmålInfo" />
                               </UnansweredQuestionsInfo>
@@ -76,8 +77,8 @@ const SoknadFormStep = ({
                 }
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
-                onValidSubmit={onSendSoknad ? onSendSoknad : () => gotoNextStepFromStep(id)}
-                fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}>
+                onValidSubmit={onSendSoknad ? onSendSoknad : (): void => gotoNextStepFromStep(id)}
+                fieldErrorRenderer={(error): NavFrontendSkjemaFeil => commonFieldErrorRenderer(intl, error)}>
                 {children}
                 {showSubmitButton && (
                     <Box textAlignCenter={true} margin="xl">

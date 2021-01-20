@@ -38,44 +38,44 @@ const navnOgFnrIsIncluded = ({
 
 const MottakerFormConfig: QuestionConfig<MottakerFormQuestionsPayload, SoknadFormField> = {
     [Q.gjelderMidlertidigPgaKorona]: {
-        isAnswered: ({ gjelderMidlertidigPgaKorona }) => yesOrNoIsAnswered(gjelderMidlertidigPgaKorona),
+        isAnswered: ({ gjelderMidlertidigPgaKorona }): boolean => yesOrNoIsAnswered(gjelderMidlertidigPgaKorona),
     },
     [Q.skalDeleMedAndreForelderSamboerEktefelle]: {
-        isAnswered: ({ skalDeleMedAndreForelderSamboerEktefelle }) =>
+        isAnswered: ({ skalDeleMedAndreForelderSamboerEktefelle }): boolean =>
             yesOrNoIsAnswered(skalDeleMedAndreForelderSamboerEktefelle),
-        isIncluded: ({ gjelderMidlertidigPgaKorona }) => gjelderMidlertidigPgaKorona === YesOrNo.YES,
+        isIncluded: ({ gjelderMidlertidigPgaKorona }): boolean => gjelderMidlertidigPgaKorona === YesOrNo.YES,
     },
     [Q.mottakerType]: {
-        isAnswered: ({ mottakerType }) => mottakerType !== undefined,
-        isIncluded: ({ gjelderMidlertidigPgaKorona }) => {
+        isAnswered: ({ mottakerType }): boolean => mottakerType !== undefined,
+        isIncluded: ({ gjelderMidlertidigPgaKorona }): boolean => {
             return gjelderMidlertidigPgaKorona === YesOrNo.NO;
         },
     },
     [Q.fnrMottaker]: {
         isIncluded: navnOgFnrIsIncluded,
-        isAnswered: ({ fnrMottaker }) => hasValue(fnrMottaker),
+        isAnswered: ({ fnrMottaker }): boolean => hasValue(fnrMottaker),
     },
     [Q.navnMottaker]: {
         isIncluded: navnOgFnrIsIncluded,
-        isAnswered: ({ navnMottaker }) => hasValue(navnMottaker),
+        isAnswered: ({ navnMottaker }): boolean => hasValue(navnMottaker),
     },
 
     [Q.stengingsperiode]: {
-        isAnswered: ({ stengingsperiode }) => hasValue(stengingsperiode),
-        isIncluded: ({ gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle }) =>
+        isAnswered: ({ stengingsperiode }): boolean => hasValue(stengingsperiode),
+        isIncluded: ({ gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle }): boolean =>
             gjelderMidlertidigPgaKorona === YesOrNo.YES &&
             skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.YES &&
             isDateBefore2021(),
     },
 
     [Q.antallDagerSomSkalOverføres]: {
-        isAnswered: ({ antallDagerSomSkalOverføres }) => hasValue(antallDagerSomSkalOverføres),
+        isAnswered: ({ antallDagerSomSkalOverføres }): boolean => hasValue(antallDagerSomSkalOverføres),
         isIncluded: ({
             gjelderMidlertidigPgaKorona,
             stengingsperiode,
             mottakerType,
             skalDeleMedAndreForelderSamboerEktefelle,
-        }) => {
+        }): boolean => {
             return (
                 (gjelderMidlertidigPgaKorona === YesOrNo.NO &&
                     mottakerType !== undefined &&

@@ -32,7 +32,7 @@ type Props = {
     apiValues?: SoknadApiData;
 };
 
-const OppsummeringStep = ({ søker, apiValues }: Props) => {
+const OppsummeringStep: React.FunctionComponent<Props> = ({ søker, apiValues }) => {
     const intl = useIntl();
     const { sendSoknadStatus, sendSoknad } = useSoknadContext();
 
@@ -44,7 +44,7 @@ const OppsummeringStep = ({ søker, apiValues }: Props) => {
             includeValidationSummary={false}
             showButtonSpinner={isPending(sendSoknadStatus.status)}
             buttonDisabled={isPending(sendSoknadStatus.status) || apiDataIsValid === false}
-            onSendSoknad={apiValues ? () => sendSoknad(apiValues) : undefined}>
+            onSendSoknad={apiValues ? (): void => sendSoknad(apiValues) : undefined}>
             <Box margin="xxxl">
                 <Guide kompakt={true} type="normal" svg={<VeilederSVG />}>
                     <FormattedMessage id="step.oppsummering.info" />

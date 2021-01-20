@@ -17,13 +17,13 @@ import { RadioPanelProps } from 'nav-frontend-skjema';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Person } from '../../types/Person';
 import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
+import { isDateBefore2021 } from '../../utils/dateUtils';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
-import { isDateBefore2021 } from '../../utils/dateUtils';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -100,7 +100,7 @@ const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
     ];
 };
 
-const MottakerStep = ({ søker }: Props) => {
+const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
     const intl = useIntl();
     const stepId = StepID.MOTTAKER;
     const { values } = useFormikContext<SoknadFormData>();

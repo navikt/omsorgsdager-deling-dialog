@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { prettifyApiDate } from '@navikt/sif-common-soknad/lib/soknad-summary/DatoSvar';
 import FødselsnummerSvar from '@navikt/sif-common-soknad/lib/soknad-summary/FødselsnummerSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
-import { prettifyApiDate } from '@navikt/sif-common-soknad/lib/soknad-summary/DatoSvar';
 import {
     isSøknadFordeling,
     isSøknadKoronaoverføring,
@@ -17,7 +17,7 @@ interface Props {
     apiValues: SoknadApiData;
 }
 
-const MottakerSummary = ({ apiValues }: Props) => {
+const MottakerSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
     const intl = useIntl();
 
     return (

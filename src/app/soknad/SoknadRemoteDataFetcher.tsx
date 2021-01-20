@@ -8,22 +8,22 @@ import SoknadErrorMessages from '@navikt/sif-common-soknad/lib/soknad-error-mess
 import useSoknadEssentials, { SoknadEssentials } from '../hooks/useSoknadEssentials';
 import Soknad from './Soknad';
 
-const SoknadRemoteDataFetcher = () => {
+const SoknadRemoteDataFetcher = (): JSX.Element => {
     const intl = useIntl();
     const soknadEssentials = useSoknadEssentials();
 
     return (
         <RemoteDataHandler<SoknadEssentials>
             remoteData={soknadEssentials}
-            initializing={() => <LoadingPage />}
-            loading={() => <LoadingPage />}
-            error={() => (
+            initializing={(): React.ReactNode => <LoadingPage />}
+            loading={(): React.ReactNode => <LoadingPage />}
+            error={(): React.ReactNode => (
                 <ErrorPage
                     bannerTitle={intlHelper(intl, 'application.title')}
-                    contentRenderer={() => <SoknadErrorMessages.GeneralApplicationError />}
+                    contentRenderer={(): JSX.Element => <SoknadErrorMessages.GeneralApplicationError />}
                 />
             )}
-            success={([person, barn, soknadTempStorage]) => {
+            success={([person, barn, soknadTempStorage]): React.ReactNode => {
                 return <Soknad søker={person} barn={barn} soknadTempStorage={soknadTempStorage} />;
             }}
         />

@@ -8,6 +8,7 @@ import { SoknadApplicationType, StepConfig } from '@navikt/sif-common-soknad/lib
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
+import { SKJEMANAVN } from '../App';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
 import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
@@ -30,7 +31,6 @@ import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
-import { SKJEMANAVN } from '../App';
 
 interface Props {
     søker: Person;
@@ -41,7 +41,7 @@ interface Props {
 
 type resetFormFunc = () => void;
 
-const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
+const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorage: tempStorage }) => {
     const history = useHistory();
     const [initializing, setInitializing] = useState(true);
 
@@ -51,7 +51,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
 
     const { logSoknadSent, logSoknadStartet, logSoknadFailed, logHendelse, logUserLoggedOut } = useAmplitudeInstance();
 
-    const resetSoknad = async (redirectToFrontpage = true) => {
+    const resetSoknad = async (redirectToFrontpage = true): Promise<void> => {
         await soknadTempStorage.purge();
         setInitialFormData({ ...initialSoknadFormData });
         setSoknadId(undefined);
@@ -67,13 +67,13 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         }
     };
 
-    const abortSoknad = async () => {
+    const abortSoknad = async (): Promise<void> => {
         await soknadTempStorage.purge();
         await logHendelse(ApplikasjonHendelse.avbryt);
         relocateToSoknad();
     };
 
-    const startSoknad = async () => {
+    const startSoknad = async (): Promise<void> => {
         await resetSoknad();
         const sId = ulid();
         setSoknadId(sId);
@@ -88,13 +88,13 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         });
     };
 
-    const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData) => {
+    const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData): Promise<void> => {
         await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
         await logHendelse(ApplikasjonHendelse.fortsettSenere);
         relocateToNavFrontpage();
     };
 
-    const doSendSoknad = async (apiValues: SoknadApiData, resetFormikForm: resetFormFunc) => {
+    const doSendSoknad = async (apiValues: SoknadApiData, resetFormikForm: resetFormFunc): Promise<void> => {
         try {
             await sendSoknad(apiValues);
             await soknadTempStorage.purge();
@@ -121,7 +121,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         }
     };
 
-    const triggerSend = async (apiValues: SoknadApiData, resetForm: resetFormFunc) => {
+    const triggerSend = async (apiValues: SoknadApiData, resetForm: resetFormFunc): Promise<void> => {
         const apiDataIsValid = verifySoknadApiData(apiValues);
         if (apiDataIsValid) {
             setTimeout(() => {
@@ -136,7 +136,11 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
         }
     };
 
-    const persistAndNavigate = async (values: SoknadFormData, step: StepConfig<StepID>, nextStep?: StepID) => {
+    const persistAndNavigate = async (
+        values: SoknadFormData,
+        step: StepConfig<StepID>,
+        nextStep?: StepID
+    ): Promise<void> => {
         if (nextStep && soknadId) {
             try {
                 await soknadTempStorage.persist(soknadId, values, nextStep, { søker, barn });
@@ -182,7 +186,7 @@ const Soknad = ({ søker, barn, soknadTempStorage: tempStorage }: Props) => {
     return (
         <LoadWrapper
             isLoading={initializing}
-            contentRenderer={() => {
+            contentRenderer={(): React.ReactNode => {
                 if (søker.myndig === false) {
                     return <IkkeMyndigPage />;
                 }

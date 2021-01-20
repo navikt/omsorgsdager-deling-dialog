@@ -8,7 +8,7 @@ import {
     SoknadApiDataField,
 } from '../types/SoknadApiData';
 
-const harAleneomsorgForBarn = (apiData: SoknadApiData) =>
+const harAleneomsorgForBarn = (apiData: SoknadApiData): boolean =>
     apiData.barn.filter((b: ApiBarn) => b.aleneOmOmsorgen === true && (b.aktørId || b.identitetsnummer)).length > 0;
 
 type ApiDataVerification<ApiData> = (values: ApiData) => boolean;
@@ -17,7 +17,7 @@ interface SoknadApiVerification<ApiData> {
     [key: string]: ApiDataVerification<ApiData>;
 }
 
-const verifyKoronaoverføringApiData = (apiValues: SoknadApiData) => {
+const verifyKoronaoverføringApiData = (apiValues: SoknadApiData): boolean => {
     if (isSøknadKoronaoverføring(apiValues)) {
         const { korona } = apiValues;
         return korona !== undefined && korona.antallDagerSomSkalOverføres > 0;
@@ -25,7 +25,7 @@ const verifyKoronaoverføringApiData = (apiValues: SoknadApiData) => {
     return true;
 };
 
-const verifyFordelingApiData = (apiValues: SoknadApiData) => {
+const verifyFordelingApiData = (apiValues: SoknadApiData): boolean => {
     if (isSøknadFordeling(apiValues)) {
         const { fordeling } = apiValues;
         return fordeling !== undefined && harAleneomsorgForBarn(apiValues) && fordeling.mottakerType !== undefined;
@@ -33,7 +33,7 @@ const verifyFordelingApiData = (apiValues: SoknadApiData) => {
     return true;
 };
 
-const verifyOverføringApiData = (apiValues: SoknadApiData) => {
+const verifyOverføringApiData = (apiValues: SoknadApiData): boolean => {
     if (isSøknadOverføring(apiValues)) {
         const { overføring } = apiValues;
         return (
