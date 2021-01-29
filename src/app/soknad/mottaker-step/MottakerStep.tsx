@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
@@ -16,14 +16,13 @@ import { useFormikContext } from 'formik';
 import { RadioPanelProps } from 'nav-frontend-skjema';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Person } from '../../types/Person';
-import { Mottaker, SoknadFormData, SoknadFormField, Stengingsperiode } from '../../types/SoknadFormData';
-import { isDateBefore2021 } from '../../utils/dateUtils';
+import { Mottaker, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import { getMottakerFormStopp, MottakerFormQuestions, MottakerFormStopp } from './mottakerStepFormConfig';
+import { getMottakerFormStopp, MottakerFormQuestions } from './mottakerStepFormConfig';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -57,7 +56,6 @@ const cleanupMottakerStep = (formData: SoknadFormData): SoknadFormData => {
               }
             : {
                   skalDeleMedAndreForelderSamboerEktefelle: YesOrNo.UNANSWERED,
-                  stengingsperiode: undefined,
               }),
     };
 };
@@ -75,27 +73,6 @@ const getMottakertypeRadios = (intl: IntlShape): RadioPanelProps[] => {
         {
             label: intlHelper(intl, `step.mottaker.form.mottakerType.${Mottaker.samboer}`),
             value: Mottaker.samboer,
-        },
-    ];
-};
-
-const getStengningsperiodeRadios = (intl: IntlShape): RadioPanelProps[] => {
-    return [
-        {
-            label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.fra13marsTil30Juni2020}`),
-            value: Stengingsperiode.fra13marsTil30Juni2020,
-        },
-        {
-            label: intlHelper(
-                intl,
-                `step.mottaker.form.stengingsperiode.${Stengingsperiode.fraOgMed10August2020til31Desember2020}`
-            ),
-            value: Stengingsperiode.fraOgMed10August2020til31Desember2020,
-        },
-
-        {
-            label: intlHelper(intl, `step.mottaker.form.stengingsperiode.${Stengingsperiode.annen}`),
-            value: Stengingsperiode.annen,
         },
     ];
 };
@@ -143,9 +120,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         <ExpandableInfo
                             title={intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.tittel')}
                             filledBackground={false}>
-                            {isDateBefore2021()
-                                ? intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1')
-                                : intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.2021')}
+                            {intlHelper(intl, 'step.mottaker.veileder.5.nedtrek.1.2021')}
                         </ExpandableInfo>
                     </li>
                 </ul>
@@ -211,23 +186,6 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                     />
                 </SoknadFormQuestion>
 
-                <SoknadFormQuestion
-                    name={SoknadFormField.stengingsperiode}
-                    showStop={stopp === MottakerFormStopp.koronaAnnenStengingsperiode}
-                    stopMessage={<FormattedMessage id="step.mottaker.form.stengingsperiode.annen.stopMelding" />}>
-                    <SoknadFormComponents.RadioPanelGroup
-                        name={SoknadFormField.stengingsperiode}
-                        legend={intlHelper(intl, 'step.mottaker.form.stengingsperiode.spm')}
-                        validate={validateYesOrNoIsAnswered}
-                        radios={getStengningsperiodeRadios(intl)}
-                        description={
-                            <ExpandableInfo title={intlHelper(intl, 'step.mottaker.form.stengingsperiode.hvorforSpør')}>
-                                {intlHelper(intl, 'step.mottaker.form.stengingsperiode.hvorforSpør.svar')}
-                            </ExpandableInfo>
-                        }
-                    />
-                </SoknadFormQuestion>
-
                 <SoknadFormQuestion name={SoknadFormField.antallDagerSomSkalOverføres}>
                     {gjelderMidlertidigPgaKorona === YesOrNo.NO && (
                         <SoknadFormComponents.Select
@@ -265,15 +223,10 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                                         intl,
                                         'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel'
                                     )}>
-                                    {isDateBefore2021()
-                                        ? intlHelper(
-                                              intl,
-                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona'
-                                          )
-                                        : intlHelper(
-                                              intl,
-                                              'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021'
-                                          )}
+                                    {intlHelper(
+                                        intl,
+                                        'step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021'
+                                    )}
                                 </ExpandableInfo>
                             }
                         />

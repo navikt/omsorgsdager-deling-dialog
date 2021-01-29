@@ -14,7 +14,6 @@ function createEnvSettingsFile(settingsFile) {
                 APPSTATUS_DATASET: '${process.env.APPSTATUS_DATASET}',
                 USE_AMPLITUDE: '${process.env.USE_AMPLITUDE}',
                 APP_VERSION: '${process.env.APP_VERSION}',
-                KORONA_2021_PERIODE_ENABLED: '${process.env.KORONA_2021_PERIODE_ENABLED}',
             };`
         );
     });

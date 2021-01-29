@@ -6,7 +6,6 @@ import JaNeiSvar from '@navikt/sif-common-soknad/lib/soknad-summary/JaNeiSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
 import TallSvar from '@navikt/sif-common-soknad/lib/soknad-summary/TallSvar';
-import { isDateBefore2021 } from '../../utils/dateUtils';
 import { DinSituasjonApiData } from '../../utils/map-form-data-to-api-data/mapDinSituasjonToApiData';
 
 interface Props {
@@ -30,22 +29,12 @@ const DinSituasjonSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
                 <JaNeiSvar harSvartJa={apiValues.arbeiderINorge} />
             </SummaryBlock>
             {apiValues.antallDagerBruktEtter1Juli && (
-                <SummaryBlock
-                    header={
-                        isDateBefore2021()
-                            ? intlHelper(intl, 'step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli')
-                            : intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')
-                    }>
+                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')}>
                     <TallSvar verdi={apiValues.antallDagerBruktEtter1Juli} />
                 </SummaryBlock>
             )}
             {apiValues.antallDagerBruktEtter1Juli === undefined && (
-                <SummaryBlock
-                    header={
-                        isDateBefore2021()
-                            ? intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli')
-                            : intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')
-                    }>
+                <SummaryBlock header={intlHelper(intl, 'step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021')}>
                     <JaNeiSvar harSvartJa={false} />
                 </SummaryBlock>
             )}

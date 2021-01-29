@@ -19,7 +19,6 @@ import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
-import { isDateAfter2020 } from '../../utils/dateUtils';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -112,11 +111,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
-                            legend={
-                                isDateAfter2020()
-                                    ? intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm')
-                                    : intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm')
-                            }
+                            legend={intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm')}
                             validate={validateYesOrNoIsAnswered}
                         />
                     </FormBlock>
@@ -125,11 +120,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                         <FormBlock>
                             <SoknadFormComponents.Input
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
-                                label={
-                                    isDateAfter2020()
-                                        ? intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')
-                                        : intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Juli.spm')
-                                }
+                                label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')}
                                 validate={validateRequiredNumber({ min: 1 })}
                                 inputMode="numeric"
                                 style={{ maxWidth: '4rem' }}
