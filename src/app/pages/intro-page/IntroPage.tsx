@@ -9,7 +9,6 @@ import InformationPoster from '@navikt/sif-common-core/lib/components/informatio
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { isDateBefore2021 } from '../../utils/dateUtils';
 import { navigateToSoknadFrontpage } from '../../utils/navigationUtils';
 import IntroForm from './IntroForm';
 
@@ -50,9 +49,7 @@ const IntroPage: React.FunctionComponent = () => {
                                 <ExpandableInfo
                                     title={intlHelper(intl, 'introForm.info.5.nedtrek.1.tittel')}
                                     filledBackground={false}>
-                                    {isDateBefore2021()
-                                        ? intlHelper(intl, 'introForm.info.5.nedtrek.1')
-                                        : intlHelper(intl, 'introForm.info.5.nedtrek.1.2021')}
+                                    {intlHelper(intl, 'introForm.info.5.nedtrek.1.2021')}
                                 </ExpandableInfo>
                             </li>
                         </ul>

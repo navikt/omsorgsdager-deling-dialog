@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { prettifyApiDate } from '@navikt/sif-common-soknad/lib/soknad-summary/DatoSvar';
 import FødselsnummerSvar from '@navikt/sif-common-soknad/lib/soknad-summary/FødselsnummerSvar';
 import SummaryBlock from '@navikt/sif-common-soknad/lib/soknad-summary/summary-block/SummaryBlock';
 import SummarySection from '@navikt/sif-common-soknad/lib/soknad-summary/summary-section/SummarySection';
@@ -11,7 +10,6 @@ import {
     isSøknadOverføring,
     SoknadApiData,
 } from '../../types/SoknadApiData';
-import { isDateBefore2021 } from '../../utils/dateUtils';
 
 interface Props {
     apiValues: SoknadApiData;
@@ -52,17 +50,6 @@ const MottakerSummary: React.FunctionComponent<Props> = ({ apiValues }) => {
                             }}
                         />
                     </SummaryBlock>
-                    {isDateBefore2021() && isSøknadKoronaoverføring(apiValues) && (
-                        <SummaryBlock header={intlHelper(intl, 'step.oppsummering.korona.periode.tittel')}>
-                            <FormattedMessage
-                                id="step.oppsummering.korona.periode.verdi"
-                                values={{
-                                    fraDato: prettifyApiDate(apiValues.korona.stengingsperiode.fraOgMed),
-                                    tilDato: prettifyApiDate(apiValues.korona.stengingsperiode.tilOgMed),
-                                }}
-                            />
-                        </SummaryBlock>
-                    )}
                 </>
             )}
         </SummarySection>

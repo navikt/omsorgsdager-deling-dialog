@@ -11,10 +11,8 @@ import {
     MottakerFormData,
     OmBarnaFormData,
     SoknadFormData,
-    Stengingsperiode,
 } from '../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
-import { isDateAfter2020 } from './dateUtils';
 
 const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn[]): boolean => {
     return barn.length > 0 || (andreBarn || []).length > 0;
@@ -75,17 +73,13 @@ const mottakerIsComplete = (
         antallDagerSomSkalOverføres,
         gjelderMidlertidigPgaKorona,
         mottakerType,
-        stengingsperiode,
     }: Partial<MottakerFormData>,
     søker: Person
 ): boolean => {
     const fnrValid = validateFødselsnummer(fnrMottaker || '');
     const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
-    const riktigStengingsperiode =
-        isDateAfter2020() ||
-        stengingsperiode === Stengingsperiode.fra13marsTil30Juni2020 ||
-        stengingsperiode === Stengingsperiode.fraOgMed10August2020til31Desember2020;
+
     if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }
@@ -100,12 +94,7 @@ const mottakerIsComplete = (
     ) {
         return false;
     }
-    if (gjelderKoronaverføring === false && stengingsperiode !== undefined) {
-        return false;
-    }
-    if (gjelderKoronaverføring === true && !riktigStengingsperiode) {
-        return false;
-    }
+
     return true;
 };
 

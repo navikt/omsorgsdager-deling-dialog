@@ -14,7 +14,6 @@
         "LOGIN_URL": "https://loginservice.dev.nav.no/login?redirect=https://deling-omsorgsdager.dev.nav.no/familie/sykdom-i-familien/soknad/deling-omsorgsdager/melding",
         "APPSTATUS_PROJECT_ID": "ryujtq87",
         "APPSTATUS_DATASET": "staging",
-        "USE_AMPLITUDE": "true",
-        "KORONA_2021_PERIODE_ENABLED": "false"
+        "USE_AMPLITUDE": "true"
     }
 }

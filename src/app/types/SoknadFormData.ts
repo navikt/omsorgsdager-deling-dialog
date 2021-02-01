@@ -15,13 +15,6 @@ export enum Mottaker {
     'samboer' = 'samboer',
 }
 
-export enum Stengingsperiode {
-    'fra13marsTil30Juni2020' = 'fra13marsTil30Juni2020',
-    'fraOgMed10August2020til31Desember2020' = 'fraOgMed10August2020til31Desember2020',
-    'fraOgMed1januar2021til31Desember2021' = 'fraOgMed1januar2021til31Desember2021',
-    'annen' = 'annen',
-}
-
 export enum SoknadFormField {
     harForståttRettigheterOgPlikter = 'harForståttRettigheterOgPlikter',
     harBekreftetOpplysninger = 'harBekreftetOpplysninger',
@@ -31,7 +24,6 @@ export enum SoknadFormField {
     fnrMottaker = 'fnrMottaker',
     navnMottaker = 'navnMottaker',
     antallDagerSomSkalOverføres = 'antallDagerSomSkalOverføres',
-    stengingsperiode = 'stengingsperiode',
 
     andreBarn = 'andreBarn',
     harAleneomsorg = 'harAleneomsorg',
@@ -64,7 +56,6 @@ export interface SoknadFormData {
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
     [SoknadFormField.antallDagerSomSkalOverføres]?: number;
-    [SoknadFormField.stengingsperiode]?: Stengingsperiode;
 
     [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
@@ -107,5 +98,4 @@ export type MottakerFormData = Pick<
     | SoknadFormField.navnMottaker
     | SoknadFormField.antallDagerSomSkalOverføres
     | SoknadFormField.gjelderMidlertidigPgaKorona
-    | SoknadFormField.stengingsperiode
 >;

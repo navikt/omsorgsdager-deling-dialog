@@ -96,7 +96,6 @@
     "step.mottaker.veileder.4.2": "med nåværende ektefelle, som du ikke har felles barn med.",
     "step.mottaker.veileder.5": "Delingen gjelder fra og med datoen du sender meldingen, og til så lenge det er rett til å bruke omsorgsdager.",
     "step.mottaker.veileder.5.nedtrek.1.tittel": "når barnehage/skole/SFO er stengt på grunn av koronaviruset",
-    "step.mottaker.veileder.5.nedtrek.1": "I dette tilfellet kan du dele omsorgsdager med den andre forelderen, nåværende ektefelle eller en samboer du har bodd med i minst 12 måneder. Du kan dele opptil det antall dager du har tilgjengelig i perioden du velger.",
     "step.mottaker.veileder.5.nedtrek.1.2021": "I dette tilfellet kan du dele omsorgsdager med den andre forelderen, nåværende ektefelle eller en samboer du har bodd med i minst 12 måneder. Du kan dele opptil det antall dager du har tilgjengelig. Delingen gjelder fra og med datoen du sender meldingen, og til og med 31.12.2021.",
 
     "step.mottaker.stepTitle": "Om den du skal dele omsorgsdager med",
@@ -111,7 +110,6 @@
     "step.mottaker.form.antallDagerSomSkalOverføres.spm": "Hvor mange omsorgsdager vil du dele?",
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.titel": "Hvor mange dager kan jeg dele?",
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.nåværendeSamboerEllerEktefelle": "Du kan dele opptil 10 omsorgsdager.",
-    "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona": "Du kan dele opptil hvor mange omsorgsdager du har tilgjengelig i perioden du har valgt.",
     "step.mottaker.form.antallDagerSomSkalOverføres.nedtrekk.svar.korona2021": "Du kan dele opptil det antall dager du har tilgjengelig.",
     "step.mottaker.form.stopMessage.korona.html": "Du kan kun dele omsorgsdager med enten den andre forelderen, eller nåværende samboer/ektefelle. Hvis du ikke skal dele dager med noen av disse, kan du ikke gå videre.",
     "step.mottaker.form.mottakerType.spm": "Hvem skal du dele omsorgsdager med?",
@@ -121,15 +119,6 @@
     "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med felles barn",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel.hvaBetyr": "Kan jeg velge andre personer?",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Når du skal dele omsorgsdager, er det kun mulig å dele med én av de som er listet opp under.",
-    "step.mottaker.form.stengingsperiode.spm": "I hvilken periode gjelder delingen av omsorgsdager for?",
-    "step.mottaker.form.stengingsperiode.hvorforSpør": "Hvorfor spør vi om dette?",
-    "step.mottaker.form.stengingsperiode.hvorforSpør.svar": "På grunn av koronasituasjonen har reglene for hvor mange omsorgsdager du har rett til endret seg i disse periodene.",
-    "step.mottaker.form.stengingsperiode.fra13marsTil30Juni2020": "13. mars til 30.juni 2020",
-    "step.mottaker.form.stengingsperiode.fraOgMed10August2020til31Desember2020": "Fra og med 10.august 2020 til 31. desember 2020",
-    "step.mottaker.form.stengingsperiode.fraOgMed1januar2021til31Desember2021": "1. januar 2021 til 31. desember 2021",
-    "step.mottaker.form.stengingsperiode.annen": "Annen periode",
-
-    "step.mottaker.form.stengingsperiode.annen.stopMelding": "Det er kun mulig å dele dager pga. stengt barnehage eller skole for periodene som er nevnt over her.",
 
     "step.mottaker.nextButtonLabel": "Fortsett",
 
@@ -168,10 +157,8 @@
     "step.din_situasjon.form.arbeiderINorge.spm": "Jobber du i Norge?",
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdager og kunne dele disse med en annen, må du ha jobb og være yrkesaktiv. Det betyr at du må minst være én av punktene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Hva er din arbeidssituasjon? Du kan velge flere.",
-    "step.din_situasjon.form.harBruktOmsorgsdagerEtter1Juli.spm": "Har du brukt omsorgsdager etter 1. juli 2020?",
     "step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm": "Har du brukt omsorgsdager i 2021?",
     "step.din_situasjon.form.harBruktOmsorgsdager1Juli2020til31des2020": "Har du selv brukt omsorgsdager i perioden 1. juli 2020 til 31. desember 2020?",
-    "step.din_situasjon.form.antallDagerBruktEtter1Juli.spm": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
     "step.din_situasjon.form.antallDagerBruktEtter1Januar.spm": "Hvor mange omsorgsdager har du brukt?",
 
     "step.oppsummering.info": "Les gjennom oppsummeringen og sjekk at alt er riktig før du sender inn meldingen om å dele omsorgsdager. Hvis du vil gjøre endringer, kan du gå tilbake.",
@@ -199,9 +186,7 @@
     "step.oppsummering.dinSituasjon.erYkesaktiv": "Er du yrkesaktiv?",
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobber du i Norge?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Hva er din arbeidssituasjon?",
-    "step.oppsummering.dinSituasjon.harBruktOmsorgsdagerEtter1Juli": "Har du brukt omsorgsdager etter 1. juli 2020?",
     "step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021": "Har du brukt omsorgsdager i 2021?",
-    "step.oppsummering.dinSituasjon.antallDagerBruktEtter1Juli": "Hvor mange omsorgsdager har du brukt etter 1. juli 2020?",
     "step.oppsummering.dinSituasjon.antallDagerBrukt2021": "Hvor mange omsorgsdager har du brukt?",
 
     "step.oppsummering.mottaker.header": "Om den du skal dele omsorgsdager med",
