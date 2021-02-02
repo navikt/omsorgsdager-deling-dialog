@@ -80,7 +80,7 @@
         "react-intl": "^5.10.16",
         "react-modal": "^3.12.1",
         "react-router-dom": "^5.2.0",
-        "snyk": "^1.437.4",
+        "snyk": "^1.440.4",
         "ulid": "^2.3.0",
         "use-media": "^1.4.0"
     },
