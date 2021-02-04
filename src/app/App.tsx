@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Route } from 'react-router-dom';
+import { AmplitudeProvider } from '@navikt/sif-common-amplitude';
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import SoknadApplication from '@navikt/sif-common-soknad/lib/soknad-application-setup/SoknadApplication';
 import SoknadApplicationCommonRoutes from '@navikt/sif-common-soknad/lib/soknad-application-setup/SoknadApplicationCommonRoutes';
 import Modal from 'nav-frontend-modal';
 import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
-import { AmplitudeProvider } from '@navikt/sif-common-amplitude';
 import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
+import '@navikt/sif-common-core/lib/styles/globalStyles.less';
 import './styles/app.less';
 
 Modal.setAppElement('#app');
