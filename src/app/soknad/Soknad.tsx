@@ -78,10 +78,7 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
         const sId = ulid();
         setSoknadId(sId);
         const firstStep = StepID.MOTTAKER;
-        await soknadTempStorage.persist(sId, { ...initialFormData, harForståttRettigheterOgPlikter: true }, firstStep, {
-            søker,
-            barn,
-        });
+        await soknadTempStorage.create();
         await logSoknadStartet(SKJEMANAVN);
         setTimeout(() => {
             navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
@@ -89,7 +86,7 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData): Promise<void> => {
-        await soknadTempStorage.persist(sId, values, stepID, { søker, barn });
+        await soknadTempStorage.update(sId, values, stepID, { søker, barn });
         await logHendelse(ApplikasjonHendelse.fortsettSenere);
         relocateToNavFrontpage();
     };
@@ -143,7 +140,7 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     ): Promise<void> => {
         if (nextStep && soknadId) {
             try {
-                await soknadTempStorage.persist(soknadId, values, nextStep, { søker, barn });
+                await soknadTempStorage.update(soknadId, values, nextStep, { søker, barn });
             } catch (error) {
                 if (isUserLoggedOut(error)) {
                     await logUserLoggedOut('ved mellomlagring');
