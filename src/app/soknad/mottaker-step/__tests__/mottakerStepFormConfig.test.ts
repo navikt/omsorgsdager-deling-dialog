@@ -40,7 +40,7 @@ describe('mottakerStepFormConfig', () => {
             mottakerType: Mottaker.ektefelle,
             fnrMottaker: '123',
             navnMottaker: 'abc',
-            antallDagerSomSkalOverføres: 2,
+            antallDagerSomSkalOverføres: '2',
         };
         it(`All questions included if answered correctly and mottakerType === ${Mottaker.ektefelle}`, () => {
             const vis = MottakerFormQuestions.getVisbility(delePayload);
@@ -68,7 +68,7 @@ describe('mottakerStepFormConfig', () => {
             mottakerType: Mottaker.samværsforelder,
             fnrMottaker: '123',
             navnMottaker: 'abc',
-            antallDagerSomSkalOverføres: 2,
+            antallDagerSomSkalOverføres: '2',
         };
         it(`All questions included if answered correctly`, () => {
             const vis = MottakerFormQuestions.getVisbility(delePayload);
@@ -87,7 +87,7 @@ describe('mottakerStepFormConfig', () => {
             skalDeleMedAndreForelderSamboerEktefelle: YesOrNo.YES,
             fnrMottaker: '123',
             navnMottaker: 'abc',
-            antallDagerSomSkalOverføres: 2,
+            antallDagerSomSkalOverføres: '2',
         };
         it(`All questions included if answered correctly`, () => {
             const vis = MottakerFormQuestions.getVisbility(delePayload);

@@ -1,5 +1,6 @@
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import { getLocaleForApi } from '@navikt/sif-common-core/lib/utils/localeUtils';
+import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
 import {
     SoknadApiData,
     SoknadApiDataFelles,
@@ -44,16 +45,22 @@ export const getSøknadKoronaoverføring = (
     values: MapFormDataToApiDataValues
 ): SøknadKoronaoverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres } = values.formData;
+
     if (antallDagerSomSkalOverføres === undefined) {
         logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføres === undefined');
         return undefined;
     }
+    const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
 
+    if (antallDagerSomSkalOverføresNumber === undefined) {
+        logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføresNumber === undefined');
+        return undefined;
+    }
     return {
         ...getCommonApiData(values),
         type: Søknadstype.koronaoverføring,
         korona: {
-            antallDagerSomSkalOverføres,
+            antallDagerSomSkalOverføres: antallDagerSomSkalOverføresNumber,
         },
     };
 };
@@ -86,11 +93,17 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
         logErrorToSentry(`getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføres, mottakerType })}`);
         return undefined;
     }
+    const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
+
+    if (antallDagerSomSkalOverføresNumber === undefined) {
+        logErrorToSentry(`getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføresNumber, mottakerType })}`);
+        return undefined;
+    }
     return {
         ...getCommonApiData(values),
         type: Søknadstype.overføring,
         overføring: {
-            antallDagerSomSkalOverføres,
+            antallDagerSomSkalOverføres: antallDagerSomSkalOverføresNumber,
             mottakerType: mottakerType,
         },
     };

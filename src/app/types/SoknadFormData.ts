@@ -55,7 +55,7 @@ export interface SoknadFormData {
     [SoknadFormField.mottakerType]?: Mottaker;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
-    [SoknadFormField.antallDagerSomSkalOverføres]?: number;
+    [SoknadFormField.antallDagerSomSkalOverføres]?: string;
 
     [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
