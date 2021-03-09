@@ -67,7 +67,7 @@ export interface SoknadFormData {
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
-    [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
+    [SoknadFormField.antallDagerBruktEtter1Juli]?: string;
 
     [SoknadFormField.samværsavtale]: Attachment[];
 }

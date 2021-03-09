@@ -1,4 +1,5 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
+import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
 import { SoknadApiData, SoknadApiDataField } from '../../types/SoknadApiData';
 import { DinSituasjonFormData } from '../../types/SoknadFormData';
 
@@ -16,8 +17,10 @@ export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSit
         arbeiderINorge: formData.arbeiderINorge === YesOrNo.YES,
         arbeidssituasjon: formData.arbeidssituasjon,
         antallDagerBruktEtter1Juli:
-            formData.harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES && formData.antallDagerBruktEtter1Juli !== undefined
-                ? formData.antallDagerBruktEtter1Juli
+            formData.harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES &&
+            formData.antallDagerBruktEtter1Juli !== undefined &&
+            getNumberFromNumberInputValue(formData.antallDagerBruktEtter1Juli) !== undefined
+                ? getNumberFromNumberInputValue(formData.antallDagerBruktEtter1Juli)
                 : undefined,
     };
 };

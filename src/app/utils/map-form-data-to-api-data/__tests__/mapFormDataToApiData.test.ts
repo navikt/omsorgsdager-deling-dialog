@@ -11,7 +11,7 @@ describe('mapFormDataToApiData', () => {
 
             arbeidssituasjon: [Arbeidssituasjon.arbeidstaker],
             harBruktOmsorgsdagerEtter1Juli: YesOrNo.YES,
-            antallDagerBruktEtter1Juli: 5,
+            antallDagerBruktEtter1Juli: '5',
         };
         it('maps standard formData correctly', () => {
             const expectedResult: DinSituasjonApiData = {

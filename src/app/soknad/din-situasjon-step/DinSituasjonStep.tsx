@@ -118,11 +118,10 @@ const DinSituasjonStep: React.FunctionComponent = () => {
 
                     {harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES && (
                         <FormBlock>
-                            <SoknadFormComponents.Input
+                            <SoknadFormComponents.NumberInput
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
                                 label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')}
                                 validate={validateRequiredNumber({ min: 1 })}
-                                inputMode="numeric"
                                 style={{ maxWidth: '4rem' }}
                                 maxLength={2}
                             />
