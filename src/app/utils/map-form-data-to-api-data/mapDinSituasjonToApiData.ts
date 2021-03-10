@@ -11,16 +11,18 @@ export type DinSituasjonApiData = Pick<
     | SoknadApiDataField.antallDagerBruktEtter1Juli
 >;
 
-export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSituasjonApiData => {
+export const mapDinSituasjonToApiData = (formData: DinSituasjonFormData): DinSituasjonApiData | undefined => {
+    const harBruktOmsorgsdagerEtter1Juli = formData.harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES;
+    const antallDagerBruktEtter1Juli = getNumberFromNumberInputValue(formData.antallDagerBruktEtter1Juli);
+
+    if (harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined) {
+        return undefined;
+    }
+
     return {
         erYrkesaktiv: formData.erYrkesaktiv === YesOrNo.YES,
         arbeiderINorge: formData.arbeiderINorge === YesOrNo.YES,
         arbeidssituasjon: formData.arbeidssituasjon,
-        antallDagerBruktEtter1Juli:
-            formData.harBruktOmsorgsdagerEtter1Juli === YesOrNo.YES &&
-            formData.antallDagerBruktEtter1Juli !== undefined &&
-            getNumberFromNumberInputValue(formData.antallDagerBruktEtter1Juli) !== undefined
-                ? getNumberFromNumberInputValue(formData.antallDagerBruktEtter1Juli)
-                : undefined,
+        antallDagerBruktEtter1Juli: harBruktOmsorgsdagerEtter1Juli ? antallDagerBruktEtter1Juli : undefined,
     };
 };
