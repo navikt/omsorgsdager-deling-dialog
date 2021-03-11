@@ -13,6 +13,7 @@ import {
     SoknadFormData,
 } from '../types/SoknadFormData';
 import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
+import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
 
 const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn[]): boolean => {
     return barn.length > 0 || (andreBarn || []).length > 0;
@@ -79,7 +80,7 @@ const mottakerIsComplete = (
     const fnrValid = validateFødselsnummer(fnrMottaker || '');
     const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
-
+    const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
     if (fnrValid !== undefined || fnrDifferent !== undefined) {
         return false;
     }
@@ -89,8 +90,9 @@ const mottakerIsComplete = (
     if (
         mottakerType !== Mottaker.samværsforelder &&
         (antallDagerSomSkalOverføres === undefined ||
-            antallDagerSomSkalOverføres < ANTALL_DAGER_RANGE.min ||
-            (gjelderKoronaverføring === false && antallDagerSomSkalOverføres > ANTALL_DAGER_RANGE.max))
+            antallDagerSomSkalOverføresNumber === undefined ||
+            antallDagerSomSkalOverføresNumber < ANTALL_DAGER_RANGE.min ||
+            (gjelderKoronaverføring === false && antallDagerSomSkalOverføresNumber > ANTALL_DAGER_RANGE.max))
     ) {
         return false;
     }

@@ -9,6 +9,7 @@ import {
     validateFødselsnummer,
     validateRequiredField,
     validateRequiredNumber,
+    validateRequiredSelect,
     validateYesOrNoIsAnswered,
 } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
@@ -32,8 +33,8 @@ const getAntallDagerOptions = (intl: IntlShape): React.ReactNode => {
     let dag = ANTALL_DAGER_RANGE.min;
     while (dag <= ANTALL_DAGER_RANGE.max) {
         options.push(
-            <option key={dag} value={dag}>
-                {intlHelper(intl, 'dager', { dager: dag })}
+            <option key={dag} value={dag.toString()}>
+                {intlHelper(intl, 'dager', { dager: dag.toString() })}
             </option>
         );
         dag++;
@@ -191,7 +192,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         <SoknadFormComponents.Select
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={validateAll([validateRequiredNumber(ANTALL_DAGER_RANGE)])}
+                            validate={validateAll([validateRequiredSelect, validateRequiredNumber(ANTALL_DAGER_RANGE)])}
                             bredde="s"
                             description={
                                 <ExpandableInfo
@@ -209,14 +210,11 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         </SoknadFormComponents.Select>
                     )}
                     {gjelderMidlertidigPgaKorona === YesOrNo.YES && (
-                        <SoknadFormComponents.Input
+                        <SoknadFormComponents.NumberInput
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
                             validate={validateAll([validateRequiredNumber(ANTALL_DAGER_KORONA_RANGE)])}
-                            inputMode="numeric"
                             bredde="XS"
-                            min={ANTALL_DAGER_KORONA_RANGE.min}
-                            max={ANTALL_DAGER_KORONA_RANGE.max}
                             description={
                                 <ExpandableInfo
                                     title={intlHelper(
@@ -229,6 +227,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                                     )}
                                 </ExpandableInfo>
                             }
+                            maxLength={3}
                         />
                     )}
                 </SoknadFormQuestion>

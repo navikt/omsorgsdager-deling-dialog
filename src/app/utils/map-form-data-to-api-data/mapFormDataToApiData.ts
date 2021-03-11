@@ -1,5 +1,6 @@
 import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUtils';
 import { getLocaleForApi } from '@navikt/sif-common-core/lib/utils/localeUtils';
+import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
 import {
     SoknadApiData,
     SoknadApiDataFelles,
@@ -30,30 +31,49 @@ const getCommonApiData = ({
     locale = 'nb',
     formData,
     registrerteBarn,
-}: MapFormDataToApiDataValues): Omit<SoknadApiDataFelles, 'type'> => ({
-    id: soknadId,
-    språk: getLocaleForApi(locale),
-    harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
-    harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,
-    ...mapDinSituasjonToApiData(formData),
-    ...mapMottakerToApiData(formData),
-    ...mapBarnStepToApiData(formData, registrerteBarn),
-});
-
+}: MapFormDataToApiDataValues): Omit<SoknadApiDataFelles, 'type'> | undefined => {
+    const dinSituasjon = mapDinSituasjonToApiData(formData);
+    if (dinSituasjon !== undefined) {
+        return {
+            id: soknadId,
+            språk: getLocaleForApi(locale),
+            harBekreftetOpplysninger: formData.harBekreftetOpplysninger,
+            harForståttRettigheterOgPlikter: formData.harForståttRettigheterOgPlikter,
+            ...dinSituasjon,
+            ...mapMottakerToApiData(formData),
+            ...mapBarnStepToApiData(formData, registrerteBarn),
+        };
+    }
+    return undefined;
+};
 export const getSøknadKoronaoverføring = (
     values: MapFormDataToApiDataValues
 ): SøknadKoronaoverføringApiData | undefined => {
     const { antallDagerSomSkalOverføres } = values.formData;
+
     if (antallDagerSomSkalOverføres === undefined) {
         logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføres === undefined');
         return undefined;
     }
+    const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
 
+    if (antallDagerSomSkalOverføresNumber === undefined) {
+        logErrorToSentry('getSøknadKoronaoverføring: antallDagerSomSkalOverføresNumber === undefined');
+        return undefined;
+    }
+    const commonApiData = getCommonApiData(values);
+
+    if (commonApiData === undefined) {
+        logErrorToSentry(
+            'getSøknadKoronaoverføring: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+        );
+        return undefined;
+    }
     return {
-        ...getCommonApiData(values),
+        ...commonApiData,
         type: Søknadstype.koronaoverføring,
         korona: {
-            antallDagerSomSkalOverføres,
+            antallDagerSomSkalOverføres: antallDagerSomSkalOverføresNumber,
         },
     };
 };
@@ -70,8 +90,16 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
             samværsavtaleVedleggUrl.push(s.url);
         }
     });
+    const commonApiData = getCommonApiData(values);
+
+    if (commonApiData === undefined) {
+        logErrorToSentry(
+            'getSøknadFordeling: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+        );
+        return undefined;
+    }
     return {
-        ...getCommonApiData(values),
+        ...commonApiData,
         type: Søknadstype.fordeling,
         fordeling: {
             mottakerType: mottakerType,
@@ -86,11 +114,25 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
         logErrorToSentry(`getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføres, mottakerType })}`);
         return undefined;
     }
+    const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
+
+    if (antallDagerSomSkalOverføresNumber === undefined) {
+        logErrorToSentry(`getSøknadOverføring: ${JSON.stringify({ antallDagerSomSkalOverføresNumber, mottakerType })}`);
+        return undefined;
+    }
+    const commonApiData = getCommonApiData(values);
+
+    if (commonApiData === undefined) {
+        logErrorToSentry(
+            'getSøknadOverføring: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+        );
+        return undefined;
+    }
     return {
-        ...getCommonApiData(values),
+        ...commonApiData,
         type: Søknadstype.overføring,
         overføring: {
-            antallDagerSomSkalOverføres,
+            antallDagerSomSkalOverføres: antallDagerSomSkalOverføresNumber,
             mottakerType: mottakerType,
         },
     };

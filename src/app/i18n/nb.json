@@ -119,6 +119,7 @@
     "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med felles barn",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel.hvaBetyr": "Kan jeg velge andre personer?",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Når du skal dele omsorgsdager, er det kun mulig å dele med én av de som er listet opp under.",
+    "common.fieldvalidation.ugyldigTall": "Feltet må inneholde et gyldig tall",
 
     "step.mottaker.nextButtonLabel": "Fortsett",
 

@@ -55,7 +55,7 @@ export interface SoknadFormData {
     [SoknadFormField.mottakerType]?: Mottaker;
     [SoknadFormField.fnrMottaker]: string;
     [SoknadFormField.navnMottaker]: string;
-    [SoknadFormField.antallDagerSomSkalOverføres]?: number;
+    [SoknadFormField.antallDagerSomSkalOverføres]?: string;
 
     [SoknadFormField.andreBarn]: AnnetBarn[];
     [SoknadFormField.harAleneomsorg]: YesOrNo;
@@ -67,7 +67,7 @@ export interface SoknadFormData {
     [SoknadFormField.arbeiderINorge]: YesOrNo;
     [SoknadFormField.arbeidssituasjon]: Arbeidssituasjon[];
     [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo;
-    [SoknadFormField.antallDagerBruktEtter1Juli]?: number;
+    [SoknadFormField.antallDagerBruktEtter1Juli]?: string;
 
     [SoknadFormField.samværsavtale]: Attachment[];
 }
