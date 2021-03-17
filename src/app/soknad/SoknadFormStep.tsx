@@ -57,7 +57,6 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             cancelOrContinueLaterAriaLabel={intlHelper(intl, 'application.cancelOrContinueLaterLabel')}
             stepTitle={stepTitle || texts.stepTitle}
             pageTitle={pageTitle || texts.pageTitle}
-            pageAriaLabel={applicationTitle}
             backLinkHref={stepConfig.backLinkHref}
             steps={soknadStepUtils.getStepIndicatorStepsFromConfig(soknadStepsConfig, intl)}
             activeStepId={id}
