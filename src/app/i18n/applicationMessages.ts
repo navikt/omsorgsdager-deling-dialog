@@ -9,6 +9,11 @@ const introFormMessagesNB = require('../pages/intro-page/introFormMessagesNB.jso
 const dinePlikterNB = require('../soknad/velkommen-page/dine-plikter/dinePlikterNB.json');
 const personopplysningerNB = require('../soknad/velkommen-page/personopplysninger/personopplysningerNB.json');
 
+const appMessagesNN = require('./nn.json');
+const introFormMessagesNN = require('../pages/intro-page/introFormMessagesNN.json');
+const dinePlikterNN = require('../soknad/velkommen-page/dine-plikter/dinePlikterNN.json');
+const personopplysningerNN = require('../soknad/velkommen-page/personopplysninger/personopplysningerNN.json');
+
 const bokmålstekster = {
     ...allCommonMessages.nb,
     ...appMessagesNB,
@@ -20,6 +25,18 @@ const bokmålstekster = {
     ...soknadIntlMessages.nb,
 };
 
+const nynorsktekster = {
+    ...allCommonMessages.nn,
+    ...appMessagesNN,
+    ...introFormMessagesNN,
+    ...dinePlikterNN,
+    ...personopplysningerNN,
+    ...annetBarnMessages.nn,
+    ...soknadErrorIntlMessages.nn,
+    ...soknadIntlMessages.nn,
+};
+
 export const applicationIntlMessages: MessageFileFormat = {
     nb: bokmålstekster,
+    nn: nynorsktekster,
 };
