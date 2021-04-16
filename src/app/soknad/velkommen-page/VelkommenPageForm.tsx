@@ -3,16 +3,13 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import InfoDialog from '@navikt/sif-common-core/lib/components/dialogs/info-dialog/InfoDialog';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
-import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { validateSamtykke } from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import SoknadFormComponents from '../../soknad/SoknadFormComponents';
 import { SoknadFormField } from '../../types/SoknadFormData';
 import DinePlikterContent from './dine-plikter/DinePlikter';
 import BehandlingAvPersonopplysningerContent from './personopplysninger/Personopplysninger';
-import { NavFrontendSkjemaFeil } from '@navikt/sif-common-core/lib/types/NavFrontendSkjemaFeil';
 
 interface DialogState {
     dinePlikterModalOpen?: boolean;
@@ -29,15 +26,16 @@ const VelkommenPageForm: React.FunctionComponent<Props> = ({ onStart }) => {
     const intl = useIntl();
 
     return (
-        <SoknadFormComponents.Form
-            onValidSubmit={onStart}
-            includeButtons={false}
-            fieldErrorRenderer={(error): NavFrontendSkjemaFeil => commonFieldErrorRenderer(intl, error)}>
+        <SoknadFormComponents.Form onValidSubmit={onStart} includeButtons={false}>
             <FormBlock>
                 <SoknadFormComponents.ConfirmationCheckbox
                     label={intlHelper(intl, 'samtykke.tekst')}
                     name={SoknadFormField.harForståttRettigheterOgPlikter}
-                    validate={validateSamtykke}>
+                    validate={(value) => {
+                        return value !== true
+                            ? intlHelper(intl, 'validation.harForståttRettigheterOgPlikter.unanswered')
+                            : undefined;
+                    }}>
                     <FormattedMessage
                         id="samtykke.harForståttLabel"
                         values={{

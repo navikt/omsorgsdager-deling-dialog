@@ -4,33 +4,31 @@ import {
     getTotalSizeOfAttachments,
     MAX_TOTAL_ATTACHMENT_SIZE_BYTES,
 } from '@navikt/sif-common-core/lib/utils/attachmentUtils';
-import { createFieldValidationError } from '@navikt/sif-common-core/lib/validation/fieldValidations';
-import { hasValue } from '@navikt/sif-common-core/lib/validation/hasValue';
-import { FieldValidationResult } from '@navikt/sif-common-core/lib/validation/types';
+import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { ValidationResult } from '@navikt/sif-common-formik/lib/validation/types';
+import { IntlShape } from 'react-intl';
+import { SoknadFormField } from '../types/SoknadFormData';
+import appSentryLogger from '../utils/appSentryLogger';
 
-export enum AppFieldValidationErrors {
-    'fnr_lik_søkerFnr' = 'fieldvalidation.mottakersFnrErSøkersFnr',
-    'samlet_storrelse_for_hoy' = 'fieldvalidation.samlet_storrelse_for_hoy',
-    'for_mange_dokumenter' = 'fieldvalidation.for_mange_dokumenter',
-}
-
-export const validateFødselsnummerIsDifferentThan = (applicantFnr: string) => (
-    fnr: string
-): FieldValidationResult | undefined => {
-    if (hasValue(fnr) && applicantFnr === fnr.trim()) {
-        return createFieldValidationError(AppFieldValidationErrors.fnr_lik_søkerFnr);
-    }
-    return undefined;
+export const reportUnhandledValidationError = (error: any, field: SoknadFormField): void => {
+    appSentryLogger.logError('unhandledValidationError', JSON.stringify({ field, error }));
 };
 
-export const validateDocuments = (attachments: Attachment[]): FieldValidationResult => {
+export const getUnhandledValidationMessage = (intl: IntlShape, error: any) =>
+    intlHelper(intl, 'unhandledValidation', { error });
+
+export enum ValidateAttachmentsErrors {
+    'samletStørrelseForHøy' = 'samletStørrelseForHøy',
+    'forMangeFiler' = 'forMangeFiler',
+}
+export const validateAttachments = (attachments: Attachment[]): ValidationResult<ValidateAttachmentsErrors> => {
     const uploadedAttachments = attachments.filter((attachment) => attachmentHasBeenUploaded(attachment));
-    const totalSizeInBytes: number = getTotalSizeOfAttachments(attachments);
+    const totalSizeInBytes: number = getTotalSizeOfAttachments(uploadedAttachments);
     if (totalSizeInBytes > MAX_TOTAL_ATTACHMENT_SIZE_BYTES) {
-        return createFieldValidationError(AppFieldValidationErrors.samlet_storrelse_for_hoy);
+        return ValidateAttachmentsErrors.samletStørrelseForHøy;
     }
     if (uploadedAttachments.length > 100) {
-        return createFieldValidationError(AppFieldValidationErrors.for_mange_dokumenter);
+        return ValidateAttachmentsErrors.forMangeFiler;
     }
     return undefined;
 };

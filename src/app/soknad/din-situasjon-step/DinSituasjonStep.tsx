@@ -3,22 +3,23 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 import {
-    validateRequiredField,
-    validateRequiredList,
-    validateRequiredNumber,
-    validateYesOrNoIsAnswered,
-} from '@navikt/sif-common-core/lib/validation/fieldValidations';
+    validateList,
+    validateNumber,
+    ValidateNumberErrors,
+    validateYesOrNo,
+} from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import { useFormikContext } from 'formik';
 import Lenke from 'nav-frontend-lenker';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import getLenker from '../../lenker';
 import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { getUnhandledValidationMessage, reportUnhandledValidationError } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -69,7 +70,10 @@ const DinSituasjonStep: React.FunctionComponent = () => {
             <FormQuestion
                 name={SoknadFormField.erYrkesaktiv}
                 legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
-                validate={validateRequiredField}
+                validate={(value) => {
+                    const error = validateYesOrNo(value);
+                    return error ? intlHelper(intl, 'validation.erYrkesaktiv.unanswered') : undefined;
+                }}
                 showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
@@ -97,14 +101,20 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                                     label: intlHelper(intl, `arbeidssituasjon.${Arbeidssituasjon.frilanser}`),
                                 },
                             ]}
-                            validate={validateRequiredList}
+                            validate={(value) => {
+                                const error = validateList({ required: true })(value);
+                                return error ? intlHelper(intl, 'validation.arbeidssituasjon.isEmpty') : undefined;
+                            }}
                         />
                     </FormBlock>
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.arbeiderINorge}
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={(value) => {
+                                const error = validateYesOrNo(value);
+                                return error ? intlHelper(intl, 'validation.arbeiderINorge.unanswered') : undefined;
+                            }}
                         />
                     </FormBlock>
 
@@ -112,7 +122,12 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
                             legend={intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm')}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={(value) => {
+                                const error = validateYesOrNo(value);
+                                return error
+                                    ? intlHelper(intl, 'validation.harBruktOmsorgsdagerEtter1Juli.unanswered')
+                                    : undefined;
+                            }}
                         />
                     </FormBlock>
 
@@ -121,7 +136,28 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                             <SoknadFormComponents.NumberInput
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
                                 label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')}
-                                validate={validateRequiredNumber({ min: 1 })}
+                                validate={(value) => {
+                                    const error = validateNumber({ required: true, min: 1 })(value);
+                                    switch (error) {
+                                        case undefined:
+                                            return undefined;
+                                        case ValidateNumberErrors.noValue:
+                                            return intlHelper(intl, 'validation.antallDagerBruktEtter1Juli.noValue');
+                                        case ValidateNumberErrors.invalidFormat:
+                                            return intlHelper(
+                                                intl,
+                                                'validation.antallDagerBruktEtter1Juli.invalidFormat'
+                                            );
+                                        case ValidateNumberErrors.tooSmall:
+                                            return intlHelper(intl, 'validation.antallDagerBruktEtter1Juli.tooSmal');
+                                        default:
+                                            reportUnhandledValidationError(
+                                                error,
+                                                SoknadFormField.antallDagerBruktEtter1Juli
+                                            );
+                                            return getUnhandledValidationMessage(intl, error);
+                                    }
+                                }}
                                 style={{ maxWidth: '4rem' }}
                                 maxLength={2}
                             />

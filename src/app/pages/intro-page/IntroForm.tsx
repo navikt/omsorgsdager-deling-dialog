@@ -2,13 +2,9 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import {
-    validateRequiredList,
-    validateYesOrNoIsAnswered,
-} from '@navikt/sif-common-core/lib/validation/fieldValidations';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
+import { validateYesOrNo } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
@@ -28,7 +24,12 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
             <FormQuestion
                 legend={intlHelper(intl, `introForm.form.${IntroFormField.erArbeidstakerSnEllerFrilanser}.spm`)}
                 name={IntroFormField.erArbeidstakerSnEllerFrilanser}
-                validate={validateYesOrNoIsAnswered}
+                validate={(value) => {
+                    const error = validateYesOrNo(value);
+                    return error
+                        ? intlHelper(intl, 'introForm.validationerArbeidstakerSnEllerFrilanser.unanswered')
+                        : undefined;
+                }}
                 showStop={values.erArbeidstakerSnEllerFrilanser === YesOrNo.NO}
                 stopMessage={intlHelper(intl, 'introForm.form.erArbeidstakerSnEllerFrilanser.stopMessage')}
             />
@@ -40,7 +41,12 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
             <FormQuestion
                 legend={intlHelper(intl, `introForm.form.${IntroFormField.mottakersArbeidssituasjonErOk}.spm`)}
                 name={IntroFormField.mottakersArbeidssituasjonErOk}
-                validate={validateRequiredList}
+                validate={(value) => {
+                    const error = validateYesOrNo(value);
+                    return error
+                        ? intlHelper(intl, 'introForm.validation.mottakersArbeidssituasjonErOk.unanswered')
+                        : undefined;
+                }}
                 showStop={values.mottakersArbeidssituasjonErOk === YesOrNo.NO}
                 stopMessage={intlHelper(intl, 'introForm.form.mottakersArbeidssituasjonErOk.stopMessage')}
             />
@@ -55,7 +61,12 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                         <FormQuestion
                             legend={intlHelper(intl, `introForm.form.${IntroFormField.harAleneomsorg}.spm`)}
                             name={IntroFormField.harAleneomsorg}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={(value) => {
+                                const error = validateYesOrNo(value);
+                                return error
+                                    ? intlHelper(intl, 'introForm.validation.harAleneomsorg.unanswered')
+                                    : undefined;
+                            }}
                             showStop={values.harAleneomsorg === YesOrNo.NO}
                             stopMessage={intlHelper(intl, 'introForm.form.harAleneomsorg.stopMessage')}
                             description={
@@ -98,7 +109,15 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                                 `introForm.form.${IntroFormField.mottakerErEktefelleEllerSamboer}.spm`
                             )}
                             name={IntroFormField.mottakerErEktefelleEllerSamboer}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={(value) => {
+                                const error = validateYesOrNo(value);
+                                return error
+                                    ? intlHelper(
+                                          intl,
+                                          'introForm.validation.mottakerErEktefelleEllerSamboer.unanswered'
+                                      )
+                                    : undefined;
+                            }}
                         />
                         {values.mottakerErEktefelleEllerSamboer === YesOrNo.YES && getCommonQuestions(values, true)}
                         {values.mottakerErEktefelleEllerSamboer === YesOrNo.NO && (
@@ -109,7 +128,15 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                                         `introForm.form.${IntroFormField.mottakerSamværsforelder}.spm`
                                     )}
                                     name={IntroFormField.mottakerSamværsforelder}
-                                    validate={validateYesOrNoIsAnswered}
+                                    validate={(value) => {
+                                        const error = validateYesOrNo(value);
+                                        return error
+                                            ? intlHelper(
+                                                  intl,
+                                                  'introForm.validation.mottakerSamværsforelder.unanswered'
+                                              )
+                                            : undefined;
+                                    }}
                                     showStop={values.mottakerSamværsforelder === YesOrNo.NO}
                                     stopMessage={intlHelper(intl, 'introForm.form.mottakerSamværsforelder.stopMessage')}
                                 />
@@ -177,12 +204,16 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                                           </UnansweredQuestionsInfo>
                                       )
                             }
-                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             submitButtonLabel={intlHelper(intl, 'introForm.start')}>
                             <FormQuestion
                                 legend={intlHelper(intl, `introForm.form.${IntroFormField.korona}.spm`)}
                                 name={IntroFormField.korona}
-                                validate={validateYesOrNoIsAnswered}
+                                validate={(value) => {
+                                    const error = validateYesOrNo(value);
+                                    return error
+                                        ? intlHelper(intl, 'introForm.validation.korona.unanswered')
+                                        : undefined;
+                                }}
                                 description={
                                     <ExpandableInfo title={intlHelper(intl, 'introForm.form.hvaBetyr')}>
                                         {intlHelper(intl, 'introForm.form.korona.hvaBetyr')}

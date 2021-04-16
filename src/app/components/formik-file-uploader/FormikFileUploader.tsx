@@ -10,7 +10,7 @@ import {
     mapFileToPersistedFile,
     VALID_EXTENSIONS,
 } from '@navikt/sif-common-core/lib/utils/attachmentUtils';
-import { FormikValidateFunction } from '@navikt/sif-common-formik/lib';
+import { TypedFormInputValidationProps } from '@navikt/sif-common-formik/lib';
 import { ArrayHelpers, useFormikContext } from 'formik';
 import api from '../../api/api';
 import SoknadFormComponents from '../../soknad/SoknadFormComponents';
@@ -21,10 +21,9 @@ export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
 export type FieldArrayRemoveFn = (index: number) => undefined;
 
-interface FormikFileUploader {
+interface FormikFileUploader extends TypedFormInputValidationProps {
     name: SoknadFormField;
     label: string;
-    validate?: FormikValidateFunction;
     onFileInputClick?: () => void;
     onErrorUploadingAttachments: (files: File[]) => void;
     onUnauthorizedOrForbiddenUpload: () => void;

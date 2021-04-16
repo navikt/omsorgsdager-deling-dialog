@@ -42,7 +42,7 @@ const OmBarnaFormConfig: QuestionConfig<OmBarnaFormQuestionsPayload, SoknadFormF
         isAnswered: ({ harAleneomsorg }): boolean => yesOrNoIsAnswered(harAleneomsorg),
     },
     [Q.harAleneomsorgFor]: {
-        isAnswered: (): boolean => true, //harAleneomsorgFor !== undefined && harAleneomsorgFor.length > 0,
+        isAnswered: ({ harAleneomsorgFor }): boolean => harAleneomsorgFor !== undefined && harAleneomsorgFor.length > 0,
         isIncluded: ({ harAleneomsorg, antallBarn }): boolean => harAleneomsorg === YesOrNo.YES && antallBarn > 1,
     },
     [Q.harUtvidetRett]: {
@@ -51,7 +51,7 @@ const OmBarnaFormConfig: QuestionConfig<OmBarnaFormQuestionsPayload, SoknadFormF
             stop !== OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling && yesOrNoIsAnswered(harAleneomsorg),
     },
     [Q.harUtvidetRettFor]: {
-        isAnswered: (): boolean => true, // harUtvidetRettFor !== undefined && harUtvidetRettFor.length > 0,
+        isAnswered: ({ harUtvidetRettFor }): boolean => harUtvidetRettFor !== undefined && harUtvidetRettFor.length > 0,
         isIncluded: ({ harUtvidetRett, antallBarn }): boolean => harUtvidetRett === YesOrNo.YES && antallBarn > 1,
     },
 };

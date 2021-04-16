@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
 import FileUploadErrors from '@navikt/sif-common-core/lib/components/file-upload-errors/FileUploadErrors';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
+import PictureScanningGuide from '@navikt/sif-common-core/lib/components/picture-scanning-guide/PictureScanningGuide';
 import {
     getTotalSizeOfAttachments,
     MAX_TOTAL_ATTACHMENT_SIZE_BYTES,
@@ -12,15 +13,19 @@ import { useFormikContext } from 'formik';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import FormikFileUploader from '../../components/formik-file-uploader/FormikFileUploader';
+import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import UploadedDocumentsList from '../../components/uploaded-documents-list/UploadedDocumentsList';
+import getLenker from '../../lenker';
 import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { relocateToLoginPage } from '../../utils/navigationUtils';
-import { validateDocuments } from '../../validation/fieldValidation';
+import {
+    getUnhandledValidationMessage,
+    reportUnhandledValidationError,
+    validateAttachments,
+    ValidateAttachmentsErrors,
+} from '../../validation/fieldValidation';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import getLenker from '../../lenker';
-import PictureScanningGuide from '@navikt/sif-common-core/lib/components/picture-scanning-guide/PictureScanningGuide';
-import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 
 const SamværsavtaleStep: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -46,7 +51,20 @@ const SamværsavtaleStep: React.FunctionComponent = () => {
                             setFilesThatDidntGetUploaded([]);
                         }}
                         onUnauthorizedOrForbiddenUpload={(): void => relocateToLoginPage()}
-                        validate={validateDocuments}
+                        validate={(attachments) => {
+                            const error = validateAttachments(attachments);
+                            switch (error) {
+                                case undefined:
+                                    return undefined;
+                                case ValidateAttachmentsErrors.forMangeFiler:
+                                    return intlHelper(intl, 'validation.alleDokumenter.forMangeFiler');
+                                case ValidateAttachmentsErrors.samletStørrelseForHøy:
+                                    return intlHelper(intl, 'validation.alleDokumenter.samletStørrelseForHøy');
+                                default:
+                                    reportUnhandledValidationError(error, SoknadFormField.samværsavtale);
+                                    return getUnhandledValidationMessage(error, intl);
+                            }
+                        }}
                     />
                 </FormBlock>
             )}
