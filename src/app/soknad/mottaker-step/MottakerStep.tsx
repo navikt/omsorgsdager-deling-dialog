@@ -4,6 +4,13 @@ import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-co
 import FormattedHtmlMessage from '@navikt/sif-common-core/lib/components/formatted-html-message/FormattedHtmlMessage';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
+import {
+    getFødselsnummerValidator,
+    getNumberValidator,
+    getRequiredFieldValidator,
+    getStringValidator,
+    getYesOrNoValidator,
+} from '@navikt/sif-common-formik/lib/validation';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
 import { RadioPanelProps } from 'nav-frontend-skjema';
@@ -15,17 +22,6 @@ import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getMottakerFormStopp, MottakerFormQuestions } from './mottakerStepFormConfig';
-import {
-    validateFødselsnummer,
-    ValidateFødselsnummerErrors,
-    validateNumber,
-    ValidateNumberErrors,
-    validateRequiredValue,
-    validateString,
-    ValidateStringErrors,
-    validateYesOrNo,
-} from '@navikt/sif-common-formik/lib/validation';
-import { getUnhandledValidationMessage, reportUnhandledValidationError } from '../../validation/fieldValidation';
 
 export const ANTALL_DAGER_RANGE = { min: 1, max: 10 };
 export const ANTALL_DAGER_KORONA_RANGE = { min: 1, max: 999 };
@@ -133,12 +129,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                 <SoknadFormQuestion
                     name={SoknadFormField.gjelderMidlertidigPgaKorona}
                     legend={intlHelper(intl, 'step.mottaker.form.gjelderMidlertidigPgaKorona.spm')}
-                    validate={(value) => {
-                        const error = validateYesOrNo(value);
-                        return error
-                            ? intlHelper(intl, 'validation.gjelderMidlertidigPgaKorona.unanswered')
-                            : undefined;
-                    }}
+                    validate={getYesOrNoValidator()}
                     description={
                         <ExpandableInfo title={intlHelper(intl, 'hvaBetyrDette')}>
                             {intlHelper(intl, 'step.mottaker.form.gjelderMidlertidigPgaKorona.hvaBetyr.svar')}
@@ -149,12 +140,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                 <SoknadFormQuestion
                     name={SoknadFormField.skalDeleMedAndreForelderSamboerEktefelle}
                     legend={intlHelper(intl, 'step.mottaker.form.skalDeleMedAndreForelderSamboerEktefelle.spm')}
-                    validate={(value) => {
-                        const error = validateYesOrNo(value);
-                        return error
-                            ? intlHelper(intl, 'validation.skalDeleMedAndreForelderSamboerEktefelle.unanswered')
-                            : undefined;
-                    }}
+                    validate={getYesOrNoValidator()}
                     showStop={skalDeleMedAndreForelderSamboerEktefelle === YesOrNo.NO}
                     stopMessage={<FormattedHtmlMessage id="step.mottaker.form.stopMessage.korona.html" />}
                 />
@@ -163,10 +149,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                     <SoknadFormComponents.RadioPanelGroup
                         name={SoknadFormField.mottakerType}
                         legend={intlHelper(intl, 'step.mottaker.form.mottakerType.spm')}
-                        validate={(value) => {
-                            const error = validateRequiredValue(value);
-                            return error ? intlHelper(intl, 'validation.mottakerType.unanswered') : undefined;
-                        }}
+                        validate={getRequiredFieldValidator()}
                         radios={getMottakertypeRadios(intl)}
                         description={
                             <ExpandableInfo
@@ -184,26 +167,10 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                     <SoknadFormComponents.Input
                         name={SoknadFormField.fnrMottaker}
                         label={intlHelper(intl, 'step.mottaker.form.fnr.spm')}
-                        validate={(value) => {
-                            const error = validateFødselsnummer({
-                                required: true,
-                                disallowedValues: [søker.fødselsnummer],
-                            })(value);
-                            switch (error) {
-                                case undefined:
-                                    return undefined;
-                                case ValidateFødselsnummerErrors.noValue:
-                                    return intlHelper(intl, 'validation.fnrMottaker.noValue');
-                                case ValidateFødselsnummerErrors.fødselsnummerNot11Chars:
-                                    return intlHelper(intl, 'validation.fnrMottaker.fødselsnummerNot11Chars');
-                                case ValidateFødselsnummerErrors.invalidFødselsnummer:
-                                case ValidateFødselsnummerErrors.fødselsnummerChecksumError:
-                                    return intlHelper(intl, 'validation.fnrMottaker.invalidValue');
-                                default:
-                                    reportUnhandledValidationError(error, SoknadFormField.fnrMottaker);
-                                    return getUnhandledValidationMessage(intl, error);
-                            }
-                        }}
+                        validate={getFødselsnummerValidator({
+                            required: true,
+                            disallowedValues: [søker.fødselsnummer],
+                        })}
                         inputMode="numeric"
                         maxLength={11}
                         minLength={11}
@@ -215,22 +182,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                     <SoknadFormComponents.Input
                         name={SoknadFormField.navnMottaker}
                         label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
-                        validate={(value) => {
-                            const error = validateString({ required: true, minLength: 2, maxLength: 50 })(value);
-                            switch (error) {
-                                case undefined:
-                                    return undefined;
-                                case ValidateStringErrors.noValue:
-                                    return intlHelper(intl, 'validation.navnMottaker.unanswered');
-                                case ValidateStringErrors.tooLong:
-                                    return intlHelper(intl, 'validation.navnMottaker.tooLong');
-                                case ValidateStringErrors.tooShort:
-                                    return intlHelper(intl, 'validation.navnMottaker.tooShort');
-                                default:
-                                    reportUnhandledValidationError(error, SoknadFormField.navnMottaker);
-                                    return getUnhandledValidationMessage(intl, error);
-                            }
-                        }}
+                        validate={getStringValidator({ required: true, minLength: 2, maxLength: 50 })}
                     />
                 </SoknadFormQuestion>
 
@@ -239,10 +191,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         <SoknadFormComponents.Select
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={(value) => {
-                                const error = validateRequiredValue(value);
-                                return error ? intlHelper(intl, '') : undefined;
-                            }}
+                            validate={getRequiredFieldValidator()}
                             bredde="s"
                             description={
                                 <ExpandableInfo
@@ -263,39 +212,11 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         <SoknadFormComponents.NumberInput
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={(value) => {
-                                const min = ANTALL_DAGER_RANGE.min;
-                                const max = ANTALL_DAGER_RANGE.max;
-
-                                const error = validateNumber({
-                                    required: true,
-                                    min,
-                                    max,
-                                })(value);
-
-                                switch (error) {
-                                    case undefined:
-                                        return undefined;
-                                    case ValidateNumberErrors.noValue:
-                                        return intlHelper(intl, 'validation.antallDagerSomSkalOverføres.noValue');
-                                    case ValidateNumberErrors.invalidFormat:
-                                        return intlHelper(intl, 'validation.antallDagerSomSkalOverføres.invalidFormat');
-                                    case ValidateNumberErrors.tooSmall:
-                                        return intlHelper(intl, 'validation.antallDagerSomSkalOverføres.tooSmall', {
-                                            min,
-                                        });
-                                    case ValidateNumberErrors.tooLarge:
-                                        return intlHelper(intl, 'validation.antallDagerSomSkalOverføres.tooLarge', {
-                                            max,
-                                        });
-                                    default:
-                                        reportUnhandledValidationError(
-                                            error,
-                                            SoknadFormField.antallDagerSomSkalOverføres
-                                        );
-                                        return getUnhandledValidationMessage(intl, error);
-                                }
-                            }}
+                            validate={getNumberValidator({
+                                required: true,
+                                min: ANTALL_DAGER_RANGE.min,
+                                max: ANTALL_DAGER_RANGE.max,
+                            })}
                             bredde="XS"
                             description={
                                 <ExpandableInfo

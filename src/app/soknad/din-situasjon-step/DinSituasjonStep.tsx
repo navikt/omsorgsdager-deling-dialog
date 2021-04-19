@@ -4,19 +4,13 @@ import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlo
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
-import {
-    validateList,
-    validateNumber,
-    ValidateNumberErrors,
-    validateYesOrNo,
-} from '@navikt/sif-common-formik/lib/validation';
+import { getListValidator, getNumberValidator, getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import { useFormikContext } from 'formik';
 import Lenke from 'nav-frontend-lenker';
 import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import getLenker from '../../lenker';
 import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
-import { getUnhandledValidationMessage, reportUnhandledValidationError } from '../../validation/fieldValidation';
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
@@ -70,10 +64,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
             <FormQuestion
                 name={SoknadFormField.erYrkesaktiv}
                 legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
-                validate={(value) => {
-                    const error = validateYesOrNo(value);
-                    return error ? intlHelper(intl, 'validation.erYrkesaktiv.unanswered') : undefined;
-                }}
+                validate={getYesOrNoValidator()}
                 showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
@@ -102,7 +93,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                                 },
                             ]}
                             validate={(value) => {
-                                const error = validateList({ required: true })(value);
+                                const error = getListValidator({ required: true })(value);
                                 return error ? intlHelper(intl, 'validation.arbeidssituasjon.isEmpty') : undefined;
                             }}
                         />
@@ -111,10 +102,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.arbeiderINorge}
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                            validate={(value) => {
-                                const error = validateYesOrNo(value);
-                                return error ? intlHelper(intl, 'validation.arbeiderINorge.unanswered') : undefined;
-                            }}
+                            validate={getYesOrNoValidator()}
                         />
                     </FormBlock>
 
@@ -122,12 +110,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
                             legend={intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm')}
-                            validate={(value) => {
-                                const error = validateYesOrNo(value);
-                                return error
-                                    ? intlHelper(intl, 'validation.harBruktOmsorgsdagerEtter1Juli.unanswered')
-                                    : undefined;
-                            }}
+                            validate={getYesOrNoValidator()}
                         />
                     </FormBlock>
 
@@ -136,28 +119,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                             <SoknadFormComponents.NumberInput
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
                                 label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')}
-                                validate={(value) => {
-                                    const error = validateNumber({ required: true, min: 1 })(value);
-                                    switch (error) {
-                                        case undefined:
-                                            return undefined;
-                                        case ValidateNumberErrors.noValue:
-                                            return intlHelper(intl, 'validation.antallDagerBruktEtter1Juli.noValue');
-                                        case ValidateNumberErrors.invalidFormat:
-                                            return intlHelper(
-                                                intl,
-                                                'validation.antallDagerBruktEtter1Juli.invalidFormat'
-                                            );
-                                        case ValidateNumberErrors.tooSmall:
-                                            return intlHelper(intl, 'validation.antallDagerBruktEtter1Juli.tooSmal');
-                                        default:
-                                            reportUnhandledValidationError(
-                                                error,
-                                                SoknadFormField.antallDagerBruktEtter1Juli
-                                            );
-                                            return getUnhandledValidationMessage(intl, error);
-                                    }
-                                }}
+                                validate={getNumberValidator({ required: true, min: 1 })}
                                 style={{ maxWidth: '4rem' }}
                                 maxLength={2}
                             />

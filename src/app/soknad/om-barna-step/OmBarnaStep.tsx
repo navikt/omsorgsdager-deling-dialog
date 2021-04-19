@@ -5,6 +5,7 @@ import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
+import { getListValidator, getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
@@ -16,7 +17,6 @@ import SoknadFormQuestion from '../SoknadFormQuestion';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
 import { getOmBarnaFormStop, OmBarnaFormQuestions, OmBarnaFormStop } from './omBarnaStepFormConfig';
-import { validateList, validateYesOrNo } from '@navikt/sif-common-formik/lib/validation';
 
 interface Props {
     barn: Barn[];
@@ -109,10 +109,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                             ? intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.ettBarn')
                             : intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.flereBarn')
                     }
-                    validate={(value) => {
-                        const error = validateYesOrNo(value);
-                        return error ? intlHelper(intl, 'validation.harAleneomsorg.unanswered') : undefined;
-                    }}
+                    validate={getYesOrNoValidator()}
                     showStop={omBarnaStop === OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
                 />
@@ -121,10 +118,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                         legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
                         name={SoknadFormField.harAleneomsorgFor}
                         checkboxes={barnOptions}
-                        validate={(value) => {
-                            const error = validateList({ required: true })(value);
-                            return error ? intlHelper(intl, 'validation.harAleneomsorgFor.isEmpty') : undefined;
-                        }}
+                        validate={getListValidator({ required: true })}
                     />
                 </SoknadFormQuestion>
                 <SoknadFormQuestion
@@ -134,10 +128,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                             ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
                             : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
                     }
-                    validate={(value) => {
-                        const error = validateYesOrNo(value);
-                        return error ? intlHelper(intl, 'validation.harUtvidetRett.unanswered') : undefined;
-                    }}
+                    validate={getYesOrNoValidator()}
                     showStop={omBarnaStop === OmBarnaFormStop.alleBarnErOver12ogIngenUtvidetRett}
                     stopMessage={intlHelper(intl, 'step.om-barna.info.barnOver12')}
                     description={
@@ -152,7 +143,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                         name={SoknadFormField.harUtvidetRettFor}
                         checkboxes={barnOptions}
                         validate={(value) => {
-                            const error = validateList({ required: true })(value);
+                            const error = getListValidator({ required: true })(value);
                             return error ? intlHelper(intl, 'validation.harUtvidetRettFor.isEmpty') : undefined;
                         }}
                     />
