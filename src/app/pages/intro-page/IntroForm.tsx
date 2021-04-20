@@ -6,7 +6,7 @@ import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import {
     getFieldErrorRenderer,
     getSummaryFieldErrorRenderer,
-} from '@navikt/sif-common-core/lib/validation/renderUtils';
+} from '@navikt/sif-common-formik/lib/utils/formikErrorRenderUtils';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
 import { getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';

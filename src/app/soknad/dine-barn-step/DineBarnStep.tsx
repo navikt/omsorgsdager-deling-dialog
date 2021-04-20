@@ -14,9 +14,11 @@ import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormDat
 import { nYearsAgo } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import { Person } from '../../types/Person';
 
 interface OwnProps {
     barn: Barn[];
+    søker: Person;
 }
 
 type Props = OwnProps;
@@ -34,7 +36,7 @@ const barnItemLabelRenderer = (barn: Barn, intl: IntlShape): React.ReactNode => 
     );
 };
 
-const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
+const DineBarnStep: React.FunctionComponent<Props> = ({ barn, søker }) => {
     const intl = useIntl();
     const {
         values: { andreBarn },
@@ -80,6 +82,7 @@ const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
                     }}
                     maxDate={dateToday}
                     minDate={nYearsAgo(18)}
+                    disallowedFødselsnumre={[søker.fødselsnummer]}
                     aldersGrenseText={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.aldersGrenseInfo')}
                 />
             </Box>
