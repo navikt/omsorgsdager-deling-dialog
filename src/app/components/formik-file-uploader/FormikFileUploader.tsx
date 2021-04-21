@@ -21,7 +21,7 @@ export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
 export type FieldArrayRemoveFn = (index: number) => undefined;
 
-interface FormikFileUploader extends TypedFormInputValidationProps {
+interface FormikFileUploader extends TypedFormInputValidationProps<SoknadFormField> {
     name: SoknadFormField;
     label: string;
     onFileInputClick?: () => void;
