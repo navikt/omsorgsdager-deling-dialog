@@ -16,12 +16,13 @@ import api from '../../api/api';
 import SoknadFormComponents from '../../soknad/SoknadFormComponents';
 import { ApiEndpoint } from '../../types/ApiEndpoint';
 import { SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
+import { ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
 export type FieldArrayRemoveFn = (index: number) => undefined;
 
-interface FormikFileUploader extends TypedFormInputValidationProps<SoknadFormField> {
+interface FormikFileUploader extends TypedFormInputValidationProps<SoknadFormField, ValidationError> {
     name: SoknadFormField;
     label: string;
     onFileInputClick?: () => void;

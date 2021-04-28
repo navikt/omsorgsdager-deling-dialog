@@ -3,22 +3,20 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import {
-    getFieldErrorRenderer,
-    getSummaryFieldErrorRenderer,
-} from '@navikt/sif-common-formik/lib/utils/formikErrorRenderUtils';
+import getFieldErrorHandler from '@navikt/sif-common-formik/lib/validation/fieldErrorHandler';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
 import { getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
+import { ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
 
 interface Props {
     onValidSubmit: () => void;
 }
 
-const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData>();
+const IntroFormComponents = getTypedFormComponents<IntroFormField, IntroFormData, ValidationError>();
 
 const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
     const intl = useIntl();
@@ -168,8 +166,7 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}
-                            fieldErrorRenderer={getFieldErrorRenderer(intl, 'introForm')}
-                            summaryFieldErrorRenderer={getSummaryFieldErrorRenderer(intl, 'introForm')}
+                            fieldErrorHandler={getFieldErrorHandler(intl, 'introForm')}
                             noButtonsContentRenderer={
                                 kanFortsette || erStoppet
                                     ? undefined
