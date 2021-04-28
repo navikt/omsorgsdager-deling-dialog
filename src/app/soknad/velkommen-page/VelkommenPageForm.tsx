@@ -33,7 +33,7 @@ const VelkommenPageForm: React.FunctionComponent<Props> = ({ onStart }) => {
                     name={SoknadFormField.harForståttRettigheterOgPlikter}
                     validate={(value) => {
                         return value !== true
-                            ? intlHelper(intl, 'validation.harForståttRettigheterOgPlikter.unanswered')
+                            ? intlHelper(intl, 'validation.harForståttRettigheterOgPlikter.noValue')
                             : undefined;
                     }}>
                     <FormattedMessage

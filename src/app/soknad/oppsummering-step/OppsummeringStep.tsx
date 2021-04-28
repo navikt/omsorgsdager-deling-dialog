@@ -24,6 +24,7 @@ import OmBarnaSummary from './OmBarnaSummary';
 import SamværsavtaleSummary from './SamværsavtaleSummary';
 import SøknadstypeSummary from './SoknadstypeSummary';
 import SøkerSummary from './SøkerSummary';
+import { getCheckedValidator } from '@navikt/sif-common-formik/lib/validation';
 
 type Props = {
     søker: Person;
@@ -81,11 +82,7 @@ const OppsummeringStep: React.FunctionComponent<Props> = ({ søker, apiValues })
                             <SoknadFormComponents.ConfirmationCheckbox
                                 label={intlHelper(intl, 'step.oppsummering.bekrefterOpplysninger')}
                                 name={SoknadFormField.harBekreftetOpplysninger}
-                                validate={(value) => {
-                                    return value !== true
-                                        ? intlHelper(intl, 'validation.harBekreftetOpplysninger.unanswered')
-                                        : undefined;
-                                }}
+                                validate={getCheckedValidator()}
                             />
                         </Box>
                     </>

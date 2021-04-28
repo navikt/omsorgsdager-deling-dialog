@@ -7,10 +7,12 @@ import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import StepSubmitButton from '@navikt/sif-common-soknad/lib/soknad-step/step-submit-button/StepSubmitButton';
 import Step from '@navikt/sif-common-soknad/lib/soknad-step/step/Step';
+import getFieldErrorHandler from '@navikt/sif-common-formik/lib/validation/fieldErrorHandler';
 import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
+import { isIntlErrorObject } from '@navikt/sif-common-formik/lib/validation/types';
 
 interface OwnProps {
     id: StepID;
@@ -63,6 +65,8 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             <SoknadFormComponents.Form
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
+                fieldErrorHandler={getFieldErrorHandler(intl, 'validation')}
+                isHandledErrorTypeFunc={isIntlErrorObject}
                 noButtonsContentRenderer={
                     showNotAllQuestionsAnsweredMessage
                         ? (): React.ReactNode => (

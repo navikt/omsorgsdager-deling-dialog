@@ -9,14 +9,15 @@ import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
 import AnnetBarnListAndDialog from '@navikt/sif-common-forms/lib/annet-barn/AnnetBarnListAndDialog';
 import { useFormikContext } from 'formik';
 import AlertStripe from 'nav-frontend-alertstriper';
-import StepIntroduction from '../../components/step-introduction/StepIntroduction';
 import { Barn, SoknadFormData, SoknadFormField } from '../../types/SoknadFormData';
 import { nYearsAgo } from '../../utils/aldersUtils';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
+import { Person } from '../../types/Person';
 
 interface OwnProps {
     barn: Barn[];
+    søker: Person;
 }
 
 type Props = OwnProps;
@@ -34,7 +35,7 @@ const barnItemLabelRenderer = (barn: Barn, intl: IntlShape): React.ReactNode => 
     );
 };
 
-const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
+const DineBarnStep: React.FunctionComponent<Props> = ({ barn, søker }) => {
     const intl = useIntl();
     const {
         values: { andreBarn },
@@ -43,11 +44,6 @@ const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
 
     return (
         <SoknadFormStep id={StepID.DINE_BARN} showSubmitButton={kanFortsette}>
-            <StepIntroduction>
-                <p>{intlHelper(intl, 'step.dine-barn.info.title')}</p>
-                <p>{intlHelper(intl, 'step.dine-barn.info')}</p>
-            </StepIntroduction>
-
             {barn.length > 0 && (
                 <Box margin="xl">
                     <ContentWithHeader header={intlHelper(intl, 'step.dine-barn.listHeader.registrerteBarn')}>
@@ -80,6 +76,7 @@ const DineBarnStep: React.FunctionComponent<Props> = ({ barn }) => {
                     }}
                     maxDate={dateToday}
                     minDate={nYearsAgo(18)}
+                    disallowedFødselsnumre={[søker.fødselsnummer]}
                     aldersGrenseText={intlHelper(intl, 'step.dine-barn.formLeggTilBarn.aldersGrenseInfo')}
                 />
             </Box>

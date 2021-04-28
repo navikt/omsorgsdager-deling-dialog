@@ -1,6 +1,6 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
-import { validateFødselsnummer } from '@navikt/sif-common-formik/lib/validation';
+import { getFødselsnummerValidator } from '@navikt/sif-common-formik/lib/validation';
 import { ANTALL_DAGER_RANGE } from '../soknad/mottaker-step/MottakerStep';
 import { StepID } from '../soknad/soknadStepsConfig';
 import { Person } from '../types/Person';
@@ -76,7 +76,9 @@ const mottakerIsComplete = (
     }: Partial<MottakerFormData>,
     søker: Person
 ): boolean => {
-    const fnrError = validateFødselsnummer({ required: true, disallowedValues: [søker.fødselsnummer] })(fnrMottaker);
+    const fnrError = getFødselsnummerValidator({ required: true, disallowedValues: [søker.fødselsnummer] })(
+        fnrMottaker
+    );
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
     const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
     if (fnrError !== undefined) {
