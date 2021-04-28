@@ -3,14 +3,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import ExpandableInfo from '@navikt/sif-common-core/lib/components/expandable-content/ExpandableInfo';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import getFieldErrorHandler from '@navikt/sif-common-formik/lib/validation/fieldErrorHandler';
 import { getTypedFormComponents, UnansweredQuestionsInfo } from '@navikt/sif-common-formik';
 import { getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
+import getIntlFormErrorHandler from '@navikt/sif-common-formik/lib/validation/intlFormErrorHandler';
+import { ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
-import { isIntlErrorObject, ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
 
 interface Props {
     onValidSubmit: () => void;
@@ -166,8 +166,7 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}
-                            fieldErrorHandler={getFieldErrorHandler(intl, 'introForm.validation')}
-                            isHandledErrorTypeFunc={isIntlErrorObject}
+                            formErrorHandler={getIntlFormErrorHandler(intl, 'introForm.validation')}
                             noButtonsContentRenderer={
                                 kanFortsette || erStoppet
                                     ? undefined
