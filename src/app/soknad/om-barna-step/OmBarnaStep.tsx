@@ -66,15 +66,13 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
 
     const omBarnaStop = getOmBarnaFormStop(values, barn);
     const visibility = OmBarnaFormQuestions.getVisbility({ ...values, antallBarn, omBarnaStop });
-    const allQuestionsIsAnswered = visibility.areAllQuestionsAnswered();
-    const kanFortsette = allQuestionsIsAnswered && omBarnaStop === undefined;
+    const kanFortsette = omBarnaStop === undefined;
 
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
             onStepCleanup={(values): SoknadFormData => cleanupOmBarnaStep(values, barn, andreBarn)}
-            showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
             <StepIntroduction>
                 {values.gjelderMidlertidigPgaKorona === YesOrNo.NO && (
@@ -142,10 +140,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                         legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
                         name={SoknadFormField.harUtvidetRettFor}
                         checkboxes={barnOptions}
-                        validate={(value) => {
-                            const error = getListValidator({ required: true })(value);
-                            return error ? intlHelper(intl, 'validation.harUtvidetRettFor.isEmpty') : undefined;
-                        }}
+                        validate={getListValidator({ required: true })}
                     />
                 </SoknadFormQuestion>
             </QuestionVisibilityContext.Provider>

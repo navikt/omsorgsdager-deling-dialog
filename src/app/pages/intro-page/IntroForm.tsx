@@ -10,7 +10,7 @@ import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuesti
 import Lenke from 'nav-frontend-lenker';
 import getLenker from '../../lenker';
 import { IntroFormData, IntroFormField, introFormInitialValues } from './introFormConfig';
-import { ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
+import { isIntlErrorObject, ValidationError } from '@navikt/sif-common-formik/lib/validation/types';
 
 interface Props {
     onValidSubmit: () => void;
@@ -166,7 +166,8 @@ const IntroForm: React.FunctionComponent<Props> = ({ onValidSubmit }) => {
                         <IntroFormComponents.Form
                             includeValidationSummary={true}
                             includeButtons={kanFortsette}
-                            fieldErrorHandler={getFieldErrorHandler(intl, 'introForm')}
+                            fieldErrorHandler={getFieldErrorHandler(intl, 'introForm.validation')}
+                            isHandledErrorTypeFunc={isIntlErrorObject}
                             noButtonsContentRenderer={
                                 kanFortsette || erStoppet
                                     ? undefined

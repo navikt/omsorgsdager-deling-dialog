@@ -12,6 +12,7 @@ import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
+import { isIntlErrorObject } from '@navikt/sif-common-formik/lib/validation/types';
 
 interface OwnProps {
     id: StepID;
@@ -64,7 +65,8 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             <SoknadFormComponents.Form
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
-                fieldErrorHandler={getFieldErrorHandler(intl)}
+                fieldErrorHandler={getFieldErrorHandler(intl, 'validation')}
+                isHandledErrorTypeFunc={isIntlErrorObject}
                 noButtonsContentRenderer={
                     showNotAllQuestionsAnsweredMessage
                         ? (): React.ReactNode => (

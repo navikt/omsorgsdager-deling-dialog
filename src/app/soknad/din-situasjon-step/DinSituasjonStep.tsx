@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 import { getListValidator, getNumberValidator, getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import { useFormikContext } from 'formik';
@@ -45,11 +44,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
     );
 
     return (
-        <SoknadFormStep
-            id={stepId}
-            showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupDinSituasjonStep}
-            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(erYrkesaktiv) === false}>
+        <SoknadFormStep id={stepId} onStepCleanup={cleanupDinSituasjonStep}>
             <StepIntroduction>
                 <p>
                     <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
@@ -92,10 +87,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                                     label: intlHelper(intl, `arbeidssituasjon.${Arbeidssituasjon.frilanser}`),
                                 },
                             ]}
-                            validate={(value) => {
-                                const error = getListValidator({ required: true })(value);
-                                return error ? intlHelper(intl, 'validation.arbeidssituasjon.isEmpty') : undefined;
-                            }}
+                            validate={getListValidator({ required: true })}
                         />
                     </FormBlock>
                     <FormBlock>

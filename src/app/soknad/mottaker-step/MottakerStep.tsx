@@ -10,6 +10,8 @@ import {
     getRequiredFieldValidator,
     getStringValidator,
     getYesOrNoValidator,
+    ValidateNumberError,
+    ValidateStringError,
 } from '@navikt/sif-common-formik/lib/validation';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
@@ -82,17 +84,11 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
     const { values } = useFormikContext<SoknadFormData>();
     const stopp = getMottakerFormStopp(values);
     const visibility = MottakerFormQuestions.getVisbility(values);
-
-    const allQuestionsIsAnswered = visibility.areAllQuestionsAnswered();
-    const kanFortsette = allQuestionsIsAnswered && stopp === undefined;
+    const kanFortsette = stopp === undefined;
     const { gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle } = values;
 
     return (
-        <SoknadFormStep
-            id={stepId}
-            showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupMottakerStep}
-            showNotAllQuestionsAnsweredMessage={visibility.areAllQuestionsAnswered() === false}>
+        <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupMottakerStep}>
             <StepIntroduction>
                 <p>{intlHelper(intl, 'step.mottaker.veileder.1')}</p>
                 <p>{intlHelper(intl, 'step.mottaker.veileder.2')}</p>
@@ -182,7 +178,22 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                     <SoknadFormComponents.Input
                         name={SoknadFormField.navnMottaker}
                         label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
-                        validate={getStringValidator({ required: true, minLength: 2, maxLength: 50 })}
+                        validate={(value) => {
+                            const error = getStringValidator({ required: true, minLength: 2, maxLength: 50 })(value);
+                            if (error === ValidateStringError.stringIsTooLong) {
+                                return {
+                                    key: error,
+                                    values: { lengde: 50 },
+                                };
+                            }
+                            if (error === ValidateStringError.stringIsTooShort) {
+                                return {
+                                    key: error,
+                                    values: { lengde: 2 },
+                                };
+                            }
+                            return error;
+                        }}
                     />
                 </SoknadFormQuestion>
 
@@ -212,11 +223,21 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         <SoknadFormComponents.NumberInput
                             name={SoknadFormField.antallDagerSomSkalOverføres}
                             label={intlHelper(intl, 'step.mottaker.form.antallDagerSomSkalOverføres.spm')}
-                            validate={getNumberValidator({
-                                required: true,
-                                min: ANTALL_DAGER_RANGE.min,
-                                max: ANTALL_DAGER_RANGE.max,
-                            })}
+                            validate={(value) => {
+                                const error = getNumberValidator({
+                                    required: true,
+                                    min: ANTALL_DAGER_RANGE.min,
+                                    max: ANTALL_DAGER_RANGE.max,
+                                })(value);
+
+                                if (error === ValidateNumberError.numberIsTooLarge) {
+                                    return {
+                                        key: error,
+                                        values: { lengde: ANTALL_DAGER_RANGE.max },
+                                    };
+                                }
+                                return error;
+                            }}
                             bredde="XS"
                             description={
                                 <ExpandableInfo
