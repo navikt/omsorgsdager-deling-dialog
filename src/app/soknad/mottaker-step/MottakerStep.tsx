@@ -10,8 +10,6 @@ import {
     getRequiredFieldValidator,
     getStringValidator,
     getYesOrNoValidator,
-    ValidateNumberError,
-    ValidateStringError,
 } from '@navikt/sif-common-formik/lib/validation';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
@@ -180,19 +178,15 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                         label={intlHelper(intl, 'step.mottaker.form.navn.spm')}
                         validate={(value) => {
                             const error = getStringValidator({ required: true, minLength: 2, maxLength: 50 })(value);
-                            if (error === ValidateStringError.stringIsTooLong) {
-                                return {
-                                    key: error,
-                                    values: { lengde: 50 },
-                                };
-                            }
-                            if (error === ValidateStringError.stringIsTooShort) {
-                                return {
-                                    key: error,
-                                    values: { lengde: 2 },
-                                };
-                            }
-                            return error;
+                            return error
+                                ? {
+                                      key: error,
+                                      values: {
+                                          min: 2,
+                                          maks: 50,
+                                      },
+                                  }
+                                : undefined;
                         }}
                     />
                 </SoknadFormQuestion>
@@ -230,13 +224,12 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                                     max: ANTALL_DAGER_RANGE.max,
                                 })(value);
 
-                                if (error === ValidateNumberError.numberIsTooLarge) {
-                                    return {
-                                        key: error,
-                                        values: { lengde: ANTALL_DAGER_RANGE.max },
-                                    };
-                                }
-                                return error;
+                                return error
+                                    ? {
+                                          key: error,
+                                          values: { maks: ANTALL_DAGER_RANGE.max, min: ANTALL_DAGER_RANGE.min },
+                                      }
+                                    : undefined;
                             }}
                             bredde="XS"
                             description={
