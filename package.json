@@ -36,7 +36,7 @@
         "@navikt/sif-common-forms": "^14.0.9",
         "@navikt/sif-common-question-config": "0.0.7",
         "@navikt/sif-common-sentry": "0.1.1",
-        "@navikt/sif-common-soknad": "^4.0.0",
+        "@navikt/sif-common-soknad": "^4.0.1",
         "@sentry/browser": "^6.3.5",
         "@testing-library/react": "^11.2.6",
         "@types/amplitude-js": "^7.0.1",
