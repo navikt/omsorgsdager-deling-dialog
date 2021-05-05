@@ -42,7 +42,7 @@ const SoknadRoutes: React.FunctionComponent<Props> = ({ soknadId, søker, barn =
             case StepID.MOTTAKER:
                 return <MottakerStep søker={søker} />;
             case StepID.DINE_BARN:
-                return <DineBarnStep barn={barn} />;
+                return <DineBarnStep barn={barn} søker={søker} />;
             case StepID.OM_BARNA:
                 return <OmBarnaStep barn={barn} />;
             case StepID.DIN_SITUASJON:

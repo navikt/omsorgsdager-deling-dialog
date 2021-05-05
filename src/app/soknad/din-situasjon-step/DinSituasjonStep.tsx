@@ -3,12 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import FormBlock from '@navikt/sif-common-core/lib/components/form-block/FormBlock';
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import {
-    validateRequiredField,
-    validateRequiredList,
-    validateRequiredNumber,
-    validateYesOrNoIsAnswered,
-} from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { getListValidator, getNumberValidator, getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import FormQuestion from '@navikt/sif-common-soknad/lib/form-question/FormQuestion';
 import { useFormikContext } from 'formik';
 import Lenke from 'nav-frontend-lenker';
@@ -18,7 +13,6 @@ import { Arbeidssituasjon, DinSituasjonFormData, SoknadFormData, SoknadFormField
 import SoknadFormComponents from '../SoknadFormComponents';
 import SoknadFormStep from '../SoknadFormStep';
 import { StepID } from '../soknadStepsConfig';
-import { yesOrNoIsAnswered } from '@navikt/sif-common-core/lib/utils/yesOrNoUtils';
 
 const cleanupDinSituasjonStep = (values: SoknadFormData): SoknadFormData => {
     const cleanedValues = { ...values };
@@ -50,11 +44,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
     );
 
     return (
-        <SoknadFormStep
-            id={stepId}
-            showSubmitButton={kanFortsette}
-            onStepCleanup={cleanupDinSituasjonStep}
-            showNotAllQuestionsAnsweredMessage={yesOrNoIsAnswered(erYrkesaktiv) === false}>
+        <SoknadFormStep id={stepId} onStepCleanup={cleanupDinSituasjonStep}>
             <StepIntroduction>
                 <p>
                     <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
@@ -69,7 +59,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
             <FormQuestion
                 name={SoknadFormField.erYrkesaktiv}
                 legend={intlHelper(intl, 'step.din_situasjon.form.yrkesaktiv.spm')}
-                validate={validateRequiredField}
+                validate={getYesOrNoValidator()}
                 showStop={erYrkesaktiv === YesOrNo.NO}
                 stopMessage={arbeiderINorgeStopMessage}
             />
@@ -97,14 +87,14 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                                     label: intlHelper(intl, `arbeidssituasjon.${Arbeidssituasjon.frilanser}`),
                                 },
                             ]}
-                            validate={validateRequiredList}
+                            validate={getListValidator({ required: true })}
                         />
                     </FormBlock>
                     <FormBlock>
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.arbeiderINorge}
                             legend={intlHelper(intl, 'step.din_situasjon.form.arbeiderINorge.spm')}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={getYesOrNoValidator()}
                         />
                     </FormBlock>
 
@@ -112,7 +102,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                         <SoknadFormComponents.YesOrNoQuestion
                             name={SoknadFormField.harBruktOmsorgsdagerEtter1Juli}
                             legend={intlHelper(intl, 'step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm')}
-                            validate={validateYesOrNoIsAnswered}
+                            validate={getYesOrNoValidator()}
                         />
                     </FormBlock>
 
@@ -121,7 +111,7 @@ const DinSituasjonStep: React.FunctionComponent = () => {
                             <SoknadFormComponents.NumberInput
                                 name={SoknadFormField.antallDagerBruktEtter1Juli}
                                 label={intlHelper(intl, 'step.din_situasjon.form.antallDagerBruktEtter1Januar.spm')}
-                                validate={validateRequiredNumber({ min: 1 })}
+                                validate={getNumberValidator({ required: true, min: 1 })}
                                 style={{ maxWidth: '4rem' }}
                                 maxLength={2}
                             />

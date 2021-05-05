@@ -5,10 +5,7 @@ import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { prettifyDate } from '@navikt/sif-common-core/lib/utils/dateUtils';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { formatName } from '@navikt/sif-common-core/lib/utils/personUtils';
-import {
-    validateRequiredList,
-    validateYesOrNoIsAnswered,
-} from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { getListValidator, getYesOrNoValidator } from '@navikt/sif-common-formik/lib/validation';
 import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 import { QuestionVisibilityContext } from '@navikt/sif-common-soknad/lib/question-visibility/QuestionVisibilityContext';
 import { useFormikContext } from 'formik';
@@ -69,15 +66,13 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
 
     const omBarnaStop = getOmBarnaFormStop(values, barn);
     const visibility = OmBarnaFormQuestions.getVisbility({ ...values, antallBarn, omBarnaStop });
-    const allQuestionsIsAnswered = visibility.areAllQuestionsAnswered();
-    const kanFortsette = allQuestionsIsAnswered && omBarnaStop === undefined;
+    const kanFortsette = omBarnaStop === undefined;
 
     return (
         <SoknadFormStep
             id={StepID.OM_BARNA}
             showSubmitButton={kanFortsette}
             onStepCleanup={(values): SoknadFormData => cleanupOmBarnaStep(values, barn, andreBarn)}
-            showNotAllQuestionsAnsweredMessage={allQuestionsIsAnswered === false}
             stepTitle={intlHelper(intl, 'step.om-barna.stepTitle')}>
             <StepIntroduction>
                 {values.gjelderMidlertidigPgaKorona === YesOrNo.NO && (
@@ -112,7 +107,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                             ? intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.ettBarn')
                             : intlHelper(intl, 'step.om-barna.form.spm.harAleneOmsorg.flereBarn')
                     }
-                    validate={validateYesOrNoIsAnswered}
+                    validate={getYesOrNoValidator()}
                     showStop={omBarnaStop === OmBarnaFormStop.ikkeAleneomsorgForOverføringOgFordeling}
                     stopMessage={intlHelper(intl, 'step.oppsummering.om-barna.harAleneomsorg.stopMessage')}
                 />
@@ -121,7 +116,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                         legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaAleneomsorg')}
                         name={SoknadFormField.harAleneomsorgFor}
                         checkboxes={barnOptions}
-                        validate={validateRequiredList}
+                        validate={getListValidator({ required: true })}
                     />
                 </SoknadFormQuestion>
                 <SoknadFormQuestion
@@ -131,7 +126,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                             ? intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.ettBarn')
                             : intlHelper(intl, 'step.om-barna.form.spm.harNoenUtvidetRett.flereBarn')
                     }
-                    validate={validateYesOrNoIsAnswered}
+                    validate={getYesOrNoValidator()}
                     showStop={omBarnaStop === OmBarnaFormStop.alleBarnErOver12ogIngenUtvidetRett}
                     stopMessage={intlHelper(intl, 'step.om-barna.info.barnOver12')}
                     description={
@@ -145,7 +140,7 @@ const OmBarnaStep: React.FunctionComponent<Props> = ({ barn }) => {
                         legend={intlHelper(intl, 'step.om-barna.form.spm.hvilkeAvBarnaUtvRett')}
                         name={SoknadFormField.harUtvidetRettFor}
                         checkboxes={barnOptions}
-                        validate={validateRequiredList}
+                        validate={getListValidator({ required: true })}
                     />
                 </SoknadFormQuestion>
             </QuestionVisibilityContext.Provider>

@@ -1,5 +1,6 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
-import { validateFødselsnummer } from '@navikt/sif-common-core/lib/validation/fieldValidations';
+import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
+import { getFødselsnummerValidator } from '@navikt/sif-common-formik/lib/validation';
 import { ANTALL_DAGER_RANGE } from '../soknad/mottaker-step/MottakerStep';
 import { StepID } from '../soknad/soknadStepsConfig';
 import { Person } from '../types/Person';
@@ -12,8 +13,6 @@ import {
     OmBarnaFormData,
     SoknadFormData,
 } from '../types/SoknadFormData';
-import { validateFødselsnummerIsDifferentThan } from '../validation/fieldValidation';
-import { getNumberFromNumberInputValue } from '@navikt/sif-common-formik/lib';
 
 const dineBarnIsComplete = ({ andreBarn }: Partial<DineBarnFormData>, barn: Barn[]): boolean => {
     return barn.length > 0 || (andreBarn || []).length > 0;
@@ -77,11 +76,12 @@ const mottakerIsComplete = (
     }: Partial<MottakerFormData>,
     søker: Person
 ): boolean => {
-    const fnrValid = validateFødselsnummer(fnrMottaker || '');
-    const fnrDifferent = validateFødselsnummerIsDifferentThan(søker.fødselsnummer)(fnrMottaker || '');
+    const fnrError = getFødselsnummerValidator({ required: true, disallowedValues: [søker.fødselsnummer] })(
+        fnrMottaker
+    );
     const gjelderKoronaverføring = gjelderMidlertidigPgaKorona === YesOrNo.YES;
     const antallDagerSomSkalOverføresNumber = getNumberFromNumberInputValue(antallDagerSomSkalOverføres);
-    if (fnrValid !== undefined || fnrDifferent !== undefined) {
+    if (fnrError !== undefined) {
         return false;
     }
     if ((navnMottaker || '')?.length < 1) {

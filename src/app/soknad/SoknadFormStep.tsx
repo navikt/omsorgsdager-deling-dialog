@@ -2,9 +2,9 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useLogSidevisning } from '@navikt/sif-common-amplitude';
 import Box from '@navikt/sif-common-core/lib/components/box/Box';
-import { commonFieldErrorRenderer } from '@navikt/sif-common-core/lib/utils/commonFieldErrorRenderer';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import getFormErrorHandler from '@navikt/sif-common-formik/lib/validation/intlFormErrorHandler';
 import soknadStepUtils from '@navikt/sif-common-soknad/lib/soknad-step/soknadStepUtils';
 import StepSubmitButton from '@navikt/sif-common-soknad/lib/soknad-step/step-submit-button/StepSubmitButton';
 import Step from '@navikt/sif-common-soknad/lib/soknad-step/step/Step';
@@ -12,7 +12,6 @@ import { SoknadFormData } from '../types/SoknadFormData';
 import { useSoknadContext } from './SoknadContext';
 import SoknadFormComponents from './SoknadFormComponents';
 import { StepID } from './soknadStepsConfig';
-import { NavFrontendSkjemaFeil } from '@navikt/sif-common-core/lib/types/NavFrontendSkjemaFeil';
 
 interface OwnProps {
     id: StepID;
@@ -65,6 +64,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
             <SoknadFormComponents.Form
                 includeButtons={false}
                 includeValidationSummary={includeValidationSummary}
+                formErrorHandler={getFormErrorHandler(intl, 'validation')}
                 noButtonsContentRenderer={
                     showNotAllQuestionsAnsweredMessage
                         ? (): React.ReactNode => (
@@ -76,8 +76,7 @@ const SoknadFormStep: React.FunctionComponent<Props> = ({
                 }
                 runDelayedFormValidation={true}
                 cleanup={onStepCleanup}
-                onValidSubmit={onSendSoknad ? onSendSoknad : (): void => gotoNextStepFromStep(id)}
-                fieldErrorRenderer={(error): NavFrontendSkjemaFeil => commonFieldErrorRenderer(intl, error)}>
+                onValidSubmit={onSendSoknad ? onSendSoknad : (): void => gotoNextStepFromStep(id)}>
                 {children}
                 {showSubmitButton && (
                     <Box textAlignCenter={true} margin="xl">
