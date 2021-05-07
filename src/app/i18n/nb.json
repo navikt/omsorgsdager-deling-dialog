@@ -241,7 +241,7 @@
     "validation.antallDagerSomSkalOverføres.numberHasNoValue": "Skriv inn hvor mange dager du ønsker å dele.",
     "validation.antallDagerSomSkalOverføres.numberHasInvalidFormat": "Du må oppgi et gyldig tall for hvor mange dager du ønsker å dele. Et gyldig tall inneholder kun siffer.",
     "validation.antallDagerSomSkalOverføres.numberIsTooSmall": "Tallet du har oppgitt for hvor mange dager du ønsker å dele, er for lavt. Tallet kan ikke være lavere enn {min}.",
-    "validation.antallDagerSomSkalOverføres.numberIsTooLarge": "Tallet du har oppgitt for hvor mange dager du ønsker å dele, er for høyt. Tallet kan ikke være lavere enn {høyt}.",
+    "validation.antallDagerSomSkalOverføres.numberIsTooLarge": "Tallet du har oppgitt for hvor mange dager du ønsker å dele, er for høyt. Tallet kan ikke være lavere enn {maks}.",
     "validation.navnMottaker.stringHasNoValue": "Skriv inn navnet til den du skal dele omsorgsdager med.",
     "validation.navnMottaker.stringIsTooLong": "Navnet på den du skal dele omsorgsdager med, kan ikke inneholde flere enn {maks} tegn.",
     "validation.navnMottaker.stringIsTooShort": "Navnet på den du skal dele omsorgsdager med, må inneholde minst {min} tegn.",
