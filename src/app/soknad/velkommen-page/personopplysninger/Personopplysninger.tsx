@@ -61,6 +61,8 @@ const BehandlingAvPersonopplysningerContent: React.FunctionComponent = () => {
                 <p>
                     <FormattedMessage id="modal.personopplysninger.7" />
                 </p>
+            </Box>
+            <Box margin="xl">
                 <p>
                     <FormattedMessage id="modal.personopplysninger.8.1" />
                     {` `}
