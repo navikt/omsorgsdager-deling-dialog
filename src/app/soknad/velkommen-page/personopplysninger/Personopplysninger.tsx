@@ -55,7 +55,7 @@ const BehandlingAvPersonopplysningerContent: React.FunctionComponent = () => {
                 </ul>
             </Box>
             <Box margin="xl">
-                <Ingress>
+                <Ingress tag="h2">
                     <FormattedMessage id="modal.personopplysninger.6" />
                 </Ingress>
                 <p>
