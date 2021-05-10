@@ -221,13 +221,12 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
                                 const error = getNumberValidator({
                                     required: true,
                                     min: ANTALL_DAGER_RANGE.min,
-                                    max: ANTALL_DAGER_RANGE.max,
                                 })(value);
 
                                 return error
                                     ? {
                                           key: error,
-                                          values: { maks: ANTALL_DAGER_RANGE.max, min: ANTALL_DAGER_RANGE.min },
+                                          values: { min: ANTALL_DAGER_RANGE.min },
                                       }
                                     : undefined;
                             }}

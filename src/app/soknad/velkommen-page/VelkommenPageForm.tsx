@@ -69,7 +69,7 @@ const VelkommenPageForm: React.FunctionComponent<Props> = ({ onStart }) => {
             <InfoDialog
                 isOpen={behandlingAvPersonopplysningerModalOpen === true}
                 onRequestClose={(): void => setDialogState({ behandlingAvPersonopplysningerModalOpen: false })}
-                contentLabel={intlHelper(intl, 'modal.personopplysninger.dialog.tittel')}>
+                contentLabel={intlHelper(intl, 'modal.personopplysninger.dialogtittel')}>
                 <BehandlingAvPersonopplysningerContent />
             </InfoDialog>
         </SoknadFormComponents.Form>
