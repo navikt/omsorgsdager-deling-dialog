@@ -17,8 +17,8 @@
         "skipLibCheck": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
+        "esModuleInterop": true,
         "baseUrl": "./src",
-        "paths": {},
 
         "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
