@@ -1,6 +1,6 @@
 import persistence, { PersistenceInterface } from '@navikt/sif-common-core/lib/utils/persistence/persistence';
 import { AxiosResponse } from 'axios';
-import * as hash from 'object-hash';
+import hash from 'object-hash';
 import { defaultAxiosConfig } from '../api/api';
 import { ApiEndpoint } from '../types/ApiEndpoint';
 import { Person } from '../types/Person';
