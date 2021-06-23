@@ -44,7 +44,10 @@ const DinSituasjonStep: React.FunctionComponent = () => {
     );
 
     return (
-        <SoknadFormStep id={stepId} onStepCleanup={cleanupDinSituasjonStep} showSubmitButton={kanFortsette !== false}>
+        <SoknadFormStep
+            id={stepId}
+            onStepCleanup={cleanupDinSituasjonStep}
+            showSubmitButton={erYrkesaktiv !== YesOrNo.NO}>
             <StepIntroduction>
                 <p>
                     <FormattedMessage id="step.din_situasjon.veileder.intro.1" />
