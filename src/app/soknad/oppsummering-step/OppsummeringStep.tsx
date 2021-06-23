@@ -41,7 +41,6 @@ const OppsummeringStep: React.FunctionComponent<Props> = ({ søker, apiValues })
     return (
         <SoknadFormStep
             id={StepID.OPPSUMMERING}
-            includeValidationSummary={false}
             showButtonSpinner={isPending(sendSoknadStatus.status)}
             buttonDisabled={isPending(sendSoknadStatus.status) || apiDataIsValid === false}
             onSendSoknad={apiValues ? (): void => sendSoknad(apiValues) : undefined}>
