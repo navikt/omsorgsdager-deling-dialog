@@ -133,6 +133,7 @@
     "step.samværsavtale.vedlegg.totalstørrelse.1": "Du har totalt lasta opp meir enn grensa på 24 MB. Det betyr at du må fjerne noko av det du har lasta opp. Dersom det betyr at du ikkje får plass til alt du ønskjer å sende, kan du",
     "step.samværsavtale.vedlegg.totalstørrelse.2": "ettersende fleire dokument",
     "step.samværsavtale.vedlegg.totalstørrelse.3": ".",
+    "vedleggsliste.fjernKnapp": "Fjern vedlegg",
     "fileUploadErrors.part1": "Det har dessverre skjedd ein feil under opplastinga av følgjande vedlegg:",
     "steg.footer.avbryt": "Avbryt",
     "steg.footer.fortsettSenere": "Hald fram seinare",
