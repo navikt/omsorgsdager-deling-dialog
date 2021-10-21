@@ -23,6 +23,13 @@ const configureDevServer = (decoratorFragments) => ({
             res.render('index.html', Object.assign(decoratorFragments));
         });
     },
+    static: {
+        watch: false,
+    },
+    devMiddleware: {
+        stats: 'minimal',
+    },
+    port: 8080,
 });
 
 module.exports = configureDevServer;
