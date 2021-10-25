@@ -3,14 +3,15 @@ import { getEnvironmentVariable } from '@navikt/sif-common-core/lib/utils/envUti
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ApiEndpoint } from '../types/ApiEndpoint';
 
-export const defaultAxiosConfig = {
+const axiosConfig = {
     withCredentials: true,
 };
 
-const multipartConfig = { headers: { 'Content-Type': 'multipart/form-data' }, ...defaultAxiosConfig };
+export const axiosJsonConfig = { ...axiosConfig, headers: { 'Content-type': 'application/json; charset=utf-8' } };
+export const axiosMultipartConfig = { ...axiosConfig, headers: { 'Content-Type': 'multipart/form-data' } };
 
 const sendMultipartPostRequest = (url: string, formData: FormData) => {
-    return axios.post(url, formData, multipartConfig);
+    return axios.post(url, formData, axiosMultipartConfig);
 };
 
 axios.defaults.baseURL = getEnvironmentVariable('API_URL');
@@ -34,17 +35,17 @@ axios.interceptors.response.use(
 const api = {
     get: <ResponseType>(endpoint: ApiEndpoint, paramString?: string, config?: AxiosRequestConfig) => {
         const url = `${endpoint}${paramString ? `?${paramString}` : ''}`;
-        return axios.get<ResponseType>(url, config || defaultAxiosConfig);
+        return axios.get<ResponseType>(url, config || axiosJsonConfig);
     },
     post: <DataType = any, ResponseType = any>(endpoint: ApiEndpoint, data: DataType) => {
-        return axios.post<ResponseType>(endpoint, data, defaultAxiosConfig);
+        return axios.post<ResponseType>(endpoint, data, axiosJsonConfig);
     },
     uploadFile: (endpoint: ApiEndpoint, file: File) => {
         const formData = new FormData();
         formData.append('vedlegg', file);
         return sendMultipartPostRequest(endpoint, formData);
     },
-    deleteFile: (url: string) => axios.delete(url, defaultAxiosConfig),
+    deleteFile: (url: string) => axios.delete(url, axiosJsonConfig),
 };
 
 export default api;
