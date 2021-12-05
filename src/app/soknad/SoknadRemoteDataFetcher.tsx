@@ -7,6 +7,8 @@ import LoadingPage from '@navikt/sif-common-soknad/lib/soknad-common-pages/Loadi
 import SoknadErrorMessages from '@navikt/sif-common-soknad/lib/soknad-error-messages/SoknadErrorMessages';
 import useSoknadEssentials, { SoknadEssentials } from '../hooks/useSoknadEssentials';
 import Soknad from './Soknad';
+import { isForbidden } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import IkkeTilgangPage from '../pages/ikke-tilgang-page/ikkeTilgangPage';
 
 const SoknadRemoteDataFetcher = (): JSX.Element => {
     const intl = useIntl();
@@ -17,11 +19,16 @@ const SoknadRemoteDataFetcher = (): JSX.Element => {
             remoteData={soknadEssentials}
             initializing={(): React.ReactNode => <LoadingPage />}
             loading={(): React.ReactNode => <LoadingPage />}
-            error={(): React.ReactNode => (
-                <ErrorPage
-                    bannerTitle={intlHelper(intl, 'application.title')}
-                    contentRenderer={(): JSX.Element => <SoknadErrorMessages.GeneralApplicationError />}
-                />
+            error={(error): React.ReactNode => (
+                <>
+                    {isForbidden(error) && <IkkeTilgangPage />}
+                    {!isForbidden(error) && (
+                        <ErrorPage
+                            bannerTitle={intlHelper(intl, 'application.title')}
+                            contentRenderer={(): JSX.Element => <SoknadErrorMessages.GeneralApplicationError />}
+                        />
+                    )}
+                </>
             )}
             success={([person, barn, soknadTempStorage]): React.ReactNode => {
                 return <Soknad søker={person} barn={barn} soknadTempStorage={soknadTempStorage} />;

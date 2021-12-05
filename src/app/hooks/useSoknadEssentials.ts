@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { combine, initial, pending, RemoteData } from '@devexperts/remote-data-ts';
-import { isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
+import { isForbidden, isUserLoggedOut } from '@navikt/sif-common-core/lib/utils/apiUtils';
 import { AxiosError } from 'axios';
 import getBarnRemoteData from '../api/getBarn';
 import getSokerRemoteData from '../api/getSoker';
@@ -28,6 +28,8 @@ function useSoknadEssentials(): SoknadEssentialsRemoteData {
             if (isUserLoggedOut(remoteDataError.error)) {
                 setData(pending);
                 relocateToLoginPage();
+            } else if (isForbidden(remoteDataError.error)) {
+                setData(remoteDataError);
             } else {
                 setData(remoteDataError);
             }
