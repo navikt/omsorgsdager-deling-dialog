@@ -89,7 +89,6 @@
         "@babel/plugin-transform-modules-commonjs": "^7.16.0",
         "@babel/preset-env": "^7.16.4",
         "@babel/preset-react": "^7.16.0",
-        "@types/classnames": "^2.3.1",
         "@types/enzyme": "^3.10.10",
         "@types/flat": "5.0.2",
         "@types/intl": "^1.2.0",
