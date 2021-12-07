@@ -8,11 +8,9 @@
     "page.error.pageTitle": "Noe gikk galt ...",
     "page.form.ubesvarteSpørsmålInfo": "For å komme videre, må du svare på alle spørsmålene ovenfor",
 
-    "page.ikkeMyndig.sidetittel": "Melding om å dele omsorgsdager - ikke myndig",
-    "page.ikkeMyndig.banner.tittel": "Hei!",
-    "page.ikkeMyndig.banner.tekst": "Fordi du er under 18 år, må en av foreldrene dine eller en foresatt skrive under på meldingen sammen med deg. Du må derfor fylle ut skjemaet på papir og sende det i posten.",
-    "page.ikkeMyndig.banner.lastNed": "Melding om deling av omsorgsdager",
-    "page.ikkeMyndig.tittel": "Dele omsorgsdager",
+    "page.ikkeTilgang.sidetittel": "Dele omsorgsdager",
+    "page.ikkeTilgang.tekst": "Du har ikke tilgang til denne siden. Dersom du er under 18 år, må en av foreldrene dine eller en foresatt skrive under på søknaden sammen med deg. Du må derfor fylle ut søknaden på papir og sende den i posten.",
+    "page.ikkeTilgang.lastNed": "Melding om deling av omsorgsdager",
 
     "arbeidssituasjon.arbeidstaker": "Arbeidstaker",
     "arbeidssituasjon.selvstendigNæringsdrivende": "Selvstendig næringsdrivende",

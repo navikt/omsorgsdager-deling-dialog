@@ -10,7 +10,6 @@ import { ulid } from 'ulid';
 import { sendSoknad } from '../api/sendSoknad';
 import { SKJEMANAVN } from '../App';
 import AppRoutes, { getRouteUrl } from '../config/routeConfig';
-import IkkeMyndigPage from '../pages/ikke-myndig-page/IkkeMyndigPage';
 import { Person } from '../types/Person';
 import { SoknadApiData } from '../types/SoknadApiData';
 import { Barn, SoknadFormData } from '../types/SoknadFormData';
@@ -184,9 +183,6 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
         <LoadWrapper
             isLoading={initializing}
             contentRenderer={(): React.ReactNode => {
-                if (søker.myndig === false) {
-                    return <IkkeMyndigPage />;
-                }
                 return (
                     <SoknadFormComponents.FormikWrapper
                         initialValues={initialFormData}
