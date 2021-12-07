@@ -39,7 +39,7 @@
         "@testing-library/react": "^12.1.2",
         "@types/amplitude-js": "^8.0.2",
         "amplitude-js": "^8.13.1",
-        "axios": "^0.21.4",
+        "axios": "^0.24.0",
         "busboy": "^0.3.1",
         "classnames": "^2.3.1",
         "compression": "^1.7.4",
