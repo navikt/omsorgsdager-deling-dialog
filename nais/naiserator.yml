@@ -30,6 +30,7 @@ spec:
             external:
             - host: www.nav.no
             - host: sanity.io
+            - host: dekoratoren.dev.nav.no
     ingresses:
       {{#each ingresses as |url|}}
        - {{url}}
