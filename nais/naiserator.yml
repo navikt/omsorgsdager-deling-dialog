@@ -9,13 +9,13 @@ spec:
     image: {{ image }}
     port: 8080
     liveness:
-        path: /familie/sykdom-i-familien/soknad/deling-omsorgsdager/health/isAlive
+        path: {{livenessPath}}
         initialDelay: 20
         timeout: 1
         periodSeconds: 5
         failureThreshold: 10
     readiness:
-        path: /familie/sykdom-i-familien/soknad/deling-omsorgsdager/health/isReady
+        path: {{readinessPath}}
         initialDelay: 20
         timeout: 1
     resources:
@@ -28,9 +28,9 @@ spec:
     accessPolicy:
         outbound:
             external:
-            - host: www.nav.no
-            - host: sanity.io
-            - host: dekoratoren.dev.nav.no
+            {{#each externalHosts as |host|}}
+            - host: {{host}}
+            {{/each}}
     ingresses:
       {{#each ingresses as |url|}}
        - {{url}}
