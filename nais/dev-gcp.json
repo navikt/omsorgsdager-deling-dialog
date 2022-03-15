@@ -6,6 +6,9 @@
     "minReplicas": "1",
     "maxReplicas": "1",
     "ingresses": ["https://deling-omsorgsdager.dev.nav.no"],
+    "livenessPath": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager/health/isAlive",
+    "readinessPath": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager/health/isReady",
+    "externalHosts": ["www.nav.no", "dekoratoren.dev.nav.no", "dekoratoren.ekstern.dev.nav.no", "sanity.io"],
     "env": {
         "DEKORATOR_URL": "https://dekoratoren.dev.nav.no/?simple=true&chatbot=false&urlLookupTable=false",
         "API_URL": "https://omsorgsdager-melding-api.dev.nav.no",
