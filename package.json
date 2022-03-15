@@ -33,7 +33,7 @@
         "@navikt/sif-common-formik": "^20.9.2",
         "@navikt/sif-common-forms": "^16.2.3",
         "@navikt/sif-common-question-config": "0.0.7",
-        "@navikt/sif-common-sentry": "^0.2.1",
+        "@navikt/sif-common-sentry": "^0.3.0",
         "@navikt/sif-common-soknad": "^5.1.0",
         "@sentry/browser": "^6.18.2",
         "@snyk/protect": "^1.870.0",
