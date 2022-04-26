@@ -151,7 +151,7 @@
     "step.din_situasjon.form.arbeiderINorge.spm": "Jobbar du i Noreg?",
     "step.din_situasjon.form.arbeiderINorge.stopMessage": "For å ha rett på omsorgsdagar og kunne dele desse med ein annan må du ha jobb og vere yrkesaktiv. Det betyr at du må høyre til minst éi av gruppene under",
     "step.din_situasjon.form.arbeidssituasjon.spm": "Kva er arbeidssituasjonen din? Du kan velje fleire.",
-    "step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm": "Har du brukt omsorgsdagar i 2021?",
+    "step.din_situasjon.form.harBruktOmsorgsdagerI2021.spm": "Har du brukt omsorgsdagar i år?",
     "step.din_situasjon.form.harBruktOmsorgsdager1Juli2020til31des2020": "Har du sjølv brukt omsorgsdagar i perioden 1. juli 2020 til 31. desember 2020?",
     "step.din_situasjon.form.antallDagerBruktEtter1Januar.spm": "Kor mange omsorgsdagar har du brukt?",
 
@@ -180,7 +180,7 @@
     "step.oppsummering.dinSituasjon.erYkesaktiv": "Er du yrkesaktiv?",
     "step.oppsummering.dinSituasjon.arbeiderINorge": "Jobbar du i Noreg?",
     "step.oppsummering.dinSituasjon.arbeidssituasjon": "Kva er arbeidssituasjonen din?",
-    "step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021": "Har du brukt omsorgsdagar i 2021?",
+    "step.oppsummering.dinSituasjon.harBruktOmsorgsdager2021": "Har du brukt omsorgsdagar i år?",
     "step.oppsummering.dinSituasjon.antallDagerBrukt2021": "Kor mange omsorgsdagar har du brukt?",
 
     "step.oppsummering.mottaker.header": "Om den du skal dele omsorgsdagar med",
