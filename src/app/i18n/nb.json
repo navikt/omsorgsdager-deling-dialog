@@ -253,7 +253,7 @@
     "validation.arbeidssituasjon.listIsEmpty": "Du må velge hva som er din arbeidssituasjon.",
     "validation.arbeiderINorge.yesOrNoIsUnanswered": "Du må svare ja eller nei på om du jobber i Norge.",
     "validation.harBruktOmsorgsdagerEtter1Juli.yesOrNoIsUnanswered": "Du må svare ja eller nei på om du har brukt omsorgsdager i 2021.",
-    "validation.antallDagerBruktEtter1Juli.numberHasNoValue": "Skriv inn hvor mange omsorgsdager du har brukt i 2021.",
+    "validation.antallDagerBruktEtter1Juli.numberHasNoValue": "Skriv inn hvor mange omsorgsdager du har brukt i år.",
     "validation.antallDagerBruktEtter1Juli.numberHasInvalidFormat": "Du må oppgi et gyldig tall for hvor mange omsorgsdager du har brukt i 2021. Et gyldig tall inneholder kun siffer.",
     "validation.antallDagerBruktEtter1Juli.numberIsTooSmall": "Tallet du har oppgitt for hvor mange omsorgsdager du har brukt i 2021, er for lavt. Tallet kan ikke være lavere enn {min}.",
     "validation.harBekreftetOpplysninger.notChecked": "Du må bekrefte opplysningene."
