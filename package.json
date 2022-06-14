@@ -34,7 +34,7 @@
         "@navikt/sif-common-sentry": "^0.3.1",
         "@navikt/sif-common-soknad": "^5.3.1",
         "@snyk/protect": "^1.947.0",
-        "axios": "^0.24.0",
+        "axios": "^0.27.2",
         "busboy": "^1.6.0",
         "classnames": "^2.3.1",
         "compression": "^1.7.4",
