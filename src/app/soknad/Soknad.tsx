@@ -30,6 +30,7 @@ import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
+import { FormikState } from 'formik';
 
 interface Props {
     søker: Person;
@@ -38,7 +39,7 @@ interface Props {
     route?: string;
 }
 
-type resetFormFunc = () => void;
+type resetFormFunc = (nextState?: Partial<FormikState<SoknadFormData>>) => void;
 
 const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorage: tempStorage }) => {
     const history = useHistory();
@@ -98,7 +99,8 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
             setSendSoknadStatus({ failures: 0, status: success(apiValues) });
             navigateToKvitteringPage(history);
             setSoknadId(undefined);
-            resetFormikForm();
+            setInitialFormData({ ...initialSoknadFormData });
+            resetFormikForm({ values: initialSoknadFormData });
         } catch (error) {
             if (isUserLoggedOut(error)) {
                 logUserLoggedOut('Ved innsending av søknad');

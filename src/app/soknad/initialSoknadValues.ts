@@ -1,9 +1,11 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { SoknadFormData, SoknadFormField } from '../types/SoknadFormData';
 
-export const initialSoknadFormData: Partial<SoknadFormData> = {
+export const initialSoknadFormData: SoknadFormData = {
     [SoknadFormField.harForståttRettigheterOgPlikter]: false,
     [SoknadFormField.harBekreftetOpplysninger]: false,
+    [SoknadFormField.gjelderMidlertidigPgaKorona]: YesOrNo.UNANSWERED,
+    [SoknadFormField.skalDeleMedAndreForelderSamboerEktefelle]: YesOrNo.UNANSWERED,
     [SoknadFormField.andreBarn]: [],
     [SoknadFormField.harAleneomsorg]: YesOrNo.UNANSWERED,
     [SoknadFormField.harAleneomsorgFor]: [],
