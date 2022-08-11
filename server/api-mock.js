@@ -92,19 +92,19 @@ const startExpressServer = () => {
         }, 2000);
     });
 
-    server.get('/soker', (req, res) => {
+    server.get('/oppslag/soker', (req, res) => {
         setTimeout(() => {
             res.send(søkerMock);
         }, 200);
     });
 
-    server.get('/soker-umyndig', (req, res) => {
+    server.get('/oppslag/soker-umyndig', (req, res) => {
         res.sendStatus(451);
     });
-    server.get('/soker-not-logged-in', (req, res) => {
+    server.get('/oppslag/soker-not-logged-in', (req, res) => {
         res.sendStatus(401);
     });
-    server.get('/soker-err', (req, res) => {
+    server.get('/oppslag/soker-err', (req, res) => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
@@ -125,29 +125,29 @@ const startExpressServer = () => {
         res.sendStatus(200);
     });
 
-    server.get('/barn', (req, res) => {
+    server.get('/oppslag/barn', (req, res) => {
         setTimeout(() => {
             res.send(barnMock);
         }, 200);
     });
 
-    server.get('/barn2', (req, res) => {
+    server.get('/oppslag/barn2', (req, res) => {
         setTimeout(() => {
             res.send(barnMock2);
         }, 200);
     });
 
-    server.get('/barn-err', (req, res) => {
+    server.get('/oppslag/barn-err', (req, res) => {
         setTimeout(() => {
             res.sendStatus(501);
         }, 200);
     });
 
-    server.get('/soker-logget-ut', (req, res) => {
+    server.get('/oppslag/soker-logget-ut', (req, res) => {
         res.sendStatus(401);
     });
 
-    server.post('/melding/dele-dager', (req, res) => {
+    server.post('/innsending/omsorgsdager-melding/dele-dager', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         setTimeout(() => {
@@ -156,7 +156,7 @@ const startExpressServer = () => {
     });
 
     // Vanlig deling av dager
-    server.post('/melding/overforing', (req, res) => {
+    server.post('/innsending/omsorgsdager-melding/overforing', (req, res) => {
         const body = req.body;
         console.log('[POST] - dele med ektefelle/samboer', body);
         setTimeout(() => {
@@ -165,7 +165,7 @@ const startExpressServer = () => {
     });
 
     // Fordeling med samværsforelder
-    server.post('/melding/fordeling', (req, res) => {
+    server.post('/innsending/omsorgsdager-melding/fordeling', (req, res) => {
         const body = req.body;
         console.log('[POST] - fordeling samvær', body);
         setTimeout(() => {
@@ -174,7 +174,7 @@ const startExpressServer = () => {
     });
 
     // Koronaoverføring
-    server.post('/melding/koronaoverforing', (req, res) => {
+    server.post('/innsending/omsorgsdager-melding/koronaoverforing', (req, res) => {
         const body = req.body;
         console.log('[POST] - koronaoverføring', body);
         setTimeout(() => {
@@ -182,7 +182,7 @@ const startExpressServer = () => {
         }, 2500);
     });
 
-    server.post('/melding/dele-dager-err', (req, res) => {
+    server.post('/innsending/omsorgsdager-melding/dele-dager-err', (req, res) => {
         const body = req.body;
         console.log('[POST] body', body);
         setTimeout(() => {
@@ -194,7 +194,7 @@ const startExpressServer = () => {
         res.sendStatus(401);
     });
 
-    server.get('/mellomlagring', (req, res) => {
+    server.get('/mellomlagring/OMSORGSDAGER_MELDING', (req, res) => {
         if (existsSync(MELLOMLAGRING_JSON)) {
             const body = readFileSync(MELLOMLAGRING_JSON);
             res.send(JSON.parse(body));
@@ -203,21 +203,21 @@ const startExpressServer = () => {
         }
     });
 
-    server.post('/mellomlagring', (req, res) => {
+    server.post('/mellomlagring/OMSORGSDAGER_MELDING', (req, res) => {
         const body = req.body;
         const jsBody = isJSON(body) ? JSON.parse(body) : body;
         writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify(jsBody, null, 2));
         res.sendStatus(200);
     });
 
-    server.put('/mellomlagring', (req, res) => {
+    server.put('/mellomlagring/OMSORGSDAGER_MELDING', (req, res) => {
         const body = req.body;
         const jsBody = isJSON(body) ? JSON.parse(body) : body;
         writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify(jsBody, null, 2));
         res.sendStatus(200);
     });
 
-    server.delete('/mellomlagring', (req, res) => {
+    server.delete('/mellomlagring/OMSORGSDAGER_MELDING', (req, res) => {
         writeFileAsync(MELLOMLAGRING_JSON, JSON.stringify({}, null, 2));
         res.sendStatus(200);
     });

@@ -5,6 +5,8 @@ metadata:
     namespace: dusseldorf
     labels:
         team: dusseldorf
+    annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "100M"
 spec:
     image: {{ image }}
     port: 8080

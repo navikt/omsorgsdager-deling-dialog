@@ -1,9 +1,9 @@
 export enum ApiEndpoint {
-    'soker' = 'soker',
-    'barn' = 'barn',
-    'mellomlagring' = 'mellomlagring',
-    'sendMeldingOverføring' = 'melding/overforing',
-    'sendMeldingFordeling' = 'melding/fordeling',
-    'sendMeldingKoronaoverføring' = 'melding/koronaoverforing',
+    'soker' = 'oppslag/soker',
+    'barn' = 'oppslag/barn',
+    'mellomlagring' = 'mellomlagring/OMSORGSDAGER_MELDING',
+    'sendMeldingOverføring' = 'innsending/omsorgsdager-melding/overforing',
+    'sendMeldingFordeling' = 'innsending/omsorgsdager-melding/fordeling',
+    'sendMeldingKoronaoverføring' = 'innsending/omsorgsdager-melding/koronaoverforing',
     'samværsavtale' = 'vedlegg',
 }

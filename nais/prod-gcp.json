@@ -11,7 +11,7 @@
     "externalHosts": ["www.nav.no", "sanity.io"],
     "env": {
         "DEKORATOR_URL": "https://www.nav.no/dekoratoren/?simple=true&chatbot=false",
-        "API_URL": "https://omsorgsdager-melding-api.nav.no",
+        "API_URL": "https://k9-brukerdialog-api.nav.no",
         "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager",
         "APP_VERSION": "prod",
         "LOGIN_URL": "https://loginservice.nav.no/login?redirect=https://www.nav.no/familie/sykdom-i-familien/soknad/deling-omsorgsdager/melding",
