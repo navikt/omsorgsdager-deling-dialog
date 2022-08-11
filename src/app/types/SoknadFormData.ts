@@ -3,10 +3,10 @@ import { AnnetBarn } from '@navikt/sif-common-forms/lib/annet-barn/types';
 import { Attachment } from '@navikt/sif-common-core/lib/types/Attachment';
 
 export enum Arbeidssituasjon {
-    'arbeidstaker' = 'arbeidstaker',
-    'selvstendigNæringsdrivende' = 'selvstendigNæringsdrivende',
-    'frilanser' = 'frilanser',
-    'annen' = 'annen',
+    'arbeidstaker' = 'ARBEIDSTAKER',
+    'selvstendigNæringsdrivende' = 'SELVSTENDIG_NÆRINGSDRIVENDE',
+    'frilanser' = 'FRILANSER',
+    'annen' = 'ANNEN',
 }
 
 export enum Mottaker {
