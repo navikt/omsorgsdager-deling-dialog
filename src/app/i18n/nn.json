@@ -192,10 +192,10 @@
     "step.oppsummering.korona.periode.verdi": "Frå og med {fraDato}, til og med {tilDato}",
 
     "step.oppsummering.søknadstype.header": "Meldinga gjeld",
-    "step.oppsummering.søknadstype.overføring.EKTEFELLE": "Dele omsorgsdagar med noverande ektefelle",
-    "step.oppsummering.søknadstype.overføring.SAMBOER": "Dele omsorgsdagar med ein sambuar du har budd med i minst 12 månader",
-    "step.oppsummering.søknadstype.fordeling": "Dele omsorgsdagar med den andre forelderen",
-    "step.oppsummering.søknadstype.koronaoverføring": "Deling av omsorgsdagar på grunn av stengd barnehage/skule/SFO",
+    "step.oppsummering.søknadstype.OVERFORING.EKTEFELLE": "Dele omsorgsdagar med noverande ektefelle",
+    "step.oppsummering.søknadstype.OVERFORING.SAMBOER": "Dele omsorgsdagar med ein sambuar du har budd med i minst 12 månader",
+    "step.oppsummering.søknadstype.FORDELING": "Dele omsorgsdagar med den andre forelderen",
+    "step.oppsummering.søknadstype.KORONA": "Deling av omsorgsdagar på grunn av stengd barnehage/skule/SFO",
 
     "step.oppsummering.bekrefterOpplysninger": "Eg stadfestar at opplysningane eg har gitt, er riktige, og at eg ikkje har halde tilbake opplysningar som er viktige for retten min til omsorgsdagar.",
 
