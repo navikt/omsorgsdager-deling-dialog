@@ -20,9 +20,9 @@
     "selvstendigNæringsdrivende": "selvstendig næringsdrivende",
     "frilanser": "frilanser",
 
-    "mottaker.ektefelle": "ektefelle",
-    "mottaker.samboer": "samboer",
-    "mottaker.samværsforelder": "samværsforelder",
+    "mottaker.EKTEFELLE": "ektefelle",
+    "mottaker.SAMBOER": "samboer",
+    "mottaker.SAMVÆRSFORELDER": "samværsforelder",
 
     "Fødselsnummer": "Fødselsnummer",
 
@@ -110,9 +110,9 @@
     "step.mottaker.form.stopMessage.korona.html": "Du kan kun dele omsorgsdager med enten den andre forelderen, eller nåværende samboer/ektefelle. Hvis du ikke skal dele dager med noen av disse, kan du ikke gå videre.",
     "step.mottaker.form.mottakerType.spm": "Hvem skal du dele omsorgsdager med?",
     "step.mottaker.form.mottakerType.korona.spm": "Hvem skal du dele omsorgsdager med?",
-    "step.mottaker.form.mottakerType.ektefelle": "Nåværende ektefelle",
-    "step.mottaker.form.mottakerType.samboer": "En samboer du har bodd med i minst 12 måneder",
-    "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med felles barn",
+    "step.mottaker.form.mottakerType.EKTEFELLE": "Nåværende ektefelle",
+    "step.mottaker.form.mottakerType.SAMBOER": "En samboer du har bodd med i minst 12 måneder",
+    "step.mottaker.form.mottakerType.SAMVÆRSFORELDER": "Den andre forelderen som har samvær med felles barn",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel.hvaBetyr": "Kan jeg velge andre personer?",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Når du skal dele omsorgsdager, er det kun mulig å dele med én av de som er listet opp under.",
     "common.fieldvalidation.ugyldigTall": "Feltet må inneholde et gyldig tall",
@@ -196,8 +196,8 @@
     "step.oppsummering.korona.periode.verdi": "Fra og med {fraDato}, til og med {tilDato}",
 
     "step.oppsummering.søknadstype.header": "Meldingen gjelder",
-    "step.oppsummering.søknadstype.overføring.ektefelle": "Dele omsorgsdager med nåværende ektefelle",
-    "step.oppsummering.søknadstype.overføring.samboer": "Dele omsorgdager med en samboer du har bodd med i minst 12 måneder",
+    "step.oppsummering.søknadstype.overføring.EKTEFELLE": "Dele omsorgsdager med nåværende ektefelle",
+    "step.oppsummering.søknadstype.overføring.SAMBOER": "Dele omsorgdager med en samboer du har bodd med i minst 12 måneder",
     "step.oppsummering.søknadstype.fordeling": "Dele omsorgsdager med den andre forelderen",
     "step.oppsummering.søknadstype.koronaoverføring": "Deling av omsorgsdager på grunn av stengt barnehage/skole/SFO",
 

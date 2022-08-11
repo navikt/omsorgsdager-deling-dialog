@@ -10,9 +10,9 @@ export enum Arbeidssituasjon {
 }
 
 export enum Mottaker {
-    'samværsforelder' = 'samværsforelder',
-    'ektefelle' = 'ektefelle',
-    'samboer' = 'samboer',
+    'samværsforelder' = 'SAMVÆRSFORELDER',
+    'ektefelle' = 'EKTEFELLE',
+    'samboer' = 'SAMBOER',
 }
 
 export enum SoknadFormField {

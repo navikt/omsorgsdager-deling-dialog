@@ -16,9 +16,9 @@
     "selvstendigNæringsdrivende": "sjølvstendig næringsdrivande",
     "frilanser": "frilansar",
 
-    "mottaker.ektefelle": "ektefelle",
-    "mottaker.samboer": "sambuar",
-    "mottaker.samværsforelder": "samværsforelder",
+    "mottaker.EKTEFELLE": "ektefelle",
+    "mottaker.SAMBOER": "sambuar",
+    "mottaker.SAMVÆRSFORELDER": "samværsforelder",
 
     "Fødselsnummer": "Fødselsnummer",
 
@@ -108,7 +108,7 @@
     "step.mottaker.form.mottakerType.korona.spm": "Kven skal du dele omsorgsdagar med?",
     "step.mottaker.form.mottakerType.ektefelle": "Noverande ektefelle",
     "step.mottaker.form.mottakerType.samboer": "Ein sambuar du har budd med i minst 12 månader",
-    "step.mottaker.form.mottakerType.samværsforelder": "Den andre forelderen som har samvær med felles barn",
+    "step.mottaker.form.mottakerType.SAMVÆRSFORELDER": "Den andre forelderen som har samvær med felles barn",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel.hvaBetyr": "Kan eg velje andre personar?",
     "step.mottaker.form.mottakerType.ingenValgt.infoVarsel": "Når du skal dele omsorgsdagar, er det berre mogleg å dele med éin av dei som er lista opp under.",
     "common.fieldvalidation.ugyldigTall": "Feltet må innehalde eit gyldig tal",
@@ -192,8 +192,8 @@
     "step.oppsummering.korona.periode.verdi": "Frå og med {fraDato}, til og med {tilDato}",
 
     "step.oppsummering.søknadstype.header": "Meldinga gjeld",
-    "step.oppsummering.søknadstype.overføring.ektefelle": "Dele omsorgsdagar med noverande ektefelle",
-    "step.oppsummering.søknadstype.overføring.samboer": "Dele omsorgsdagar med ein sambuar du har budd med i minst 12 månader",
+    "step.oppsummering.søknadstype.overføring.EKTEFELLE": "Dele omsorgsdagar med noverande ektefelle",
+    "step.oppsummering.søknadstype.overføring.SAMBOER": "Dele omsorgsdagar med ein sambuar du har budd med i minst 12 månader",
     "step.oppsummering.søknadstype.fordeling": "Dele omsorgsdagar med den andre forelderen",
     "step.oppsummering.søknadstype.koronaoverføring": "Deling av omsorgsdagar på grunn av stengd barnehage/skule/SFO",
 
