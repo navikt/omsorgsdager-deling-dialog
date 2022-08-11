@@ -14,7 +14,7 @@ export const initialSoknadFormData: SoknadFormData = {
     [SoknadFormField.erYrkesaktiv]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeidssituasjon]: [],
-    [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
+    [SoknadFormField.harBruktOmsorgsdagerIÅr]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
     [SoknadFormField.samværsavtale]: [],

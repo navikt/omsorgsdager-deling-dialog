@@ -65,7 +65,7 @@ export const getSøknadKoronaoverføring = (
 
     if (commonApiData === undefined) {
         logErrorToSentry(
-            'getSøknadKoronaoverføring: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+            'getSøknadKoronaoverføring: harBruktOmsorgsdagerIÅr && antallDagerBruktIÅr === undefined (konvertering feil)'
         );
         return undefined;
     }
@@ -94,7 +94,7 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
 
     if (commonApiData === undefined) {
         logErrorToSentry(
-            'getSøknadFordeling: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+            'getSøknadFordeling: harBruktOmsorgsdagerIÅr && antallDagerBruktIÅr === undefined (konvertering feil)'
         );
         return undefined;
     }
@@ -124,7 +124,7 @@ export const getSøknadOverføring = (values: MapFormDataToApiDataValues): Søkn
 
     if (commonApiData === undefined) {
         logErrorToSentry(
-            'getSøknadOverføring: harBruktOmsorgsdagerEtter1Juli && antallDagerBruktEtter1Juli === undefined (konvertering feil)'
+            'getSøknadOverføring: harBruktOmsorgsdagerIÅr && antallDagerBruktIÅr === undefined (konvertering feil)'
         );
         return undefined;
     }
