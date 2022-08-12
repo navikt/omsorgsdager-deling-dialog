@@ -84,7 +84,7 @@ const MottakerStep: React.FunctionComponent<Props> = ({ søker }) => {
     const visibility = MottakerFormQuestions.getVisbility(values);
     const kanFortsette = stopp === undefined;
     const { gjelderMidlertidigPgaKorona, skalDeleMedAndreForelderSamboerEktefelle } = values;
-
+    console.log('values: ', values);
     return (
         <SoknadFormStep id={stepId} showSubmitButton={kanFortsette} onStepCleanup={cleanupMottakerStep}>
             <StepIntroduction>
