@@ -74,15 +74,25 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     };
 
     const startSoknad = async (): Promise<void> => {
-        await resetSoknad();
-        const sId = ulid();
-        setSoknadId(sId);
-        const firstStep = StepID.MOTTAKER;
-        await soknadTempStorage.create();
-        await logSoknadStartet(SKJEMANAVN);
-        setTimeout(() => {
-            navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
-        });
+        try {
+            await resetSoknad();
+            const sId = ulid();
+            setSoknadId(sId);
+            const firstStep = StepID.MOTTAKER;
+            await soknadTempStorage.create();
+            await logSoknadStartet(SKJEMANAVN);
+            setTimeout(() => {
+                navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
+            });
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved start av søknad');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved start av søknad: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData): Promise<void> => {
