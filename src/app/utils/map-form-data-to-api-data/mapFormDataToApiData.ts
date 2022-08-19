@@ -14,6 +14,7 @@ import appSentryLogger from '../appSentryLogger';
 import { mapBarnStepToApiData } from './mapBarnStepToApiData';
 import { mapDinSituasjonToApiData } from './mapDinSituasjonToApiData';
 import { mapMottakerToApiData } from './mapMottakerToApiData';
+import { getAttachmentURLBackend } from '../attachmentUtilsAuthToken';
 
 interface MapFormDataToApiDataValues {
     soknadId: string;
@@ -87,7 +88,7 @@ export const getSøknadFordeling = (values: MapFormDataToApiDataValues): Søknad
     const samværsavtaleVedleggUrl: string[] = [];
     samværsavtale.forEach((s) => {
         if (s.url) {
-            samværsavtaleVedleggUrl.push(s.url);
+            samværsavtaleVedleggUrl.push(getAttachmentURLBackend(s.url));
         }
     });
     const commonApiData = getCommonApiData(values);

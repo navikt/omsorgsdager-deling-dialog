@@ -12,6 +12,7 @@
     "env": {
         "DEKORATOR_URL": "https://dekoratoren.dev.nav.no/?simple=true&chatbot=false&urlLookupTable=false&logoutUrl=https://deling-omsorgsdager.dev.nav.no/oauth2/logout&redirectToApp=true",
         "API_URL": "https://k9-brukerdialog-api.dev.nav.no",
+        "FRONTEND_VEDLEGG_URL": "https://deling-omsorgsdager.dev.nav.no/api",
         "FRONTEND_API_PATH": "/api",
         "PUBLIC_PATH": "/familie/sykdom-i-familien/soknad/deling-omsorgsdager",
         "APP_VERSION": "dev",
