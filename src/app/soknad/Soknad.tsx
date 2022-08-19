@@ -68,9 +68,19 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     };
 
     const abortSoknad = async (): Promise<void> => {
-        await soknadTempStorage.purge();
-        await logHendelse(ApplikasjonHendelse.avbryt);
-        relocateToSoknad();
+        try {
+            await soknadTempStorage.purge();
+            await logHendelse(ApplikasjonHendelse.avbryt);
+            relocateToSoknad();
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved abort av søknad');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved abort av søknad: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const startSoknad = async (): Promise<void> => {
@@ -96,9 +106,19 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData): Promise<void> => {
-        await soknadTempStorage.update(sId, values, stepID, { søker, barn });
-        await logHendelse(ApplikasjonHendelse.fortsettSenere);
-        relocateToNavFrontpage();
+        try {
+            await soknadTempStorage.update(sId, values, stepID, { søker, barn });
+            await logHendelse(ApplikasjonHendelse.fortsettSenere);
+            relocateToNavFrontpage();
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved continueSoknadLater');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved continueSoknadLater: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const doSendSoknad = async (apiValues: SoknadApiData, resetFormikForm: resetFormFunc): Promise<void> => {
