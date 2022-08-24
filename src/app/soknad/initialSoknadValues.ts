@@ -1,9 +1,11 @@
 import { YesOrNo } from '@navikt/sif-common-core/lib/types/YesOrNo';
 import { SoknadFormData, SoknadFormField } from '../types/SoknadFormData';
 
-export const initialSoknadFormData: Partial<SoknadFormData> = {
+export const initialSoknadFormData: SoknadFormData = {
     [SoknadFormField.harForståttRettigheterOgPlikter]: false,
     [SoknadFormField.harBekreftetOpplysninger]: false,
+    [SoknadFormField.gjelderMidlertidigPgaKorona]: YesOrNo.UNANSWERED,
+    [SoknadFormField.skalDeleMedAndreForelderSamboerEktefelle]: YesOrNo.UNANSWERED,
     [SoknadFormField.andreBarn]: [],
     [SoknadFormField.harAleneomsorg]: YesOrNo.UNANSWERED,
     [SoknadFormField.harAleneomsorgFor]: [],
@@ -12,7 +14,7 @@ export const initialSoknadFormData: Partial<SoknadFormData> = {
     [SoknadFormField.erYrkesaktiv]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeiderINorge]: YesOrNo.UNANSWERED,
     [SoknadFormField.arbeidssituasjon]: [],
-    [SoknadFormField.harBruktOmsorgsdagerEtter1Juli]: YesOrNo.UNANSWERED,
+    [SoknadFormField.harBruktOmsorgsdagerIÅr]: YesOrNo.UNANSWERED,
     [SoknadFormField.fnrMottaker]: '',
     [SoknadFormField.navnMottaker]: '',
     [SoknadFormField.samværsavtale]: [],

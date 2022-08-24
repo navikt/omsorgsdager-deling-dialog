@@ -30,6 +30,7 @@ import SoknadFormComponents from './SoknadFormComponents';
 import SoknadRoutes from './SoknadRoutes';
 import { getSoknadStepsConfig, StepID } from './soknadStepsConfig';
 import soknadTempStorage, { isStorageDataValid } from './soknadTempStorage';
+import { FormikState } from 'formik';
 
 interface Props {
     søker: Person;
@@ -38,7 +39,7 @@ interface Props {
     route?: string;
 }
 
-type resetFormFunc = () => void;
+type resetFormFunc = (nextState?: Partial<FormikState<SoknadFormData>>) => void;
 
 const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorage: tempStorage }) => {
     const history = useHistory();
@@ -67,27 +68,57 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
     };
 
     const abortSoknad = async (): Promise<void> => {
-        await soknadTempStorage.purge();
-        await logHendelse(ApplikasjonHendelse.avbryt);
-        relocateToSoknad();
+        try {
+            await soknadTempStorage.purge();
+            await logHendelse(ApplikasjonHendelse.avbryt);
+            relocateToSoknad();
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved abort av søknad');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved abort av søknad: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const startSoknad = async (): Promise<void> => {
-        await resetSoknad();
-        const sId = ulid();
-        setSoknadId(sId);
-        const firstStep = StepID.MOTTAKER;
-        await soknadTempStorage.create();
-        await logSoknadStartet(SKJEMANAVN);
-        setTimeout(() => {
-            navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
-        });
+        try {
+            await resetSoknad();
+            const sId = ulid();
+            setSoknadId(sId);
+            const firstStep = StepID.MOTTAKER;
+            await soknadTempStorage.create();
+            await logSoknadStartet(SKJEMANAVN);
+            setTimeout(() => {
+                navigateTo(soknadStepUtils.getStepRoute(firstStep, SoknadApplicationType.MELDING), history);
+            });
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved start av søknad');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved start av søknad: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const continueSoknadLater = async (sId: string, stepID: StepID, values: SoknadFormData): Promise<void> => {
-        await soknadTempStorage.update(sId, values, stepID, { søker, barn });
-        await logHendelse(ApplikasjonHendelse.fortsettSenere);
-        relocateToNavFrontpage();
+        try {
+            await soknadTempStorage.update(sId, values, stepID, { søker, barn });
+            await logHendelse(ApplikasjonHendelse.fortsettSenere);
+            relocateToNavFrontpage();
+        } catch (error) {
+            if (isUserLoggedOut(error)) {
+                logUserLoggedOut('Ved continueSoknadLater');
+                relocateToLoginPage();
+            } else {
+                console.log('Feil ved continueSoknadLater: ', error);
+                navigateToErrorPage(history);
+            }
+        }
     };
 
     const doSendSoknad = async (apiValues: SoknadApiData, resetFormikForm: resetFormFunc): Promise<void> => {
@@ -98,7 +129,8 @@ const Soknad: React.FunctionComponent<Props> = ({ søker, barn, soknadTempStorag
             setSendSoknadStatus({ failures: 0, status: success(apiValues) });
             navigateToKvitteringPage(history);
             setSoknadId(undefined);
-            resetFormikForm();
+            setInitialFormData({ ...initialSoknadFormData });
+            resetFormikForm({ values: initialSoknadFormData });
         } catch (error) {
             if (isUserLoggedOut(error)) {
                 logUserLoggedOut('Ved innsending av søknad');
