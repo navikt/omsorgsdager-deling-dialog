@@ -21,8 +21,7 @@ const KvitteringPage: React.FunctionComponent = () => {
                         intlHelper(intl, 'kvittering.info.2'),
                         <span key="pkt3">
                             {intlHelper(intl, 'kvittering.info.3a')}{' '}
-                            <Lenke href={getLenker().dittNAV}>{intlHelper(intl, 'kvittering.info.3b')}</Lenke>
-                            {intlHelper(intl, 'kvittering.info.3c')}
+                            <Lenke href={getLenker().minside}>{intlHelper(intl, 'kvittering.info.3b')}</Lenke>
                         </span>,
                     ],
                 }}></Kvittering>
