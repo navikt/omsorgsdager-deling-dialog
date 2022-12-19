@@ -6,7 +6,6 @@ import CounsellorPanel from '@navikt/sif-common-core/lib/components/counsellor-p
 import Page from '@navikt/sif-common-core/lib/components/page/Page';
 import StepBanner from '@navikt/sif-common-core/lib/components/step-banner/StepBanner';
 import intlHelper from '@navikt/sif-common-core/lib/utils/intlUtils';
-import Lenke from 'nav-frontend-lenker';
 
 const AvsluttetPage = () => {
     const intl = useIntl();
@@ -18,18 +17,13 @@ const AvsluttetPage = () => {
             topContentRenderer={() => <StepBanner text={intlHelper(intl, 'application.title')} />}>
             <Box margin="xxxl">
                 <CounsellorPanel>
-                    <p>Fra 1 januar 2023 skal ikke deling av dager meldes fra om til NAV lengere.</p>
                     <p>
-                        Du som er alene om omsorgen kan fortsatt dele dager med en ny ektefelle/samboer eller til en
-                        samværsforelder, men du skal ikke sende melding om dette til NAV. Du og den du vil dele med
-                        avtaler dette dere i mellom og gir beskjed til deres arbeidsgivere om hvor mange dager dere har
-                        delt.
+                        Nytt fra 1. januar 2023 er at du ikke lenger skal melde fra til NAV når du skal dele
+                        omsorgsdagene dine med en samværsforelder, eller en ny ektefelle/samboer.
                     </p>
                     <p>
-                        <Lenke href="https://www.nav.no/omsorgspenger#dele">
-                            Her kan du lese mer om deling av omsorgsdager
-                        </Lenke>
-                        .
+                        Du, og den du deler omsorgsdager med, må gi beskjed til arbeidsgiverne deres om antall dager
+                        dere har gitt og fått.
                     </p>
                 </CounsellorPanel>
             </Box>
