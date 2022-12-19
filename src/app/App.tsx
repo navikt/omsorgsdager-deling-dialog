@@ -10,6 +10,7 @@ import { applicationIntlMessages } from './i18n/applicationMessages';
 import IntroPage from './pages/intro-page/IntroPage';
 import SoknadRemoteDataFetcher from './soknad/SoknadRemoteDataFetcher';
 import '@navikt/sif-common-core/lib/styles/globalStyles.less';
+import AvsluttetPage from './pages/avsluttet-page/AvsluttetPage';
 
 Modal.setAppElement('#app');
 
@@ -18,6 +19,18 @@ export const SKJEMANAVN = 'Deling av omsorgsdager';
 
 const root = document.getElementById('app');
 const publicPath = getEnvironmentVariable('PUBLIC_PATH');
+
+const søknadErStengt: boolean = new Date().getFullYear() >= 2023;
+
+const getContentRoutes = () => {
+    if (søknadErStengt) {
+        return [<Route path="*" key="the-end" component={AvsluttetPage} />];
+    }
+    return [
+        <Route path="/" key="intro" exact={true} component={IntroPage} />,
+        <Route path="/melding" key="soknad" component={SoknadRemoteDataFetcher} />,
+    ];
+};
 
 render(
     <AmplitudeProvider applicationKey={APPLICATION_KEY} isActive={getEnvironmentVariable('USE_AMPLITUDE') === 'true'}>
@@ -33,12 +46,7 @@ render(
                 },
             }}
             publicPath={publicPath}>
-            <SoknadApplicationCommonRoutes
-                contentRoutes={[
-                    <Route path="/" key="intro" exact={true} component={IntroPage} />,
-                    <Route path="/melding" key="soknad" component={SoknadRemoteDataFetcher} />,
-                ]}
-            />
+            <SoknadApplicationCommonRoutes contentRoutes={getContentRoutes()} />
         </SoknadApplication>
     </AmplitudeProvider>,
     root
